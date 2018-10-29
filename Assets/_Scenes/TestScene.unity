@@ -247,9 +247,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec9de9b09d6ee0d4e8c37b1dfa867e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imagesToDisplay: 6
+  imagesToDisplay: 9
   correctImageQuantity: 3
-  imagesSize: {x: 100, y: 150}
+  imagesSize: 150
+  horizontalSeparation: 10
+  verticalSeparation: 1.9
   pathForImages: 
   _parentObject: {fileID: 851258243}
 --- !u!1 &851258242

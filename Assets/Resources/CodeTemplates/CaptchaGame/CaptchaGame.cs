@@ -13,7 +13,11 @@ public class CaptchaGame : MonoBehaviour
     public DisplayedImages imagesToDisplay = DisplayedImages.six;
     //Size of True Images
     public int correctImageQuantity = 3;
-    public Vector2 imagesSize = new Vector2(100, 100);
+    public float imagesSize = 100f;
+    [Range(0.5f, 10.0f)]
+    public float horizontalSeparation = 2f;
+    [Range(0.5f, 1.9f)]
+    public float verticalSeparation = 0.75f;
     //Path for correct images
     public string pathForImages;
     //Empty parent object for images ubication
@@ -43,39 +47,71 @@ public class CaptchaGame : MonoBehaviour
             Debug.Log("Path is incorrect" + e);
         }
 
-        /*         //Create and add objects
-                GameObject NewObj = new GameObject(); //Create the GameObject
-                Image NewImage = NewObj.AddComponent<Image>(); //Add the Image Component script
-                                                               //  NewImage.sprite = currentSprite; //Set the Sprite of the Image Component on the new GameObject
-                NewObj.GetComponent<RectTransform>().SetParent(_parentObject); //Assign the newly created Image GameObject as a Child of the Parent Panel.
-                NewObj.SetActive(true); //Activate the GameObject */
-
-        switch (imagesToDisplay)
+        switch ((int)imagesToDisplay)
         {
-            case DisplayedImages.six:
+            case 6:
                 for (int i = 0; i < (int)imagesToDisplay; i++)
                 {
                     GameObject NewObj = new GameObject(); //Create the GameObject
                     Image NewImage = NewObj.AddComponent<Image>(); //Add the Image Component script
                     var dimension = NewObj.GetComponent<RectTransform>();
                     dimension.SetParent(_parentObject);
-                    dimension.sizeDelta = imagesSize;
+                    dimension.sizeDelta = new Vector2(imagesSize, imagesSize);
                     NewObj.transform.localScale = new Vector3(1, 1, 1);
                     if (i < 3)
                     {
-                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width * 0.5f)) * (i) - dimension.rect.width * 1.5f, dimension.rect.height * 0.75f, 0);
+                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width / horizontalSeparation)) * (i) - (dimension.rect.width + (dimension.rect.width / horizontalSeparation)), dimension.rect.height / verticalSeparation, 0);
                     }
                     else if (i >= 3)
                     {
-                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width * 0.5f)) * (i - 3) - dimension.rect.width * 1.5f, dimension.rect.height * -0.75f, 0);
+                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width / horizontalSeparation)) * (i - 3) - (dimension.rect.width + (dimension.rect.width / horizontalSeparation)), dimension.rect.height / -verticalSeparation, 0);
                     }
-
                     NewObj.SetActive(true);
                 }
                 break;
-            case DisplayedImages.eight:
+            case 8:
+                for (int i = 0; i < (int)imagesToDisplay; i++)
+                {
+                    GameObject NewObj = new GameObject(); //Create the GameObject
+                    Image NewImage = NewObj.AddComponent<Image>(); //Add the Image Component script
+                    var dimension = NewObj.GetComponent<RectTransform>();
+                    dimension.SetParent(_parentObject);
+                    dimension.sizeDelta = new Vector2(imagesSize, imagesSize);
+                    NewObj.transform.localScale = new Vector3(1, 1, 1);
+                    if (i < 4)
+                    {
+                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width / horizontalSeparation)) * (i) - (dimension.rect.width + (dimension.rect.width / horizontalSeparation)), dimension.rect.height / verticalSeparation, 0);
+                    }
+                    else if (i >= 4)
+                    {
+                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width / horizontalSeparation)) * (i - 3) - (dimension.rect.width + (dimension.rect.width / horizontalSeparation)), dimension.rect.height / -verticalSeparation, 0);
+                    }
+                    NewObj.SetActive(true);
+                }
                 break;
-            case DisplayedImages.nine:
+            case 9:
+                for (int i = 0; i < (int)imagesToDisplay; i++)
+                {
+                    GameObject NewObj = new GameObject(); //Create the GameObject
+                    Image NewImage = NewObj.AddComponent<Image>(); //Add the Image Component script
+                    var dimension = NewObj.GetComponent<RectTransform>();
+                    dimension.SetParent(_parentObject);
+                    dimension.sizeDelta = new Vector2(imagesSize, imagesSize);
+                    NewObj.transform.localScale = new Vector3(1, 1, 1);
+                    if (i < 3)
+                    {
+                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width / horizontalSeparation)) * (i) - (dimension.rect.width + (dimension.rect.width / horizontalSeparation)), dimension.rect.height / verticalSeparation, 0);
+                    }
+                    else if (i >= 3)
+                    {
+                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width / horizontalSeparation)) * (i - 3) - (dimension.rect.width + (dimension.rect.width / horizontalSeparation)), dimension.rect.height / -verticalSeparation, 0);
+                    }
+                    else if (i >= 6)
+                    {
+                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width / horizontalSeparation)) * (i - 6) - (dimension.rect.width + (dimension.rect.width / horizontalSeparation)), dimension.rect.height / -verticalSeparation, 0);
+                    }
+                    NewObj.SetActive(true);
+                }
                 break;
         }
 
