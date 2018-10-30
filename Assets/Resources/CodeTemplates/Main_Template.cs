@@ -9,8 +9,8 @@ public class Main_Template : MonoBehaviour
     //Private Variables
     #endregion
     #region SYSTEM_METHODS
-    public virtual void Start() { Initializate(); }
-    public virtual void Update() { }
+    private void Start() { Initializate(); }
+    private void Update() { }
     #endregion
     #region CREATED_METHODS
     private void Initializate() { }
