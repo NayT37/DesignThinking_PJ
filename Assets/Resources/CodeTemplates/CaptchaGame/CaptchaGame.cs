@@ -80,11 +80,11 @@ public class CaptchaGame : MonoBehaviour
                     NewObj.transform.localScale = new Vector3(1, 1, 1);
                     if (i < 4)
                     {
-                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width / horizontalSeparation)) * (i) - (dimension.rect.width + (dimension.rect.width / horizontalSeparation)), dimension.rect.height / verticalSeparation, 0);
+                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width / horizontalSeparation)) * (i) - (dimension.rect.width + (dimension.rect.width / horizontalSeparation)) - dimension.rect.width / 2, dimension.rect.height / verticalSeparation, 0);
                     }
                     else if (i >= 4)
                     {
-                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width / horizontalSeparation)) * (i - 3) - (dimension.rect.width + (dimension.rect.width / horizontalSeparation)), dimension.rect.height / -verticalSeparation, 0);
+                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width / horizontalSeparation)) * (i - 4) - (dimension.rect.width + (dimension.rect.width / horizontalSeparation)) - dimension.rect.width / 2, dimension.rect.height / -verticalSeparation, 0);
                     }
                     NewObj.SetActive(true);
                 }
@@ -92,6 +92,7 @@ public class CaptchaGame : MonoBehaviour
             case 9:
                 for (int i = 0; i < (int)imagesToDisplay; i++)
                 {
+                    print(i);
                     GameObject NewObj = new GameObject(); //Create the GameObject
                     Image NewImage = NewObj.AddComponent<Image>(); //Add the Image Component script
                     var dimension = NewObj.GetComponent<RectTransform>();
@@ -100,21 +101,20 @@ public class CaptchaGame : MonoBehaviour
                     NewObj.transform.localScale = new Vector3(1, 1, 1);
                     if (i < 3)
                     {
-                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width / horizontalSeparation)) * (i) - (dimension.rect.width + (dimension.rect.width / horizontalSeparation)), dimension.rect.height / verticalSeparation, 0);
+                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width / horizontalSeparation)) * (i) - (dimension.rect.width + (dimension.rect.width / horizontalSeparation)), dimension.rect.height * 2 / verticalSeparation, 0);
                     }
-                    else if (i >= 3)
+                    else if (i >= 3 && i < 6)
                     {
-                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width / horizontalSeparation)) * (i - 3) - (dimension.rect.width + (dimension.rect.width / horizontalSeparation)), dimension.rect.height / -verticalSeparation, 0);
+                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width / horizontalSeparation)) * (i - 3) - (dimension.rect.width + (dimension.rect.width / horizontalSeparation)), 0, 0);
                     }
                     else if (i >= 6)
                     {
-                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width / horizontalSeparation)) * (i - 6) - (dimension.rect.width + (dimension.rect.width / horizontalSeparation)), dimension.rect.height / -verticalSeparation, 0);
+                        NewObj.transform.localPosition = new Vector3((dimension.rect.width + (dimension.rect.width / horizontalSeparation)) * (i - 6) - (dimension.rect.width + (dimension.rect.width / horizontalSeparation)), dimension.rect.height * 2 / -verticalSeparation, 0);
                     }
                     NewObj.SetActive(true);
                 }
                 break;
         }
-
     }
 
     private void OrderImages(Image[] arr) { }
