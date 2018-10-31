@@ -13,28 +13,30 @@ public class CaptchaGame : MonoBehaviour
     public DisplayedImages imagesToDisplay = DisplayedImages.six;
     //How many displayed images are in the screen?
     public int correctImageQuantity = 3;
+    //Images are gonna be squares, how big are they gonna be?
     public float imagesSize = 100f;
+    //Separation variables
     [Range(0.5f, 10.0f)]
     public float horizontalSeparation = 2f;
     [Range(0.5f, 1.9f)]
     public float verticalSeparation = 0.75f;
+    //This lists can be filled in other ways. Suggestion: Resources.LoadAll<Sprites>
     public List<Sprite> _incorrectImgsList;
     public List<Sprite> _correctImgsList;
 
     //Private Variables
     [SerializeField]
-    //Empty parent object for images ubication
+    //Empty parent object for images ubication. Suggestion: Use GameObject.Find(string)
     private Transform _parentObject;
-
-    private Sprite[] _showedImgsArray;
+    //Array to store positions to make'em random
     private Vector3[] _storedPositionArray;
+    //Array to store created objects. It is a game object so it can access to transform property easily
     private GameObject[] _displayedImagesArray;
     #endregion
 
 
     #region SYSTEM_METHODS
     public virtual void Start() { Initializate(); }
-    public virtual void Update() { }
     #endregion
 
 
@@ -42,7 +44,6 @@ public class CaptchaGame : MonoBehaviour
     private void Initializate()
     {
         _storedPositionArray = new Vector3[(int)imagesToDisplay];
-        //_showedImgsArray = new Sprite[(int)imagesToDisplay];
         _displayedImagesArray = new GameObject[(int)imagesToDisplay];
         ShuffleSprtList(_incorrectImgsList);
         ShuffleSprtList(_correctImgsList);
