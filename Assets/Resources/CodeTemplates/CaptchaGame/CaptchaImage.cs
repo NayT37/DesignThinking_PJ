@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine;
+using System;
 
 public class CaptchaImage : MonoBehaviour, IPointerClickHandler
 {
@@ -16,9 +17,16 @@ public class CaptchaImage : MonoBehaviour, IPointerClickHandler
     [HideInInspector]
 
     public Vector3 originalPosition;
+    [HideInInspector]
+
+    public Image internalImage;
+    [HideInInspector]
+
+    public int indexNumber;
+
     //Private Variables
     private CaptchaGame _captchaGame;
-    private Image _internalImage;
+    private Sprite _defaultImage;
     #endregion
 
 
@@ -37,21 +45,31 @@ public class CaptchaImage : MonoBehaviour, IPointerClickHandler
     private void Initializate()
     {
         _captchaGame = GameObject.FindObjectOfType<CaptchaGame>();
-        _internalImage = GetComponent<Image>();
-        if (isCorrect) { _internalImage.color = Color.green; } else { _internalImage.color = Color.red; }
+        if (internalImage == null)
+        {
+            internalImage = GetComponent<Image>();
+        }
         originalPosition = transform.localPosition;
+        _defaultImage = Resources.Load<Sprite>("CodeTemplates/CaptchaGame/defaultCaptcha");
     }
 
     public void ValidateAnswer()
     {
-        //Check Click  //If Ok  //if False
+        //Check Click
         if (isCorrect)
         {
-            print("It's ok, dissapear me");
+            try
+            {
+                _captchaGame.CorrectAnswerBhvr(indexNumber);
+            }
+            catch (Exception e)
+            {
+                internalImage.sprite = _defaultImage;
+            }
         }
         else
         {
-            print("It's not ok, random all");
+            _captchaGame.IncorrectAnswerBhvr();
         }
     }
 
@@ -60,8 +78,6 @@ public class CaptchaImage : MonoBehaviour, IPointerClickHandler
     {
         transform.localPosition = newPosition;
     }
-
-
     #endregion
 
 

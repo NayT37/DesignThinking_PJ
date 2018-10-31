@@ -247,12 +247,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec9de9b09d6ee0d4e8c37b1dfa867e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imagesToDisplay: 6
-  correctImageQuantity: 3
-  correctImgQuantityToDisplay: 3
-  imagesSize: 100
+  imagesToDisplay: 9
+  correctImageQuantity: 4
+  imagesSize: 200
   horizontalSeparation: 6.94
   verticalSeparation: 1.732
+  _incorrectImgsList:
+  - {fileID: 21300000, guid: 8dd6b8b2ffec01747902c3029976ba67, type: 3}
+  - {fileID: 21300000, guid: 9f20e8af9e0133b46abe1d333972f77b, type: 3}
+  - {fileID: 21300000, guid: 6191a751ba810b349a9f3f2cc10b865f, type: 3}
+  - {fileID: 21300000, guid: 83d1b8960258cce459147cbd43b33c71, type: 3}
+  - {fileID: 21300000, guid: 5b242ad73f872c54c9db5b1460388d17, type: 3}
+  - {fileID: 21300000, guid: ca2ea558680317d49afcf8ffa4ac9271, type: 3}
+  - {fileID: 21300000, guid: 02e82c4c4b01d264d9d767db39752c8e, type: 3}
+  - {fileID: 21300000, guid: f4a9bbfc1d2e59d479431d9c23fee280, type: 3}
+  - {fileID: 21300000, guid: 21ad17f64c6118f46b41e9e290f079d3, type: 3}
+  _correctImgsList:
+  - {fileID: 21300000, guid: 39ae7925daa420d45a5d4c75ea79fd6b, type: 3}
+  - {fileID: 21300000, guid: 06cbe20eabd4ff24fa90fe3b62880727, type: 3}
+  - {fileID: 21300000, guid: 65cf32f71da3cfc4bb1984bc0dd619e6, type: 3}
+  - {fileID: 21300000, guid: a7cc20f5a7efa4749a83ea840b9e4fee, type: 3}
+  - {fileID: 21300000, guid: b989f0665db9a5644b13a779120b3d3f, type: 3}
+  - {fileID: 21300000, guid: aba0d32bae3385b4d894965aa4b4e23c, type: 3}
   _parentObject: {fileID: 851258243}
 --- !u!1 &851258242
 GameObject:
