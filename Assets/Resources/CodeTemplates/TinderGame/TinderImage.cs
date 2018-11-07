@@ -96,8 +96,4 @@ public class TinderImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     }
     #endregion
-
-
-    #region COROUTINES
-    #endregion
 }
