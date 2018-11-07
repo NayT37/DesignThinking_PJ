@@ -153,6 +153,7 @@ public class TinderGame : MonoBehaviour
     public virtual void FinishGame()
     {
         //Override this method for different behavior
+        print("Game was finished");
     }
     #endregion
 

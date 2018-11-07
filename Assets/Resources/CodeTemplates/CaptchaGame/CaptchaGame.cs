@@ -23,6 +23,8 @@ public class CaptchaGame : MonoBehaviour
     //This lists can be filled in other ways. Suggestion: Resources.LoadAll<Sprites>
     public List<Sprite> _incorrectImgsList;
     public List<Sprite> _correctImgsList;
+    [HideInInspector]
+    public int ctrlAnswersToFinish;
 
     //Private Variables
     [SerializeField]
@@ -47,6 +49,7 @@ public class CaptchaGame : MonoBehaviour
         _displayedImagesArray = new GameObject[(int)imagesToDisplay];
         ShuffleSprtList(_incorrectImgsList);
         ShuffleSprtList(_correctImgsList);
+        ctrlAnswersToFinish = 0;
         switch ((int)imagesToDisplay)
         {
             case 6:
@@ -130,7 +133,7 @@ public class CaptchaGame : MonoBehaviour
         RandomImageArray();
     }
     //Random Images Array
-    public void RandomImageArray()
+    public virtual void RandomImageArray()
     {
         //  Vector3[] temp = _storedPositionArray;
         Vector3 tempObj;
@@ -145,7 +148,7 @@ public class CaptchaGame : MonoBehaviour
         ReassignImagePositions();
     }
 
-    private void ReassignImagePositions()
+    public virtual void ReassignImagePositions()
     {
         for (int i = 0; i < _displayedImagesArray.Length; i++)
         {
@@ -153,7 +156,7 @@ public class CaptchaGame : MonoBehaviour
         }
     }
 
-    private void AssignImageBehaviour()
+    public virtual void AssignImageBehaviour()
     {
         int incorrectIndex = 0;
         for (int i = 0; i < _displayedImagesArray.Length; i++)
@@ -176,7 +179,7 @@ public class CaptchaGame : MonoBehaviour
         }
     }
 
-    private void ShuffleSprtList(List<Sprite> list)
+    public virtual void ShuffleSprtList(List<Sprite> list)
     {
         Sprite temp;
         for (int i = 0; i < list.Count; i++)
@@ -209,6 +212,14 @@ public class CaptchaGame : MonoBehaviour
             }
         }
         RandomImageArray();
+
+    }
+
+    public void ValidateFinishGame() { if (ctrlAnswersToFinish == correctImageQuantity) { FinishGame(); } }
+
+    public virtual void FinishGame()
+    {
+        print("Game was finished");
     }
     #endregion
 }
