@@ -15,6 +15,10 @@ public class Main_Template : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate() { }
     #endregion
+    #region INTERFACE_METHODS
+    #endregion
+    #region GETTERS_AND_SETTERS
+    #endregion
     #region COROUTINES
     #endregion
 }
