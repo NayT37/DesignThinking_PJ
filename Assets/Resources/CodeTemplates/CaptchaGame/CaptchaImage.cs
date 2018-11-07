@@ -64,19 +64,18 @@ public class CaptchaImage : MonoBehaviour, IPointerClickHandler
             }
             catch (Exception e)
             {
+                if (internalImage.sprite != _defaultImage)
+                {
+                    _captchaGame.ctrlAnswersToFinish += 1;
+                }
                 internalImage.sprite = _defaultImage;
+                _captchaGame.ValidateFinishGame();
             }
         }
         else
         {
             _captchaGame.IncorrectAnswerBhvr();
         }
-    }
-
-    //May be not used
-    public void ReassignPosition(Vector3 newPosition)
-    {
-        transform.localPosition = newPosition;
     }
     #endregion
 
