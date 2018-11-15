@@ -85,6 +85,12 @@ public class RandomSelection_Ctrl : MonoBehaviour
         Vector3 centrePos = new Vector3(0, 0, 0);
         for (int i = 0; i < _studentsQuantity; i++)
         {
+            GameObject obj = new GameObject();
+            Image img = obj.AddComponent<Image>();
+            Transform trnsfm = obj.transform;
+            Transform parent = GameObject.Find("Counter_Holder").GetComponent<Transform>();
+            trnsfm.SetParent(parent);
+            //img.sprite = 
             float temp = i * 1.0f / _studentsQuantity;
             //   floatToAdd = temp * (i + 1);
 
@@ -103,6 +109,7 @@ public class RandomSelection_Ctrl : MonoBehaviour
             //Instantiate(beadPrefab, pos, Quaternion.identity);
             //print(pos);
             _circlePositionList.Add(pos);
+            trnsfm.localPosition = _circlePositionList[i];
             print(_circlePositionList[i]);
         }
 
