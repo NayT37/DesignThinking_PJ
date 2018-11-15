@@ -4,4 +4,13 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Scenes/SelectGame.unity
+    guid: 91a0f23049cd87a448c2c40235a01443
+  - enabled: 1
+    path: Assets/_Scenes/LoadGame_Page/LoadGame.unity
+    guid: b41da82e9cc4369408bfbba8a09eb9b3
+  - enabled: 1
+    path: Assets/_Scenes/SelAct_Page/SelectActivity.unity
+    guid: 1d9a7bf3839a5894eb617773c586aa3e
