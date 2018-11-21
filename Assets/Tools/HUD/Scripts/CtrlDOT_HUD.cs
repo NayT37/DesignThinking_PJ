@@ -10,7 +10,7 @@ public class CtrlDOT_HUD : MonoBehaviour {
 		DOTween.Play ("1");
 		DOTween.Play ("2");
 		DOTween.Play ("3");
-//		DOTween.Play ("4");
+		DOTween.Play ("4");
 
 	}
 	
