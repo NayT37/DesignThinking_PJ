@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 
 public class ChangeSelectBtn : MonoBehaviour {
 
+	private int CasosNumber;
+
 	//Variables dentro del HUD
 	private Image Empatizar_btn;
 	private Image Definir_btn;
@@ -36,12 +38,31 @@ public class ChangeSelectBtn : MonoBehaviour {
 	public Sprite ProbarNull;
 	public Sprite ProbarSelected;
 
+	//variables cambios de escena
+//	private string NameSceneLoad;
+//	private string NameSceneDelete;
+//	private string NameScene;
 
 
 	void Start () {
 		//start animation
 		DOTween.Play ("5");
 	}
+
+
+//	void Update(){
+//		CalcularCasos ();
+//	}
+
+
+
+//	void CalcularCasos(){
+//		
+//		switch (CasosNumber) {
+//		case 1: 
+//			break;
+//		}
+//	}
 
 	public void SelectEmpatizar(){
 		Empatizar_btn = GameObject.Find ("Empatizar").GetComponent<Image>();
@@ -56,6 +77,7 @@ public class ChangeSelectBtn : MonoBehaviour {
 		Definir_btn.sprite = DefinirSelected;
 		Empatizar_btn = GameObject.Find ("Empatizar").GetComponent<Image>();
 		Empatizar_btn.sprite = EmpatizarPointer;
+//   		StartCoroutine (SceneSwitch ());
 	}
 
 
@@ -93,4 +115,21 @@ public class ChangeSelectBtn : MonoBehaviour {
 		Empatizar_btn = GameObject.Find ("Empatizar").GetComponent<Image>();
 		Empatizar_btn.sprite = EmpatizarPointer;
 	}
+
+
+//	void getNameScenes(){
+//		switch(NameScene){
+//
+//		case : ""
+//
+//		}
+//	}
+
+
+//	IEnumerator SceneSwitch(string NameSceneLoad, string NameSceneDelete){
+//		
+//		SceneManager.LoadScene (NameSceneLoad, LoadSceneMode.Additive);
+//		yield return null;
+//		SceneManager.UnloadSceneAsync (NameSceneDelete);
+//	}
 }

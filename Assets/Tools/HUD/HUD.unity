@@ -357,6 +357,16 @@ Prefab:
       propertyPath: m_Name
       value: HUDCase
       objectReference: {fileID: 0}
+    - target: {fileID: 223199428644903118, guid: 11ae449d2fb5d45d6847a114c1abf47d,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224556308615435346, guid: 11ae449d2fb5d45d6847a114c1abf47d,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.357727
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 11ae449d2fb5d45d6847a114c1abf47d, type: 2}
   m_IsPrefabParent: 0
