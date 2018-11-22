@@ -5,11 +5,13 @@ using UnityEngine.UI;
 using UnityEditor;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 
 public class ChangeSelectBtn : MonoBehaviour {
 
-	private int CasosNumber;
+	[SerializeField]
+	private GameObject[] array_btnsCasos;
 
 	//Variables dentro del HUD
 	private Image Empatizar_btn;
@@ -38,31 +40,43 @@ public class ChangeSelectBtn : MonoBehaviour {
 	public Sprite ProbarNull;
 	public Sprite ProbarSelected;
 
+
+	
+
 	//variables cambios de escena
 //	private string NameSceneLoad;
 //	private string NameSceneDelete;
 //	private string NameScene;
 
 
+
+
+
 	void Start () {
 		//start animation
 		DOTween.Play ("5");
+
+		array_btnsCasos = GameObject.FindGameObjectsWithTag("Casos");
+		for(int i = 0; i <= array_btnsCasos.Length; i++){
+			string temp = "Case1";
+			
+			
+			if(temp.Equals(array_btnsCasos[i].name)){
+
+			}
+		}
+
+		// switch(array_btnsCasos[i].name){
+		// 	case 1 : LoadSceneMode 
+		// 	break;
+		// 	case 2: 
+		// }
 	}
 
 
-//	void Update(){
-//		CalcularCasos ();
-//	}
+	void Update(){
 
-
-
-//	void CalcularCasos(){
-//		
-//		switch (CasosNumber) {
-//		case 1: 
-//			break;
-//		}
-//	}
+	}
 
 	public void SelectEmpatizar(){
 		Empatizar_btn = GameObject.Find ("Empatizar").GetComponent<Image>();
