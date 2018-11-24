@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 
-public class TinderGame : MonoBehaviour
+public class TinderGame : MiniGame_Ctrl
 {
     #region VARIABLES
     //Public Variables
@@ -14,16 +14,19 @@ public class TinderGame : MonoBehaviour
     public bool selectedAnswer;
 
     //Private Variables
+    [SerializeField]
     private List<TinderImage> _tinderImagesList;
     private int _imagesQuantity;
     private Transform _parentObject;
     private TinderImage _displayedTinderImg;
     private Image _displayedImg;
+    private Text _displayedTxt;
     #endregion
 
 
     #region SYSTEM_METHODS
-    private void Start() { Initializate(); }
+    private void Awake() { Initializate(); }
+    private void Start() { }
     private void Update()
     {
         if (_displayedImg.sprite == null)
@@ -77,6 +80,8 @@ public class TinderGame : MonoBehaviour
         _displayedTinderImg = NewObj.GetComponent<TinderImage>(); //Store the TinderImage component into a local variable
         _displayedImg = NewObj.GetComponent<Image>(); //Store the Image component into a local variable
 
+
+
         //Add elements to the list
         for (int i = 0; i < _imagesQuantity; i++)
         {
@@ -97,6 +102,9 @@ public class TinderGame : MonoBehaviour
         }
         //Shuffle list
         ShuffleSprtList(_tinderImagesList);
+
+        _displayedTxt = GameObject.Find("TextToDisplay").GetComponent<Text>();
+        _displayedTxt.transform.SetParent(NewObj.transform);
     }
 
     public void UpdateDisplayedImage()
@@ -160,4 +168,12 @@ public class TinderGame : MonoBehaviour
 
     #region COROUTINES
     #endregion
+}
+
+[System.Serializable]
+public class TinderItem : System.Object
+{
+    public string contextTxt;
+    public string questionTxt;
+    public string[] answersArray;
 }

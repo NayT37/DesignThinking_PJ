@@ -173,173 +173,519 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1420749350
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1420749354}
-  - component: {fileID: 1420749353}
-  - component: {fileID: 1420749352}
-  - component: {fileID: 1420749351}
-  m_Layer: 5
-  m_Name: Content_Canvas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1420749351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1420749350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &1420749352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1420749350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1280, y: 720}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
---- !u!223 &1420749353
-Canvas:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1420749350}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!224 &1420749354
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1420749350}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_Children:
-  - {fileID: 1507996782}
-  m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
---- !u!1 &1507996781
-GameObject:
+--- !u!1001 &675521536
+Prefab:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1507996782}
-  - component: {fileID: 1507996784}
-  - component: {fileID: 1507996783}
-  m_Layer: 5
-  m_Name: Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1507996782
-RectTransform:
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 224157746061938100, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157746061938100, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157746061938100, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157746061938100, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157746061938100, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157746061938100, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157746061938100, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157746061938100, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157746061938100, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157746061938100, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157746061938100, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157746061938100, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157746061938100, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157746061938100, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157746061938100, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157746061938100, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157746061938100, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224157746061938100, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224007343332695068, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224007343332695068, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224007343332695068, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 162.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 224007343332695068, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -77.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 224007343332695068, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 305
+      objectReference: {fileID: 0}
+    - target: {fileID: 224007343332695068, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 58.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 224894093554433362, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224894093554433362, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224894093554433362, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 561.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 224894093554433362, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -77.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 224894093554433362, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 305
+      objectReference: {fileID: 0}
+    - target: {fileID: 224894093554433362, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 58.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 224988440311505020, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224988440311505020, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224988440311505020, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 162.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 224988440311505020, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -164.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 224988440311505020, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 305
+      objectReference: {fileID: 0}
+    - target: {fileID: 224988440311505020, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 58.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 224500963106344888, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224500963106344888, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224500963106344888, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 561.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 224500963106344888, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -164.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 224500963106344888, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 305
+      objectReference: {fileID: 0}
+    - target: {fileID: 224500963106344888, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 58.12
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: e7d13c1dfc5e012498acd48f99d6e3cc, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &1357680629
+Prefab:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1507996781}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1420749354}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1507996783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1507996781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 132
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 132
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 1
-    m_VerticalOverflow: 1
-    m_LineSpacing: 1
-  m_Text: C2_M1
---- !u!222 &1507996784
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1507996781}
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[5].answersArray.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[4].answersArray.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[3].answersArray.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[2].answersArray.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[1].answersArray.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[0].answersArray.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309229012176380, guid: a4f1b261f0997404e86932b58c022cf5, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309229012176380, guid: a4f1b261f0997404e86932b58c022cf5, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309229012176380, guid: a4f1b261f0997404e86932b58c022cf5, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309229012176380, guid: a4f1b261f0997404e86932b58c022cf5, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309229012176380, guid: a4f1b261f0997404e86932b58c022cf5, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309229012176380, guid: a4f1b261f0997404e86932b58c022cf5, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309229012176380, guid: a4f1b261f0997404e86932b58c022cf5, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309229012176380, guid: a4f1b261f0997404e86932b58c022cf5, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: completeProgressValue
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[0].contextTxt
+      value: "Desde los or\xEDgenes de la humanidad, se han presentado diferentes
+        necesidades esto  ha llevado al ser humano a desarrollar grandes inventos,
+        algunos de ellos a\xFAn siguen siendo utilizados o por lo menos sus bases. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[1].contextTxt
+      value: "La soluci\xF3n de todas las necesidades han sido relevantes para el
+        avance de la humanidad, en su tiempo estas soluciones fueron significativas
+        como la carta, la imprenta y los animales, pero hay algunas en particular
+        que han sido mejoradas y se siguen utilizando actualmente. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[2].contextTxt
+      value: "En la actualidad, los medios de comunicaci\xF3n son indispensables para
+        las sociedades industrializadas, y estos han estado avanzando para mejorar
+        incorporando  los avances en otras ciencias que se han realizado a trav\xE9s
+        del tiempo como la imprenta mec\xE1nica, el tel\xE9grafo, el autom\xF3vil,
+        la radio."
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[3].contextTxt
+      value: "La radio, la prensa y la televisi\xF3n lograron que los medios de comunicaci\xF3n
+        tuvieran peso espec\xEDfico en la sociedad por su capacidad para orientar
+        y dirigir los intereses sociales. Incluso el tel\xE9grafo se utiliz\xF3 para
+        transmitir informaci\xF3n entre los asentamientos alejados de manera r\xE1pida
+        para mantener a las personas informadas."
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[4].contextTxt
+      value: "\"En 1854  Antonio Meucci invent\xF3 el telettr\xF3foni, que posteriormente
+        fue denominado como tel\xE9fono, En 1876 Alexander Graham Bell lo patent\xF3
+        como un artefacto capaz de poder comunicar a dos personas. En menos de veinticinco
+        a\xF1os una de cada cincuenta personas ten\xEDa ya tel\xE9fono en Estados
+        Unidos. Este ha ido evolucionando a la par que otras tecnolog\xEDas. \""
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[5].contextTxt
+      value: "La primera central telef\xF3nica se instal\xF3 en enero de 1878 y ten\xEDa
+        veinti\xFAn abonados. Cuando la persona origen de la llamada descolgaba su
+        receptor se activaba un conmutador el\xE9ctrico que avisaba a la operadora,
+        y \xE9sta mov\xEDa una palanca preguntaba al abonado con qui\xE9n quer\xEDa
+        hablar.Por entonces s\xF3lo exist\xEDan ocho l\xEDneas telef\xF3nicas individuales
+        compartidas por varios abonados. La telefonista ten\xEDa que ir siguiendo
+        la conversaci\xF3n de vez en cuando porque no hab\xEDa forma de saber cu\xE1ndo
+        hab\xEDa terminado la conversaci\xF3n entre abonados."
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[0].questionTxt
+      value: "Una de las necesidades, aparte de las mencionadas, que se debieron solucionar
+        y que a\xFAn se sigue actualizando es:"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[1].questionTxt
+      value: "De las soluciones al problema de comunicaci\xF3n mencionadas \xBFCu\xE1les
+        no se utilizan actualmente?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[2].questionTxt
+      value: "\xBFque invento consideras que impuls\xF3 las mejoras en los avances
+        de la comunicaci\xF3n?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[3].questionTxt
+      value: "\xBFQu\xE9 dispositivo facilit\xF3 la comunicaci\xF3n de manera r\xE1pida
+        y personal?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[4].questionTxt
+      value: "El tel\xE9fono permit\xEDa la comunicaci\xF3n entre dos personas, pero
+        estas debian estar conectadas. \xBFc\xF3mo crees que se realizaba este proceso
+        inicialmente?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[5].questionTxt
+      value: "Con el tiempo se automatizo el proceso de llamadas con ayuda de la marcaci\xF3n,
+        los n\xFAmeros telef\xF3nicos y llamadas a largas distancias. \xBFQue crees
+        que se debio hacer para facilitar este proceso?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[0].answersArray.Array.data[0]
+      value: "Comunicaci\xF3n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[0].answersArray.Array.data[1]
+      value: Carreteras
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[0].answersArray.Array.data[2]
+      value: Transporte
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[0].answersArray.Array.data[3]
+      value: "Alimentaci\xF3n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[1].answersArray.Array.data[0]
+      value: Palomas mensajeras.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[1].answersArray.Array.data[1]
+      value: Avisos escritos.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[1].answersArray.Array.data[2]
+      value: "Env\xEDo de cartas."
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[1].answersArray.Array.data[3]
+      value: Impresion de periodicos y avisos.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[2].answersArray.Array.data[0]
+      value: Electricidad.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[2].answersArray.Array.data[1]
+      value: Transporte.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[2].answersArray.Array.data[2]
+      value: Carreteras
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[2].answersArray.Array.data[3]
+      value: Vapor.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[3].answersArray.Array.data[0]
+      value: "Tel\xE9fono."
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[3].answersArray.Array.data[1]
+      value: "Tel\xE9grafo"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[3].answersArray.Array.data[2]
+      value: Radio
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[3].answersArray.Array.data[3]
+      value: "Peri\xF3dico."
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[4].answersArray.Array.data[0]
+      value: Operadoras.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[4].answersArray.Array.data[1]
+      value: Timbre.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[4].answersArray.Array.data[2]
+      value: Llamadas.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[4].answersArray.Array.data[3]
+      value: "Marcaci\xF3n."
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[5].answersArray.Array.data[0]
+      value: "Conectar a todos los usuarios con l\xEDneas telef\xF3nicas."
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[5].answersArray.Array.data[1]
+      value: "Aumentar el tama\xF1o de las centrales telef\xF3nicas."
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[5].answersArray.Array.data[2]
+      value: Crear centrales automatizadas.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
+        type: 2}
+      propertyPath: triviaTxtArray.Array.data[5].answersArray.Array.data[3]
+      value: "Contratar m\xE1s operadoras. "
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: a4f1b261f0997404e86932b58c022cf5, type: 2}
+  m_IsPrefabParent: 0
