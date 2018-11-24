@@ -23,6 +23,7 @@ public class TinderImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private float _yAxis;
     private Vector3 _originalPos;
     private TinderGame _gameCtrl;
+    private string _internalText;
 
 
     //Event Variables
@@ -66,6 +67,7 @@ public class TinderImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void OnDrag(PointerEventData eventData)
     {
 
+        print(eventData);
         float tempX = Input.mousePosition.x;
         transform.position = new Vector3(Input.mousePosition.x, _yAxis - (Mathf.Abs(transform.localPosition.x) / 10), 0);
         transform.eulerAngles = new Vector3(0, 0, (-transform.localPosition.x / 25));
@@ -76,17 +78,17 @@ public class TinderImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
 
         answerAxis = transform.localPosition.x;
-        if (answerAxis > 0)
+        if (answerAxis > 250)
         {
             _gameCtrl.selectedAnswer = true;
             ValidateImage();
         }
-        else if (answerAxis < 0)
+        else if (answerAxis < -250)
         {
             _gameCtrl.selectedAnswer = false;
             ValidateImage();
         }
-        else if (answerAxis == 0)
+        else
         {
             Debug.Log("Image it wasn't moved");
         }
