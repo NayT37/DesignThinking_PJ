@@ -4,16 +4,17 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 
-public class TinderGame : MiniGame_Ctrl
+public class TinderGame : MonoBehaviour
 {
     #region VARIABLES
     //Public Variables
-    public List<Sprite> correctImgs, incorrectImgs;
-    public int imagesSize;
+    public List<String> correctTxts, incorrectTxts;
     [HideInInspector]
     public bool selectedAnswer;
 
     //Private Variables
+    [SerializeField]
+    private Sprite _draggableImg;
     [SerializeField]
     private List<TinderImage> _tinderImagesList;
     private int _imagesQuantity;
@@ -21,17 +22,22 @@ public class TinderGame : MiniGame_Ctrl
     private TinderImage _displayedTinderImg;
     private Image _displayedImg;
     private Text _displayedTxt;
+    private MainTinderCtrl tinderCtrl;
+
     #endregion
 
 
     #region SYSTEM_METHODS
     private void Awake() { Initializate(); }
-    private void Start() { }
+    private void Start()
+    {
+        tinderCtrl = GameObject.FindObjectOfType<MainTinderCtrl>();
+    }
     private void Update()
     {
-        if (_displayedImg.sprite == null)
+        if (_displayedTxt.text == "")
         {
-            _displayedImg.sprite = _tinderImagesList[0].spriteToShow;
+            _displayedTxt.text = _tinderImagesList[0].internalText;
         }
     }
 
@@ -56,13 +62,14 @@ public class TinderGame : MiniGame_Ctrl
         //Init the list
         _tinderImagesList = new List<TinderImage>();
         //Quantity is equal to the correct images count plus the incorrect images count
-        _imagesQuantity = correctImgs.Count + incorrectImgs.Count;
+        _imagesQuantity = correctTxts.Count + incorrectTxts.Count;
         //This boolean changes while the image is dragged at letf or right
         selectedAnswer = false;
         try
         {
             //Try to 
-            _parentObject = GameObject.Find("Img_Holder").GetComponent<Transform>();
+            // _parentObject = transform.Find("Gun").gameObject;("Img_Holder").GetComponent<Game>();
+            _parentObject = transform.Find("Img_Holder");
         }
         catch (Exception e)
         {
@@ -71,31 +78,32 @@ public class TinderGame : MiniGame_Ctrl
 
         GameObject NewObj = new GameObject(); //Create the GameObject
         NewObj.AddComponent<TinderImage>(); //Add CaptchaImage Component script
-        NewObj.AddComponent<Image>(); //Add Image component
+        Image intImg = NewObj.AddComponent<Image>(); //Add Image component
+        intImg.sprite = _draggableImg;
         var dimension = NewObj.GetComponent<RectTransform>(); //This is to define the image size
         dimension.SetParent(_parentObject); //After find the parent, set the object as a child
-        dimension.sizeDelta = new Vector2(imagesSize, imagesSize); //Give the size, the scale and the position
+        dimension.sizeDelta = new Vector2(500, 200); //Give the size, the scale and the position
         NewObj.transform.localScale = new Vector3(1, 1, 1);
         NewObj.transform.localPosition = new Vector3(0, 0, 0);
         _displayedTinderImg = NewObj.GetComponent<TinderImage>(); //Store the TinderImage component into a local variable
         _displayedImg = NewObj.GetComponent<Image>(); //Store the Image component into a local variable
-
-
 
         //Add elements to the list
         for (int i = 0; i < _imagesQuantity; i++)
         {
             TinderImage newTndImg = new TinderImage();
             //If image is correct
-            if (i < correctImgs.Count)
+            if (i < correctTxts.Count)
             {
-                newTndImg.spriteToShow = correctImgs[i];
+                // newTndImg.spriteToShow = correctTxts[i];
+                newTndImg.internalText = correctTxts[i];
                 newTndImg.internalAnswer = true;
             }
             //If image is not correct
             else
             {
-                newTndImg.spriteToShow = incorrectImgs[i - correctImgs.Count];
+                // newTndImg.spriteToShow = incorrectTxts[i - correctTxts.Count];
+                newTndImg.internalText = incorrectTxts[i - correctTxts.Count];
                 newTndImg.internalAnswer = false;
             }
             _tinderImagesList.Add(newTndImg);
@@ -103,7 +111,8 @@ public class TinderGame : MiniGame_Ctrl
         //Shuffle list
         ShuffleSprtList(_tinderImagesList);
 
-        _displayedTxt = GameObject.Find("TextToDisplay").GetComponent<Text>();
+        _displayedTxt = transform.Find("TextToDisplay").GetComponent<Text>();
+        // GameObject.Find("TextToDisplay").GetComponent<Text>();
         _displayedTxt.transform.SetParent(NewObj.transform);
     }
 
@@ -111,11 +120,12 @@ public class TinderGame : MiniGame_Ctrl
     {
         if (_tinderImagesList.Count > 0)
         {
-            _displayedImg.sprite = _tinderImagesList[0].spriteToShow;
+            // _displayedImg.sprite = _tinderImagesList[0].spriteToShow;
+            _displayedTxt.text = _tinderImagesList[0].internalText;
         }
         else
         {
-            _displayedImg.sprite = Resources.Load<Sprite>("CodeTemplates/CaptchaGame/defaultCaptcha");
+            // _displayedImg.sprite = null//Resources.Load<Sprite>("CodeTemplates/CaptchaGame/defaultCaptcha");
             FinishGame();
         }
     }
@@ -162,18 +172,11 @@ public class TinderGame : MiniGame_Ctrl
     {
         //Override this method for different behavior
         print("Game was finished");
+        tinderCtrl.FinishGame();
     }
     #endregion
 
 
     #region COROUTINES
     #endregion
-}
-
-[System.Serializable]
-public class TinderItem : System.Object
-{
-    public string contextTxt;
-    public string questionTxt;
-    public string[] answersArray;
 }

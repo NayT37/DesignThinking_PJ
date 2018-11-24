@@ -64,7 +64,6 @@ public class TriviaCtrl : MiniGame_Ctrl
     {
         for (int i = 0; i < _answersQuantity; i++)
         {
-            print(GameObject.Find("BtnOption_" + (i + 1)));
             _btnsArray[i] = GameObject.Find("BtnOption_" + (i + 1)).GetComponent<TriviaBtn>();
             _btnsArray[i].GetComponent<Button>().onClick.AddListener(TriviaBtnClick);
             _btnsPosArray[i] = _btnsArray[i].transform;
