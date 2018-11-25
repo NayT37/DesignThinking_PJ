@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CtrlEmpatizar : MonoBehaviour {
@@ -43,14 +44,12 @@ public class CtrlEmpatizar : MonoBehaviour {
 		foreach (Button btn in btnsUserProfile) {
 			if (btn.name.Contains ("Age") && nameBtn.Contains ("Age")) {
 				btn.interactable = true;
-				Debug.Log (btn.name);
 				if (btn.name.Contains (nameBtn)) {
 					btn.interactable = false;
 					_isAge = true;
 				}
 			} else if (btn.name.Contains ("Gen") && nameBtn.Contains ("Gen")) {
 				btn.interactable = true;
-				Debug.Log (btn.name);
 				if (btn.name.Contains (nameBtn)) {
 					btn.interactable = false;
 					_isGen = true;
@@ -59,5 +58,9 @@ public class CtrlEmpatizar : MonoBehaviour {
 		}
 		if (_isAge && _isGen)
 			ActivateNextPanel ();
+	}
+
+	public void NextScene(){
+		SceneManager.LoadScene("");
 	}
 }
