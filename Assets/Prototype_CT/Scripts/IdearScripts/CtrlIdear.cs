@@ -53,8 +53,8 @@ public class CtrlIdear : MonoBehaviour {
 		panelVersion.SetActive (true);
 	}
 
-	private void NextScene () {
-		// SceneManager.LoadScene("");
+	public void NextScene () {
+		SceneManager.LoadScene("Prototipar");
 
 	}
 
