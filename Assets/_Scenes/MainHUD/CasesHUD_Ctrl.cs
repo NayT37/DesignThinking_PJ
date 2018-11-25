@@ -33,6 +33,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
 		Text_Changed = GameObject.Find ("NamePhase").GetComponent<Text> ();
 		Text_TitleCase = GameObject.Find ("CaseTitle").GetComponent<Text> ();
 
+
 	}
     private void Update() { }
     #endregion
@@ -82,9 +83,9 @@ public class CasesHUD_Ctrl : MonoBehaviour
 	#region Variables textos UpHUD
 	private Text Text_Changed;
 	private Text Text_TitleCase;
-
-
 	#endregion
+
+
 
     #region CREATED_METHODS
     private void Initializate()
@@ -256,6 +257,9 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
 
     #region INTERFACE_METHODS
+	public void GoHome(){
+		StartCoroutine (Home());
+	}
     #endregion
 
 
@@ -276,5 +280,12 @@ public class CasesHUD_Ctrl : MonoBehaviour
         _actualScn = sceneToLoad;
 
     }
+
+	private IEnumerator Home(){
+		
+		SceneManager.LoadScene ("SelectGame", LoadSceneMode.Additive);
+		yield return null;
+		SceneManager.UnloadSceneAsync ("Main_HUD");
+	}
     #endregion
 }
