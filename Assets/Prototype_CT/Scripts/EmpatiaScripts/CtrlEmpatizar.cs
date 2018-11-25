@@ -61,6 +61,6 @@ public class CtrlEmpatizar : MonoBehaviour {
 	}
 
 	public void NextScene(){
-		SceneManager.LoadScene("");
+		SceneManager.LoadScene("Definir");
 	}
 }
