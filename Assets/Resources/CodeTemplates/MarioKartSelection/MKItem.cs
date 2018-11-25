@@ -9,7 +9,7 @@ public class MKItem : MonoBehaviour, IComparable<MKItem>
     #region VARIABLES
     //Public Variables
     //This array it's supposed to be filled via code
-    public Sprite[] imagesToDisplayArray;
+    private GameObject[] _objectsToDisplayArray;
     //Which is the right answer? (from 1 to array's length)
     public int correctSpriteNumber;
     //This bool is for autoevaluate the Item and know when is correct
@@ -21,9 +21,9 @@ public class MKItem : MonoBehaviour, IComparable<MKItem>
     public static event ClickAction OnClicked;
 
     //Private Variables
-    private Image _internalImage;
+    private Transform _internalHolder;
     //This int is very important because it's the main control of images an autoevaluate function
-    private int _imgCtrl;
+    private int _objCtrl;
     //This int lets this items to be sorted in MKResultItem
     private int _internalID;
     #endregion
@@ -32,54 +32,65 @@ public class MKItem : MonoBehaviour, IComparable<MKItem>
     #region SYSTEM_METHODS
     //Called in Awake to avoid some problems
     private void Awake() { Initializate(); }
+    private void Start() { ValidateItemFirstTime(); } //Validate to know if it is correct
     #endregion
 
 
     #region CREATED_METHODS
     private void Initializate()
     {
+        _objectsToDisplayArray = new GameObject[3];
         //Get Image
-        _internalImage = GetComponent<Image>();
+        _internalHolder = transform.Find("Changing_Holder");
         //Create a random value to display a random image of the array
-        _imgCtrl = UnityEngine.Random.Range(0, imagesToDisplayArray.Length);
+        _objCtrl = UnityEngine.Random.Range(0, _objectsToDisplayArray.Length);
         //Change the getted image's sprite
-        _internalImage.sprite = imagesToDisplayArray[_imgCtrl];
+        //    _objectsToDisplayArray[_objCtrl].transform.SetParent(_internalHolder);
         //This item is not correct yet
         isCorrect = false;
-        //Validate to know if it is correct
-        ValidateItem();
         //And get the ID with the number
         _internalID = int.Parse(name.Split('_')[1]);
+
+        for (int i = 0; i < _objectsToDisplayArray.Length; i++)
+        {
+            _objectsToDisplayArray[i] = _internalHolder.GetChild(i).gameObject;
+            _objectsToDisplayArray[i].SetActive(false);
+        }
+        _objectsToDisplayArray[_objCtrl].SetActive(true);
+        //Validate to know if it is correct
+        //   ValidateItem();
     }
 
     //Go forward in the sprite's array
     public void ShowNextImage()
     {
-        _imgCtrl++;
-        if (_imgCtrl > imagesToDisplayArray.Length - 1)
+        _objectsToDisplayArray[_objCtrl].SetActive(false);
+        _objCtrl++;
+        if (_objCtrl > _objectsToDisplayArray.Length - 1)
         {
-            _imgCtrl = 0;
+            _objCtrl = 0;
         }
-        _internalImage.sprite = imagesToDisplayArray[_imgCtrl];
+        _objectsToDisplayArray[_objCtrl].SetActive(true);
         ValidateItem();
     }
 
     //Go backwards in the sprite's array
     public void ShowPreviousImage()
     {
-        _imgCtrl--;
-        if (_imgCtrl < 0)
+        _objectsToDisplayArray[_objCtrl].SetActive(false);
+        _objCtrl--;
+        if (_objCtrl < 0)
         {
-            _imgCtrl = imagesToDisplayArray.Length - 1;
+            _objCtrl = _objectsToDisplayArray.Length - 1;
         }
-        _internalImage.sprite = imagesToDisplayArray[_imgCtrl];
+        _objectsToDisplayArray[_objCtrl].SetActive(true);
         ValidateItem();
     }
 
     //Change the isCorrect boolean
     private void ValidateItem()
     {
-        if (correctSpriteNumber - 1 == _imgCtrl)
+        if (correctSpriteNumber - 1 == _objCtrl)
         {
             isCorrect = true;
         }
@@ -88,6 +99,18 @@ public class MKItem : MonoBehaviour, IComparable<MKItem>
             isCorrect = false;
         }
         OnClicked();
+    }
+
+    private void ValidateItemFirstTime()
+    {
+        if (correctSpriteNumber - 1 == _objCtrl)
+        {
+            isCorrect = true;
+        }
+        else
+        {
+            isCorrect = false;
+        }
     }
     #endregion
 
@@ -105,7 +128,7 @@ public class MKItem : MonoBehaviour, IComparable<MKItem>
     //Get the reference to compare if the number is the correct
     public int GetImgCtrl()
     {
-        return _imgCtrl;
+        return _objCtrl;
     }
     #endregion
 

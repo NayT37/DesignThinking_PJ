@@ -11,19 +11,21 @@ public class TinderImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     [HideInInspector]
     public Image internalImage;
     [HideInInspector]
-    public Sprite spriteToShow;
-    [HideInInspector]
+ //   public Sprite spriteToShow;
+    //[HideInInspector]
     public bool internalAnswer;
     [HideInInspector]
     public bool selectedAnswer;
     [HideInInspector]
     public float answerAxis;
+    [HideInInspector]
+    public string internalText;
 
     //Private Variables
     private float _yAxis;
     private Vector3 _originalPos;
     private TinderGame _gameCtrl;
-    private string _internalText;
+
 
 
     //Event Variables
@@ -45,7 +47,7 @@ public class TinderImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         _yAxis = _originalPos.y;
         internalImage = GetComponent<Image>();
         answerAxis = 0;
-        internalImage.sprite = spriteToShow;
+//        internalImage.sprite = spriteToShow;
         _gameCtrl = GameObject.FindObjectOfType<TinderGame>();
     }
 
@@ -66,12 +68,9 @@ public class TinderImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnDrag(PointerEventData eventData)
     {
-
-        print(eventData);
         float tempX = Input.mousePosition.x;
         transform.position = new Vector3(Input.mousePosition.x, _yAxis - (Mathf.Abs(transform.localPosition.x) / 10), 0);
         transform.eulerAngles = new Vector3(0, 0, (-transform.localPosition.x / 25));
-
     }
 
     public void OnEndDrag(PointerEventData eventData)
