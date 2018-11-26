@@ -17,6 +17,8 @@ public class GoEvaluateBtn : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private GameObject _selectedPrototype;
     GameObject _parent;
+
+    private Animator evaluateHolder;
     #endregion
 
 
@@ -36,16 +38,10 @@ public class GoEvaluateBtn : MonoBehaviour, IPointerClickHandler
     private void Initializate()
     {
 
-        try
-        {
-            HUDCtrl = GameObject.FindObjectOfType<CasesHUD_Ctrl>();
-            _isTesting = false;
-        }
-        catch (Exception e)
-        {
-            HUDCtrl = null;
-            _isTesting = true;
-        }
+
+        HUDCtrl = GameObject.FindObjectOfType<CasesHUD_Ctrl>();
+        _isTesting = false;
+
     }
     #endregion
 
@@ -53,19 +49,26 @@ public class GoEvaluateBtn : MonoBehaviour, IPointerClickHandler
     #region INTERFACE_METHODS
     public void OnPointerClick(PointerEventData eventData)
     {
+        evaluateHolder = GameObject.Find("EvaluateHolder").GetComponent<Animator>();
 
-        try
-        {
-            HUDCtrl.MomentBtnClick(5);
-        }
-        catch (Exception e)
-        {
-            //_selectedPrototype = GameObject.Find("3DModel");
-            _selectedPrototype.transform.SetParent(_parent.transform);
-            _selectedPrototype.transform.localPosition = new Vector3(0, 0, 0);
-            //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-            SceneManager.LoadScene("EvaluateScn");
-        }
+        _selectedPrototype.transform.SetParent(_parent.transform.GetChild(HUDCtrl._actualCase - 1));
+        _selectedPrototype.transform.localPosition = new Vector3(0, 0, 0);
+        _selectedPrototype.transform.localEulerAngles = new Vector3(0, 0, 0);
+
+
+        HUDCtrl.playAnimation();
+        HUDCtrl.MomentBtnClick(5);
+
+        /*         try
+                {
+
+                }
+                catch (Exception e)
+                {
+
+                    //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+                    SceneManager.LoadScene("EvaluateScn");
+                } */
     }
     #endregion
 
