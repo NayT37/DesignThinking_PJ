@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 222983976595769366}
   - component: {fileID: 114469840045795394}
   - component: {fileID: 114156023669264026}
+  - component: {fileID: 114290034729175636}
   m_Layer: 5
   m_Name: EvaluateBtn
   m_TagString: Untagged
@@ -144,6 +145,7 @@ GameObject:
   - component: {fileID: 223503362218066986}
   - component: {fileID: 114284987273747346}
   - component: {fileID: 114794246408834716}
+  - component: {fileID: 114294133943586330}
   m_Layer: 5
   m_Name: Canvas_MK
   m_TagString: Untagged
@@ -479,7 +481,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f906e96e758bac4abde55174ab22e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsToDisplayArray: []
   correctSpriteNumber: 3
   isCorrect: 0
 --- !u!114 &114156023669264026
@@ -583,6 +584,28 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114290034729175636
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1276033796120120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c64cf5b32403d945839fb3d4571acac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114294133943586330
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1293279179328778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b28d23e073086943a89fa386529360b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114302214287663610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -861,10 +884,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f906e96e758bac4abde55174ab22e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsToDisplayArray:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   correctSpriteNumber: 1
   isCorrect: 0
 --- !u!114 &114724553451802062
@@ -992,7 +1011,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f906e96e758bac4abde55174ab22e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsToDisplayArray: []
   correctSpriteNumber: 2
   isCorrect: 0
 --- !u!114 &114943368249956482
