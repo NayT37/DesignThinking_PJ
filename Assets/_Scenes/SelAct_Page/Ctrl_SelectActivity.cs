@@ -2,29 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 
 public class Ctrl_SelectActivity : MonoBehaviour {
 
 
 	#region Variables
 	public InputField NameCourse;
-	private Text tmp;
+	private string tmp;
 	#endregion
 
 	void Start () {
+		
 	}
 
 	void Update(){
-//		NameCourse = NameCourse.GetComponent<InputField> ().text;
+		
+//		Debug.Log ("Mensaje" + tmp);
+	}
+
+	public void Close(){
+		StartCoroutine (Back());
 	}
 
 	public void SaveData(){
-		string tmp;
-		if (NameCourse.Equals("")) {
-			tmp = NameCourse.ToString();
-		}
+		Debug.Log (NameCourse.text);
+		tmp = NameCourse.text;
+		StartCoroutine (SaveNameCourse ());
 	}
 		
+	IEnumerator Back(){
+		SceneManager.LoadScene ("SelectGame", LoadSceneMode.Additive);
+		yield return null;
+		SceneManager.UnloadSceneAsync ("SelectActivity");
+	}
+
+	IEnumerator SaveNameCourse(){
+		SceneManager.LoadScene ("CreateGroup", LoadSceneMode.Additive);
+		yield return null;
+		SceneManager.UnloadSceneAsync ("SelectGame");
+		tmp = NameCourse.text;
+	}
 
 }
