@@ -13,7 +13,13 @@ public class MKResultItem : MonoBehaviour
     private Transform _3Dholder;
     public int[] _obtainedResultsArray;
     private int group1, group2, group3;
+
+    Animator evaluateHolder;
+    private CasesHUD_Ctrl HUDCtrl;
     #endregion
+
+
+
     #region SYSTEM_METHODS
     private void Start() { Initializate(); }
     void OnEnable()
@@ -43,6 +49,8 @@ public class MKResultItem : MonoBehaviour
         }
         group1 = 0; group2 = 3; group3 = 6;
         UpdateObtainedResults();
+        evaluateHolder = GameObject.Find("EvaluateHolder").GetComponent<Animator>();
+        HUDCtrl = GameObject.FindObjectOfType<CasesHUD_Ctrl>();
     }
 
     private void ValidateAnswer()
@@ -56,9 +64,18 @@ public class MKResultItem : MonoBehaviour
             }
         }
         UpdateObtainedResults();
+
+        HUDCtrl.GetMKValue(false);
+
         if (temp != 0 && temp == _MKItemsArray.Length)
         {
+            HUDCtrl.GetMKValue(true);
+            evaluateHolder.SetBool("isCorrect", true);
             FinishGame();
+        }
+        else
+        {
+            evaluateHolder.SetBool("isCorrect", false);
         }
     }
 
@@ -88,7 +105,11 @@ public class MKResultItem : MonoBehaviour
         _displayedObjsArray[_obtainedResultsArray[1] + group2].SetActive(false);
         _displayedObjsArray[_obtainedResultsArray[2] + group3].SetActive(false);
     }
-    public virtual void FinishGame() { print("Game was finished"); }
+    public virtual void FinishGame()
+    {
+        print("Game was finished");
+
+    }
     #endregion
     #region COROUTINES
     #endregion
