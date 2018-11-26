@@ -26,7 +26,6 @@ public class Ctrl_SelectActivity : MonoBehaviour {
 	}
 
 	public void SaveData(){
-		Debug.Log (NameCourse.text);
 		tmp = NameCourse.text;
 		StartCoroutine (SaveNameCourse ());
 	}
@@ -38,10 +37,10 @@ public class Ctrl_SelectActivity : MonoBehaviour {
 	}
 
 	IEnumerator SaveNameCourse(){
+		Main_Ctrl.instance.NameCourse = NameCourse.text;
 		SceneManager.LoadScene ("CreateGroup", LoadSceneMode.Additive);
 		yield return null;
-		SceneManager.UnloadSceneAsync ("SelectGame");
-		tmp = NameCourse.text;
+		SceneManager.UnloadSceneAsync ("SelectActivity");
 	}
 
 }
