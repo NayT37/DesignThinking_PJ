@@ -9,83 +9,7 @@ using System;
 public class CasesHUD_Ctrl : MonoBehaviour
 {
     #region VARIABLES
-    //Public Variables
-    //Private Variables
-    private int _actualMoment;
-    public int _actualCase;
-    private string _actualScn;
-    Animator evaluateHolder;
-    private bool isCorrect;
-    #endregion
-
-
-    #region SYSTEM_METHODS
-    private void Start()
-    {
-        Initializate();
-        Btn_momento1 = GameObject.Find("Btn_1").GetComponent<Image>();
-        Btn_momento2 = GameObject.Find("Btn_2").GetComponent<Image>();
-        Btn_momento3 = GameObject.Find("Btn_3").GetComponent<Image>();
-
-        Emp_Btn = GameObject.Find("Btn_Emp").GetComponent<Image>();
-        Def_Btn = GameObject.Find("Btn_Def").GetComponent<Image>();
-        Ide_Btn = GameObject.Find("Btn_Ide").GetComponent<Image>();
-        Pro_Btn = GameObject.Find("Btn_Pro").GetComponent<Image>();
-        Eva_Btn = GameObject.Find("Btn_Eva").GetComponent<Image>();
-
-
-        Text_Changed = GameObject.Find("NamePhase").GetComponent<Text>();
-        Text_TitleCase = GameObject.Find("CaseTitle").GetComponent<Text>();
-        isCorrect = false;
-
-    }
-    private void Update()
-    {
-    }
-
-    public void playAnimation()
-    {
-        if (evaluateHolder == null)
-        {
-            evaluateHolder = GameObject.Find("EvaluateHolder").GetComponent<Animator>();
-        }
-
-        print(evaluateHolder);
-        if (isCorrect)
-        {
-            evaluateHolder.SetBool("isCorrect", true);
-        }
-        else
-        {
-            evaluateHolder.SetBool("isCorrect", false);
-        }
-        switch (_actualCase)
-        {
-            case 1:
-                evaluateHolder.SetBool("isAirplane", true);
-                evaluateHolder.SetBool("isPc", false);
-                evaluateHolder.SetBool("isPhone", false);
-                break;
-            case 2:
-                evaluateHolder.SetBool("isAirplane", false);
-                evaluateHolder.SetBool("isPc", false);
-                evaluateHolder.SetBool("isPhone", true);
-                break;
-            case 3:
-                evaluateHolder.SetBool("isAirplane", false);
-                evaluateHolder.SetBool("isPc", true);
-                evaluateHolder.SetBool("isPhone", false);
-                break;
-        }
-    }
-
-    public void GetMKValue(bool value)
-    {
-        isCorrect = value;
-    }
-    #endregion
-
-
+    //For animation
     #region Botones cambios de sprite
     private Image Btn_momento1;
     private Image Btn_momento2;
@@ -131,8 +55,26 @@ public class CasesHUD_Ctrl : MonoBehaviour
     private Text Text_Changed;
     private Text Text_TitleCase;
     #endregion
+    //Public Variables
+
+    //Private Variables
+    private int _actualMoment;
+    public int _actualCase;
+    private string _actualScn;
+    Animator evaluateHolder;
+    private bool isCorrect;
+    #endregion
 
 
+    #region SYSTEM_METHODS
+    private void Start()
+    {
+        Initializate();
+    }
+    private void Update()
+    {
+    }
+    #endregion
 
     #region CREATED_METHODS
     private void Initializate()
@@ -141,7 +83,60 @@ public class CasesHUD_Ctrl : MonoBehaviour
         _actualCase = 1;
         _actualScn = "";
         StartCoroutine(ChangeScene("C" + _actualCase + "_M" + _actualMoment, _actualScn));
+
+        Btn_momento1 = GameObject.Find("Btn_1").GetComponent<Image>();
+        Btn_momento2 = GameObject.Find("Btn_2").GetComponent<Image>();
+        Btn_momento3 = GameObject.Find("Btn_3").GetComponent<Image>();
+
+        Emp_Btn = GameObject.Find("Btn_Emp").GetComponent<Image>();
+        Def_Btn = GameObject.Find("Btn_Def").GetComponent<Image>();
+        Ide_Btn = GameObject.Find("Btn_Ide").GetComponent<Image>();
+        Pro_Btn = GameObject.Find("Btn_Pro").GetComponent<Image>();
+        Eva_Btn = GameObject.Find("Btn_Eva").GetComponent<Image>();
+
+        Text_Changed = GameObject.Find("NamePhase").GetComponent<Text>();
+        Text_TitleCase = GameObject.Find("CaseTitle").GetComponent<Text>();
+        isCorrect = false;
     }
+
+
+    /*     public void playAnimation()
+        {
+            if (evaluateHolder == null)
+            {
+                evaluateHolder = GameObject.Find("EvaluateHolder").GetComponent<Animator>();
+            }
+
+            print(evaluateHolder);
+            if (isCorrect)
+            {
+                evaluateHolder.SetBool("isCorrect", true);
+            }
+            else
+            {
+                evaluateHolder.SetBool("isCorrect", false);
+            }
+            switch (_actualCase)
+            {
+                case 1:
+                    evaluateHolder.SetBool("isAirplane", true);
+                    evaluateHolder.SetBool("isPc", false);
+                    evaluateHolder.SetBool("isPhone", false);
+                    break;
+                case 2:
+                    evaluateHolder.SetBool("isAirplane", false);
+                    evaluateHolder.SetBool("isPc", false);
+                    evaluateHolder.SetBool("isPhone", true);
+                    break;
+                case 3:
+                    evaluateHolder.SetBool("isAirplane", false);
+                    evaluateHolder.SetBool("isPc", true);
+                    evaluateHolder.SetBool("isPhone", false);
+                    break;
+            }
+        } */
+
+
     public void CaseBtnClick(int caseValue)
     {
         if (_actualCase != caseValue)
@@ -311,18 +306,24 @@ public class CasesHUD_Ctrl : MonoBehaviour
             _actualMoment = momentValue;
         }
     }
-    #endregion
 
-
-    #region INTERFACE_METHODS
     public void GoHome()
     {
-        StartCoroutine(Home());
+        SceneManager.LoadScene("SelectGame");
+        //    StartCoroutine(Home());
     }
     #endregion
 
 
+    #region INTERFACE_METHODS
+    #endregion
+
+
     #region GETTERS_AND_SETTERS
+    public void GetMKValue(bool value)
+    {
+        isCorrect = value;
+    }
     #endregion
 
 
@@ -333,16 +334,13 @@ public class CasesHUD_Ctrl : MonoBehaviour
         {
             SceneManager.UnloadSceneAsync(sceneToUnload);
         }
-
         SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Additive);
         yield return null;
         _actualScn = sceneToLoad;
-
     }
 
     private IEnumerator Home()
     {
-
         SceneManager.LoadScene("SelectGame", LoadSceneMode.Additive);
         yield return null;
         SceneManager.UnloadSceneAsync("Main_HUD");

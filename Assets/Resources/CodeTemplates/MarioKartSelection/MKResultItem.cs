@@ -15,6 +15,7 @@ public class MKResultItem : MonoBehaviour
     private int group1, group2, group3;
 
     Animator evaluateHolder;
+    private EvaluateHolder _evaluateHolder;
     private CasesHUD_Ctrl HUDCtrl;
     #endregion
 
@@ -50,12 +51,16 @@ public class MKResultItem : MonoBehaviour
         group1 = 0; group2 = 3; group3 = 6;
         UpdateObtainedResults();
         evaluateHolder = GameObject.Find("EvaluateHolder").GetComponent<Animator>();
+        _evaluateHolder = GameObject.Find("EvaluateHolder").GetComponent<EvaluateHolder>();
         HUDCtrl = GameObject.FindObjectOfType<CasesHUD_Ctrl>();
     }
 
     private void ValidateAnswer()
     {
         int temp = 0;
+
+        _evaluateHolder.ReturnToDefault();
+
         foreach (MKItem item in _MKItemsArray)
         {
             if (item.isCorrect)
@@ -70,12 +75,11 @@ public class MKResultItem : MonoBehaviour
         if (temp != 0 && temp == _MKItemsArray.Length)
         {
             HUDCtrl.GetMKValue(true);
-            evaluateHolder.SetBool("isCorrect", true);
-            FinishGame();
+            _evaluateHolder.SetCorrect(true);
         }
         else
         {
-            evaluateHolder.SetBool("isCorrect", false);
+            _evaluateHolder.SetCorrect(false);
         }
     }
 
@@ -91,10 +95,6 @@ public class MKResultItem : MonoBehaviour
 
     public virtual void UpdateContent()
     {
-        /*         foreach (GameObject go in _displayedObjsArray)
-                {
-                    go.SetActive(false);
-                } */
         _displayedObjsArray[_obtainedResultsArray[0] + group1].SetActive(true);
         _displayedObjsArray[_obtainedResultsArray[1] + group2].SetActive(true);
         _displayedObjsArray[_obtainedResultsArray[2] + group3].SetActive(true);

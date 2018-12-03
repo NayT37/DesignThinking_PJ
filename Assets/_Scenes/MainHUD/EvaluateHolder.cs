@@ -5,40 +5,47 @@ using UnityEngine;
 public class EvaluateHolder : MonoBehaviour
 {
 
-    Animator evaluateHolder;
+    private Animator _animator;
     // Use this for initialization
     void Start()
     {
-        evaluateHolder = GetComponent<Animator>();
-        /*         evaluateHolder.SetBool("isAirplane", true);
-                evaluateHolder.SetBool("isCorrect", true); */
-        print(evaluateHolder.GetBool("isAirplane"));
+        _animator = GetComponent<Animator>();
     }
 
-    public void playAnimation(int entero)
+    public void playAnimation(int caseNumber)
     {
-        if (evaluateHolder == null)
+        if (_animator == null)
         {
-            evaluateHolder = GameObject.Find("EvaluateHolder").GetComponent<Animator>();
+            _animator = GameObject.Find("EvaluateHolder").GetComponent<Animator>();
         }
-
-        switch (entero)
+        _animator.SetBool("isDefault", false);
+        switch (caseNumber)
         {
             case 1:
-                evaluateHolder.SetBool("isAirplane", true);
-                evaluateHolder.SetBool("isPc", false);
-                evaluateHolder.SetBool("isPhone", false);
+                _animator.SetBool("isAirplane", true);
+                _animator.SetBool("isPc", false);
+                _animator.SetBool("isPhone", false);
                 break;
             case 2:
-                evaluateHolder.SetBool("isAirplane", false);
-                evaluateHolder.SetBool("isPc", false);
-                evaluateHolder.SetBool("isPhone", true);
+                _animator.SetBool("isAirplane", false);
+                _animator.SetBool("isPc", false);
+                _animator.SetBool("isPhone", true);
                 break;
             case 3:
-                evaluateHolder.SetBool("isAirplane", false);
-                evaluateHolder.SetBool("isPc", true);
-                evaluateHolder.SetBool("isPhone", false);
+                _animator.SetBool("isAirplane", false);
+                _animator.SetBool("isPc", true);
+                _animator.SetBool("isPhone", false);
                 break;
         }
+    }
+
+    public void SetCorrect(bool value)
+    {
+        _animator.SetBool("isCorrect", value);
+    }
+
+    public void ReturnToDefault()
+    {
+        _animator.SetBool("isDefault", true);
     }
 }
