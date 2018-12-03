@@ -44,8 +44,8 @@ public class MKItem : MonoBehaviour, IComparable<MKItem>
         _internalHolder = transform.Find("Changing_Holder");
         //Create a random value to display a random image of the array
         _objCtrl = UnityEngine.Random.Range(0, _objectsToDisplayArray.Length);
-        //Change the getted image's sprite
-        //    _objectsToDisplayArray[_objCtrl].transform.SetParent(_internalHolder);
+
+        // _objCtrl = correctSpriteNumber;         //If it's correct from HUD ctrl
         //This item is not correct yet
         isCorrect = false;
         //And get the ID with the number

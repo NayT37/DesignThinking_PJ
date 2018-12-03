@@ -23,6 +23,7 @@ public class TriviaCtrl : MiniGame_Ctrl
     private Text _questionTxt, _contextTxt;
     private GameObject _triviaGame, _contextObj;
     private Button _contextBtn, _closeContext;
+    private GameObject _panelFinal;
     #endregion
 
 
@@ -75,6 +76,8 @@ public class TriviaCtrl : MiniGame_Ctrl
 
         UpdateDisplayedTxts();
         _triviaGame.SetActive(false);
+        _panelFinal = GameObject.Find("Panel_Final");
+        _panelFinal.SetActive(false);
     }
 
     private void ReassingBtnPos()
@@ -131,6 +134,7 @@ public class TriviaCtrl : MiniGame_Ctrl
             {
                 _btnsArray[i].internalText.text = "";
             }
+            _panelFinal.SetActive(true);
             isGameFinished = true;
         }
     }
@@ -138,6 +142,7 @@ public class TriviaCtrl : MiniGame_Ctrl
     public void TriviaBtnClick()
     {
         TriviaBtn btnName = EventSystem.current.currentSelectedGameObject.GetComponent<TriviaBtn>();
+        ShowFeedback();
         if (btnName.getIsCorrect())
         {
             ChangeAnswer(true);
@@ -150,11 +155,28 @@ public class TriviaCtrl : MiniGame_Ctrl
         }
     }
 
+    private void ShowFeedback()
+    {
+        for (int i = 0; i < _btnsArray.Length; i++)
+        {
+            _btnsArray[i].ChangeToFeedbackColor();
+        }
+    }
+
+    private void StopFeedback()
+    {
+        for (int i = 0; i < _btnsArray.Length; i++)
+        {
+            _btnsArray[i].ReturnToNormalColor();
+        }
+    }
+
     public void CallContext()
     {
         _triviaGame.SetActive(false);
         _contextObj.SetActive(true);
     }
+
     public void CloseContext()
     {
         _triviaGame.SetActive(true);
@@ -171,6 +193,7 @@ public class TriviaCtrl : MiniGame_Ctrl
         ShuffleTransformArray(_btnStoredPosArray);
         ReassingBtnPos();
         _clickBlocker.SetActive(false);
+        StopFeedback();
         UpdateDisplayedTxts();
         UpdateProgressBar();
         CallContext();
@@ -183,6 +206,7 @@ public class TriviaCtrl : MiniGame_Ctrl
         ShuffleTransformArray(_btnStoredPosArray);
         ReassingBtnPos();
         _clickBlocker.SetActive(false);
+        StopFeedback();
         UpdateDisplayedTxts();
         CallContext();
     }

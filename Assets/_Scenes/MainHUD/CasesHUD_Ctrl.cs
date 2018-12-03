@@ -61,8 +61,6 @@ public class CasesHUD_Ctrl : MonoBehaviour
     private int _actualMoment;
     public int _actualCase;
     private string _actualScn;
-    Animator evaluateHolder;
-    private bool isCorrect;
     #endregion
 
 
@@ -70,9 +68,6 @@ public class CasesHUD_Ctrl : MonoBehaviour
     private void Start()
     {
         Initializate();
-    }
-    private void Update()
-    {
     }
     #endregion
 
@@ -96,46 +91,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
         Text_Changed = GameObject.Find("NamePhase").GetComponent<Text>();
         Text_TitleCase = GameObject.Find("CaseTitle").GetComponent<Text>();
-        isCorrect = false;
     }
-
-
-    /*     public void playAnimation()
-        {
-            if (evaluateHolder == null)
-            {
-                evaluateHolder = GameObject.Find("EvaluateHolder").GetComponent<Animator>();
-            }
-
-            print(evaluateHolder);
-            if (isCorrect)
-            {
-                evaluateHolder.SetBool("isCorrect", true);
-            }
-            else
-            {
-                evaluateHolder.SetBool("isCorrect", false);
-            }
-            switch (_actualCase)
-            {
-                case 1:
-                    evaluateHolder.SetBool("isAirplane", true);
-                    evaluateHolder.SetBool("isPc", false);
-                    evaluateHolder.SetBool("isPhone", false);
-                    break;
-                case 2:
-                    evaluateHolder.SetBool("isAirplane", false);
-                    evaluateHolder.SetBool("isPc", false);
-                    evaluateHolder.SetBool("isPhone", true);
-                    break;
-                case 3:
-                    evaluateHolder.SetBool("isAirplane", false);
-                    evaluateHolder.SetBool("isPc", true);
-                    evaluateHolder.SetBool("isPhone", false);
-                    break;
-            }
-        } */
-
 
     public void CaseBtnClick(int caseValue)
     {
@@ -320,10 +276,6 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
 
     #region GETTERS_AND_SETTERS
-    public void GetMKValue(bool value)
-    {
-        isCorrect = value;
-    }
     #endregion
 
 
