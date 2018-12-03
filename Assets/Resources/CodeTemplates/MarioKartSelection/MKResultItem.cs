@@ -49,10 +49,11 @@ public class MKResultItem : MonoBehaviour
             _displayedObjsArray[i].SetActive(false);
         }
         group1 = 0; group2 = 3; group3 = 6;
-        UpdateObtainedResults();
+        // UpdateObtainedResults();
         evaluateHolder = GameObject.Find("EvaluateHolder").GetComponent<Animator>();
         _evaluateHolder = GameObject.Find("EvaluateHolder").GetComponent<EvaluateHolder>();
         HUDCtrl = GameObject.FindObjectOfType<CasesHUD_Ctrl>();
+        ValidateAnswer();
     }
 
     private void ValidateAnswer()
@@ -70,11 +71,11 @@ public class MKResultItem : MonoBehaviour
         }
         UpdateObtainedResults();
 
-        HUDCtrl.GetMKValue(false);
+        // HUDCtrl.GetMKValue(false);
 
         if (temp != 0 && temp == _MKItemsArray.Length)
         {
-            HUDCtrl.GetMKValue(true);
+            // HUDCtrl.GetMKValue(true);
             _evaluateHolder.SetCorrect(true);
         }
         else

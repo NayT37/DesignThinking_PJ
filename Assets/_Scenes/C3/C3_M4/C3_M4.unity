@@ -292,6 +292,11 @@ Prefab:
       propertyPath: _selectedPrototype
       value: 
       objectReference: {fileID: 929306535}
+    - target: {fileID: 114147275013095776, guid: 5cfe1a8c84f979a449fba8292006f1d2,
+        type: 2}
+      propertyPath: correctSpriteNumber
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5cfe1a8c84f979a449fba8292006f1d2, type: 2}
   m_IsPrefabParent: 0

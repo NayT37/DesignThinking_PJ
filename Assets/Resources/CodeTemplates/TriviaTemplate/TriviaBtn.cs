@@ -12,6 +12,8 @@ public class TriviaBtn : MonoBehaviour
     //Private Variables
     [SerializeField]
     private bool _isCorrect;
+    private Color32 _normalClr, _correctClr, _incorrectClr;
+    private Image _internalImg;
     #endregion
 
 
@@ -24,7 +26,17 @@ public class TriviaBtn : MonoBehaviour
     private void Initializate()
     {
         internalText = GetComponentInChildren<Text>();
+        _internalImg = GetComponent<Image>();
+        _normalClr = _internalImg.color;
+        _correctClr = new Color32(0, 255, 0, 255);
+        _incorrectClr = new Color32(255, 0, 0, 255);
     }
+
+    public void ChangeToFeedbackColor()
+    {
+        if (_isCorrect) { _internalImg.color = _correctClr; } else { _internalImg.color = _incorrectClr; }
+    }
+    public void ReturnToNormalColor() { _internalImg.color = _normalClr; }
     #endregion
 
     #region GETTERS_AND_SETTERS
