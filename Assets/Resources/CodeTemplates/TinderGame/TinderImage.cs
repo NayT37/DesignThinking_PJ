@@ -11,7 +11,7 @@ public class TinderImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     [HideInInspector]
     public Image internalImage;
     [HideInInspector]
- //   public Sprite spriteToShow;
+    //   public Sprite spriteToShow;
     //[HideInInspector]
     public bool internalAnswer;
     [HideInInspector]
@@ -47,7 +47,7 @@ public class TinderImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         _yAxis = _originalPos.y;
         internalImage = GetComponent<Image>();
         answerAxis = 0;
-//        internalImage.sprite = spriteToShow;
+        //        internalImage.sprite = spriteToShow;
         _gameCtrl = GameObject.FindObjectOfType<TinderGame>();
     }
 
@@ -71,12 +71,33 @@ public class TinderImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         float tempX = Input.mousePosition.x;
         transform.position = new Vector3(Input.mousePosition.x, _yAxis - (Mathf.Abs(transform.localPosition.x) / 10), 0);
         transform.eulerAngles = new Vector3(0, 0, (-transform.localPosition.x / 25));
+
+        answerAxis = transform.localPosition.x;
+        if (answerAxis > 250)
+        {
+            //true
+            print("True is bigger");
+            _gameCtrl.TrueFeedback();
+        }
+        else if (answerAxis < -250)
+        {
+            //false
+            print("False is bigger");
+            _gameCtrl.FalseFeedback();
+        }
+        else
+        {
+            //return to normal
+            print("Return to normal");
+            _gameCtrl.ReturnToNormal();
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
 
-        answerAxis = transform.localPosition.x;
+
+        // answerAxis = transform.localPosition.x;
         if (answerAxis > 250)
         {
             _gameCtrl.selectedAnswer = true;
@@ -91,10 +112,10 @@ public class TinderImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         {
             Debug.Log("Image it wasn't moved");
         }
+        _gameCtrl.ReturnToNormal();
         internalImage.raycastTarget = true;
         transform.position = _originalPos;
         transform.eulerAngles = new Vector3(0, 0, 0);
-
     }
     #endregion
 }
