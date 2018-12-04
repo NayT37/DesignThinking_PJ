@@ -25,6 +25,7 @@ public class TinderGame : MonoBehaviour
     private MainTinderCtrl tinderCtrl;
     private Image _trueImg, _falseImg;
     private Transform _trueImgSize, _falseImgSize;
+    private Color32 _normalClr, _correctClr, _incorrectClr;
 
     #endregion
 
@@ -34,11 +35,13 @@ public class TinderGame : MonoBehaviour
     private void Start()
     {
         tinderCtrl = GameObject.FindObjectOfType<MainTinderCtrl>();
-        print(transform.Find("TrueFalse_Holder/TrueImage").gameObject);
         _trueImg = transform.Find("TrueFalse_Holder/TrueImage").GetComponent<Image>();
         _falseImg = transform.Find("TrueFalse_Holder/FalseImage").GetComponent<Image>();
         _trueImgSize = _trueImg.transform;
         _falseImgSize = _falseImg.transform;
+        _normalClr = new Color32(255, 255, 255, 255);
+        _correctClr = new Color32(0, 255, 0, 255);
+        _incorrectClr = new Color32(255, 0, 0, 255);
     }
     private void Update()
     {
@@ -154,10 +157,13 @@ public class TinderGame : MonoBehaviour
             else
             {
                 //Incorrect case
-                TinderImage temp = _tinderImagesList[0];
-                _tinderImagesList.RemoveAt(0);
-                _tinderImagesList.Insert(_tinderImagesList.Count, temp);
-                UpdateDisplayedImage();
+                /*                 
+                Use this to add the image at the bottom
+                                TinderImage temp = _tinderImagesList[0];
+                                _tinderImagesList.RemoveAt(0);
+                                _tinderImagesList.Insert(_tinderImagesList.Count, temp);
+                                UpdateDisplayedImage();
+                 */
             }
         }
     }
@@ -175,6 +181,24 @@ public class TinderGame : MonoBehaviour
         }
     }
 
+    public void TrueFeedback()
+    {
+        _trueImgSize.localScale = new Vector3(2.5f, 2.5f, 1);
+        _trueImg.color = _correctClr;
+    }
+    public void FalseFeedback()
+    {
+        _falseImgSize.localScale = new Vector3(2.5f, 2.5f, 1);
+        _falseImg.color = _incorrectClr;
+    }
+    public void ReturnToNormal()
+    {
+        _trueImgSize.localScale = new Vector3(1, 1, 1);
+        _falseImgSize.localScale = new Vector3(1, 1, 1);
+        _trueImg.color = _normalClr;
+        _falseImg.color = _normalClr;
+    }
+
     public virtual void FinishGame()
     {
         //Override this method for different behavior
@@ -184,6 +208,14 @@ public class TinderGame : MonoBehaviour
     #endregion
 
 
-    #region COROUTINES
+    #region GETTERS_AND_SETTERS
+    public Image GetTrueImg()
+    {
+        return _trueImg;
+    }
+    public Image GetFalseImg()
+    {
+        return _falseImg;
+    }
     #endregion
 }
