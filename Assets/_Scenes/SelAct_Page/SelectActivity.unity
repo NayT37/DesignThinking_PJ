@@ -146,8 +146,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 26.35, y: -58.62}
-  m_SizeDelta: {x: 148.69, y: 69.81}
+  m_AnchoredPosition: {x: 30.01, y: -61.72}
+  m_SizeDelta: {x: 143.877, y: 67.403}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &89720347
 MonoBehaviour:
@@ -204,7 +204,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  delay: 1.25
+  delay: 1.35
   duration: 0.3
   easeType: 6
   easeCurve:
@@ -622,6 +622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NameCourse: 
+  PersonasPerGroup: 0
 --- !u!4 &223297487
 Transform:
   m_ObjectHideFlags: 0
@@ -899,7 +900,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 87.60407, y: -58.85}
+  m_AnchoredPosition: {x: 86.36877, y: -61.72}
   m_SizeDelta: {x: 161.72, y: 60.34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &266014907
@@ -957,7 +958,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  delay: 1.4
+  delay: 1.2
   duration: 0.3
   easeType: 6
   easeCurve:
@@ -1476,8 +1477,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10.288136, y: -58.590004}
-  m_SizeDelta: {x: 175.75, y: 60.39}
+  m_AnchoredPosition: {x: 15.700001, y: -62.013382}
+  m_SizeDelta: {x: 152.09, y: 55.41}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &999138730
 MonoBehaviour:
@@ -1534,7 +1535,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  delay: 1.2
+  delay: 1.4
   duration: 0.3
   easeType: 6
   easeCurve:
@@ -2405,8 +2406,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 68.03, y: -58.980328}
-  m_SizeDelta: {x: 181.87, y: 60.82}
+  m_AnchoredPosition: {x: 68.67699, y: -61.96}
+  m_SizeDelta: {x: 176.28, y: 58.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1504530115
 MonoBehaviour:
@@ -2463,7 +2464,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  delay: 1.35
+  delay: 1.25
   duration: 0.3
   easeType: 6
   easeCurve:
@@ -3897,8 +3898,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 45.869686, y: -58.58}
-  m_SizeDelta: {x: 175.23, y: 54.06}
+  m_AnchoredPosition: {x: 47.941196, y: -61.58293}
+  m_SizeDelta: {x: 170.37, y: 50.63}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2096139198
 MonoBehaviour:
