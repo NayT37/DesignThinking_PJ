@@ -14,6 +14,9 @@ public class MainTinderCtrl : MiniGame_Ctrl
     private int _roundsNumber;
     private int _finishedCanvasQuantity;
     private Text _finalCanvasTxt;
+    private Image _trueImg, _falseImg;
+    private Transform _trueImgSize, _falseImgSize;
+    private Color32 _normalClr, _correctClr, _incorrectClr;
     #endregion
 
 
@@ -34,6 +37,10 @@ public class MainTinderCtrl : MiniGame_Ctrl
             canvas.gameObject.SetActive(false);
         }
         _canvasByRound[0].gameObject.SetActive(true);
+
+        _normalClr = new Color32(255, 255, 255, 255);
+        _correctClr = new Color32(0, 255, 0, 255);
+        _incorrectClr = new Color32(255, 0, 0, 255);
     }
 
     public void FinishGame()
@@ -44,6 +51,8 @@ public class MainTinderCtrl : MiniGame_Ctrl
         if (_finishedCanvasQuantity < completeProgressValue)
         {
             _canvasByRound[_finishedCanvasQuantity].gameObject.SetActive(true);
+            TinderGame temp;
+            temp = _canvasByRound[_finishedCanvasQuantity].GetComponent<TinderGame>();
         }
         else
         {

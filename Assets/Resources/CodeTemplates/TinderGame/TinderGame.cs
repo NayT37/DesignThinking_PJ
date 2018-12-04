@@ -23,6 +23,8 @@ public class TinderGame : MonoBehaviour
     private Image _displayedImg;
     private Text _displayedTxt;
     private MainTinderCtrl tinderCtrl;
+    private Image _trueImg, _falseImg;
+    private Transform _trueImgSize, _falseImgSize;
 
     #endregion
 
@@ -32,6 +34,11 @@ public class TinderGame : MonoBehaviour
     private void Start()
     {
         tinderCtrl = GameObject.FindObjectOfType<MainTinderCtrl>();
+        print(transform.Find("TrueFalse_Holder/TrueImage").gameObject);
+        _trueImg = transform.Find("TrueFalse_Holder/TrueImage").GetComponent<Image>();
+        _falseImg = transform.Find("TrueFalse_Holder/FalseImage").GetComponent<Image>();
+        _trueImgSize = _trueImg.transform;
+        _falseImgSize = _falseImg.transform;
     }
     private void Update()
     {
