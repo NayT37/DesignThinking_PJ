@@ -9,26 +9,18 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 
 	#region  variables
 	public InputField userName;
-	public InputField passName;
-
-	private string aceptLogin;	
+	public InputField passName;	
 	#endregion
-	void Start () {
-		// userName.GetComponent<InputField>();
-	}
 
 
 	public void GoUser(){
 		// Debug.Log(userName.GetComponent<InputField>().text);
 
-		if(userName.GetComponent<InputField>().text.Equals("juan") && passName.GetComponent<InputField>().text.Equals("1234")){
-			// Debug.Log(userName.GetComponent<InputField>().text);
-			// Debug.Log(passName.GetComponent<InputField>().text);			
+		if(userName.GetComponent<InputField>().text.Equals("juan") && passName.GetComponent<InputField>().text.Equals("1234")){			
 			StartCoroutine (ResgisterUser ());
 		}else{
 			Debug.Log("No funciona!");
 		}
-		// StartCoroutine (ResgisterUser ());
 	}
 
 	IEnumerator ResgisterUser(){

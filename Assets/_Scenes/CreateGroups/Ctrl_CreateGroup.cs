@@ -23,7 +23,7 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 
 	public void GoToSelect(){
 		StartCoroutine (SelectUser ());
-	}
+	}  
 
 	public void AddPerson(){
 		tmp += 1;

@@ -1,0 +1,1412 @@
+fileFormatVersion: 2
+guid: daafe66bf06db5a4c965544fc68c413f
+timeCreated: 1544039244
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: ElementosAdmin_0
+    21300002: ElementosAdmin_1
+    21300004: ElementosAdmin_2
+    21300006: ElementosAdmin_3
+    21300008: ElementosAdmin_4
+    21300010: ElementosAdmin_5
+    21300012: ElementosAdmin_6
+    21300014: ElementosAdmin_7
+    21300016: ElementosAdmin_8
+    21300018: ElementosAdmin_9
+    21300020: ElementosAdmin_10
+    21300022: ElementosAdmin_11
+    21300024: ElementosAdmin_12
+    21300026: ElementosAdmin_13
+    21300028: ElementosAdmin_14
+    21300030: ElementosAdmin_15
+    21300032: ElementosAdmin_16
+    21300034: ElementosAdmin_17
+    21300036: ElementosAdmin_18
+    21300038: ElementosAdmin_19
+    21300040: ElementosAdmin_20
+    21300042: ElementosAdmin_21
+    21300044: ElementosAdmin_22
+    21300046: ElementosAdmin_23
+    21300048: ElementosAdmin_24
+    21300050: ElementosAdmin_25
+    21300052: ElementosAdmin_26
+    21300054: ElementosAdmin_27
+    21300056: ElementosAdmin_28
+    21300058: ElementosAdmin_29
+    21300060: ElementosAdmin_30
+    21300062: ElementosAdmin_31
+    21300064: ElementosAdmin_32
+    21300066: ElementosAdmin_33
+    21300068: ElementosAdmin_34
+    21300070: ElementosAdmin_35
+    21300072: ElementosAdmin_36
+    21300074: ElementosAdmin_37
+    21300076: ElementosAdmin_38
+    21300078: ElementosAdmin_39
+    21300080: ElementosAdmin_40
+    21300082: ElementosAdmin_41
+    21300084: ElementosAdmin_42
+    21300086: ElementosAdmin_43
+    21300088: ElementosAdmin_44
+    21300090: ElementosAdmin_45
+    21300092: ElementosAdmin_46
+    21300094: ElementosAdmin_47
+    21300096: ElementosAdmin_48
+    21300098: ElementosAdmin_49
+    21300100: ElementosAdmin_50
+    21300102: ElementosAdmin_51
+    21300104: ElementosAdmin_52
+    21300106: ElementosAdmin_53
+    21300108: ElementosAdmin_54
+    21300110: ElementosAdmin_55
+    21300112: ElementosAdmin_56
+    21300114: ElementosAdmin_57
+    21300116: ElementosAdmin_58
+    21300118: ElementosAdmin_59
+    21300120: ElementosAdmin_60
+    21300122: ElementosAdmin_61
+    21300124: ElementosAdmin_62
+    21300126: ElementosAdmin_63
+    21300128: ElementosAdmin_64
+    21300130: ElementosAdmin_65
+    21300132: ElementosAdmin_66
+    21300134: ElementosAdmin_67
+    21300136: ElementosAdmin_68
+    21300138: ElementosAdmin_69
+    21300140: ElementosAdmin_70
+    21300142: ElementosAdmin_71
+    21300144: ElementosAdmin_72
+    21300146: ElementosAdmin_73
+    21300148: ElementosAdmin_74
+    21300150: ElementosAdmin_75
+    21300152: ElementosAdmin_76
+    21300154: ElementosAdmin_77
+    21300156: ElementosAdmin_78
+    21300158: ElementosAdmin_79
+    21300160: ElementosAdmin_80
+    21300162: ElementosAdmin_81
+    21300164: ElementosAdmin_82
+    21300166: ElementosAdmin_83
+    21300168: ElementosAdmin_84
+    21300170: ElementosAdmin_85
+    21300172: ElementosAdmin_86
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ElementosAdmin_0
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 494
+        width: 2181
+        height: 1910
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_1
+      rect:
+        serializedVersion: 2
+        x: 2333
+        y: 1986
+        width: 622
+        height: 371
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_2
+      rect:
+        serializedVersion: 2
+        x: 3058
+        y: 400
+        width: 2265
+        height: 1986
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_3
+      rect:
+        serializedVersion: 2
+        x: 5409
+        y: 1690
+        width: 1800
+        height: 721
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_4
+      rect:
+        serializedVersion: 2
+        x: 7359
+        y: 866
+        width: 2200
+        height: 1538
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_5
+      rect:
+        serializedVersion: 2
+        x: 9672
+        y: 67
+        width: 2123
+        height: 2356
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_6
+      rect:
+        serializedVersion: 2
+        x: 11935
+        y: 59
+        width: 2193
+        height: 2368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_7
+      rect:
+        serializedVersion: 2
+        x: 14202
+        y: 1705
+        width: 796
+        height: 691
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_8
+      rect:
+        serializedVersion: 2
+        x: 15123
+        y: 1953
+        width: 170
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_9
+      rect:
+        serializedVersion: 2
+        x: 15458
+        y: 1917
+        width: 243
+        height: 555
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_10
+      rect:
+        serializedVersion: 2
+        x: 2298
+        y: 1528
+        width: 686
+        height: 432
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_11
+      rect:
+        serializedVersion: 2
+        x: 5517
+        y: 1489
+        width: 210
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_12
+      rect:
+        serializedVersion: 2
+        x: 5775
+        y: 1489
+        width: 222
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_13
+      rect:
+        serializedVersion: 2
+        x: 6039
+        y: 1491
+        width: 262
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_14
+      rect:
+        serializedVersion: 2
+        x: 6356
+        y: 1491
+        width: 170
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_15
+      rect:
+        serializedVersion: 2
+        x: 6582
+        y: 1496
+        width: 208
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_16
+      rect:
+        serializedVersion: 2
+        x: 15084
+        y: 1395
+        width: 240
+        height: 473
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_17
+      rect:
+        serializedVersion: 2
+        x: 15414
+        y: 1359
+        width: 312
+        height: 544
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_18
+      rect:
+        serializedVersion: 2
+        x: 2357
+        y: 1130
+        width: 364
+        height: 365
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_19
+      rect:
+        serializedVersion: 2
+        x: 2794
+        y: 1305
+        width: 180
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_20
+      rect:
+        serializedVersion: 2
+        x: 5416
+        y: 664
+        width: 1879
+        height: 722
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_21
+      rect:
+        serializedVersion: 2
+        x: 14230
+        y: 105
+        width: 1521
+        height: 1258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_22
+      rect:
+        serializedVersion: 2
+        x: 2817
+        y: 1101
+        width: 134
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_23
+      rect:
+        serializedVersion: 2
+        x: 2357
+        y: 680
+        width: 364
+        height: 365
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_24
+      rect:
+        serializedVersion: 2
+        x: 2815
+        y: 874
+        width: 124
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_25
+      rect:
+        serializedVersion: 2
+        x: 2900
+        y: 874
+        width: 78
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_26
+      rect:
+        serializedVersion: 2
+        x: 2792
+        y: 633
+        width: 116
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_27
+      rect:
+        serializedVersion: 2
+        x: 2869
+        y: 633
+        width: 93
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_28
+      rect:
+        serializedVersion: 2
+        x: 7568
+        y: 594
+        width: 131
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_29
+      rect:
+        serializedVersion: 2
+        x: 7746
+        y: 571
+        width: 170
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_30
+      rect:
+        serializedVersion: 2
+        x: 7956
+        y: 579
+        width: 154
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_31
+      rect:
+        serializedVersion: 2
+        x: 8181
+        y: 594
+        width: 131
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_32
+      rect:
+        serializedVersion: 2
+        x: 8685
+        y: 594
+        width: 124
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_33
+      rect:
+        serializedVersion: 2
+        x: 8895
+        y: 603
+        width: 105
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_34
+      rect:
+        serializedVersion: 2
+        x: 9077
+        y: 579
+        width: 152
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_35
+      rect:
+        serializedVersion: 2
+        x: 9299
+        y: 610
+        width: 77
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_36
+      rect:
+        serializedVersion: 2
+        x: 8398
+        y: 587
+        width: 31
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_37
+      rect:
+        serializedVersion: 2
+        x: 8437
+        y: 587
+        width: 38
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_38
+      rect:
+        serializedVersion: 2
+        x: 8484
+        y: 587
+        width: 38
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_39
+      rect:
+        serializedVersion: 2
+        x: 8530
+        y: 587
+        width: 39
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_40
+      rect:
+        serializedVersion: 2
+        x: 8577
+        y: 587
+        width: 30
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_41
+      rect:
+        serializedVersion: 2
+        x: 5610
+        y: 89
+        width: 249
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_42
+      rect:
+        serializedVersion: 2
+        x: 5969
+        y: 62
+        width: 297
+        height: 462
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_43
+      rect:
+        serializedVersion: 2
+        x: 6333
+        y: 144
+        width: 364
+        height: 365
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_44
+      rect:
+        serializedVersion: 2
+        x: 6806
+        y: 144
+        width: 365
+        height: 365
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_45
+      rect:
+        serializedVersion: 2
+        x: 7561
+        y: 466
+        width: 1369
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_46
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 332
+        width: 35
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_47
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 332
+        width: 46
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_48
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 332
+        width: 44
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_49
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 332
+        width: 46
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_50
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 332
+        width: 38
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_51
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 332
+        width: 45
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_52
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 332
+        width: 42
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_53
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 332
+        width: 46
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_54
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 332
+        width: 45
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_55
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 332
+        width: 45
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_56
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 332
+        width: 46
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_57
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 332
+        width: 39
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_58
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 332
+        width: 46
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_59
+      rect:
+        serializedVersion: 2
+        x: 823
+        y: 332
+        width: 43
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_60
+      rect:
+        serializedVersion: 2
+        x: 874
+        y: 332
+        width: 46
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_61
+      rect:
+        serializedVersion: 2
+        x: 921
+        y: 332
+        width: 46
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_62
+      rect:
+        serializedVersion: 2
+        x: 975
+        y: 332
+        width: 45
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_63
+      rect:
+        serializedVersion: 2
+        x: 1022
+        y: 332
+        width: 46
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_64
+      rect:
+        serializedVersion: 2
+        x: 1076
+        y: 332
+        width: 42
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_65
+      rect:
+        serializedVersion: 2
+        x: 1122
+        y: 332
+        width: 46
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_66
+      rect:
+        serializedVersion: 2
+        x: 1173
+        y: 332
+        width: 42
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_67
+      rect:
+        serializedVersion: 2
+        x: 1223
+        y: 332
+        width: 46
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_68
+      rect:
+        serializedVersion: 2
+        x: 1271
+        y: 332
+        width: 45
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_69
+      rect:
+        serializedVersion: 2
+        x: 1324
+        y: 332
+        width: 46
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_70
+      rect:
+        serializedVersion: 2
+        x: 1371
+        y: 332
+        width: 46
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_71
+      rect:
+        serializedVersion: 2
+        x: 1425
+        y: 332
+        width: 43
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_72
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 332
+        width: 46
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_73
+      rect:
+        serializedVersion: 2
+        x: 1526
+        y: 332
+        width: 30
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_74
+      rect:
+        serializedVersion: 2
+        x: 1689
+        y: 260
+        width: 861
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_75
+      rect:
+        serializedVersion: 2
+        x: 3013
+        y: 246
+        width: 1172
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_76
+      rect:
+        serializedVersion: 2
+        x: 7544
+        y: 238
+        width: 1149
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_77
+      rect:
+        serializedVersion: 2
+        x: 8771
+        y: 233
+        width: 147
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_78
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 144
+        width: 207
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_79
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 144
+        width: 174
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_80
+      rect:
+        serializedVersion: 2
+        x: 683
+        y: 144
+        width: 260
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_81
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 144
+        width: 217
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_82
+      rect:
+        serializedVersion: 2
+        x: 1254
+        y: 144
+        width: 210
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_83
+      rect:
+        serializedVersion: 2
+        x: 1670
+        y: 23
+        width: 900
+        height: 179
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_84
+      rect:
+        serializedVersion: 2
+        x: 4251
+        y: 105
+        width: 575
+        height: 186
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_85
+      rect:
+        serializedVersion: 2
+        x: 4874
+        y: 62
+        width: 619
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosAdmin_86
+      rect:
+        serializedVersion: 2
+        x: 3040
+        y: 91
+        width: 1118
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
