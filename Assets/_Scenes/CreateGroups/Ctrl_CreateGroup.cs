@@ -42,6 +42,7 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 //		numberPerson.text = array_NumberPerson [tmp].ToString();
 		if (tmp == 0) {
 			numberPerson.GetComponent<Button> ().interactable = false;
+			Debug.Log ("una persona calculada");
 		}else if(tmp == 10){
 //			array_NumberPerson[tmp].GetComponent<Button> ().interactable = false;
 			numberPerson.GetComponent<Button> ().interactable = false;
