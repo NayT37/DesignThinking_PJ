@@ -23,6 +23,8 @@ public class MindMap_Ctrl : MonoBehaviour
     private Transform _prefabParent;
     [SerializeField]
     private List<MindMapItem> _mmItemsList;
+    private GameObject[] _blockerObjsArray;
+    private GameObject _finalPanel;
     #endregion
 
 
@@ -54,6 +56,13 @@ public class MindMap_Ctrl : MonoBehaviour
         _actualMoment = IdeasMoment.main;
         _prefabParent = GameObject.Find("DragItem_Holder").GetComponent<Transform>();
         _mmItemsList = new List<MindMapItem>();
+        _blockerObjsArray = new GameObject[3];
+        for (int i = 0; i < _blockerObjsArray.Length; i++)
+        {
+            _blockerObjsArray[i] = GameObject.Find("Blocker_" + (i + 1));
+        }
+        _finalPanel = GameObject.Find("Panel_Final");
+        _finalPanel.SetActive(false);
         AddDataToList();
         DropWasOk();
     }
@@ -67,7 +76,7 @@ public class MindMap_Ctrl : MonoBehaviour
             temp.ideaType = 0;
             temp.mainIdeaNumber = i + 1;
             _mmItemsList.Add(temp);
-            print(temp);
+            //            print(temp);
         }
         for (int i = 0; i < subIdeasArray1.Length; i++)
         {
@@ -149,6 +158,18 @@ public class MindMap_Ctrl : MonoBehaviour
             dmm.transform.localPosition = new Vector3(0, 0, 0);
             dmm.UpdateContent(_mmItemsList[0].internalText, _mmItemsList[0].ideaType, _mmItemsList[0].mainIdeaNumber);
             _mmItemsList.Remove(_mmItemsList[0]);
+        }
+        else
+        {
+            _finalPanel.SetActive(true);
+        }
+
+        if (_mmItemsList.Count < 10)
+        {
+            for (int i = 0; i < _blockerObjsArray.Length; i++)
+            {
+                _blockerObjsArray[i].SetActive(false);
+            }
         }
 
         switch (_actualMoment)
