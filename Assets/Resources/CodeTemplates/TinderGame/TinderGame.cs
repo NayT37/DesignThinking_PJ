@@ -92,9 +92,9 @@ public class TinderGame : MonoBehaviour
         intImg.sprite = _draggableImg;
         var dimension = NewObj.GetComponent<RectTransform>(); //This is to define the image size
         dimension.SetParent(_parentObject); //After find the parent, set the object as a child
-        dimension.sizeDelta = new Vector2(500, 200); //Give the size, the scale and the position
+        dimension.sizeDelta = new Vector2(560, 330); //Give the size, the scale and the position
         NewObj.transform.localScale = new Vector3(1, 1, 1);
-        NewObj.transform.localPosition = new Vector3(0, 0, 0);
+        NewObj.transform.localPosition = new Vector3(0, 62, 0);
         _displayedTinderImg = NewObj.GetComponent<TinderImage>(); //Store the TinderImage component into a local variable
         _displayedImg = NewObj.GetComponent<Image>(); //Store the Image component into a local variable
 
@@ -124,6 +124,7 @@ public class TinderGame : MonoBehaviour
         _displayedTxt = transform.Find("TextToDisplay").GetComponent<Text>();
         // GameObject.Find("TextToDisplay").GetComponent<Text>();
         _displayedTxt.transform.SetParent(NewObj.transform);
+        _displayedTxt.transform.localPosition = new Vector3(0, 47, 0);
     }
 
     public void UpdateDisplayedImage()

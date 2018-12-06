@@ -69,8 +69,9 @@ public class TinderImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void OnDrag(PointerEventData eventData)
     {
         float tempX = Input.mousePosition.x;
-        transform.position = new Vector3(Input.mousePosition.x, _yAxis - (Mathf.Abs(transform.localPosition.x) / 10), 0);
-        transform.eulerAngles = new Vector3(0, 0, (-transform.localPosition.x / 25));
+        // transform.position = new Vector3(Input.mousePosition.x, _yAxis - (Mathf.Abs(transform.localPosition.x) / 10), 0);
+        transform.position = new Vector3(Input.mousePosition.x, _yAxis, 0);
+        //transform.eulerAngles = new Vector3(0, 0, (-transform.localPosition.x / 25));
 
         answerAxis = transform.localPosition.x;
         if (answerAxis > 250)
