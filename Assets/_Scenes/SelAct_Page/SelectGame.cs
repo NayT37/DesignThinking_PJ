@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
 
-public class SelectGame : MonoBehaviour
+public class SelectGameBehaviour : MonoBehaviour
 {
     #region VARIABLES
     //Public Variables
