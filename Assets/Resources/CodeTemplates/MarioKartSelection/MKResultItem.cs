@@ -14,7 +14,7 @@ public class MKResultItem : MonoBehaviour
     public int[] _obtainedResultsArray;
     private int group1, group2, group3;
 
-    Animator evaluateHolder;
+
     private EvaluateHolder _evaluateHolder;
     private CasesHUD_Ctrl HUDCtrl;
     #endregion
@@ -50,7 +50,6 @@ public class MKResultItem : MonoBehaviour
         }
         group1 = 0; group2 = 3; group3 = 6;
         // UpdateObtainedResults();
-        evaluateHolder = GameObject.Find("EvaluateHolder").GetComponent<Animator>();
         _evaluateHolder = GameObject.Find("EvaluateHolder").GetComponent<EvaluateHolder>();
         HUDCtrl = GameObject.FindObjectOfType<CasesHUD_Ctrl>();
         ValidateAnswer();
