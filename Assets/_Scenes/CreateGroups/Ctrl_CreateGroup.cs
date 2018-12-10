@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class Ctrl_CreateGroup : MonoBehaviour {
 
@@ -12,18 +13,52 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 	public GameObject[] array_NumberPerson;
 	public Text numberPerson;
 	private int tmp = 0;
+	private InputField groupName;
+	private string saveData = "data.json";
 
 	void Start () {
 		TitleCurse.text = Main_Ctrl.instance.NameCourse;
+		groupName = GameObject.Find ("IFNameGroup").GetComponent<InputField> ();
 
 		for (int i = 0; i <= array_NumberPerson.Length; i++) {
 			array_NumberPerson [i].GetComponent<Button> ().interactable = true;
 		}
 	}
 
+
+
+	#region Finalizar
+	// Metodo finalizar, captura el nombre del los grupos y el No de personas en dichos grupos,
+	// toma todos los grupos que previamente hayan sido guardados. 
+
+
+
+
+	#endregion
+
+
+	#region añadir grupos
+	// Metodo guardar, toma el nombre proporcionado para el grupo y el número de estudiantes en el,
+	// limpia la interfaz para que el usuario digite el proximo grupo hasta que seleccione finalizar.
+
+
+
+
+
 	public void GoToSelect(){
-		StartCoroutine (SelectUser ());
-	}  
+
+		new {items = new [] {
+			new {name = "command" , index = "X"}, 
+		}};
+
+
+		Debug.Log ("Este es el nombre del grupo " + groupName.text);
+
+//		StartCoroutine (SelectUser ());
+	} 
+
+	#endregion
+ 
 
 	public void AddPerson(){
 		tmp += 1;
