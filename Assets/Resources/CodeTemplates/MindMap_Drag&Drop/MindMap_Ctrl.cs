@@ -150,7 +150,6 @@ public class MindMap_Ctrl : MonoBehaviour
 
     private void DropWasOk()
     {
-        print(_mmItemsList.Count);
         if (_mmItemsList.Count > 0)
         {
             Drag_MindMap dmm = (Drag_MindMap)Instantiate(_dragItem);

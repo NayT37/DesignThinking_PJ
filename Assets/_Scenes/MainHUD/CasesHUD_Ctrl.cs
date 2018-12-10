@@ -61,6 +61,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
     private int _actualMoment;
     public int _actualCase;
     private string _actualScn;
+    private Button _btnRA;
     #endregion
 
 
@@ -91,13 +92,15 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
         Text_Changed = GameObject.Find("NamePhase").GetComponent<Text>();
         Text_TitleCase = GameObject.Find("CaseTitle").GetComponent<Text>();
+
+        _btnRA = GameObject.Find("RA_Btn").GetComponent<Button>();
+        _btnRA.onClick.AddListener(ChangeRA);
     }
 
     public void CaseBtnClick(int caseValue)
     {
         if (_actualCase != caseValue)
         {
-
             try
             {
                 GameObject temp = GameObject.FindObjectOfType<EvaluateHolder>().gameObject;
@@ -105,16 +108,14 @@ public class CasesHUD_Ctrl : MonoBehaviour
             }
             catch (Exception e)
             {
-
+                print("Destroying Evaluate Holder");
             }
 
-
             _actualMoment = 1;
+
             switch (caseValue)
             {
                 case 1:
-                    print(caseValue + " was clicked. At " + _actualMoment + " moment.");
-
                     //Sprites for cases
                     Btn_momento1.sprite = Moment1_Selected;
                     Btn_momento2.sprite = Moment2_Null;
@@ -131,10 +132,8 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     //Texto Cambio de Nombre del caso
                     Text_TitleCase.text = "CASO1";
                     Text_Changed.text = "EMPATIZAR";
-
                     break;
                 case 2:
-                    print(caseValue + " was clicked. At " + _actualMoment + " moment.");
                     //Sprites for cases
                     Btn_momento2.sprite = Moment2_Selected;
                     Btn_momento1.sprite = Moment1_Null;
@@ -151,10 +150,8 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     //Texto Cambio de Nombre del caso
                     Text_TitleCase.text = "CASO2";
                     Text_Changed.text = "EMPATIZAR";
-
                     break;
                 case 3:
-                    print(caseValue + " was clicked. At " + _actualMoment + " moment.");
                     //Sprite for cases
                     Btn_momento3.sprite = Moment3_Selected;
                     Btn_momento1.sprite = Moment1_Null;
@@ -170,13 +167,13 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     //Texto Cambio de Nombre del caso
                     Text_TitleCase.text = "CASO3";
                     Text_Changed.text = "EMPATIZAR";
-
                     break;
             }
             _actualCase = caseValue;
             StartCoroutine(ChangeScene("C" + _actualCase + "_M" + _actualMoment, _actualScn));
         }
     }
+
     public void MomentBtnClick(int momentValue)
     {
         if (_actualMoment != momentValue)
@@ -197,6 +194,11 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     //				DOTween.Play ("3");
                     //Texto que indica el nombre de la fase
                     Text_Changed.text = "EMPATIZAR";
+                    try { Destroy(GameObject.Find("EvaluateHolder")); }
+                    catch (Exception e)
+                    {
+                        Debug.Log("There is no Evaluate Holder");
+                    }
                     break;
                 case 2:
                     //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
@@ -211,7 +213,11 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     //				DOTween.Play ("3");
                     //Texto que indica el nombre de la fase
                     Text_Changed.text = "DEFINIR";
-
+                    try { Destroy(GameObject.Find("EvaluateHolder")); }
+                    catch (Exception e)
+                    {
+                        Debug.Log("There is no Evaluate Holder");
+                    }
                     break;
                 case 3:
                     //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
@@ -226,6 +232,11 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     //				DOTween.Play ("3");
                     //Texto que indica el nombre de la fase
                     Text_Changed.text = "IDEAR";
+                    try { Destroy(GameObject.Find("EvaluateHolder")); }
+                    catch (Exception e)
+                    {
+                        Debug.Log("There is no Evaluate Holder");
+                    }
                     break;
                 case 4:
                     //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
@@ -242,6 +253,11 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     //				DOTween.Play ("3");
                     //Texto que indica el nombre de la fase
                     Text_Changed.text = "PROTOTIPAR";
+                    try { Destroy(GameObject.Find("EvaluateHolder")); }
+                    catch (Exception e)
+                    {
+                        Debug.Log("There is no Evaluate Holder");
+                    }
                     break;
                 case 5:
                     //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
@@ -267,6 +283,11 @@ public class CasesHUD_Ctrl : MonoBehaviour
     {
         SceneManager.LoadScene("SelectGame");
         //    StartCoroutine(Home());
+    }
+
+    private void ChangeRA()
+    {
+        VuforiaControl.instance.ChangeRAStatus();
     }
     #endregion
 

@@ -39,6 +39,11 @@ public class EvaluateHolder : MonoBehaviour
         }
     }
 
+    public void SetNewParent(Transform newParent)
+    {
+        transform.SetParent(newParent);
+    }
+
     public void SetCorrect(bool value)
     {
         _animator.SetBool("isCorrect", value);
