@@ -28,7 +28,7 @@ public class SearchMainCamera : MonoBehaviour
         catch (NullReferenceException e)
         {
             Debug.Log("-- Main Camera -- wasn't found, searching -- MainCamera -- instead.");
-            _myCanvas.worldCamera = GameObject.Find("Default Camera").GetComponent<Camera>();
+            _myCanvas.worldCamera = GameObject.Find("DefaultCamera").GetComponent<Camera>();
         }
 
     }

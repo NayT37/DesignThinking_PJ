@@ -11,8 +11,8 @@ public class Main_Ctrl : MonoBehaviour
     public static Main_Ctrl instance = null;
     //Private Variables
     private bool isPaused;
-	public string NameCourse;
-	public int PersonasPerGroup;
+    public string NameCourse;
+    public int PersonasPerGroup;
     #endregion
 
 
