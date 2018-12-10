@@ -33,14 +33,14 @@ public class Ctrl_SelectActivity : MonoBehaviour {
 	IEnumerator Back(){
 		SceneManager.LoadScene ("SelectGame", LoadSceneMode.Additive);
 		yield return null;
-		SceneManager.UnloadSceneAsync ("SelectActivity");
+		SceneManager.UnloadSceneAsync ("CreateCurso");
 	}
 
 	IEnumerator SaveNameCourse(){
 		Main_Ctrl.instance.NameCourse = NameCourse.text;
 		SceneManager.LoadScene ("CreateGroup", LoadSceneMode.Additive);
 		yield return null;
-		SceneManager.UnloadSceneAsync ("SelectActivity");
+		SceneManager.UnloadSceneAsync ("CreateCurso");
 	}
 
 }

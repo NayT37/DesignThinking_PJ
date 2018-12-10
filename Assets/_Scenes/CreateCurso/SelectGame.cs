@@ -37,7 +37,7 @@ public class SelectGame : MonoBehaviour
         StartCoroutine(WaitAnimationTime());
     }
 
-    public void NewGameBtnBhvr() { Main_Ctrl.instance.GoToScene("SelectActivity"); }
+	public void NewGameBtnBhvr() { Main_Ctrl.instance.GoToScene("CreateCurso"); }
 
     public void LoadGameBtnBhvr() { Main_Ctrl.instance.GoToScene("LoadGame"); }
     #endregion
