@@ -25,7 +25,6 @@ public class MKRotator : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     {
         _3dModel = GameObject.Find("DisplayedImg").transform.GetChild(0);
         _originalModelPos = _3dModel.position;
-        print(_3dModel.localEulerAngles.x);
     }
 
 

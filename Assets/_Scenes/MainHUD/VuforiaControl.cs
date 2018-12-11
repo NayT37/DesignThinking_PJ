@@ -5,41 +5,78 @@ using Vuforia;
 
 public class VuforiaControl : MonoBehaviour
 {
-
-    private bool vuforiaCtrl;
-    private Camera _default, _arCam;
+    private Camera _mainCam, _defaultCam;
+    private AudioListener _mainCamAudio;
+    public static VuforiaControl instance = null;
+    private bool _isActiveRA;
+    private EvaluateHolder _evaluateHolder;
+    private Transform _testMarker;
+    private Vector3 tempPos, tempSize;
 
     void Awake()
     {
-        DontDestroyOnLoad(this);
-        _default = GameObject.Find("DefaultCamera").GetComponent<Camera>();
-        _arCam = GameObject.Find("Main Camera").GetComponent<Camera>();
+        //Check if instance already exists
+        if (instance == null)
+            //if not, set instance to this
+            instance = this;
+        //If instance already exists and it's not this:
+        else if (instance != this)
+            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
+            Destroy(gameObject);
+        //Sets this to not be destroyed when reloading scene
+        DontDestroyOnLoad(gameObject);
     }
-    void Start()
+    private void Start()
     {
-        /*         vuforiaCtrl = false;
-                VuforiaBehaviour.Instance.enabled = vuforiaCtrl;
-                _default.gameObject.SetActive(false); */
+        _mainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
+        _defaultCam = GameObject.Find("DefaultCamera").GetComponent<Camera>();
+        _mainCamAudio = _mainCam.gameObject.GetComponent<AudioListener>();
+        _mainCamAudio.enabled = false;
+        _isActiveRA = false;
+        _testMarker = GameObject.Find("TestMarker").GetComponent<Transform>();
         StartCoroutine(WaitTime());
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (_default.gameObject.activeInHierarchy) { _default.gameObject.SetActive(true); _arCam.gameObject.SetActive(false); }
-            vuforiaCtrl = !vuforiaCtrl;
-            _default.gameObject.SetActive(!vuforiaCtrl);
-            _arCam.gameObject.SetActive(vuforiaCtrl);
-            //    VuforiaBehaviour.Instance.enabled = vuforiaCtrl;
+            _mainCamAudio.enabled = true;
+            _defaultCam.gameObject.SetActive(false);
+        }
+    }
+
+    public void ChangeRAStatus()
+    {
+        _isActiveRA = !_isActiveRA;
+        _evaluateHolder = GameObject.FindObjectOfType<EvaluateHolder>();
+        if (_isActiveRA)
+        {
+            tempPos = _evaluateHolder.transform.localPosition;
+            tempSize = _evaluateHolder.transform.localScale;
+            print(tempPos);
+            print(tempSize);
+
+            _mainCamAudio.enabled = true;
+            _defaultCam.gameObject.SetActive(false);
+            _evaluateHolder.SetNewParent(_testMarker);
+            _evaluateHolder.transform.localPosition = new Vector3(0, 0, 0);
+            _evaluateHolder.transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
+        }
+        else
+        {
+            _mainCamAudio.enabled = false;
+            _defaultCam.gameObject.SetActive(true);
+            _evaluateHolder.SetNewParent(null);
+            _evaluateHolder.transform.localPosition = tempPos;
+            _evaluateHolder.transform.localScale = tempSize;
         }
     }
 
     private IEnumerator WaitTime()
     {
         yield return new WaitForSeconds(2);
-        //  _default.gameObject.SetActive(true);
-        //   _arCam.gameObject.SetActive(false);
+        _mainCam.transform.localPosition = new Vector3(-800, -15, 0);
     }
 
 }
