@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 using Vuforia;
+using System;
 
 public class VuforiaControl : MonoBehaviour
 {
@@ -54,14 +56,14 @@ public class VuforiaControl : MonoBehaviour
         {
             tempPos = _evaluateHolder.transform.localPosition;
             tempSize = _evaluateHolder.transform.localScale;
-            print(tempPos);
-            print(tempSize);
-
+            _evaluateHolder.transform.localPosition = new Vector3(0, 0, 0);
             _mainCamAudio.enabled = true;
             _defaultCam.gameObject.SetActive(false);
             _evaluateHolder.SetNewParent(_testMarker);
             _evaluateHolder.transform.localPosition = new Vector3(0, 0, 0);
             _evaluateHolder.transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
+
+
         }
         else
         {
@@ -70,7 +72,27 @@ public class VuforiaControl : MonoBehaviour
             _evaluateHolder.SetNewParent(null);
             _evaluateHolder.transform.localPosition = tempPos;
             _evaluateHolder.transform.localScale = tempSize;
+
+            var rendererComponents = _evaluateHolder.GetComponentsInChildren<Renderer>(true);
+            foreach (var component in rendererComponents)
+            {
+                component.enabled = true;
+            }
         }
+    }
+
+    public void RestartModelPos()
+    {
+        try
+        {
+            _mainCamAudio.enabled = false;
+            _defaultCam.gameObject.SetActive(true);
+            _evaluateHolder.SetNewParent(null);
+            _evaluateHolder.transform.localPosition = tempPos;
+            _evaluateHolder.transform.localScale = tempSize;
+            XRSettings.enabled = false;
+        }
+        catch (Exception e) { }
     }
 
     private IEnumerator WaitTime()
