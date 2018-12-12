@@ -63,7 +63,11 @@ public class VuforiaControl : MonoBehaviour
             _evaluateHolder.transform.localPosition = new Vector3(0, 0, 0);
             _evaluateHolder.transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
 
-
+            var rendererComponents = _evaluateHolder.GetComponentsInChildren<Renderer>(true);
+            foreach (var component in rendererComponents)
+            {
+                component.enabled = false;
+            }
         }
         else
         {
@@ -93,6 +97,13 @@ public class VuforiaControl : MonoBehaviour
             XRSettings.enabled = false;
         }
         catch (Exception e) { }
+    }
+
+    public void ResetRA()
+    {
+        _isActiveRA = false;
+        _mainCamAudio.enabled = false;
+        _defaultCam.gameObject.SetActive(true);
     }
 
     private IEnumerator WaitTime()

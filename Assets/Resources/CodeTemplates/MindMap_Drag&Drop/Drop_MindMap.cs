@@ -49,6 +49,7 @@ public class Drop_MindMap : DropItem
             _mmDragItem = item.GetComponent<Drag_MindMap>();
             if (_mmDragItem.ideaType == expectedIdeaType)
             {
+                admitDrop = false;
                 _mmDragItem.canBeDragged = false;
                 OnDropFinish();
             }

@@ -99,6 +99,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
     public void CaseBtnClick(int caseValue)
     {
+        VuforiaControl.instance.ResetRA();
         if (_actualCase != caseValue)
         {
             try
