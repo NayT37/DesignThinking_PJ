@@ -14,11 +14,18 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 	public Text numberPerson;
 	private int tmp = 0;
 	private InputField groupName;
+	private GameObject saveCheck;
+	private GameObject inputUserGroup;
 	private string saveData = "data.json";
 
 	void Start () {
 		TitleCurse.text = Main_Ctrl.instance.NameCourse;
 		groupName = GameObject.Find ("IFNameGroup").GetComponent<InputField> ();
+
+
+		saveCheck = GameObject.Find ("CuadroShowSave");
+		saveCheck.SetActive (false);
+		inputUserGroup = GameObject.Find ("CuadroMenor");
 
 		for (int i = 0; i <= array_NumberPerson.Length; i++) {
 			array_NumberPerson [i].GetComponent<Button> ().interactable = true;
@@ -46,6 +53,19 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 
 
 	public void GoToSelect(){
+
+//		if (groupName.text.Equals ("") && numberPerson.text.Equals("0")) {
+//			
+//		} else {
+//			//Activar gameobject que contiene el check
+//			saveCheck.SetActive (true);
+//			inputUserGroup.SetActive (false);
+//		}
+
+		saveCheck.SetActive (true);
+		inputUserGroup.SetActive (false);
+
+//		StartCoroutine (waitSecondsForchangeSquad ());
 
 		new {items = new [] {
 			new {name = "command" , index = "X"}, 
@@ -90,5 +110,9 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 		yield return null;
 		SceneManager.UnloadSceneAsync ("CreateGroup");
 	}
+
+//	IEnumerator waitSecondsForchangeSquad(){
+//		yield return new WaitForSeconds (saveCheck.SetActive(true));
+//	}
 
 }
