@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class Ctrl_CreateGroup : MonoBehaviour {
 
@@ -16,7 +17,6 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 	private InputField groupName;
 	private GameObject saveCheck;
 	private GameObject inputUserGroup;
-	private string saveData = "data.json";
 
 	void Start () {
 		TitleCurse.text = Main_Ctrl.instance.NameCourse;
@@ -26,6 +26,8 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 		saveCheck = GameObject.Find ("CuadroShowSave");
 		saveCheck.SetActive (false);
 		inputUserGroup = GameObject.Find ("CuadroMenor");
+
+
 
 		for (int i = 0; i <= array_NumberPerson.Length; i++) {
 			array_NumberPerson [i].GetComponent<Button> ().interactable = true;
@@ -37,9 +39,9 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 	#region Finalizar
 	// Metodo finalizar, captura el nombre del los grupos y el No de personas en dichos grupos,
 	// toma todos los grupos que previamente hayan sido guardados. 
-
-
-
+	public void GotoScene(){
+		StartCoroutine (GoScene());
+	} 
 
 	#endregion
 
@@ -47,34 +49,14 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 	#region añadir grupos
 	// Metodo guardar, toma el nombre proporcionado para el grupo y el número de estudiantes en el,
 	// limpia la interfaz para que el usuario digite el proximo grupo hasta que seleccione finalizar.
+	public void SaveDataGroup(){
 
-
-
-
-
-	public void GoToSelect(){
-
-//		if (groupName.text.Equals ("") && numberPerson.text.Equals("0")) {
-//			
-//		} else {
-//			//Activar gameobject que contiene el check
-//			saveCheck.SetActive (true);
-//			inputUserGroup.SetActive (false);
-//		}
-
-		saveCheck.SetActive (true);
-		inputUserGroup.SetActive (false);
-
-//		StartCoroutine (waitSecondsForchangeSquad ());
-
-		new {items = new [] {
-			new {name = "command" , index = "X"}, 
-		}};
-
-
+		if (groupName.text.Equals ("") && numberPerson.text.Equals("0")) {
+			DOTween.Play ("6");
+		} else {
+			StartCoroutine (waitSecondsForchangeSquad ());
+		}
 		Debug.Log ("Este es el nombre del grupo " + groupName.text);
-
-//		StartCoroutine (SelectUser ());
 	} 
 
 	#endregion
@@ -102,17 +84,37 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 //			array_NumberPerson[tmp].GetComponent<Button> ().interactable = false;
 			numberPerson.GetComponent<Button> ().interactable = false;
 		}
-
 	}
 
-	IEnumerator SelectUser(){
+	public void backToScene(){
+		StartCoroutine (backScene());
+	} 
+
+	/* Corrutina cambio de escena */
+	IEnumerator GoScene(){
 		SceneManager.LoadScene ("ChoiseUser", LoadSceneMode.Additive);
 		yield return null;
 		SceneManager.UnloadSceneAsync ("CreateGroup");
 	}
 
-//	IEnumerator waitSecondsForchangeSquad(){
-//		yield return new WaitForSeconds (saveCheck.SetActive(true));
-//	}
+	IEnumerator backScene(){
+		SceneManager.LoadScene ("CreateCurso", LoadSceneMode.Additive);
+		yield return null;
+		SceneManager.UnloadSceneAsync ("CreateGroup");
+	}
+
+	/* Corrutina para el cambio de gameobject sobre el check */
+	IEnumerator waitSecondsForchangeSquad(){
+		//Activar gameobject que contiene el check
+		saveCheck.SetActive (true);
+		inputUserGroup.SetActive (false);
+		yield return new WaitForSeconds (1.2f);
+		inputUserGroup.SetActive (true);
+		saveCheck.SetActive (false);
+
+		//Setiar los valores en predeterminado para un nuevo grupo
+		groupName.text = "";
+		numberPerson.text = "0";
+	}
 
 }

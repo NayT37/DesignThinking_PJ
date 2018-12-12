@@ -313,6 +313,11 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 561935665}
+    - target: {fileID: 114211190220149020, guid: cc85beb3442ab49d284ab6121de99f6e,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: goToScene
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc85beb3442ab49d284ab6121de99f6e, type: 2}
   m_IsPrefabParent: 0
@@ -736,6 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b29a8ade4a5d8407d994d40b5c64fae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NameCourse: {fileID: 1518123624}
 --- !u!224 &561935666
 RectTransform:
   m_ObjectHideFlags: 0
