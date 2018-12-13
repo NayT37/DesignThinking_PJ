@@ -2,22 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR;
 
 
-public class Ctrl_MainScene : MonoBehaviour {
+public class Ctrl_MainScene : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	public void GoUser(){
-		StartCoroutine (ResgisterUser ());
-	}
+    // Use this for initialization
+    void Start()
+    {
+        XRSettings.enabled = false;
+    }
 
-	IEnumerator ResgisterUser(){
-		SceneManager.LoadScene ("RegisterUser", LoadSceneMode.Additive);
-		yield return null;
-		SceneManager.UnloadSceneAsync ("Main_Scene");
-	}
+    public void GoUser()
+    {
+        StartCoroutine(ResgisterUser());
+    }
+
+    IEnumerator ResgisterUser()
+    {
+        SceneManager.LoadScene("RegisterUser", LoadSceneMode.Additive);
+        yield return null;
+        SceneManager.UnloadSceneAsync("Main_Scene");
+    }
 }

@@ -62,7 +62,7 @@ public class VuforiaControl : MonoBehaviour
             _evaluateHolder.SetNewParent(_testMarker);
             _evaluateHolder.transform.localPosition = new Vector3(0, 0, 0);
             _evaluateHolder.transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
-
+            XRSettings.enabled = true;
             var rendererComponents = _evaluateHolder.GetComponentsInChildren<Renderer>(true);
             foreach (var component in rendererComponents)
             {
@@ -76,7 +76,7 @@ public class VuforiaControl : MonoBehaviour
             _evaluateHolder.SetNewParent(null);
             _evaluateHolder.transform.localPosition = tempPos;
             _evaluateHolder.transform.localScale = tempSize;
-
+            XRSettings.enabled = false;
             var rendererComponents = _evaluateHolder.GetComponentsInChildren<Renderer>(true);
             foreach (var component in rendererComponents)
             {
