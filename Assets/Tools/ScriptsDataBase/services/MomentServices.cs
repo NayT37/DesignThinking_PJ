@@ -52,6 +52,7 @@ public class MomentServices  {
 
 		int result = _connection.Insert (new_m);
 
+		Debug.Log(new_m);
 		return valueToReturn;
 		
 	}
@@ -106,7 +107,14 @@ public class MomentServices  {
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
 	public int DeleteMoment(Moment momentToDelete){
-		return _connection.Delete(momentToDelete);
+		int result = _connection.Delete(momentToDelete);
+
+		if (result!=0)
+			Debug.Log("Se borró el momento correctamente");
+		else
+			Debug.Log("No se borró el momento");
+		
+		return result;
 	}
 
 	/// <summary>

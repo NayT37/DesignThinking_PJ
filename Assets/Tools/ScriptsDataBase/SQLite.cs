@@ -1552,6 +1552,30 @@ namespace SQLite4Unity3d
 			return Execute (query);
 		}
 
+		/// <summary>
+		/// Deletes all the objects from the specified table with specified identifier.
+		/// WARNING WARNING: Let me repeat. It deletes ALL the objects from the
+		/// specified table. Do you really want to do that?
+		/// </summary>
+		/// <param name="rowToDelete">
+		/// The name of row to realize to the search of the elements to delete.
+		/// </param>
+		/// <param name="isToRow">
+		/// Value of the row to delete.
+		/// </param>
+		/// <returns>
+		/// The number of objects deleted.
+		/// </returns>
+		/// <typeparam name='T'>
+		/// The type of objects to delete.
+		/// </typeparam>
+		public int DeleteAll<T> (string rowToDelete, string idToRow)
+		{
+			var map = GetMapping (typeof (T));
+			var query = string.Format("delete from \"{0}\" where \"{1}\" = ?", map.TableName, rowToDelete);
+			return Execute (query, idToRow);
+		}
+
 		~SQLiteConnection ()
 		{
 			Dispose (false);

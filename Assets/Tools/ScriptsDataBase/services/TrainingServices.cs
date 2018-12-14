@@ -61,7 +61,7 @@ public class TrainingServices  {
 				//Creation of the cases
 				counter+=_caseServices.Createcase(_arraycasesname[i], new_t.id);
 			}
- 
+			Debug.Log(new_t);
 			valueToReturn = counter;
 
 		}else{
@@ -122,8 +122,28 @@ public class TrainingServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
-	public int DeleteCourse(Training trainingToDelete){
-		return _connection.Delete(trainingToDelete);
+	public int DeleteTraining(Training trainingToDelete){
+
+		//All the cases belonging to the training that will be deleted are obtained.
+		var cases = _caseServices.GetCases(trainingToDelete.id);
+
+		int result = _connection.Delete(trainingToDelete);
+		int valueToReturn = 0;
+
+		//If the elimination of the training is correct, then the cases corresponding to that training are eliminated.
+		if (result!=0)
+		{
+			foreach (var _case in cases)
+			{
+				valueToReturn += _caseServices.DeleteCase(_case);
+			}
+			Debug.Log("Se borró el entrenamiento correctamente");
+		} else {
+			valueToReturn = 0;
+			Debug.Log("No se borró el entrenamiento");
+		}
+
+		return valueToReturn;
 	}
 
 	/// <summary>

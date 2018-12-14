@@ -82,7 +82,7 @@ public class GroupServices  {
 
 		//The identifier of the course loaded is obtained to be able to pass 
 		//it as an attribute in the new group that will be created
-		int courseid = DataBaseParametersCtrl.Ctrl._courseLoaded.id;
+		int courseid = studentscounter;//DataBaseParametersCtrl.Ctrl._courseLoaded.id;
 
 		//Get the current date to create the new group
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -109,9 +109,11 @@ public class GroupServices  {
 			if (result!=0){
 				int value =_trainingServices.CreateTraining(new_g.id);
 				valueToReturn = value;
+				Debug.Log(new_g);
 			}
 		} else{
 			valueToReturn = 0;
+			Debug.Log("El grupo ya existe");
 		}
 		//End-Validation that the group that will be created does not exist
 
@@ -190,7 +192,27 @@ public class GroupServices  {
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
 	public int DeleteGroup(Group groupToDelete){
-		return _connection.Delete(groupToDelete);
+
+		//All the trainings belonging to the group that will be deleted are obtained.
+		var trainings = _trainingServices.GetTrainings(groupToDelete.id);
+
+		int result = _connection.Delete(groupToDelete);
+		int valueToReturn = 0;
+
+		//If the elimination of the group is correct, then the trainings corresponding to that group are eliminated.
+		if (result!=0)
+		{
+			foreach (var training in trainings)
+			{
+				valueToReturn += _trainingServices.DeleteTraining(training);
+			}
+			Debug.Log("Se borró el grupo correctamente");
+		} else {
+			valueToReturn = 0;
+			Debug.Log("No se borró el grupo");
+		}
+
+		return valueToReturn;
 	}
 
 	/// <summary>
