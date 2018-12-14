@@ -16,7 +16,7 @@ public class CourseServices  {
 				name = "null",
 				percentage = 0,
 				creationDate = "null",
-				teacherIdentityCard = 0,
+				teacherIdentityCard = "0",
 				lastUpdate = "null"
 		};
 	
@@ -39,21 +39,21 @@ public class CourseServices  {
 				name = "Course-1",
 				percentage = 0,
 				creationDate = date,
-				teacherIdentityCard = 0,
+				teacherIdentityCard = "0",
 				lastUpdate = date
 			},
 			new Course{
 				name = "Course-2",
 				percentage = 0,
 				creationDate = date,
-				teacherIdentityCard = 0,
+				teacherIdentityCard = "0",
 				lastUpdate = date
 			},
 			new Course{
 				name = "Course-3",
 				percentage = 0,
 				creationDate = date,
-				teacherIdentityCard = 0,
+				teacherIdentityCard = "0",
 				lastUpdate = date
 			}
 		});

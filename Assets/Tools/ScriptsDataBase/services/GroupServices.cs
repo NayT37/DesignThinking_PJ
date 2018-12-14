@@ -11,6 +11,8 @@ public class GroupServices  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
+	private TrainingServices _trainingServices = new TrainingServices();
+
 	private Group _nullGroup = new Group{
 				id = 0,
 				name = "null",
@@ -76,7 +78,7 @@ public class GroupServices  {
 	/// An object of type group with all the data of the group that was created.
 	/// </returns>
 
-	public Group CreateGroup(string groupname, int studentscounter){
+	public int CreateGroup(string groupname, int studentscounter){
 
 		//The identifier of the course loaded is obtained to be able to pass 
 		//it as an attribute in the new group that will be created
@@ -84,6 +86,8 @@ public class GroupServices  {
 
 		//Get the current date to create the new group
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		int valueToReturn = 0;
 
 		//Creation of the new group
 		var new_g = new Group{
@@ -99,12 +103,19 @@ public class GroupServices  {
 
 		if ((groupValidation.name).Equals("null"))
 		{
-			_connection.Insert (new_g);
-			return new_g;
-		} else {
-			return _nullGroup;
+			int result = _connection.Insert (new_g);
+
+			//If the creation of the group is correct, then the training corresponding to that group is created.
+			if (result!=0){
+				int value =_trainingServices.CreateTraining(new_g.id);
+				valueToReturn = value;
+			}
+		} else{
+			valueToReturn = 0;
 		}
 		//End-Validation that the group that will be created does not exist
+
+		return valueToReturn;
 	}
 
 	/// <summary>

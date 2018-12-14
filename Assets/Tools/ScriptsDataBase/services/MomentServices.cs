@@ -25,25 +25,34 @@ public class MomentServices  {
 	/// <summary>
 	/// Description to method to create a moment
 	/// </summary>
-	/// <param name="moment">
-	/// Attribute that contains an object of type moment with all the data of the moment that will be created.
+	/// <param name="momentname">
+	/// Attribute that contains an string with the name of the moment that will be created.
+	/// </param>
+	/// /// <param name="caseid">
+	/// Attribute that contains case identifier to the moment that will be created.
 	/// </param>
 	/// <returns>
-	/// An object of type moment with all the data of the moment that was created.
+	/// An integer response of the query (0 = the object was not created correctly. !0 = the object was created correctly)
 	/// </returns>
 
-	public Moment Createcase(Moment moment){
+	public int CreateMoment(string momentname, int caseid){
 
-		//var trainingValidation = GetTrainingNamed(moment.name, moment.caseId);
+		int valueToReturn = 0;
 
-		// if ((trainingValidation.name).Equals("null"))
-		// {
-			_connection.Insert (moment);
-			return moment;
-		// } else {
-		// 	return _nullTraining;
-		// }
-		
+		//Get the current date to create the new group
+		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		 var new_m = new Moment{
+				name = momentname,
+				percentage = 0,
+				creationDate = date,
+				caseId = caseid,
+				lastUpdate = date
+		};
+
+		int result = _connection.Insert (new_m);
+
+		return valueToReturn;
 		
 	}
 
