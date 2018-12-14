@@ -20,20 +20,29 @@ public class TrainingServices  {
 				lastUpdate = "null"
 		};
 	
+	private CaseServices _caseServices = new CaseServices();
+
+	private string[] _arraycasesname = new string[]{"case_1","case_2","case_3"};
 
 
 	/// <summary>
 	/// Description to method to create a training
 	/// </summary>
+	/// <param name="groupid">
+	/// Attribute that contains the identifier group to pass as parameter of the new training that will be created.
+	/// </param>
 	/// <returns>
-	/// An object of type training with all the data of the training that was created.
+	/// An integer response of the query (0 = the training was not created correctly. 15 = the training was created correctly and its respective cases and moments too.!-- [>=100] = the training was created correctlly but some case was not created and so its moments neither)
 	/// </returns>
 
-	public Training CreateTraining(){
-
-		int groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
+	public int CreateTraining(int groupid){
+		
+		//Get the current date to create the new group
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
+		int valueToReturn = 0;
+
+		int counter = 0;
 		var new_t = new Training{
 				name = "Training",
 				percentage = 0,
@@ -41,8 +50,26 @@ public class TrainingServices  {
 				groupId = groupid,
 				lastUpdate = date
 		};
-			_connection.Insert (new_t);
-			return new_t;
+		
+		int result = _connection.Insert (new_t);
+
+		//If the creation of the training is correct, then the cases corresponding to that training are created.
+		if (result!=0){
+			
+			for (int i = 0; i < 3; i++)
+			{
+				//Creation of the cases
+				counter+=_caseServices.Createcase(_arraycasesname[i], new_t.id);
+			}
+ 
+			valueToReturn = counter;
+
+		}else{
+			valueToReturn = 0;
+		}
+		
+
+		return valueToReturn;
 	
 	}
 

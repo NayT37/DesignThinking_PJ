@@ -10,7 +10,10 @@ using System.Collections.Generic;
 public class CaseServices  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
+	
+	private MomentServices _momentServices = new MomentServices();
 
+	private string[] arraymomentsname = new string[]{"moment_1","moment_2","moment_3","moment_4","moment_5"};
 	private Case _nullCase = new Case{
 				id = 0,
 				name = "null",
@@ -25,26 +28,47 @@ public class CaseServices  {
 	/// <summary>
 	/// Description to method to create a case
 	/// </summary>
-	/// <param name="case">
-	/// Attribute that contains an object of type case with all the data of the case that will be created.
+	/// <param name="casename">
+	/// Attribute that contains an string with the name of the case that will be created.
+	/// </param>
+	/// <param name="trainingid">
+	/// Attribute that contains an string with the name of the case that will be created.
 	/// </param>
 	/// <returns>
-	/// An object of type case with all the data of the case that was created.
+	/// An integer response of the query (0 = the object was not created correctly. !0 = the object was created correctly)
 	/// </returns>
 
-	public Case Createcase(Case _case){
+	public int Createcase(string casename, int trainingid){
 
-		//var trainingValidation = GetTrainingNamed(case.name, case.trainingId);
+		//Get the current date to create the new group
+		string date  = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
-		// if ((trainingValidation.name).Equals("null"))
-		// {
-			_connection.Insert (_case);
-			return _case;
-		// } else {
-		// 	return _nullTraining;
-		// }
-		
-		
+		int valueToReturn = 0;
+
+		var new_c = new Case{
+				name = casename,
+				percentage = 0,
+				creationDate = date,
+				trainingId = trainingid,
+				lastUpdate = date
+		};		
+
+		int result = _connection.Insert (new_c);
+
+		//If the creation of the case is correct, then the moments corresponding to that case are created.
+		if (result!=0)
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				//Creation of the moments
+				valueToReturn += _momentServices.CreateMoment(arraymomentsname[i], new_c.id);
+			}
+		} else{
+				valueToReturn = 100;
+		}
+
+		return valueToReturn;
+	
 	}
 
 	/// <summary>
@@ -106,7 +130,7 @@ public class CaseServices  {
 	/// <param name="caseToUpdate">
 	/// An object of type case that contain the case that will be updated.
 	/// <returns>
-	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
+	/// An integer response of the query (0 = the object was not updated correctly. !0 = the object was updated correctly)
 	/// </returns>
 	public int UpdateCase(Case caseToUpdate){
 		return _connection.Update(caseToUpdate, caseToUpdate.GetType());
