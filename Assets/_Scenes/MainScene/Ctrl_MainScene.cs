@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.XR;
 
 
 public class Ctrl_MainScene : MonoBehaviour
@@ -11,7 +10,7 @@ public class Ctrl_MainScene : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        XRSettings.enabled = false;
+
     }
 
     public void GoUser()

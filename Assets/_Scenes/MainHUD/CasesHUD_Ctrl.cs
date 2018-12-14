@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.UI;
 using System;
+using UnityEngine.XR;
 
 public class CasesHUD_Ctrl : MonoBehaviour
 {
@@ -75,6 +76,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate()
     {
+        XRSettings.enabled = false;
         _actualMoment = 1;
         _actualCase = 1;
         _actualScn = "";
@@ -182,6 +184,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
             switch (momentValue)
             {
                 case 1:
+                    VuforiaControl.instance.ResetRA();
                     //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
                     StartCoroutine(ChangeScene("C" + _actualCase + "_M" + momentValue, _actualScn));
 
@@ -202,6 +205,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     }
                     break;
                 case 2:
+                    VuforiaControl.instance.ResetRA();
                     //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
                     StartCoroutine(ChangeScene("C" + _actualCase + "_M" + momentValue, _actualScn));
                     //Sprites for moments
@@ -221,6 +225,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     }
                     break;
                 case 3:
+                    VuforiaControl.instance.ResetRA();
                     //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
                     StartCoroutine(ChangeScene("C" + _actualCase + "_M" + momentValue, _actualScn));
                     //Sprites for moments
@@ -240,6 +245,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     }
                     break;
                 case 4:
+                    VuforiaControl.instance.ResetRA();
                     //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
                     StartCoroutine(ChangeScene("C" + _actualCase + "_M" + momentValue, _actualScn));
 
