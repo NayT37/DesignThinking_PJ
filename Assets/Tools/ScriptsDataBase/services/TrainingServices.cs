@@ -93,6 +93,25 @@ public class TrainingServices  {
 	}
 
 	/// <summary>
+	/// Description to method Get group that contain in the DataBaseParametersCtrl.!-- _trainingLoaded
+	/// </summary>
+	/// <param name="trainingid">
+	/// integer to define the identifier of the training that will be searched.
+	/// <returns>
+	/// <returns>
+	/// An object of type group with all the data of the group that was searched and if doesnt exist so return an empty group.
+	/// </returns>
+	public Training GetTrainingId(int trainingid){
+		
+		var t = _connection.Table<Training>().Where(x => x.id == trainingid).FirstOrDefault();
+
+		if (t == null)
+			return _nullTraining;	
+		else 
+			return t;
+	}
+
+	/// <summary>
 	/// Description of the method to obtain all the trainings of a specific group
 	/// </summary>
 	/// <param name="groupId">
@@ -149,12 +168,39 @@ public class TrainingServices  {
 	/// <summary>
 	/// Description of the method to update a training
 	/// </summary>
-	/// <param name="trainingToUpdate">
-	/// An object of type training that contain the training that will be updated.
+	/// <param name="trainingid">
+	/// Identifier of the training that will be updated.
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateCourse(Training trainingToUpdate){
+	public int UpdateTraining(int trainingid){
+
+		var _groupServices = new GroupServices();
+
+		var trainingToUpdate = GetTrainingId(trainingid);
+		var cases = _caseServices.GetCases(trainingid);
+		int valueToReturn = 0;
+		int average = 0;
+		
+		if (trainingToUpdate.id!=0)
+		{
+			foreach (var _case in cases)
+			{
+				average += _case.percentage;
+			}
+
+			average = average/3;
+
+			trainingToUpdate.percentage = average;
+			trainingToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+			valueToReturn = _connection.Update(trainingToUpdate, trainingToUpdate.GetType());
+
+			if (valueToReturn!=0)
+			{
+				_groupServices.UpdateGroup(trainingToUpdate.groupId, average);
+			}
+		}
 		return _connection.Update(trainingToUpdate, trainingToUpdate.GetType());
 	}
 }

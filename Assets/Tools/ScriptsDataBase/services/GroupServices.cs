@@ -162,6 +162,25 @@ public class GroupServices  {
 	}
 
 	/// <summary>
+	/// Description to method Get group that contain in the DataBaseParametersCtrl.!-- _trainingLoaded
+	/// </summary>
+	/// <param name="groupid">
+	/// integer to define the identifier of the group that will be searched.
+	/// <returns>
+	/// <returns>
+	/// An object of type group with all the data of the group that was searched and if doesnt exist so return an empty group.
+	/// </returns>
+	public Group GetGroupId(int groupid){
+		
+		var g = _connection.Table<Group>().Where(x => x.id == groupid).FirstOrDefault();
+
+		if (g == null)
+			return _nullGroup;	
+		else 
+			return g;
+	}
+
+	/// <summary>
 	/// Description of the method to obtain all the groups of a specific course
 	/// </summary>
 	/// <param name="courseId">
@@ -234,5 +253,28 @@ public class GroupServices  {
 		groupToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
 		
 		return _connection.Update(groupToUpdate, groupToUpdate.GetType());
+	}
+
+	/// <summary>
+	/// Description of the method to update a group percentage
+	/// </summary>
+	/// <param name="groupid">
+	/// An integer that contain the identifier of the group that will be updated.
+	/// <param name="newpercentage">
+	/// An integer that contain the new percentage of the group that will be updated.
+	/// <returns>
+	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
+	/// </returns>
+	public int UpdateGroup(int groupid, int newpercentage){
+		
+		//Todavía falta agregar el proyecto y lo que respecta a eso!
+		//Aunque queda la duda de si es necesario que el grupo tenga porcentaje
+		var groupToUpdate = GetGroupId(groupid);
+		groupToUpdate.percentage = newpercentage;
+		groupToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+		
+		int result = _connection.Update(groupToUpdate, groupToUpdate.GetType());
+
+		return result;
 	}
 }
