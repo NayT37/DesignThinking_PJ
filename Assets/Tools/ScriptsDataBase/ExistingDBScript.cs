@@ -27,7 +27,6 @@ public class ExistingDBScript : MonoBehaviour {
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
 		var g = new Group{
-				id = 7,
 				name = "Jojoa-Group-7-Updated",
 				creationDate = "2018-12-6 15:00:00",
 				studentsCounter = 5,
@@ -35,24 +34,23 @@ public class ExistingDBScript : MonoBehaviour {
 				lastUpdate = date,
 		};
 
-		g.name = "Jojoa-Group-00-Created";
+		g.name = "Jojoa-Group-100-Created";
 
 		DataBaseParametersCtrl.Ctrl._groupLoaded = g;
 		
-		// var group = _groupServices.CreateGroup(g);
-		// ToConsole(group);
+		//var group = _groupServices.CreateGroup(g.name, g.courseId);
+		//ToConsole(group);
 
-		// var result = _groupServices.GetGroupNamed();
-		// ToConsole(result);
+		var result = _groupServices.GetGroupNamed(g.name, g.courseId);
+		ToConsole(result);
 
-		// int result = _groupServices.DeleteGroup(g);
-		// Debug.Log(result);
+		_groupServices.DeleteGroup(result);
 
 		// int result = _groupServices.UpdateGroup(g);
 		// Debug.Log(result);
 		
-		var groups = _groupServices.GetGroups(2);
-		ToConsole(groups);
+		//var groups = _groupServices.GetGroups(2);
+		//ToConsole(groups);
 
 	}
 

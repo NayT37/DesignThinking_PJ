@@ -63,6 +63,7 @@ public class CaseServices  {
 				//Creation of the moments
 				valueToReturn += _momentServices.CreateMoment(arraymomentsname[i], new_c.id);
 			}
+			Debug.Log(new_c);
 		} else{
 				valueToReturn = 100;
 		}
@@ -121,6 +122,27 @@ public class CaseServices  {
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
 	public int DeleteCase(Case caseToDelete){
+
+		// All the moments belonging to the case that will be deleted are obtained.
+		var moments = _momentServices.GetMoments(caseToDelete.id);
+
+		int result = _connection.Delete(caseToDelete);
+		int valueToReturn = 0;
+
+		//If the elimination of the case is correct, then the moments corresponding to that case are eliminated.
+		if (result!=0)
+		{
+			foreach (var moment in moments)
+			{
+				valueToReturn += _momentServices.DeleteMoment(moment);
+			}
+			Debug.Log("Se borró el caso correctamente");
+		} else {
+			valueToReturn = 0;
+			Debug.Log("No se borró el caso");
+		}
+
+		return valueToReturn;
 		return _connection.Delete(caseToDelete);
 	}
 
