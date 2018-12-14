@@ -39,14 +39,6 @@ public class VuforiaControl : MonoBehaviour
         StartCoroutine(WaitTime());
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _mainCamAudio.enabled = true;
-            _defaultCam.gameObject.SetActive(false);
-        }
-    }
 
     public void ChangeRAStatus()
     {
@@ -54,15 +46,16 @@ public class VuforiaControl : MonoBehaviour
         _evaluateHolder = GameObject.FindObjectOfType<EvaluateHolder>();
         if (_isActiveRA)
         {
+            XRSettings.enabled = true;
             tempPos = _evaluateHolder.transform.localPosition;
             tempSize = _evaluateHolder.transform.localScale;
             _evaluateHolder.transform.localPosition = new Vector3(0, 0, 0);
             _mainCamAudio.enabled = true;
+            _mainCam.transform.localPosition = new Vector3(-800, -15, 0);
             _defaultCam.gameObject.SetActive(false);
             _evaluateHolder.SetNewParent(_testMarker);
             _evaluateHolder.transform.localPosition = new Vector3(0, 0, 0);
             _evaluateHolder.transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
-            XRSettings.enabled = true;
             var rendererComponents = _evaluateHolder.GetComponentsInChildren<Renderer>(true);
             foreach (var component in rendererComponents)
             {
@@ -104,12 +97,18 @@ public class VuforiaControl : MonoBehaviour
         _isActiveRA = false;
         _mainCamAudio.enabled = false;
         _defaultCam.gameObject.SetActive(true);
+        _mainCam.transform.localPosition = new Vector3(-800, -15, 0);
     }
 
     private IEnumerator WaitTime()
     {
         yield return new WaitForSeconds(2);
-        _mainCam.transform.localPosition = new Vector3(-800, -15, 0);
+        try { _mainCam.transform.localPosition = new Vector3(-800, -15, 0); }
+        catch (Exception e)
+        {
+            _mainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
+            _mainCam.transform.localPosition = new Vector3(-800, -15, 0);
+        }
     }
 
 }

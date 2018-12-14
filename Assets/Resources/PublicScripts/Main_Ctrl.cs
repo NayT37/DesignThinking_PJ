@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.XR;
+using Vuforia;
 
 public class Main_Ctrl : MonoBehaviour
 {
@@ -18,8 +20,14 @@ public class Main_Ctrl : MonoBehaviour
 
     #region SYSTEM_METHODS
     private void Awake() { Initializate(); }
-    private void Start() { }
-    private void Update() { }
+    private void Start() { VuforiaBehaviour.Instance.enabled = false; }
+    private void Update()
+    {
+        if (Input.GetKey(key: KeyCode.Space))
+        {
+            VuforiaBehaviour.Instance.enabled = false;
+        }
+    }
     #endregion
 
 
@@ -38,6 +46,7 @@ public class Main_Ctrl : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         isPaused = false;
+        XRSettings.enabled = false;
     }
 
     public void GoToScene(int number)
