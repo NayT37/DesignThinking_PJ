@@ -12,6 +12,12 @@ public class ExistingDBScript : MonoBehaviour {
 	private CourseServices _courseServices;
 	private GroupServices _groupServices;
 
+	private CaseServices _caseServices;
+
+	private TrainingServices _trainingServices;
+
+	private MomentServices _momentServices;
+
 	
 
 	// Use this for initialization
@@ -19,8 +25,13 @@ public class ExistingDBScript : MonoBehaviour {
 
 		
 		ds = new DataService ("designthinkingdbtemplate.db");
+
 		_courseServices = new CourseServices();
 		_groupServices = new GroupServices();
+		_trainingServices = new TrainingServices();
+		_caseServices = new CaseServices();
+		_momentServices = new MomentServices();
+
 		// ds.CreateDB ();
 		DebugText.text = "";
 
@@ -37,20 +48,33 @@ public class ExistingDBScript : MonoBehaviour {
 		g.name = "Jojoa-Group-100-Created";
 
 		DataBaseParametersCtrl.Ctrl._groupLoaded = g;
+
+		// var moments = _momentServices.GetMoments(7);
+
+		// foreach (var m in moments)
+		// {	
+		// 	_momentServices.UpdateMoment(m, 100);
+		// }
+
+		// moments = _momentServices.GetMoments(7);
+		// ToConsole(moments);
 		
+		// var cases = _caseServices.GetCases(7);
+		// ToConsole(cases);
+
 		//var group = _groupServices.CreateGroup(g.name, g.courseId);
 		//ToConsole(group);
 
-		var result = _groupServices.GetGroupNamed(g.name, g.courseId);
-		ToConsole(result);
+		// var result = _groupServices.GetGroupNamed(g.name, g.courseId);
+		// ToConsole(result);
 
-		_groupServices.DeleteGroup(result);
+		// _groupServices.DeleteGroup(result);
 
 		// int result = _groupServices.UpdateGroup(g);
 		// Debug.Log(result);
 		
-		//var groups = _groupServices.GetGroups(2);
-		//ToConsole(groups);
+		var groups = _groupServices.GetGroups(2);
+		ToConsole(groups);
 
 	}
 
@@ -71,6 +95,18 @@ public class ExistingDBScript : MonoBehaviour {
 	private void ToConsole(IEnumerable<Group> groups){
 		foreach (var group in groups) {
 			ToConsole(group.ToString());
+		}
+	}
+
+	private void ToConsole(IEnumerable<Moment> moments){
+		foreach (var moment in moments) {
+			ToConsole(moment.ToString());
+		}
+	}
+
+	private void ToConsole(IEnumerable<Case> cases){
+		foreach (var _case in cases) {
+			ToConsole(_case.ToString());
 		}
 	}
 

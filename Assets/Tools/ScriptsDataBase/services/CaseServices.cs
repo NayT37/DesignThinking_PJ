@@ -11,7 +11,7 @@ public class CaseServices  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 	
-	private MomentServices _momentServices = new MomentServices();
+	private MomentServices _momentS = new MomentServices();
 
 	private string[] arraymomentsname = new string[]{"moment_1","moment_2","moment_3","moment_4","moment_5"};
 	private Case _nullCase = new Case{
@@ -61,7 +61,7 @@ public class CaseServices  {
 			for (int i = 0; i < 5; i++)
 			{
 				//Creation of the moments
-				valueToReturn += _momentServices.CreateMoment(arraymomentsname[i], new_c.id);
+				valueToReturn += _momentS.CreateMoment(arraymomentsname[i], new_c.id);
 			}
 			Debug.Log(new_c);
 		} else{
@@ -84,6 +84,25 @@ public class CaseServices  {
 		int trainingId = DataBaseParametersCtrl.Ctrl._caseLoaded.trainingId;
 		
 		var c = _connection.Table<Case>().Where(x => x.name == caseName).Where(x => x.trainingId == trainingId).FirstOrDefault();
+
+		if (c == null)
+			return _nullCase;	
+		else 
+			return c;
+	}
+
+	/// <summary>
+	/// Description to method Get Case that contain in the DataBaseParametersCtrl.!-- _trainingLoaded
+	/// </summary>
+	/// <param name="caseid">
+	/// integer to define the identifier of the case that will be searched.
+	/// <returns>
+	/// <returns>
+	/// An object of type case with all the data of the case that was searched and if doesnt exist so return an empty case.
+	/// </returns>
+	public Case GetCaseId(int caseid){
+		
+		var c = _connection.Table<Case>().Where(x => x.id == caseid).FirstOrDefault();
 
 		if (c == null)
 			return _nullCase;	
@@ -124,7 +143,7 @@ public class CaseServices  {
 	public int DeleteCase(Case caseToDelete){
 
 		// All the moments belonging to the case that will be deleted are obtained.
-		var moments = _momentServices.GetMoments(caseToDelete.id);
+		var moments = _momentS.GetMoments(caseToDelete.id);
 
 		int result = _connection.Delete(caseToDelete);
 		int valueToReturn = 0;
@@ -134,7 +153,7 @@ public class CaseServices  {
 		{
 			foreach (var moment in moments)
 			{
-				valueToReturn += _momentServices.DeleteMoment(moment);
+				valueToReturn += _momentS.DeleteMoment(moment);
 			}
 			Debug.Log("Se borró el caso correctamente");
 		} else {
@@ -143,19 +162,45 @@ public class CaseServices  {
 		}
 
 		return valueToReturn;
-		return _connection.Delete(caseToDelete);
 	}
 
 	/// <summary>
 	/// Description of the method to update a case
 	/// </summary>
-	/// <param name="caseToUpdate">
-	/// An object of type case that contain the case that will be updated.
+	/// <param name="caseid">
+	/// Identifier of the case that will be updated.
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. !0 = the object was updated correctly)
 	/// </returns>
-	public int UpdateCase(Case caseToUpdate){
-		return _connection.Update(caseToUpdate, caseToUpdate.GetType());
+	public int UpdateCase(int caseid){
+
+		var _trainingServices = new TrainingServices();
+
+		var caseToUpdate = GetCaseId(caseid);
+		var moments = _momentS.GetMoments(caseid);
+		int valueToReturn = 0;
+		int average = 0;
+		
+		if (caseToUpdate.id!=0)
+		{
+			foreach (var moment in moments)
+			{
+				average += moment.percentage;
+			}
+
+			average = average/5;
+
+			caseToUpdate.percentage = average;
+			caseToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+			valueToReturn = _connection.Update(caseToUpdate, caseToUpdate.GetType());
+
+			if (valueToReturn!=0)
+			{
+				_trainingServices.UpdateTraining(caseToUpdate.trainingId);
+			}
+		}
+		 return valueToReturn; 
 	}
 }
 

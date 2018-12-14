@@ -123,10 +123,27 @@ public class MomentServices  {
 	/// <param name="momentToUpdate">
 	/// An object of type moment that contain the moment that will be updated.
 	/// <returns>
+	/// <param name="newpercentage">
+	/// An integer that contain the new percetage that will be updated.
+	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateMoment(Moment momentToUpdate){
-		return _connection.Update(momentToUpdate, momentToUpdate.GetType());
+	public int UpdateMoment(Moment momentToUpdate, int newpercentage){
+
+		
+		var _caseServices = new CaseServices();
+
+		momentToUpdate.percentage = newpercentage;
+		momentToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		int result = _connection.Update(momentToUpdate, momentToUpdate.GetType());
+
+		if (result!=0)
+		{
+			_caseServices.UpdateCase(momentToUpdate.caseId);
+		}
+
+		return result;
 	}
 }
 
