@@ -153,7 +153,7 @@ VideoPlayer:
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
-  m_TargetTexture: {fileID: 8400000, guid: f20bfa407729e5a4d943d25ee38baed5, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: e922f8286141aad48b6614386ec9b4a5, type: 2}
   m_TimeReference: 0
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: _MainTex
@@ -853,7 +853,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 2038246f947e6b94086db29db4a9e9f3, type: 2}
+  - {fileID: 2100000, guid: 6709497aebe64df46aee9508d031ef3a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -901,7 +901,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1806015305}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.98, z: -5}
+  m_LocalPosition: {x: 0, y: 0.98, z: 3}
   m_LocalScale: {x: 11.160369, y: 6.201085, z: 4.726581}
   m_Children: []
   m_Father: {fileID: 0}
