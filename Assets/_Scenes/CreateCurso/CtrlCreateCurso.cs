@@ -41,10 +41,22 @@ public class CtrlCreateCurso : MonoBehaviour {
 
 	IEnumerator SaveNameCourse(){
 		Main_Ctrl.instance.NameCourse = NameCourse.text;
-		var result = _courseServices.CreateCourse (NameCourse.text);
+
 		SceneManager.LoadScene ("CreateGroup", LoadSceneMode.Additive);
 		yield return null;
 		SceneManager.UnloadSceneAsync ("SelectActivity");
+
+//		var result = _courseServices.CreateCourse (NameCourse.text);
+//
+//		if (result.id != 0) {
+//			DataBaseParametersCtrl.Ctrl._courseLoaded = result;
+//			SceneManager.LoadScene ("CreateGroup", LoadSceneMode.Additive);
+//			yield return null;
+//			SceneManager.UnloadSceneAsync ("SelectActivity");
+//		} else {
+//			
+//		}
+
 	}
 
 }
