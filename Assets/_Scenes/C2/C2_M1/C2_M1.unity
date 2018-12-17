@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -479,7 +479,7 @@ Prefab:
       propertyPath: triviaTxtArray.Array.data[0].contextTxt
       value: "Desde los or\xEDgenes de la humanidad, se han presentado diferentes
         necesidades esto  ha llevado al ser humano a desarrollar grandes inventos,
-        algunos de ellos a\xFAn siguen siendo utilizados o por lo menos sus bases. "
+        algunos de ellos a\xFAn siguen siendo utilizados o por lo menos sus bases."
       objectReference: {fileID: 0}
     - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
         type: 2}
@@ -487,46 +487,35 @@ Prefab:
       value: "La soluci\xF3n de todas las necesidades han sido relevantes para el
         avance de la humanidad, en su tiempo estas soluciones fueron significativas
         como la carta, la imprenta y los animales, pero hay algunas en particular
-        que han sido mejoradas y se siguen utilizando actualmente. "
+        que han sido mejoradas y se siguen utilizando actualmente."
       objectReference: {fileID: 0}
     - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
         type: 2}
       propertyPath: triviaTxtArray.Array.data[2].contextTxt
-      value: "En la actualidad, los medios de comunicaci\xF3n son indispensables para
-        las sociedades industrializadas, y estos han estado avanzando para mejorar
-        incorporando  los avances en otras ciencias que se han realizado a trav\xE9s
-        del tiempo como la imprenta mec\xE1nica, el tel\xE9grafo, el autom\xF3vil,
-        la radio."
+      value: "Cuando hablamos de comunicaci\xF3n podemos pensar en un sin n\xFAmero
+        de invenciones sin embargo la mayor\xEDa orientadas a las comunicaciones a
+        larga distancia."
       objectReference: {fileID: 0}
     - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
         type: 2}
       propertyPath: triviaTxtArray.Array.data[3].contextTxt
       value: "La radio, la prensa y la televisi\xF3n lograron que los medios de comunicaci\xF3n
         tuvieran peso espec\xEDfico en la sociedad por su capacidad para orientar
-        y dirigir los intereses sociales. Incluso el tel\xE9grafo se utiliz\xF3 para
-        transmitir informaci\xF3n entre los asentamientos alejados de manera r\xE1pida
-        para mantener a las personas informadas."
+        y dirigir los intereses sociales, para mantener a las personas informadas."
       objectReference: {fileID: 0}
     - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
         type: 2}
       propertyPath: triviaTxtArray.Array.data[4].contextTxt
-      value: "\"En 1854  Antonio Meucci invent\xF3 el telettr\xF3foni, que posteriormente
-        fue denominado como tel\xE9fono, En 1876 Alexander Graham Bell lo patent\xF3
-        como un artefacto capaz de poder comunicar a dos personas. En menos de veinticinco
-        a\xF1os una de cada cincuenta personas ten\xEDa ya tel\xE9fono en Estados
-        Unidos. Este ha ido evolucionando a la par que otras tecnolog\xEDas. \""
+      value: "En menos de veinticinco a\xF1os una de cada cincuenta personas ten\xEDa
+        tel\xE9fono en Estados Unidos. Este ha ido evolucionando a la par que otras
+        tecnolog\xEDas."
       objectReference: {fileID: 0}
     - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
         type: 2}
       propertyPath: triviaTxtArray.Array.data[5].contextTxt
-      value: "La primera central telef\xF3nica se instal\xF3 en enero de 1878 y ten\xEDa
-        veinti\xFAn abonados. Cuando la persona origen de la llamada descolgaba su
-        receptor se activaba un conmutador el\xE9ctrico que avisaba a la operadora,
-        y \xE9sta mov\xEDa una palanca preguntaba al abonado con qui\xE9n quer\xEDa
-        hablar.Por entonces s\xF3lo exist\xEDan ocho l\xEDneas telef\xF3nicas individuales
-        compartidas por varios abonados. La telefonista ten\xEDa que ir siguiendo
-        la conversaci\xF3n de vez en cuando porque no hab\xEDa forma de saber cu\xE1ndo
-        hab\xEDa terminado la conversaci\xF3n entre abonados."
+      value: "Con la automatizaci\xF3n del proceso de llamadas a trav\xE9s de la marcaci\xF3n,
+        los n\xFAmeros telef\xF3nicos y llamadas a largas distancias fueron mucho
+        m\xE1s f\xE1ciles."
       objectReference: {fileID: 0}
     - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
         type: 2}
