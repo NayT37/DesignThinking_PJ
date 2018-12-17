@@ -10,9 +10,12 @@ public class CtrlCreateCurso : MonoBehaviour {
 	#region Variables
 	public InputField NameCourse;
 	private string tmp;
+	private CourseServices _courseServices;
 	#endregion
 
 	void Start () {
+
+		_courseServices = new CourseServices ();
 		
 	}
 
@@ -38,6 +41,7 @@ public class CtrlCreateCurso : MonoBehaviour {
 
 	IEnumerator SaveNameCourse(){
 		Main_Ctrl.instance.NameCourse = NameCourse.text;
+		var result = _courseServices.CreateCourse (NameCourse.text);
 		SceneManager.LoadScene ("CreateGroup", LoadSceneMode.Additive);
 		yield return null;
 		SceneManager.UnloadSceneAsync ("SelectActivity");
