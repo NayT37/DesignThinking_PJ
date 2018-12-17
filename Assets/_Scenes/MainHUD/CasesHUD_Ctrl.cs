@@ -288,6 +288,8 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
     public void GoHome()
     {
+        GameObject temp = GameObject.FindObjectOfType<VuforiaControl>().gameObject;
+        Destroy(temp);
         SceneManager.LoadScene("SelectGame");
         //    StartCoroutine(Home());
     }

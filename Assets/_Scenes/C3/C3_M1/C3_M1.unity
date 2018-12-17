@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -185,16 +185,17 @@ Prefab:
     - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
         type: 2}
       propertyPath: triviaTxtArray.Array.data[0].contextTxt
-      value: "Desde el inicio de la civilizaci\xF3n, la humanidad ha sentido la necesidad
-        de facilitar las labores cotidianas. Esto llev\xF3 a la creaci\xF3n de m\xFAltiples
-        inventos tecnol\xF3gicos que fueron significativos en su \xE9poca  como el
-        \xE1baco, la maquina analitica y las formas de registro de diferentes procesos."
+      value: "La palabra computador fue usada solo hasta 1613 por Braithwait para
+        referirse a una profesi\xF3n, es decir una persona que hac\xEDa c\xE1lculos,
+        algunas veces se ayudaban con algunas m\xE1quinas pero la mayor\xEDa de veces
+        no."
       objectReference: {fileID: 0}
     - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
         type: 2}
       propertyPath: triviaTxtArray.Array.data[1].contextTxt
-      value: "Cada herramienta que ha inventado la humanidad ha ido mejorando con
-        el paso el tiempo con la ayuda de los diferentes avances cient\xEDficos"
+      value: "Cuando hablamos de comunicaci\xF3n podemos pensar en un sin n\xFAmero
+        de invenciones sin embargo la mayor\xEDa orientadas a las comunicaciones a
+        larga distancia."
       objectReference: {fileID: 0}
     - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
         type: 2}
@@ -211,22 +212,16 @@ Prefab:
       propertyPath: triviaTxtArray.Array.data[3].contextTxt
       value: "Los ordenadores comenzaron a construirse a principios del siglo XX.
         Los primeros modelos realizaban los c\xE1lculos mediante ejes y engranajes
-        giratorios, tarjetas perforadas y tubos al vac\xEDo.Con estas m\xE1quinas
-        se evaluaban las aproximaciones num\xE9ricas de ecuaciones demasiado dif\xEDciles
-        como para poder ser resueltas mediante otros m\xE9todos.  Estos primeros computadores
-        eran muy pesados, grandes y complejos de utilizar adem\xE1s de costosos."
+        giratorios, tarjetas perforadas y tubos al vac\xEDo.Con estos se evaluaban
+        las aproximaciones num\xE9ricas de ecuaciones demasiado dif\xEDciles como
+        para poder ser resueltas mediante otros m\xE9todos."
       objectReference: {fileID: 0}
     - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
         type: 2}
       propertyPath: triviaTxtArray.Array.data[4].contextTxt
-      value: "A finales de la d\xE9cada de 1950 el uso del transistor en los ordenadores
-        marc\xF3 el advenimiento de elementos l\xF3gicos m\xE1s peque\xF1os, r\xE1pidos
-        y vers\xE1tiles de lo que permit\xEDan las m\xE1quinas con v\xE1lvulas. Como
-        los transistores utilizan mucha menos energ\xEDa y tienen una vida \xFAtil
-        m\xE1s prolongada, a su desarrollo se debi\xF3 el nacimiento de m\xE1quinas
-        m\xE1s perfeccionadas. Los componentes se hicieron m\xE1s peque\xF1os, as\xED
-        como los espacios entre ellos, por lo que la fabricaci\xF3n del sistema resultaba
-        m\xE1s barata."
+      value: "Con la llegada de los transistores los componentes se hicieron m\xE1s
+        peque\xF1os, as\xED como los espacios entre ellos, por lo que la fabricaci\xF3n
+        del sistema resultaba m\xE1s barata."
       objectReference: {fileID: 0}
     - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
         type: 2}

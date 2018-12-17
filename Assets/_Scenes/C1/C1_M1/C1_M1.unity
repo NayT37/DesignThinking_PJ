@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -496,25 +496,17 @@ Prefab:
     - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
         type: 2}
       propertyPath: triviaTxtArray.Array.data[2].contextTxt
-      value: "\"En agosto de 1896, el ingeniero alem\xE1n Otto Lilienthal perdi\xF3
-        la vida  36 horas despu\xE9s de que su planeador se desplomar\xE1 en picado.
-        No fue el \xFAnico de los pioneros de la aviaci\xF3n que murieron por no poder
-        dominar el control de su aparato. La muerte de Lilienthal fue especialmente
-        significativa para dos hermanos Wright, dedicados a la reparaci\xF3n y venta
-        de bicicletas, y que hab\xEDan seguido los progresos del alem\xE1n con gran
-        inter\xE9s. La noticia del accidente mortal fue el desencadenante definitivo
-        para que Wilbur y Orville Wright decidieran aplicar su conocimiento sobre
-        mec\xE1nica de bicicletas a una afici\xF3n que llevaban a\xF1os fraguando
-        \ \u201Cel problema de volar\u201D- https://www.bbvaopenmind.com/los-hermanos-wright-y-el-primer-avion/
-        \""
+      value: "Despu\xE9s de varios intentos fallidos de vuelo ejecutado por diferentes
+        inventores e ingenieros, poco a poco se logr\xF3 identificar los requerimientos
+        para el \xE9xito de este, dos hermanos expertos en mec\xE1nica y reparaci\xF3n
+        de bicicletas lograron descifrar el porqu\xE9."
       objectReference: {fileID: 0}
     - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
         type: 2}
       propertyPath: triviaTxtArray.Array.data[1].contextTxt
       value: "El ser humano con su ingenio ha intentado romper la barrera natural
-        que representa el volar, un ejemplo es el primer vuelo realizado por el ser
-        humano por Fran\xE7ois de Rozier y el marqu\xE9s de Arlandes (en 1783) en
-        un aparato m\xE1s liviano que el aire, un globo de papel lleno de aire caliente."
+        que representa el volar, en un aparato m\xE1s liviano que el aire, un globo
+        de papel lleno de aire caliente."
       objectReference: {fileID: 0}
     - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
         type: 2}
@@ -527,13 +519,9 @@ Prefab:
     - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
         type: 2}
       propertyPath: triviaTxtArray.Array.data[3].contextTxt
-      value: "Los hermanos Wright no quer\xEDan construir un aeroplano, sino uno que
-        pudiera pilotarse. Desde el inicio descartaron la opci\xF3n de Lilienthal,
-        consistente en inclinar el cuerpo para virar. Tampoco les convenc\xEDa la
-        idea de otros pioneros que aplicaban a sus alas un \xE1ngulo positivo respecto
-        a la horizontal (diedro positivo) para conferir una estabilidad intr\xEDnseca
-        al aparato. Ellos pensaban que el piloto deb\xEDa disponer de un control total
-        sobre el vuelo, y cre\xEDan que deb\xEDa de haber un modo mejor de lograrlo."
+      value: "A lo largo de la historia la naturaleza ha sido fuente de inspiraci\xF3n
+        para el desarrollo de invenciones y artefactos que marcan un antes y un despu\xE9s,
+        esto no fue la excepci\xF3n al momento de volar."
       objectReference: {fileID: 0}
     - target: {fileID: 114233332053091740, guid: a4f1b261f0997404e86932b58c022cf5,
         type: 2}
