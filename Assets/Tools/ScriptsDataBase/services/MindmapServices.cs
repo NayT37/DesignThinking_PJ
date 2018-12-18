@@ -11,13 +11,19 @@ public class MindmapServices  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
+	private EvaluationServices _evaluationServices = new EvaluationServices();
+
+	private SectionServices _sectionServices = new SectionServices();
+
+	private string[] arraysectionsname = new string[]{"advantages","opportunities","requirements","how","risk_a", "risk_o"};
 	private Mindmap _nullMindmap = new Mindmap{
 				id = 0,
 				percentage = 0,
 				creationDate = "null",
 				storyTellingId = 0,
 				image = "null",
-				lastUpdate = "null"			
+				lastUpdate = "null",
+				version = 0		
 		};
 	
 
@@ -25,25 +31,73 @@ public class MindmapServices  {
 	/// <summary>
 	/// Description to method to create a mindmap
 	/// </summary>
-	/// <param name="mindmap">
-	/// Attribute that contains an object of type mindmap with all the data of the mindmap that will be created.
+	/// <param name="versionmindmap">
+	/// Attribute that contains an integer with version's value of the mindmap that will be created.
 	/// </param>
 	/// <returns>
 	/// An object of type mindmap with all the data of the mindmap that was created.
 	/// </returns>
 
-	public Mindmap CreateMindMap(Mindmap mindmap){
+	public Mindmap CreateMindMap(int versionmindmap){
 
-		// var publicValidation = GetProblemNamed(mindmap.name, mindmap.storytellingId);
+		//The identifier of the storytelling is obtained to be able to pass 
+		//it as an attribute in the new mindmap that will be created
+		int storytellingid = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
 
-		// if ((publicValidation.name).Equals("null"))
-		// {
-			_connection.Insert (mindmap);
-			return mindmap;
-		// } else {
-		// 	return _nullPublic;
-		// }
+		//Get the current date to create the new empathymap
+		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		//Creation of the new empathymap
+		var new_m = new Mindmap{
+				percentage = 0,
+				creationDate = date,
+				storyTellingId = storytellingid,
+				image = "",
+				lastUpdate = date,
+				version = versionmindmap
+		};
+
+		//Start-Validation that the query is right
 		
+		int result = _connection.Insert (new_m);
+
+		int count = 0;
+
+		if (result != 0)
+		{
+			int value =_connection.Insert (new_m);
+
+			if (value != 0){
+				DataBaseParametersCtrl.Ctrl._mindMapLoaded = new_m;
+				var e = _evaluationServices.CreateEvaluation();	
+
+				if (e.id != 0){
+
+					for (int i = 0; i < 6; i++)
+					{
+						var s = _sectionServices.CreateSection(arraysectionsname[i]);
+
+						if (s.id != 0)
+							count++;
+
+					}
+
+					if (count == 6)
+						return new_m;
+					else 
+						return _nullMindmap;
+				}
+				
+				else
+					return _nullMindmap;
+			}else
+				return _nullMindmap;
+			
+			
+		}else {
+			return _nullMindmap;
+		}
+		//End-Validation that the query		
 		
 	}
 

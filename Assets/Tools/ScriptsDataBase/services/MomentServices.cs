@@ -23,7 +23,7 @@ public class MomentServices  {
 
 
 	/// <summary>
-	/// Description to method to create a moment
+	/// Description to method to create a moment.
 	/// </summary>
 	/// <param name="momentname">
 	/// Attribute that contains an string with the name of the moment that will be created.
@@ -51,8 +51,7 @@ public class MomentServices  {
 		};
 
 		int result = _connection.Insert (new_m);
-
-		Debug.Log(new_m);
+		
 		return valueToReturn;
 		
 	}

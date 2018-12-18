@@ -119,8 +119,16 @@ public class TrainingServices  {
 	/// <returns>
 	/// A IEnumerable list of all the Trainings found from the identifier of the group that was passed as a parameter
 	/// </returns>
-	public IEnumerable<Training> GetTrainings(int groupId){
-		return _connection.Table<Training>().Where(x => x.groupId == groupId);
+	public Training GetTraining(int groupId){
+
+		var result = _connection.Table<Training>().Where(x => x.groupId == groupId).FirstOrDefault();
+
+		if (result.id != 0)
+			DataBaseParametersCtrl.Ctrl._caseLoaded = _caseServices.GetCases(result.id);
+		else
+			result = _nullTraining;
+		
+		return result;
 	}
 
 	/// <summary>

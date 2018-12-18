@@ -23,9 +23,6 @@ public class ExistingDBScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		
-		ds = new DataService ("designthinkingdbtemplate.db");
-
 		_courseServices = new CourseServices();
 		_groupServices = new GroupServices();
 		_trainingServices = new TrainingServices();

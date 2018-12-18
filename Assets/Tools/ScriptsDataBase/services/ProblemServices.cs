@@ -11,15 +11,17 @@ public class ProblemServices  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
+	private string[] arrayfieldsname = new string[]{"field_1","field_2","field_3"};
+
 	private Problem _nullProblem = new Problem{
 				id = 0,
-				name = "null",
 				percentage = 0,
 				creationDate = "null",
 				lastUpdate = "null",
 				projectId = 0
 		};
 	
+	private FieldServices _fieldServices = new FieldServices();
 
 
 	/// <summary>
@@ -34,24 +36,46 @@ public class ProblemServices  {
 
 	public Problem CreateProblem(Problem problem){
 
-		var problemValidation = GetProblemNamed(problem.name, problem.projectId);
+		//The identifier of the project is obtained to be able to pass 
+		//it as an attribute in the new problem that will be created
+		int projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 
-		if ((problemValidation.name).Equals("null"))
+		//Get the current date to create the new problem
+		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		//Creation of the new problem
+		var new_p = new Problem{
+				percentage = 0,
+				creationDate = date,
+				lastUpdate = date,
+				projectId = projectid
+		};
+
+		//Start-Validation that the query is right
+		
+		int result = _connection.Insert (new_p);
+
+		if (result != 0)
 		{
-			_connection.Insert (problem);
-			return problem;
-		} else {
+			DataBaseParametersCtrl.Ctrl._problemLoaded = new_p;
+			for (int i = 0; i < 3; i++)
+			{
+				//Creation of the fields
+				_fieldServices.CreateField(arrayfieldsname[i]);
+			}
+			return new_p;
+		}else {
 			return _nullProblem;
 		}
-		
+		//End-Validation that the query
 		
 	}
 
 	/// <summary>
 	/// Description to method Get Problem with the specified name and projectId
 	/// </summary>
-	/// <param name="problemName">
-	/// Name of the problem that will be searched
+	/// <param name="id">
+	/// identifier of the problem that will be searched
 	/// </param>
 	/// <param name="projectId">
 	/// project identifier to find the correct problem that will be searched
@@ -59,9 +83,9 @@ public class ProblemServices  {
 	/// <returns>
 	/// An object of type problem with all the data of the problem that was searched and if doesnt exist so return an empty problem.
 	/// </returns>
-	public Problem GetProblemNamed(string problemName, int projectId){
+	public Problem GetProblemNamed(int id, int projectId){
 		
-		var p = _connection.Table<Problem>().Where(x => x.name == problemName).Where(x => x.projectId == projectId).FirstOrDefault();
+		var p = _connection.Table<Problem>().Where(x => x.id == id).Where(x => x.projectId == projectId).FirstOrDefault();
 
 		if (p == null)
 			return _nullProblem;	
@@ -75,18 +99,18 @@ public class ProblemServices  {
 	/// <returns>
 	/// An object of type problem with all the data of the problem that was searched and if doesnt exist so return an empty problem.
 	/// </returns>
-	public Problem GetProblemNamed(){
+	// public Problem GetProblemNamed(){
 
-		string problemName = DataBaseParametersCtrl.Ctrl._problemLoaded.name;
-		int projectId = DataBaseParametersCtrl.Ctrl._problemLoaded.projectId;
+	// 	string problemName = DataBaseParametersCtrl.Ctrl._problemLoaded.name;
+	// 	int projectId = DataBaseParametersCtrl.Ctrl._problemLoaded.projectId;
 		
-		var p = _connection.Table<Problem>().Where(x => x.name == problemName).Where(x => x.projectId == projectId).FirstOrDefault();
+	// 	var p = _connection.Table<Problem>().Where(x => x.name == problemName).Where(x => x.projectId == projectId).FirstOrDefault();
 
-		if (p == null)
-			return _nullProblem;	
-		else 
-			return p;
-	}
+	// 	if (p == null)
+	// 		return _nullProblem;	
+	// 	else 
+	// 		return p;
+	// }
 
 	/// <summary>
 	/// Description of the method to obtain all the problems of a specific project

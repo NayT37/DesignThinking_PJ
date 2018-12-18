@@ -25,24 +25,40 @@ public class QuestionServices  {
 	/// <summary>
 	/// Description to method to create a question
 	/// </summary>
-	/// <param name="question">
-	/// Attribute that contains an object of type question with all the data of the question that will be created.
-	/// </param>
 	/// <returns>
 	/// An object of type question with all the data of the question that was created.
 	/// </returns>
 
-	public Question CreateQuestion(Question question){
+	public Question CreateQuestion(){
 
-		// var publicValidation = GetProblemNamed(question.name, question.evaluationId);
+		//The identifier of the evaluation is obtained to be able to pass 
+		//it as an attribute in the new question that will be created
+		int evaluationid = DataBaseParametersCtrl.Ctrl._evaluationLoaded.id;
 
-		// if ((publicValidation.name).Equals("null"))
-		// {
-			_connection.Insert (question);
-			return question;
-		// } else {
-		// 	return _nullPublic;
-		// }
+		//Get the current date to create the new question
+		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		//Creation of the new question
+		var new_q = new Question{
+				grade = 0,
+				creationDate = date,
+				description = date,
+				evaluationId = evaluationid,
+				lastUpdate = date			
+		};
+
+		//Start-Validation that the query is right
+		
+		int result = _connection.Insert (new_q);
+
+		if (result != 0)
+		{
+			DataBaseParametersCtrl.Ctrl._questionLoaded = new_q;
+			return new_q;
+		}else {
+			return _nullQuestion;
+		}
+		//End-Validation that the query		
 		
 		
 	}

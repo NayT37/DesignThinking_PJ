@@ -63,7 +63,6 @@ public class DataService  {
 		#endif
         _connection = new SQLiteConnection(dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
         Debug.Log("Final PATH: " + dbPath); 
-		DataBaseParametersCtrl.Ctrl._sqliteConnection = _connection;    
 
 	}
 

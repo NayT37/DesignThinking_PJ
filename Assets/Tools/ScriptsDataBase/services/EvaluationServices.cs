@@ -11,6 +11,8 @@ public class EvaluationServices  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
+	private QuestionServices _questionServices = new QuestionServices();
+
 	private Evaluation _nullEvaluation = new Evaluation{
 				id = 0,
 				percentage = 0,
@@ -31,17 +33,55 @@ public class EvaluationServices  {
 	/// An object of type evaluation with all the data of the evaluation that was created.
 	/// </returns>
 
-	public Evaluation CreateEvaluation(Evaluation evaluation){
+	public Evaluation CreateEvaluation(){
 
-		// var publicValidation = GetProblemNamed(evaluation.name, evaluation.mindmapId);
+		//The identifier of the mindmap is obtained to be able to pass 
+		//it as an attribute in the new evaluation that will be created
+		int mindmapid = DataBaseParametersCtrl.Ctrl._mindMapLoaded.id;
 
-		// if ((publicValidation.name).Equals("null"))
-		// {
-			_connection.Insert (evaluation);
-			return evaluation;
-		// } else {
-		// 	return _nullPublic;
-		// }
+		//Get the current date to create the new evaluation
+		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		//Creation of the new evaluation
+		var new_e = new Evaluation{
+				percentage = 0,
+				creationDate = date,
+				mindMapId = mindmapid,
+				lastUpdate = date			
+		};
+
+		//Start-Validation that the query is right
+		
+		int result = _connection.Insert (new_e);
+
+		int count = 0;
+
+		int questionsCounter = 1;
+
+		if (result != 0)
+		{
+			DataBaseParametersCtrl.Ctrl._evaluationLoaded = new_e;
+
+			//Queda pendiente saber cuantás preguntas son----
+			for (int i = 0; i < questionsCounter; i++)
+			{
+				var q = _questionServices.CreateQuestion();	
+				
+				if (q.id != 0)
+				{
+					count++;
+				}
+			}
+
+			if (count == questionsCounter)
+				return new_e;
+			else
+				return _nullEvaluation;
+				
+		}else {
+			return _nullEvaluation;
+		}
+		//End-Validation that the query		
 		
 		
 	}

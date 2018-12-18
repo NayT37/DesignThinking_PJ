@@ -26,24 +26,48 @@ public class PublicServices  {
 	/// <summary>
 	/// Description to method to create a _public
 	/// </summary>
-	/// <param name="_public">
-	/// Attribute that contains an object of type _public with all the data of the _public that will be created.
+	/// <param name="ageRange">
+	/// Attribute that contains an string with the age's range of the public that will be created.
+	/// </param>
+	/// <param name="gender">
+	/// Attribute that contains an string with the gender of the public that will be created.
 	/// </param>
 	/// <returns>
 	/// An object of type _public with all the data of the _public that was created.
 	/// </returns>
 
-	public Public CreatePublic(Public _public){
+	public Public CreatePublic(string _agerange, string _gender){
 
-		// var publicValidation = GetProblemNamed(_public.name, _public.projectId);
+		//The identifier of the project is obtained to be able to pass 
+		//it as an attribute in the new public that will be created
+		int projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 
-		// if ((publicValidation.name).Equals("null"))
-		// {
-			_connection.Insert (_public);
-			return _public;
-		// } else {
-		// 	return _nullPublic;
-		// }
+		//Get the current date to create the new public
+		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		//Creation of the new public
+		var new_p = new Public{
+				ageRange = _agerange,
+				gender = _gender,
+				percentage = 0,
+				creationDate = date,
+				lastUpdate = date,
+				projectId = projectid
+		};
+
+		//Start-Validation that the query is right
+		
+		int result = _connection.Insert (new_p);
+
+		if (result != 0)
+		{
+			DataBaseParametersCtrl.Ctrl._publicLoaded = new_p;
+			return new_p;
+		}else {
+			return _nullPublic;
+		}
+		//End-Validation that the query
+		
 		
 		
 	}

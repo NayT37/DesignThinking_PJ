@@ -24,21 +24,50 @@ public class SectorServices  {
 	/// <summary>
 	/// Description to method to create a sector
 	/// </summary>
-	/// <param name="sector">
-	/// Attribute that contains an object of type sector with all the data of the sector that will be created.
+	/// <param name="sectorname">
+	/// Attribute that contains an string with the sector's name that will be created.
 	/// </param>
 	/// <returns>
 	/// An object of type sector with all the data of the sector that was created.
 	/// </returns>
 
-	public Sector CreateSector(Sector sector){
+	public Sector CreateSector(string sectorname){
 
-		// var publicValidation = GetProblemNamed(sector.name, sector.empathymapId);
+		//The identifier of the empathymap is obtained to be able to pass 
+		//it as an attribute in the new sector that will be created
+		int empathymapid = DataBaseParametersCtrl.Ctrl._empathyMapLoaded.id;
 
-		// if ((publicValidation.name).Equals("null"))
-		// {
-			_connection.Insert (sector);
-			return sector;
+		//Get the current date to create the new empathymap
+		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		//Creation of the new empathymap
+		var new_s = new Sector{
+				name = sectorname,
+				creationDate = date,
+				empathyMapId = empathymapid,
+				lastUpdate = date
+		};
+
+		//Start-Validation that the query is right
+		
+		int result = _connection.Insert (new_s);
+
+		if (result != 0)
+		{
+			int value =_connection.Insert (new_s);
+
+			if (value != 0)
+				return new_s;
+			else
+				return _nullSector;
+			
+			
+		}else {
+			return _nullSector;
+		}
+		//End-Validation that the query		
+
+			
 		// } else {
 		// 	return _nullPublic;
 		// }
