@@ -80,7 +80,7 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 			//ya existe
 			Debug.Log (group);
 			if (group == 1) {
-				//Iniciar corrutina, donde muestra el feedback del grupo creado.
+				//Iniciar corrutina, donde muestra el feedback del grupo creado
 				StartCoroutine (waitSecondsForchangeSquad ());
 			} else {
 				StartCoroutine (UserExist ());
