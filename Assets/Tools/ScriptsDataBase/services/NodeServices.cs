@@ -24,24 +24,30 @@ public class NodeServices  {
 	/// <summary>
 	/// Description to method to create a node
 	/// </summary>
-	/// <param name="node">
-	/// Attribute that contains an object of type node with all the data of the node that will be created.
-	/// </param>
 	/// <returns>
 	/// An object of type node with all the data of the node that was created.
 	/// </returns>
 
-	public Node CreateNode(Node node){
+	public Node CreateNode(){
 
-		// var publicValidation = GetProblemNamed(node.name, node.sectionId);
+		//The identifier of the storytelling is obtained to be able to pass 
+		//it as an attribute in the new mindmap that will be created
+		int sectionid = DataBaseParametersCtrl.Ctrl._sectionLoaded.id;
 
-		// if ((publicValidation.name).Equals("null"))
-		// {
-			_connection.Insert (node);
-			return node;
-		// } else {
-		// 	return _nullPublic;
-		// }
+		//Get the current date to create the new ndoe
+		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+
+		 var new_n = new Node{
+				creationDate = date,
+				description = "",
+				sectionId = sectionid,
+				lastUpdate = date			
+		};
+
+		int result = _connection.Insert (new_n);
+		
+		return new_n;
 		
 		
 	}

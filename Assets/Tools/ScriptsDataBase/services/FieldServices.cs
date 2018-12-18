@@ -26,24 +26,42 @@ public class FieldServices  {
 	/// <summary>
 	/// Description to method to create a field
 	/// </summary>
-	/// <param name="field">
-	/// Attribute that contains an object of type field with all the data of the field that will be created.
+	/// <param name="stringfield">
+	/// Attribute that contains an string with the name of the field that will be created.
 	/// </param>
 	/// <returns>
 	/// An object of type field with all the data of the field that was created.
 	/// </returns>
 
-	public Field CreateField(Field field){
+	public Field CreateField(string fieldname){
 
-		// var problemValidation = GetFieldNamed(field.name, field.problemId);
+		//The identifier of the project is obtained to be able to pass 
+		//it as an attribute in the new problem that will be created
+		int problemid = DataBaseParametersCtrl.Ctrl._problemLoaded.id;
 
-		// if ((problemValidation.name).Equals("null"))
-		// {
-			_connection.Insert (field);
-			return field;
-		// } else {
-		// 	return _nullField;
-		// }
+		//Get the current date to create the new field
+		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		//Creation of the new problem
+		var new_f = new Field{
+				name = fieldname,
+				description = "",
+				percentage = 0,
+				creationDate = date,
+				lastUpdate = date,
+				problemId = problemid
+		};
+
+		//Start-Validation that the query is right
+		
+		int result = _connection.Insert (new_f);
+
+		if (result != 0)
+		{
+			return new_f;
+		}else {
+			return _nullField;
+		}
 		
 		
 	}

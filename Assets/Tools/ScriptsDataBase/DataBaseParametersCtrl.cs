@@ -20,7 +20,7 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 	public Training _trainingloaded;
 
 	[Header ("Case loaded")]
-	public Case _caseLoaded;
+	public IEnumerable<Case> _caseLoaded;
 
 	[Header ("Moment loaded")]
 	public Moment _momentLoaded;
@@ -46,33 +46,28 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 	[Header ("MindMap loaded")]
 	public Mindmap _mindMapLoaded;
 
-	[Header ("Sections loaded")]
-	public LinkedList<Section> _sectionsLoaded;
+	[Header ("Section loaded")]
+	public Section _sectionLoaded;
 
-	[Header ("Nodes loaded")]
-	public LinkedList<Node> _nodesLoaded;
+	[Header ("Node loaded")]
+	public Node _nodeLoaded;
 
 
 	[Header ("Evaluation loaded")]
 	public Evaluation _evaluationLoaded;
 
-	[Header ("Questions loaded")]
-	public LinkedList<Question> _questionLoaded;
+	[Header ("Question loaded")]
+	public Question _questionLoaded;
 
 	[Header ("EmpathyMap loaded")]
 	public EmpathyMap _empathyMapLoaded;
 
 	[Header ("Sector loaded")]
 	public Sector _sectorLoaded;
-
-	[Header ("Ideas loaded")]
-	public LinkedList<Idea> _ideasLoaded;
-
 	public SQLiteConnection _sqliteConnection;
-
 	public static DataBaseParametersCtrl Ctrl;
 
-
+	public DataService _dataServices;
 
 
     void Awake () {
@@ -85,7 +80,9 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		
+		_dataServices = new DataService ("designthinkingdbtemplate.db");
+		_sqliteConnection = _dataServices._connection;
+
 	}
 	
 	// Update is called once per frame

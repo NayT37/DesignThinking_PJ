@@ -82,7 +82,7 @@ public class GroupServices  {
 
 		//The identifier of the course loaded is obtained to be able to pass 
 		//it as an attribute in the new group that will be created
-		int courseid = studentscounter;//DataBaseParametersCtrl.Ctrl._courseLoaded.id;
+		int courseid = DataBaseParametersCtrl.Ctrl._courseLoaded.id; //studentscounter;
 
 		//Get the current date to create the new group
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -108,7 +108,7 @@ public class GroupServices  {
 			//If the creation of the group is correct, then the training corresponding to that group is created.
 			if (result!=0){
 				int value =_trainingServices.CreateTraining(new_g.id);
-				valueToReturn = value;
+				valueToReturn = result;
 				Debug.Log(new_g);
 			}
 		} else{
@@ -148,17 +148,21 @@ public class GroupServices  {
 	/// <returns>
 	/// An object of type group with all the data of the group that was searched and if doesnt exist so return an empty group.
 	/// </returns>
-	public Group GetGroupNamed(){
+	public Group GetGroupNamed(string groupName){
 
-		string groupName = DataBaseParametersCtrl.Ctrl._groupLoaded.name;
-		int courseId = DataBaseParametersCtrl.Ctrl._groupLoaded.courseId;
+		int courseId = DataBaseParametersCtrl.Ctrl._courseLoaded.id;
 		
 		var g = _connection.Table<Group>().Where(x => x.name == groupName).Where(x => x.courseId == courseId).FirstOrDefault();
 
 		if (g == null)
 			return _nullGroup;	
-		else 
+		else {
+			var training = _trainingServices.GetTraining(g.id);
+			DataBaseParametersCtrl.Ctrl._trainingloaded = training;
 			return g;
+
+		}
+		
 	}
 
 	/// <summary>
@@ -213,7 +217,7 @@ public class GroupServices  {
 	public int DeleteGroup(Group groupToDelete){
 
 		//All the trainings belonging to the group that will be deleted are obtained.
-		var trainings = _trainingServices.GetTrainings(groupToDelete.id);
+		var training = _trainingServices.GetTraining(groupToDelete.id);
 
 		int result = _connection.Delete(groupToDelete);
 		int valueToReturn = 0;
@@ -221,10 +225,7 @@ public class GroupServices  {
 		//If the elimination of the group is correct, then the trainings corresponding to that group are eliminated.
 		if (result!=0)
 		{
-			foreach (var training in trainings)
-			{
-				valueToReturn += _trainingServices.DeleteTraining(training);
-			}
+			valueToReturn += _trainingServices.DeleteTraining(training);
 			Debug.Log("Se borró el grupo correctamente");
 		} else {
 			valueToReturn = 0;
@@ -266,14 +267,30 @@ public class GroupServices  {
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
 	public int UpdateGroup(int groupid, int newpercentage){
+
+		int result = 0;
+		
+		var _courseServices = new CourseServices();
 		
 		//Todavía falta agregar el proyecto y lo que respecta a eso!
 		//Aunque queda la duda de si es necesario que el grupo tenga porcentaje
 		var groupToUpdate = GetGroupId(groupid);
 		groupToUpdate.percentage = newpercentage;
 		groupToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		if (groupToUpdate.id != 0)
+		{
+			result = _connection.Update(groupToUpdate, groupToUpdate.GetType());
+
+			if (result!=0)
+			{
+				result = _courseServices.UpdateCourse(groupToUpdate.courseId);
+			}
+			
+		} else {
+		}
 		
-		int result = _connection.Update(groupToUpdate, groupToUpdate.GetType());
+		
 
 		return result;
 	}

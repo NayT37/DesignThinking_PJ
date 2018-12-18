@@ -97,6 +97,7 @@ public class CourseServices  {
 		if ((courseValidation.name).Equals("null"))
 		{
 			_connection.Insert (new_c);
+			DataBaseParametersCtrl.Ctrl._courseLoaded = new_c;
 			return new_c;
 		} else {
 			return _nullCourse;
@@ -123,8 +124,10 @@ public class CourseServices  {
 
 		if (c == null)
 			return _nullCourse;	
-		else 
+		else {
+			// DataBaseParametersCtrl.Ctrl._courseLoaded = c;
 			return c;
+		}
 	}
 
 	/// <summary>
@@ -147,14 +150,31 @@ public class CourseServices  {
 	}
 
 	/// <summary>
+	/// Description to method Get course that contain in the DataBaseParametersCtrl.!-- _courseLoaded
+	/// </summary>
+	/// <param name="courseId">
+	/// integer to define the identifier of the course that will be searched.
+	/// <returns>
+	/// <returns>
+	/// An object of type course with all the data of the course that was searched and if doesnt exist so return an empty course.
+	/// </returns>
+	public Course GetCourseId(int courseId){
+		
+		var c = _connection.Table<Course>().Where(x => x.id == courseId).FirstOrDefault();
+
+		if (c == null)
+			return _nullCourse;	
+		else 
+			return c;
+	}
+
+	/// <summary>
 	/// Description of the method to obtain all the groups of a specific course
 	/// </summary>
-	/// <param name="teacherId">
-	/// integer to define the identifier of the teacher from which all the related courses will be brought.
-	/// <returns>
-	/// A IEnumerable list of all the courses found from the identifier of the teacher that was passed as a parameter
+	/// A IEnumerable list of all the courses found from the identifier of the teacher loggedIn
 	/// </returns>
-	public IEnumerable<Course> GetCourses(string teacherId){
+	public IEnumerable<Course> GetCourses(){
+		string teacherId = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
 		return _connection.Table<Course>().Where(x => x.teacherIdentityCard == teacherId);
 	}
 
@@ -164,9 +184,9 @@ public class CourseServices  {
 	/// <returns>
 	/// A IEnumerable list of all the courses found
 	/// </returns>
-	public IEnumerable<Course> GetCourses(){
-		return _connection.Table<Course>();
-	}
+	// public IEnumerable<Course> GetCourses(){
+	// 	return _connection.Table<Course>();
+	// }
 
 	/// <summary>
 	/// Description of the method to delete a course
@@ -196,6 +216,45 @@ public class CourseServices  {
 		courseToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
 		return _connection.Update(courseToUpdate, courseToUpdate.GetType());
+	}
+
+	/// <summary>
+	/// Description of the method to update a course
+	/// </summary>
+	/// <param name="courseid">
+	/// Identifier of the course that will be updated.
+	/// <returns>
+	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
+	/// </returns>
+	public int UpdateCourse(int courseId){
+
+		var _groupServices = new GroupServices();
+
+		var courseToUpdate = GetCourseId(courseId);
+		var groups = _groupServices.GetGroups(courseId);
+		int valueToReturn = 0;
+		int average = 0;
+		int counter = 0;
+		
+		if (courseToUpdate.id!=0)
+		{
+			foreach (var group in groups)
+			{
+				counter++;
+				average += group.percentage;
+			}
+
+			average = average/counter;
+
+			courseToUpdate.percentage = average;
+			courseToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+			valueToReturn = _connection.Update(courseToUpdate, courseToUpdate.GetType());
+
+		} else {
+			valueToReturn = 0;
+		}
+		return valueToReturn;
 	}
 }
 

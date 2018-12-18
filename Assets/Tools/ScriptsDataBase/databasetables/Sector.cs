@@ -6,6 +6,8 @@ public class Sector  {
 	[PrimaryKey, AutoIncrement]
 	public int id { get; set; }
 	public string name { get; set; }
+
+	public string description {get; set; }
 	public string creationDate { get; set; }
 
 	
@@ -15,8 +17,8 @@ public class Sector  {
 
 	public override string ToString ()
 	{
-		return string.Format ("[Section: Id={0}, Name={1},  creationDate={2}, mindMapId={3}, lastUpdate={4}]", 
-								id, name, creationDate, empathyMapId, lastUpdate);
+		return string.Format ("[Section: Id={0}, Name={1}, Description={2}, creationDate={3}, mindMapId={4}, lastUpdate={5}]", 
+								id, name, description, creationDate, empathyMapId, lastUpdate);
 	}
 
 	

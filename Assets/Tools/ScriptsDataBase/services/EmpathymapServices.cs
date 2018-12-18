@@ -11,6 +11,10 @@ public class EmpathymapServices  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
+	private string[] arraysectorsname = new string[]{"sector_1","sector_2","sector_3", "sector_4", "sector_5", "sector_6"};
+
+	private SectorServices _sectorServices = new SectorServices();
+
 	private EmpathyMap _nullEmpathymap = new EmpathyMap{
 				id = 0,
 				percentage = 0,
@@ -24,25 +28,45 @@ public class EmpathymapServices  {
 	/// <summary>
 	/// Description to method to create a empathyMap
 	/// </summary>
-	/// <param name="empathyMap">
-	/// Attribute that contains an object of type empathyMap with all the data of the empathyMap that will be created.
-	/// </param>
+	
 	/// <returns>
 	/// An object of type empathyMap with all the data of the empathyMap that was created.
 	/// </returns>
 
-	public EmpathyMap CreateEmpathymap(EmpathyMap empathyMap){
+	public EmpathyMap CreateEmpathymap(){
 
-		// var publicValidation = GetProblemNamed(empathyMap.name, empathyMap.projectId);
+		//The identifier of the project is obtained to be able to pass 
+		//it as an attribute in the new empathymap that will be created
+		int projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 
-		// if ((publicValidation.name).Equals("null"))
-		// {
-			_connection.Insert (empathyMap);
-			return empathyMap;
-		// } else {
-		// 	return _nullPublic;
-		// }
+		//Get the current date to create the new empathymap
+		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		//Creation of the new empathymap
+		var new_e = new EmpathyMap{
+				percentage = 0,
+				creationDate = date,
+				lastUpdate = date,
+				projectId = projectid
+		};
+
+		//Start-Validation that the query is right
 		
+		int result = _connection.Insert (new_e);
+
+		if (result != 0)
+		{
+			DataBaseParametersCtrl.Ctrl._empathyMapLoaded = new_e;
+			for (int i = 0; i < 6; i++)
+			{
+				//Creation of the sectors
+				_sectorServices.CreateSector(arraysectorsname[i]);
+			}
+			return new_e;
+		}else {
+			return _nullEmpathymap;
+		}
+		//End-Validation that the query		
 		
 	}
 

@@ -78,18 +78,18 @@ public class CaseServices  {
 	/// <returns>
 	/// An object of type case with all the data of the case that was searched and if doesnt exist so return an empty case.
 	/// </returns>
-	public Case GetCaseNamed(){
+	// public Case GetCaseNamed(){
 
-		string caseName = DataBaseParametersCtrl.Ctrl._caseLoaded.name;
-		int trainingId = DataBaseParametersCtrl.Ctrl._caseLoaded.trainingId;
+	// 	// string caseName = DataBaseParametersCtrl.Ctrl._caseLoaded.name;
+	// 	// int trainingId = DataBaseParametersCtrl.Ctrl._caseLoaded.trainingId;
 		
-		var c = _connection.Table<Case>().Where(x => x.name == caseName).Where(x => x.trainingId == trainingId).FirstOrDefault();
+	// 	// var c = _connection.Table<Case>().Where(x => x.name == caseName).Where(x => x.trainingId == trainingId).FirstOrDefault();
 
-		if (c == null)
-			return _nullCase;	
-		else 
-			return c;
-	}
+	// 	// if (c == null)
+	// 	// 	return _nullCase;	
+	// 	// else 
+	// 	// 	return c;
+	// }
 
 	/// <summary>
 	/// Description to method Get Case that contain in the DataBaseParametersCtrl.!-- _trainingLoaded

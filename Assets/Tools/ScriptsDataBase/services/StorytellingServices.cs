@@ -11,37 +11,89 @@ public class StorytellingServices  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
+	private MindmapServices _mindmapServices = new MindmapServices();
+
+	private NoteServices _noteServices = new NoteServices();
+
 	private StoryTelling _nullStorytelling = new StoryTelling{
 				id = 0,
 				percentage = 0,
 				creationDate = "null",
+				projectId = 0,
 				lastUpdate = "null",
-				projectId = 0
+				version = 0
 		};
 	
-
+	private int[] arrayversions = new int[]{1,2,3};
 
 	/// <summary>
 	/// Description to method to create a storyTelling
 	/// </summary>
-	/// <param name="storyTelling">
-	/// Attribute that contains an object of type storyTelling with all the data of the storyTelling that will be created.
+	/// <param name="versionstorytelling">
+	/// Attribute that contains an integer with version's value of the storyTelling that will be created.
 	/// </param>
 	/// <returns>
 	/// An object of type storyTelling with all the data of the storyTelling that was created.
 	/// </returns>
 
-	public StoryTelling CreateStoryTelling(StoryTelling storyTelling){
+	public StoryTelling CreateStoryTelling(int versionstorytelling){
 
-		// var publicValidation = GetProblemNamed(storyTelling.name, storyTelling.projectId);
+		//The identifier of the project is obtained to be able to pass 
+		//it as an attribute in the new empathymap that will be created
+		int projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 
-		// if ((publicValidation.name).Equals("null"))
-		// {
-			_connection.Insert (storyTelling);
-			return storyTelling;
-		// } else {
-		// 	return _nullPublic;
-		// }
+		//Get the current date to create the new storytelling
+		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		//Creation of the new storyTelling
+		var new_s = new StoryTelling{
+				percentage = 0,
+				creationDate = "null",
+				lastUpdate = "null",
+				projectId = projectid,
+				version = versionstorytelling
+		};
+
+		//Start-Validation that the query is right
+		
+		int result = _connection.Insert (new_s);
+
+		int count_mindmap = 0;
+
+		int count_notes = 0;
+
+		int notescounter = 1;
+
+		if (result != 0)
+		{
+			DataBaseParametersCtrl.Ctrl._storyTellingLoaded = new_s;
+
+			for (int i = 0; i < notescounter; i++)
+			{
+				//Creation of the notes
+				var n = _noteServices.CreateNote();
+
+				if (n.id!=0)
+					count_notes++;
+			}
+
+			for (int i = 0; i < 3; i++)
+			{
+				var m = _mindmapServices.CreateMindMap(arrayversions[i]);
+
+				if (m.id != 0)
+					count_mindmap++;
+			}
+
+			if (count_mindmap == 3 && count_notes==1)
+				return new_s;
+			else
+				return _nullStorytelling;
+			
+			
+		}else {
+			return _nullStorytelling;
+		}
 		
 		
 	}

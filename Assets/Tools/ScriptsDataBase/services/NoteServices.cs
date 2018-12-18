@@ -25,25 +25,43 @@ public class NoteServices  {
 	/// <summary>
 	/// Description to method to create a note
 	/// </summary>
-	/// <param name="note">
-	/// Attribute that contains an object of type note with all the data of the note that will be created.
-	/// </param>
 	/// <returns>
 	/// An object of type note with all the data of the note that was created.
 	/// </returns>
 
-	public Note CreateNote(Note note){
+	public Note CreateNote(){
 
-		// var publicValidation = GetProblemNamed(note.name, note.storytellingId);
+		//The identifier of the storytellind is obtained to be able to pass 
+		//it as an attribute in the new note that will be created
+		int storytellingid = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
 
-		// if ((publicValidation.name).Equals("null"))
-		// {
-			_connection.Insert (note);
-			return note;
-		// } else {
-		// 	return _nullPublic;
-		// }
+		//Get the current date to create the new empathymap
+		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		int valueToReturn = 0;
+
+		//Creation of the new storyTelling
+		var new_n = new Note{
+				position = 0,
+				creationDate = date,
+				description = "",
+				storyTellingId = storytellingid,
+				lastUpdate = date		
+		};
+
+		//Start-Validation that the query is right
 		
+		int result = _connection.Insert (new_n);
+
+		if (result != 0)
+		{
+			valueToReturn = result;
+			DataBaseParametersCtrl.Ctrl._noteLoaded = new_n;
+		
+			return new_n;
+		}else {
+			return _nullNote;
+		}
 		
 	}
 

@@ -38,14 +38,16 @@ public class TeacherServices  {
 	/// <returns>
 	/// An object of type teacher with all the data of the teacher that was searched and if doesnt exist so return an empty teacher.
 	/// </returns>
-	public Teacher GetCourseNamed(string teacherEmail, string password){
+	public Teacher GetTeacherNamed(string teacherEmail, string password){
 		
 		var t = _connection.Table<Teacher>().Where(x => x.email == teacherEmail).Where(x => x.identityCard == password).FirstOrDefault();
 
 		if (t == null)
 			return _nullTeacher;	
-		else 
+		else{
+			DataBaseParametersCtrl.Ctrl._teacherLoggedIn = t;
 			return t;
+		}
 	}
 
 	/// <summary>

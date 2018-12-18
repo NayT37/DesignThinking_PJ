@@ -11,6 +11,8 @@ public class SectionServices  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
+	private NodeServices _nodeServices = new NodeServices();
+
 	private Section _nullSection = new Section{
 				id = 0,
 				name = "null",
@@ -25,24 +27,57 @@ public class SectionServices  {
 	/// <summary>
 	/// Description to method to create a section
 	/// </summary>
-	/// <param name="section">
-	/// Attribute that contains an object of type section with all the data of the section that will be created.
+	/// <param name="sectionname">
+	/// Attribute that contains an string with the name of the section that will be created.
 	/// </param>
 	/// <returns>
 	/// An object of type section with all the data of the section that was created.
 	/// </returns>
 
-	public Section CreateSection(Section section){
+	public Section CreateSection(string sectionname){
 
-		// var publicValidation = GetProblemNamed(section.name, section.mindmapId);
+		//The identifier of the mindmap is obtained to be able to pass 
+		//it as an attribute in the new section that will be created
+		int mindmapid = DataBaseParametersCtrl.Ctrl._mindMapLoaded.id;
 
-		// if ((publicValidation.name).Equals("null"))
-		// {
-			_connection.Insert (section);
-			return section;
-		// } else {
-		// 	return _nullPublic;
-		// }
+		//Get the current date to create the new section
+		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		//Creation of the new section
+		var new_m = new Section{
+				name = sectionname,
+				creationDate = date,
+				mindMapId = mindmapid,
+				isOptional = false,
+				lastUpdate = date			
+		};
+
+		//Start-Validation that the query is right
+		
+		int result = _connection.Insert (new_m);
+
+		int count = 0;
+
+		if (result != 0)
+		{
+			DataBaseParametersCtrl.Ctrl._sectionLoaded = new_m;
+		
+				for (int i = 0; i < 3; i++)
+				{
+					var e = _nodeServices.CreateNode();
+
+					if (e.id != 0)
+						count++;
+				}
+
+				if (count == 3)
+					return new_m;
+				else
+					return _nullSection;
+		}else
+			return _nullSection;
+	
+		//End-Validation that the query		
 		
 		
 	}

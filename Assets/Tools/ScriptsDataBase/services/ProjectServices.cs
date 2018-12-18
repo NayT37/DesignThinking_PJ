@@ -11,6 +11,12 @@ public class ProjectServices  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
+	private EmpathymapServices _empathyMapServices = new EmpathymapServices();
+
+	private StorytellingServices _storytellingServices = new StorytellingServices();
+
+	private int[] arrayversions = new int[]{1,2,3};
+
 	private Project _nullProject = new Project{
 				id = 0,
 				name = "null",
@@ -26,26 +32,71 @@ public class ProjectServices  {
 	/// <summary>
 	/// Description to method to create a project
 	/// </summary>
-	/// <param name="project">
-	/// Attribute that contains an object of type project with all the data of the project that will be created.
+	/// <param name="projectname">
+	/// Attribute that contains an string with the name of the project that will be created.
+	/// </param>
+	/// <param name="sectorname">
+	/// Attribute that contains an string with the sector's name of the project that will be created.
 	/// </param>
 	/// <returns>
 	/// An object of type project with all the data of the project that was created.
 	/// </returns>
 
-	public Project CreateProject(Project project){
+	public Project CreateProject(string projectname, string sectorname){
 
-		var projectValidation = GetProjectNamed(project.name, project.groupId);
+		//The identifier of the group is obtained to be able to pass 
+		//it as an attribute in the new project that will be created
+		int groupId = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
+
+		//Get the current date to create the new course
+		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		//Creation of the new project
+		var new_p  = new Project{
+				name = projectname,
+				percentage = 0,
+				creationDate = date,
+				sectorName = sectorname,
+				groupId = groupId,
+				lastUpdate = date
+		};
+
+		//Start-Validation that the project that will be created does not exist
+		var projectValidation = GetProjectNamed(projectname, groupId);
 
 		if ((projectValidation.name).Equals("null"))
 		{
-			_connection.Insert (project);
-			return project;
+			int r = _connection.Insert (new_p);
+
+			if (r!=0)
+			{
+				DataBaseParametersCtrl.Ctrl._projectLoaded = new_p;
+				var e = _empathyMapServices.CreateEmpathymap();
+				int count = 0;
+
+				for (int i = 0; i < 3; i++)
+				{ 
+					var s =_storytellingServices.CreateStoryTelling(arrayversions[i]);
+
+					if (s.id!=0)
+					{
+						count++;
+					}
+				}
+
+				if (e.id != 0 && count==3)
+					return new_p;
+				else 
+					return _nullProject;
+				
+			} else
+			{
+				return _nullProject;
+			}
 		} else {
 			return _nullProject;
 		}
-		
-		
+		//End-Validation that the project that will be created does not exist
 	}
 
 	/// <summary>

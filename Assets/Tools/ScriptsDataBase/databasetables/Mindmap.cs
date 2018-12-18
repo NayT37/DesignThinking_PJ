@@ -16,10 +16,12 @@ public class Mindmap  {
 
 	public string lastUpdate { get; set; }
 
+	public int version { get; set; }
+
 	public override string ToString ()
 	{
-		return string.Format ("[Mindmap: Id={0}, percentage={1},  creationDate={2}, storyTellingId={3} image={4}, lastUpdate={5}]", 
-								id, percentage, creationDate, image, lastUpdate);
+		return string.Format ("[Mindmap: Id={0}, percentage={1},  creationDate={2}, storyTellingId={3} image={4}, lastUpdate={5}, version={6}]", 
+								id, percentage, creationDate, image, lastUpdate, version);
 	}
 
 	
