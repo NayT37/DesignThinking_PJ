@@ -2,19 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Ctrl_edit_Curse : MonoBehaviour {
 
+	public GameObject prefab_editCurse;
+	public GameObject parent_Group;
+	private Slider _slider_editCurse;
+	private slider_EditCurse slider_handlerEditCurse;
 
-
+	private float max;
+	private float min;
 
 	void Start () {
-		
+
+
+		_slider_editCurse = GameObject.Find ("SliderEditCurse").GetComponent<Slider>();
+		slider_handlerEditCurse = _slider_editCurse.GetComponent<slider_EditCurse> ();
+		Instantiate (prefab_editCurse, parent_Group.transform);
+		Instantiate (prefab_editCurse, parent_Group.transform);
+		Instantiate (prefab_editCurse, parent_Group.transform);
+		Instantiate (prefab_editCurse, parent_Group.transform);
+		Instantiate (prefab_editCurse, parent_Group.transform);
+		Instantiate (prefab_editCurse, parent_Group.transform);
+		Instantiate (prefab_editCurse, parent_Group.transform);
+		Instantiate (prefab_editCurse, parent_Group.transform);
 	}
 
 
 	void Update () {
 		
+		if(slider_handlerEditCurse.slider_value < _slider_editCurse.value){
+			if (max < _slider_editCurse.value) {
+				parent_Group.transform.position += new Vector3 (0.0f, _slider_editCurse.value, 0.0f);	
+			} else if(max > _slider_editCurse.value){
+				parent_Group.transform.position += new Vector3 (0.0f, -_slider_editCurse.value , 0.0f);
+			}
+			max = _slider_editCurse.value;
+		}else if(slider_handlerEditCurse.slider_value > _slider_editCurse.value){
+			if (min > _slider_editCurse.value) {
+				parent_Group.transform.position += new Vector3 (0.0f, -_slider_editCurse.value , 0.0f);	
+			} else if(min < _slider_editCurse.value){
+				parent_Group.transform.position += new Vector3 (0.0f, _slider_editCurse.value, 0.0f);
+			}
+			min = _slider_editCurse.value;
+
+		}
+
 	}
 
 	public void editBtn(){
