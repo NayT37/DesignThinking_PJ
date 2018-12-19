@@ -1,9 +1,13 @@
 fileFormatVersion: 2
-guid: aa7545324f5ed7249a6c884008f29a3b
-timeCreated: 1545157559
+guid: 009a58a3116b81a48897334d2e0f4c5e
+timeCreated: 1545236096
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: ElementosIntro1_0
+    21300002: ElementosIntro1_1
+    21300004: ElementosIntro1_2
+    21300006: ElementosIntro1_3
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -108,7 +112,63 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: ElementosIntro1_0
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 725
+        width: 3328
+        height: 1661
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosIntro1_1
+      rect:
+        serializedVersion: 2
+        x: 3512
+        y: 685
+        width: 3325
+        height: 1661
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosIntro1_2
+      rect:
+        serializedVersion: 2
+        x: 6955
+        y: 693
+        width: 3312
+        height: 1653
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ElementosIntro1_3
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 537
+        width: 141
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
     outline: []
     physicsShape: []
   spritePackingTag: 
