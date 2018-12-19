@@ -11,6 +11,7 @@ public class EvaluationServices  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
+	private string[] arrayDescriptions = new string[]{"question1", "question2", "question3", "question4", "question5", "question6"};
 	private QuestionServices _questionServices = new QuestionServices();
 
 	private Evaluation _nullEvaluation = new Evaluation{
@@ -65,7 +66,7 @@ public class EvaluationServices  {
 			//Queda pendiente saber cuantás preguntas son----
 			for (int i = 0; i < questionsCounter; i++)
 			{
-				var q = _questionServices.CreateQuestion();	
+				var q = _questionServices.CreateQuestion(arrayDescriptions[i]);	
 				
 				if (q.id != 0)
 				{
@@ -95,9 +96,28 @@ public class EvaluationServices  {
 	/// <returns>
 	/// An object of type evaluation with all the data of the evaluation that was searched and if doesnt exist so return an empty evaluation.
 	/// </returns>
-	public Evaluation GetEvaluationNamed( int mindmapId){
+	public Evaluation GetEvaluationNamed(int mindmapId){
 		
 		var e = _connection.Table<Evaluation>().Where(x => x.mindMapId == mindmapId).FirstOrDefault();
+
+		if (e == null)
+			return _nullEvaluation;	
+		else 
+			return e;
+	}
+
+	/// <summary>
+	/// Description to method Get Evaluation with the specified mindmapId
+	/// </summary>
+	/// <param name="evaluationid">
+	/// evaluation identifier to find the correct evaluation that will be searched
+	/// </param>
+	/// <returns>
+	/// An object of type evaluation with all the data of the evaluation that was searched and if doesnt exist so return an empty evaluation.
+	/// </returns>
+	public Evaluation GetEvaluationId( int evaluationid){
+		
+		var e = _connection.Table<Evaluation>().Where(x => x.id == evaluationid).FirstOrDefault();
 
 		if (e == null)
 			return _nullEvaluation;	
@@ -153,7 +173,7 @@ public class EvaluationServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
-	public int DeleteEmpathymap(Evaluation evaluationToDelete){
+	public int DeleteEvaluation(Evaluation evaluationToDelete){
 
 		return _connection.Delete(evaluationToDelete);
 	}
@@ -161,13 +181,24 @@ public class EvaluationServices  {
 	/// <summary>
 	/// Description of the method to update a evaluation
 	/// </summary>
-	/// <param name="evaluationToUpdate">
-	/// An object of type evaluation that contain the evaluation that will be updated.
+	/// <param name="evaluationid">
+	/// An integer with the evaluation identifier that contain the evaluation that will be updated.
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateEmpathymap(Evaluation evaluationToUpdate){
-		return _connection.Update(evaluationToUpdate, evaluationToUpdate.GetType());
+	public int UpdateEvaluation(int evaluationid){
+
+		var e = GetEvaluationId(evaluationid);
+		int result = 0;
+
+		if (e.id!=0)
+		{
+			e.percentage = 33;
+			e.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+			result = _connection.Update(e, e.GetType());
+
+		}
+		return result;
 	}
 }
 

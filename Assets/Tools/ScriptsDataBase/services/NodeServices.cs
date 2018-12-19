@@ -72,6 +72,25 @@ public class NodeServices  {
 	}
 
 	/// <summary>
+	/// Description to method Get Node with the specified sectionId
+	/// </summary>
+	/// <param name="nodeid">
+	/// node identifier to find the correct node that will be searched
+	/// </param>
+	/// <returns>
+	/// An object of type node with all the data of the node that was searched and if doesnt exist so return an empty node.
+	/// </returns>
+	public Node GetNodeId( int nodeid){
+		
+		var n = _connection.Table<Node>().Where(x => x.id == nodeid).FirstOrDefault();
+
+		if (n == null)
+			return _nullNode;	
+		else 
+			return n;
+	}
+
+	/// <summary>
 	/// Description of the method to obtain all the notes of a specific section
 	/// </summary>
 	/// <param name="sectionId">
@@ -101,21 +120,38 @@ public class NodeServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
-	public int DeleteEmpathymap(Node nodeToDelete){
+	public int DeleteNode(Node nodeToDelete){
 
 		return _connection.Delete(nodeToDelete);
 	}
 
 	/// <summary>
-	/// Description of the method to update a node
+	/// Description of the method to update a moment
 	/// </summary>
-	/// <param name="nodeToDelete">
-	/// An object of type node that contain the node that will be updated.
+	/// <param name="nodeToUpdate">
+	/// An object of type moment that contain the moment that will be updated.
+	/// <returns>
+	/// <param name="newdescription">
+	/// An string that contain the new description that will be updated.
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateEmpathymap(Node nodeToDelete){
-		return _connection.Update(nodeToDelete, nodeToDelete.GetType());
+	public int UpdateNode(Node nodeToUpdate, string newdescription){
+
+		
+		var _sectionServices = new 	SectionServices();
+
+		nodeToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+		nodeToUpdate.description = newdescription;
+
+		int result = _connection.Update(nodeToUpdate, nodeToUpdate.GetType());
+
+		if (result!=0)
+		{
+			_sectionServices.UpdateSection(nodeToUpdate.sectionId);
+		}
+
+		return result;
 	}
 }
 
