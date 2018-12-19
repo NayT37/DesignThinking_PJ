@@ -15,7 +15,7 @@ public class MindmapServices  {
 
 	private SectionServices _sectionServices = new SectionServices();
 
-	private string[] arraysectionsname = new string[]{"advantages","opportunities","requirements","how","risk_a", "risk_o"};
+	private string[] arraysectionsname = new string[]{"advantages","opportunities","-requirements","-how","risk_a", "risk_o"};
 	private Mindmap _nullMindmap = new Mindmap{
 				id = 0,
 				percentage = 0,
@@ -69,27 +69,22 @@ public class MindmapServices  {
 
 			if (value != 0){
 				DataBaseParametersCtrl.Ctrl._mindMapLoaded = new_m;
-				var e = _evaluationServices.CreateEvaluation();	
+				//var e = _evaluationServices.CreateEvaluation();	
 
-				if (e.id != 0){
+				for (int i = 0; i < 6; i++)
+				{
+					var s = _sectionServices.CreateSection(arraysectionsname[i]);
 
-					for (int i = 0; i < 6; i++)
-					{
-						var s = _sectionServices.CreateSection(arraysectionsname[i]);
+					if (s.id != 0)
+						count++;
 
-						if (s.id != 0)
-							count++;
-
-					}
-
-					if (count == 6)
-						return new_m;
-					else 
-						return _nullMindmap;
 				}
-				
-				else
+
+				if (count == 6)
+					return new_m;
+				else 
 					return _nullMindmap;
+			
 			}else
 				return _nullMindmap;
 			
@@ -113,6 +108,25 @@ public class MindmapServices  {
 	public Mindmap GetMindmapNamed( int storytellingId){
 		
 		var m = _connection.Table<Mindmap>().Where(x => x.storyTellingId == storytellingId).FirstOrDefault();
+
+		if (m == null)
+			return _nullMindmap;	
+		else 
+			return m;
+	}
+
+	/// <summary>
+	/// Description to method Get Mindmap with the specified storytellingId
+	/// </summary>
+	/// <param name="mindmapid">
+	/// mindmap identifier to find the correct mindmap that will be searched
+	/// </param>
+	/// <returns>
+	/// An object of type mindmap with all the data of the mindmap that was searched and if doesnt exist so return an empty mindmap.
+	/// </returns>
+	public Mindmap GetMindmapId( int mindmpaid){
+		
+		var m = _connection.Table<Mindmap>().Where(x => x.id == mindmpaid).FirstOrDefault();
 
 		if (m == null)
 			return _nullMindmap;	
@@ -168,21 +182,35 @@ public class MindmapServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
-	public int DeleteEmpathymap(Mindmap mindmapToDelete){
+	public int DeleteMindmap(Mindmap mindmapToDelete){
 
 		return _connection.Delete(mindmapToDelete);
 	}
 
 	/// <summary>
-	/// Description of the method to update a mindmap
+	/// Description of the method to update a moment
 	/// </summary>
-	/// <param name="mindmapToUpdate">
-	/// An object of type mindmap that contain the mindmap that will be updated.
+	/// <param name="mindmapid">
+	/// An integer that contain the identifier section that will be updated.
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateEmpathymap(Mindmap mindmapToUpdate){
-		return _connection.Update(mindmapToUpdate, mindmapToUpdate.GetType());
+	public int UpdateMindmap(int mindmapid){
+
+		var mindmapToUpdate = GetMindmapId(mindmapid);
+		
+		int counter = _sectionServices.GetSectionByAverage(mindmapid);
+
+		int averageSections = ((counter*100)/6);
+
+		int averageEvaluation = _evaluationServices.GetEvaluationNamed(mindmapid).percentage;
+
+		mindmapToUpdate.percentage = ((averageEvaluation+averageSections)/2);
+		mindmapToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		int result = _connection.Update(mindmapToUpdate, mindmapToUpdate.GetType());
+
+		return result;
 	}
 }
 

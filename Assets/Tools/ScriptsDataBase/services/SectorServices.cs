@@ -157,7 +157,7 @@ public class SectorServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateEmpathymap(Sector sectorToUpdate){
+	public int UpdateSector(Sector sectorToUpdate){
 		return _connection.Update(sectorToUpdate, sectorToUpdate.GetType());
 	}
 }

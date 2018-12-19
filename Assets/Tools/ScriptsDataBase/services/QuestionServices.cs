@@ -11,6 +11,8 @@ public class QuestionServices  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
+	private AnswerServices _answerServices = new AnswerServices();
+
 	private Question _nullQuestion = new Question{
 				id = 0,
 				grade = 0,
@@ -25,11 +27,14 @@ public class QuestionServices  {
 	/// <summary>
 	/// Description to method to create a question
 	/// </summary>
+	/// <param name="descriptionOfQuestion">
+	/// Attribute that contains an string with the dfescription of the question that will be created.
+	/// </param>
 	/// <returns>
 	/// An object of type question with all the data of the question that was created.
 	/// </returns>
 
-	public Question CreateQuestion(){
+	public Question CreateQuestion(string descriptionOfQuestion){
 
 		//The identifier of the evaluation is obtained to be able to pass 
 		//it as an attribute in the new question that will be created
@@ -42,7 +47,7 @@ public class QuestionServices  {
 		var new_q = new Question{
 				grade = 0,
 				creationDate = date,
-				description = date,
+				description = descriptionOfQuestion,
 				evaluationId = evaluationid,
 				lastUpdate = date			
 		};
@@ -51,10 +56,24 @@ public class QuestionServices  {
 		
 		int result = _connection.Insert (new_q);
 
+		int counter = 0;
+
 		if (result != 0)
 		{
 			DataBaseParametersCtrl.Ctrl._questionLoaded = new_q;
-			return new_q;
+
+			for (int i = 0; i < 5; i++)
+			{	
+				var a = _answerServices.CreateAnswer(i+1);
+
+				if (a.id != 0)
+					counter++;
+			}
+
+			if (counter == 5)
+				return new_q;
+			else 
+				return _nullQuestion;
 		}else {
 			return _nullQuestion;
 		}
@@ -75,6 +94,25 @@ public class QuestionServices  {
 	public Question GetQuestionNamed( int evaluationId){
 		
 		var q = _connection.Table<Question>().Where(x => x.evaluationId == evaluationId).FirstOrDefault();
+
+		if (q == null)
+			return _nullQuestion;	
+		else 
+			return q;
+	}
+
+	/// <summary>
+	/// Description to method Get Question with the specified evaluationId
+	/// </summary>
+	/// <param name="questionid">
+	/// question identifier to find the correct question that will be searched
+	/// </param>
+	/// <returns>
+	/// An object of type question with all the data of the question that was searched and if doesnt exist so return an empty question.
+	/// </returns>
+	public Question GetQuestionId(int questionid){
+		
+		var q = _connection.Table<Question>().Where(x => x.id == questionid).FirstOrDefault();
 
 		if (q == null)
 			return _nullQuestion;	
@@ -126,8 +164,30 @@ public class QuestionServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateEmpathymap(Question questionToUpdate){
+	public int UpdateQuestion(Question questionToUpdate){
 		return _connection.Update(questionToUpdate, questionToUpdate.GetType());
+	}
+
+	/// <summary>
+	/// Description of the method to update a question
+	/// </summary>
+	/// <param name="questionid">
+	/// An integer with the question identifier that contain the question that will be updated.
+	/// <returns>
+	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
+	/// </returns>
+	public int UpdateQuestion(int questionid){
+
+		var q = GetQuestionId(questionid);
+		int result = 0;
+
+		if (q.id!=0)
+		{
+			q.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+			result = _connection.Update(q, q.GetType());
+
+		}
+		return result;
 	}
 }
 

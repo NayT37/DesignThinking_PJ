@@ -102,6 +102,72 @@ public class SectionServices  {
 	}
 
 	/// <summary>
+	/// Description to method Get Section with the specified mindmapId
+	/// </summary>
+	/// <param name="sectionid">
+	/// section identifier to find the correct section that will be searched
+	/// </param>
+	/// <returns>
+	/// An object of type section with all the data of the section that was searched and if doesnt exist so return an empty section.
+	/// </returns>
+	public Section GetSectionId( int sectionid){
+		
+		var s = _connection.Table<Section>().Where(x => x.id == sectionid).FirstOrDefault();
+
+		if (s == null)
+			return _nullSection;	
+		else 
+			return s;
+	}
+
+	/// <summary>
+	/// Description to method Get Section with the specified mindmapId
+	/// </summary>
+	/// <param name="mindmapid">
+	/// mindmap identifier to find the correct section that will be searched
+	/// </param>
+	/// <returns>
+	/// An object of type section with all the data of the section that was searched and if doesnt exist so return an empty section.
+	/// </returns>
+	public int GetSectionByAverage(int mindmapid){
+		
+		var sections = _connection.Table<Section>().Where(x => x.mindMapId == mindmapid).Where(x => x.name.StartsWith("-"));
+		int counter = 0;
+
+		foreach (var s in sections)
+		{
+			var nodes = _nodeServices.GetNodes(s.id);
+
+			foreach (var node in nodes)
+			{
+				if (!node.description.Equals(""))
+					counter++;
+			}
+		}
+		
+		return counter;
+	}
+
+	/// <summary>
+	/// Description to method Get Section with the specified mindmapId
+	/// </summary>
+	/// <param name="sectionname">
+	/// section name to find the correct section that will be searched
+	/// </param>
+	/// <returns>
+	/// An object of type section with all the data of the section that was searched and if doesnt exist so return an empty section.
+	/// </returns>
+	public Section GetSectionId(string sectionname){
+		
+		var s = _connection.Table<Section>().Where(x => x.name == sectionname).FirstOrDefault();
+
+		if (s == null)
+			return _nullSection;	
+		else 
+			return s;
+	}
+
+	/// <summary>
 	/// Description of the method to obtain all the sections of a specific mindMap
 	/// </summary>
 	/// <param name="mindmapId">
@@ -131,21 +197,36 @@ public class SectionServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
-	public int DeleteEmpathymap(Section sectionToDelete){
+	public int DeleteSection(Section sectionToDelete){
 
 		return _connection.Delete(sectionToDelete);
 	}
 
 	/// <summary>
-	/// Description of the method to update a section
+	/// Description of the method to update a moment
 	/// </summary>
-	/// <param name="sectionToUpdate">
-	/// An object of type section that contain the section that will be updated.
+	/// <param name="sectionid">
+	/// An integer that contain the identifier section that will be updated.
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateEmpathymap(Section sectionToUpdate){
-		return _connection.Update(sectionToUpdate, sectionToUpdate.GetType());
+	public int UpdateSection(int sectionid){
+
+		var sectionToUpdate = GetSectionId(sectionid);
+		var _mindmapServices = new MindmapServices();
+
+		sectionToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		int result = _connection.Update(sectionToUpdate, sectionToUpdate.GetType());
+
+		if (result!=0)
+		{
+			_mindmapServices.UpdateMindmap(sectionToUpdate.mindMapId);
+		}
+
+		return result;
 	}
+
+
 }
 

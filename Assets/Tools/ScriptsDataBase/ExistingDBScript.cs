@@ -18,6 +18,8 @@ public class ExistingDBScript : MonoBehaviour {
 
 	private MomentServices _momentServices;
 
+	private AnswerServices _answerServices;
+
 	
 
 	// Use this for initialization
@@ -28,6 +30,7 @@ public class ExistingDBScript : MonoBehaviour {
 		_trainingServices = new TrainingServices();
 		_caseServices = new CaseServices();
 		_momentServices = new MomentServices();
+		_answerServices = new AnswerServices();
 
 		// ds.CreateDB ();
 		DebugText.text = "";
@@ -70,8 +73,11 @@ public class ExistingDBScript : MonoBehaviour {
 		// int result = _groupServices.UpdateGroup(g);
 		// Debug.Log(result);
 		
-		var groups = _groupServices.GetGroups(2);
-		ToConsole(groups);
+		// var groups = _groupServices.GetGroups(2);
+		// ToConsole(groups);
+
+		var answers = _answerServices.GetAnswers();
+		ToConsole(answers);
 
 	}
 
@@ -80,6 +86,12 @@ public class ExistingDBScript : MonoBehaviour {
 	private void ToConsole(IEnumerable<Headquarters> headquarters){
 		foreach (var headquarter in headquarters) {
 			ToConsole(headquarter.ToString());
+		}
+	}
+
+	private void ToConsole(IEnumerable<Answer> answers){
+		foreach (var answer in answers) {
+			ToConsole(answer.ToString());
 		}
 	}
 
