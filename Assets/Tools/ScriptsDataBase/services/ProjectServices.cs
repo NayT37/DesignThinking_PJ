@@ -71,20 +71,11 @@ public class ProjectServices  {
 			if (r!=0)
 			{
 				DataBaseParametersCtrl.Ctrl._projectLoaded = new_p;
+				
 				var e = _empathyMapServices.CreateEmpathymap();
-				int count = 0;
+				var s =_storytellingServices.CreateStoryTelling(1);
 
-				for (int i = 0; i < 3; i++)
-				{ 
-					var s =_storytellingServices.CreateStoryTelling(arrayversions[i]);
-
-					if (s.id!=0)
-					{
-						count++;
-					}
-				}
-
-				if (e.id != 0 && count==3)
+				if (e.id != 0 && s.id!=0)
 					return new_p;
 				else 
 					return _nullProject;
@@ -141,6 +132,31 @@ public class ProjectServices  {
 	}
 
 	/// <summary>
+	/// Description of the method to obtain the average percentage of all the projects with specified group identifier
+	/// </summary>
+	/// <returns>
+	/// An integer with the average of all projects with specified project identifier
+	/// </returns>
+	public int GetProjectsAverage(){
+
+		int groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
+		
+		var projects = _connection.Table<Project>().Where(x => x.groupId == groupid);
+		int counter = 0;
+		int sum = 0;
+		int result = 0;
+
+		foreach (var p in projects)
+		{
+			sum += p.percentage;
+			counter++;
+		}
+
+		result = (sum/counter);
+		return result;
+	}
+
+	/// <summary>
 	/// Description of the method to obtain all the projects of a specific group
 	/// </summary>
 	/// <param name="groupId">
@@ -185,8 +201,36 @@ public class ProjectServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateProject(Project projectToUpdate){
-		return _connection.Update(projectToUpdate, projectToUpdate.GetType());
+	public int UpdateProject(bool isPercentageChanged){
+		
+		var _publicServices = new PublicServices();
+
+		var _problemServices = new ProblemServices();
+
+		var _groupServices = new GroupServices();
+
+		var projectToUpdate = DataBaseParametersCtrl.Ctrl._projectLoaded;
+
+		int projectid = projectToUpdate.id;
+
+		projectToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		if (isPercentageChanged){
+			int percentagePublic = _publicServices.GetPublicNamed(projectid).percentage;
+			int percentageStoryTelling = _storytellingServices.GetStorytellingAverage(projectid);
+			int percentageEmpathymap = DataBaseParametersCtrl.Ctrl._empathyMapLoaded.percentage;
+			int percentageProblem = DataBaseParametersCtrl.Ctrl._problemLoaded.percentage;
+			projectToUpdate.percentage = ((percentagePublic+percentageStoryTelling+percentageEmpathymap+percentageProblem)/4);
+		} 
+
+		int result = _connection.Update(projectToUpdate, projectToUpdate.GetType());
+
+		if (result != 0)
+		{
+			DataBaseParametersCtrl.Ctrl._projectLoaded = projectToUpdate;
+			_groupServices.UpdateGroup();
+		}
+		return 
 	}
 }
 

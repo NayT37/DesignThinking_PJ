@@ -221,19 +221,18 @@ public class CourseServices  {
 	/// <summary>
 	/// Description of the method to update a course
 	/// </summary>
-	/// <param name="courseid">
-	/// Identifier of the course that will be updated.
-	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateCourse(int courseId){
+	public int UpdateCourse(){
+
+		var courseToUpdate = DataBaseParametersCtrl.Ctrl._courseLoaded;
 
 		var _groupServices = new GroupServices();
 
-		var courseToUpdate = GetCourseId(courseId);
-		var groups = _groupServices.GetGroups(courseId);
+		var groups = _groupServices.GetGroups(courseToUpdate.id);
+
 		int valueToReturn = 0;
-		int average = 0;
+		int percentagegroups = 0;
 		int counter = 0;
 		
 		if (courseToUpdate.id!=0)
@@ -241,12 +240,12 @@ public class CourseServices  {
 			foreach (var group in groups)
 			{
 				counter++;
-				average += group.percentage;
+				percentagegroups += group.percentage;
 			}
 
-			average = average/counter;
+			int averagegroups = percentagegroups/counter;
 
-			courseToUpdate.percentage = average;
+			courseToUpdate.percentage = averagegroups;
 			courseToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
 			valueToReturn = _connection.Update(courseToUpdate, courseToUpdate.GetType());

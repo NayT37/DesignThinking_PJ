@@ -25,11 +25,14 @@ public class NoteServices  {
 	/// <summary>
 	/// Description to method to create a note
 	/// </summary>
+	/// <param name="notedescription">
+	/// Attribute that contains an string with the note description of the note that will be created.
+	/// </param>
 	/// <returns>
 	/// An object of type note with all the data of the note that was created.
 	/// </returns>
 
-	public Note CreateNote(){
+	public Note CreateNote(string notedescription){
 
 		//The identifier of the storytellind is obtained to be able to pass 
 		//it as an attribute in the new note that will be created
@@ -44,7 +47,7 @@ public class NoteServices  {
 		var new_n = new Note{
 				position = 0,
 				creationDate = date,
-				description = "",
+				description = notedescription,
 				storyTellingId = storytellingid,
 				lastUpdate = date		
 		};
@@ -115,6 +118,21 @@ public class NoteServices  {
 	}
 
 	/// <summary>
+	/// Description to method Get Section with the specified storyTellingid
+	/// </summary>
+	/// <param name="storyTellingid">
+	/// storytelling identifier to find the correct note that will be searched
+	/// </param>
+	/// <returns>
+	/// An object of type section with all the data of the section that was searched and if doesnt exist so return an empty section.
+	/// </returns>
+	public int GetNotesToPosition(int storyTellingid){
+		
+		int counter = _connection.Table<Note>().Where(x => x.storyTellingId == storyTellingid).Where(x => x.position != 0).Count();
+		return counter;
+	}
+
+	/// <summary>
 	/// (This is a test method) Description of the method to obtain all the Notes
 	/// </summary>
 	/// <returns>
@@ -132,7 +150,7 @@ public class NoteServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
-	public int DeleteEmpathymap(Note noteToDelete){
+	public int DeleteNote(Note noteToDelete){
 
 		return _connection.Delete(noteToDelete);
 	}
@@ -140,13 +158,36 @@ public class NoteServices  {
 	/// <summary>
 	/// Description of the method to update a note
 	/// </summary>
-	/// <param name="noteToUpdate">
-	/// An object of type note that contain the note that will be updated.
+	/// <param name="positionToUpdate">
+	/// Attribute that contains an integer with the position of the note that will be created.
+	/// <returns>
+	/// <param name="newdescription">
+	/// Attribute that contains an string with the new description of the note that will be created.
+	/// <returns>
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateEmpathymap(Note noteToUpdate){
-		return _connection.Update(noteToUpdate, noteToUpdate.GetType());
+	public int UpdateNote(int positionToUpdate, string newdescription){
+
+		var noteToUpdate = DataBaseParametersCtrl.Ctrl._noteLoaded;
+
+		var storytellingServices = new StorytellingServices();
+
+		noteToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		if (positionToUpdate == 0)
+			noteToUpdate.description = newdescription;
+		else 
+			noteToUpdate.position = positionToUpdate;
+
+		int result = _connection.Update(noteToUpdate, noteToUpdate.GetType());
+
+		if (result!=0)
+		{
+			storytellingServices.UpdateStoryTelling();
+		}
+
+		return result;
 	}
 }
 

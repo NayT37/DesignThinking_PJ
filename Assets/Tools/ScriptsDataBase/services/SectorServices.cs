@@ -113,6 +113,19 @@ public class SectorServices  {
 	}
 
 	/// <summary>
+	/// Description to method Get Section with the specified empathymapid
+	/// </summary>
+	/// <returns>
+	/// An object of type section with all the data of the section that was searched and if doesnt exist so return an empty section.
+	/// </returns>
+	public int GetSectorWithDescription(){
+
+		int empathymapid = DataBaseParametersCtrl.Ctrl._empathyMapLoaded.id;	
+		int counter = _connection.Table<Sector>().Where(x => x.empathyMapId == empathymapid).Where(x => x.description != "").Count();
+		return counter;
+	}
+
+	/// <summary>
 	/// Description of the method to obtain all the sectors of a specific empathyMap
 	/// </summary>
 	/// <param name="empathymapId">
@@ -150,15 +163,31 @@ public class SectorServices  {
 	}
 
 	/// <summary>
-	/// Description of the method to update a sector
+	/// Description of the method to update a note
 	/// </summary>
-	/// <param name="sectorToUpdate">
-	/// An object of type sector that contain the sector that will be updated.
+	/// <param name="newdescription">
+	/// Attribute that contains an string with the new description of the sector that will be created.
+	/// <returns>
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateSector(Sector sectorToUpdate){
-		return _connection.Update(sectorToUpdate, sectorToUpdate.GetType());
+	public int UpdateSector(string newdescription){
+
+		var sectorToUpdate = DataBaseParametersCtrl.Ctrl._sectorLoaded;
+
+		var empathymapServices = new EmpathymapServices();
+
+		sectorToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		int result = _connection.Update(sectorToUpdate, sectorToUpdate.GetType());
+
+		if (result!=0)
+		{
+			DataBaseParametersCtrl.Ctrl._sectorLoaded = sectorToUpdate;
+			empathymapServices.UpdateEmpathymap();
+		}
+
+		return result;
 	}
 }
 

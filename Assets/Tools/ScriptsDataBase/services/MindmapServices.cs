@@ -163,6 +163,33 @@ public class MindmapServices  {
 	public IEnumerable<Mindmap> GetMindmaps(int storytellingId){
 		return _connection.Table<Mindmap>().Where(x => x.storyTellingId == storytellingId);
 	}
+	
+	
+	/// <summary>
+	/// Description of the method to obtain the average percentage of all the mindmaps with specified storytelling identifier
+	/// </summary>
+	/// <param name="storyTellingid">
+	/// storytelling identifier to find the correct storytelling that will be searched
+	/// </param>
+	/// <returns>
+	/// An integer with the average of all mindmaps with specified storytelling identifier
+	/// </returns>
+	public int GetMindmapsAverage(int storyTellingId){
+		
+		var mindmaps = _connection.Table<Mindmap>().Where(x => x.storyTellingId == storyTellingId);
+		int counter = 0;
+		int sum = 0;
+		int result = 0;
+
+		foreach (var m in mindmaps)
+		{
+			sum += m.percentage;
+			counter++;
+		}
+
+		result = (sum/counter);
+		return result;
+	}
 
 	/// <summary>
 	/// (This is a test method) Description of the method to obtain all the Notes

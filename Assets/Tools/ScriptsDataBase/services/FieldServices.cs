@@ -29,11 +29,14 @@ public class FieldServices  {
 	/// <param name="stringfield">
 	/// Attribute that contains an string with the name of the field that will be created.
 	/// </param>
+	/// <param name="fielddescription">
+	/// Attribute that contains an string with the description of the field that will be created.
+	/// </param>
 	/// <returns>
 	/// An object of type field with all the data of the field that was created.
 	/// </returns>
 
-	public Field CreateField(string fieldname){
+	public Field CreateField(string fieldname, string fielddescription){
 
 		//The identifier of the project is obtained to be able to pass 
 		//it as an attribute in the new problem that will be created
@@ -45,8 +48,8 @@ public class FieldServices  {
 		//Creation of the new problem
 		var new_f = new Field{
 				name = fieldname,
-				description = "",
-				percentage = 0,
+				description = fielddescription,
+				percentage = 100,
 				creationDate = date,
 				lastUpdate = date,
 				problemId = problemid
