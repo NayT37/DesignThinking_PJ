@@ -206,7 +206,8 @@ public class TrainingServices  {
 
 			if (valueToReturn!=0)
 			{
-				_groupServices.UpdateGroup(trainingToUpdate.groupId, average);
+				DataBaseParametersCtrl.Ctrl._trainingloaded = trainingToUpdate;
+				_groupServices.UpdateGroup();
 			}
 		}
 		return _connection.Update(trainingToUpdate, trainingToUpdate.GetType());

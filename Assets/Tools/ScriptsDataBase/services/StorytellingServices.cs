@@ -58,34 +58,13 @@ public class StorytellingServices  {
 		
 		int result = _connection.Insert (new_s);
 
-		int count_mindmap = 0;
-
-		int count_notes = 0;
-
-		int notescounter = 1;
-
 		if (result != 0)
 		{
 			DataBaseParametersCtrl.Ctrl._storyTellingLoaded = new_s;
 
-			for (int i = 0; i < notescounter; i++)
-			{
-				//Creation of the notes
-				var n = _noteServices.CreateNote();
-
-				if (n.id!=0)
-					count_notes++;
-			}
-
-			for (int i = 0; i < 3; i++)
-			{
-				var m = _mindmapServices.CreateMindMap(arrayversions[i]);
-
-				if (m.id != 0)
-					count_mindmap++;
-			}
-
-			if (count_mindmap == 3 && count_notes==1)
+			var m = _mindmapServices.CreateMindMap(1);
+		
+			if (m.id != 0)
 				return new_s;
 			else
 				return _nullStorytelling;
@@ -136,6 +115,32 @@ public class StorytellingServices  {
 	}
 
 	/// <summary>
+	/// Description of the method to obtain the average percentage of all the storytellings with specified project identifier
+	/// </summary>
+	/// <param name="storyTellingid">
+	/// storytelling identifier to find the correct storytelling that will be searched
+	/// </param>
+	/// <returns>
+	/// An integer with the average of all storytellings with specified project identifier
+	/// </returns>
+	public int GetStorytellingAverage(int projectid){
+		
+		var storytellings = _connection.Table<StoryTelling>().Where(x => x.projectId == projectid);
+		int counter = 0;
+		int sum = 0;
+		int result = 0;
+
+		foreach (var s in storytellings)
+		{
+			sum += s.percentage;
+			counter++;
+		}
+
+		result = (sum/counter);
+		return result;
+	}
+
+	/// <summary>
 	/// Description of the method to obtain all the storyTellings of a specific project
 	/// </summary>
 	/// <param name="projectId">
@@ -165,21 +170,49 @@ public class StorytellingServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
-	public int DeleteEmpathymap(StoryTelling storytellingToDelete){
+	public int DeleteStoryTelling(StoryTelling storytellingToDelete){
 
 		return _connection.Delete(storytellingToDelete);
 	}
 
 	/// <summary>
-	/// Description of the method to update a storyTelling
+	/// Description of the method to update a moment
 	/// </summary>
-	/// <param name="storytellingToUpdate">
-	/// An object of type storyTelling that contain the storyTelling that will be updated.
+	/// <param name="mindmapid">
+	/// An integer that contain the identifier section that will be updated.
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateEmpathymap(StoryTelling storytellingToUpdate){
-		return _connection.Update(storytellingToUpdate, storytellingToUpdate.GetType());
+	public int UpdateStoryTelling(){
+
+		var _publicServices = new PublicServices();
+
+		var _projectServices = new ProjectServices();
+
+		var storyTellingUpdate = DataBaseParametersCtrl.Ctrl._storyTellingLoaded;
+
+		int storytellingid = storyTellingUpdate.id;
+		
+		int counterNotes = _noteServices.GetNotesToPosition(storytellingid);
+
+		int averageToNotes = ((counterNotes*100)/6);
+
+		int averageToEvaluation = _publicServices.GetPublicNamed(storytellingid).percentage;
+
+		int averageToMindmaps = _mindmapServices.GetMindmapsAverage(storytellingid);
+
+		storyTellingUpdate.percentage = ((averageToNotes+averageToEvaluation+averageToMindmaps)/3);
+
+		storyTellingUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		int result = _connection.Update(storyTellingUpdate, storyTellingUpdate.GetType());
+
+		if (result!=0)
+		{
+			_projectServices.UpdateProject();
+		}
+
+		return result;
 	}
 }
 

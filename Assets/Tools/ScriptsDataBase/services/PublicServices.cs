@@ -49,7 +49,7 @@ public class PublicServices  {
 		var new_p = new Public{
 				ageRange = _agerange,
 				gender = _gender,
-				percentage = 0,
+				percentage = 100,
 				creationDate = date,
 				lastUpdate = date,
 				projectId = projectid
