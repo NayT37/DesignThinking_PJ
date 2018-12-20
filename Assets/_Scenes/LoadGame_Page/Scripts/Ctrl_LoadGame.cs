@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Ctrl_LoadGame : MonoBehaviour {
 
@@ -16,23 +17,33 @@ public class Ctrl_LoadGame : MonoBehaviour {
 	private float max;
 	private float min; 
 
+	private CourseServices _courseServices;
+
+//	public DataService ds;
+
 
 	// Use this for initialization
 	void Start () {
 		_sliderCurses = GameObject.Find ("SliderGame").GetComponent<Slider>();
 		slider_Handler = _sliderCurses.GetComponent<SliderHandler> ();
-		Instantiate (prefab_Curse, parent_group.transform);
-		Instantiate (prefab_Curse, parent_group.transform);
-		Instantiate (prefab_Curse, parent_group.transform);
-		Instantiate (prefab_Curse, parent_group.transform);
-		Instantiate (prefab_Curse, parent_group.transform);
-		Instantiate (prefab_Curse, parent_group.transform);
-		Instantiate (prefab_Curse, parent_group.transform);
-		Instantiate (prefab_Curse, parent_group.transform);
-		Instantiate (prefab_Curse, parent_group.transform);
-		Instantiate (prefab_Curse, parent_group.transform);
-		Instantiate (prefab_Curse, parent_group.transform);
-		Instantiate (prefab_Curse, parent_group.transform);
+//		ds = new DataService ("designthinkingdbtemplate.db");
+		_courseServices = new CourseServices ();
+
+		var courses = _courseServices.GetCourses();
+		foreach (var item in courses) {
+			var SetName = Instantiate (prefab_Curse, parent_group.transform);
+			SetName.GetComponentInChildren<Text> ().text = item.name;
+
+//			DOTweenAnimation[] animations = g.GetComponentsInChildren<DOTweenAnimation>();
+//			for(int i=0;i< animations.Length; i++)
+//			{
+//				if (animations[i].animationType.Equals("Text"))
+//				{
+//					Debug.Log("animations " + animations[i].animationType);
+//				}
+//			}
+			Debug.Log ("name" + item.name);
+		}
 	}
 
 	void Update(){
