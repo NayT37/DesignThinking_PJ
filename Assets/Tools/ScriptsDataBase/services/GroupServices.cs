@@ -266,25 +266,32 @@ public class GroupServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateGroup(int groupid, int newpercentage){
+	public int UpdateGroup(){
 
 		int result = 0;
 		
 		var _courseServices = new CourseServices();
+
+		var _projectServices = new ProjectServices();
 		
 		//Todavía falta agregar el proyecto y lo que respecta a eso!
 		//Aunque queda la duda de si es necesario que el grupo tenga porcentaje
-		var groupToUpdate = GetGroupId(groupid);
-		groupToUpdate.percentage = newpercentage;
+		var groupToUpdate = DataBaseParametersCtrl.Ctrl._groupLoaded;
+
+		int percentageProjects = _projectServices.GetProjectsAverage();
+		int percentageTraining = DataBaseParametersCtrl.Ctrl._trainingloaded.percentage;
+
+		groupToUpdate.percentage = ((percentageProjects+percentageTraining)/2);
 		groupToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
 		if (groupToUpdate.id != 0)
 		{
+			DataBaseParametersCtrl.Ctrl._groupLoaded = groupToUpdate;
 			result = _connection.Update(groupToUpdate, groupToUpdate.GetType());
 
 			if (result!=0)
 			{
-				result = _courseServices.UpdateCourse(groupToUpdate.courseId);
+				result = _courseServices.UpdateCourse();
 			}
 			
 		} else {

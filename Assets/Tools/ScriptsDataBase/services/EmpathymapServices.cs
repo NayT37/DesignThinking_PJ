@@ -90,6 +90,19 @@ public class EmpathymapServices  {
 	}
 
 	/// <summary>
+	/// Description of the method to obtain the average percentage of all the storytellings with specified project identifier
+	/// </summary>}
+	/// <returns>
+	/// An integer with the average of all storytellings with specified project identifier
+	/// </returns>
+	public int GetEmpathymapAverage(){
+		
+		int counter = _sectorServices.GetSectorWithDescription();
+		int result = ((counter*100)/6);
+		return result;
+	}
+
+	/// <summary>
 	/// Description to method Get EmpathyMap that contain in the DataBaseParametersCtrl.!-- _empathyMapLoaded
 	/// </summary>
 	/// <returns>
@@ -143,15 +156,33 @@ public class EmpathymapServices  {
 	}
 
 	/// <summary>
-	/// Description of the method to update a empathyMap
+	/// Description of the method to update a note
 	/// </summary>
-	/// <param name="empathymapToUpdate">
-	/// An object of type empathyMap that contain the empathyMap that will be updated.
+	/// <param name="empathymapid">
+	/// Attribute that contains an integer with theempathymap identifier of the empathymap that will be created.
+	/// <returns>
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateEmpathymap(EmpathyMap empathymapToUpdate){
-		return _connection.Update(empathymapToUpdate, empathymapToUpdate.GetType());
+	public int UpdateEmpathymap(){
+
+		var empathymapToUpdate = DataBaseParametersCtrl.Ctrl._empathyMapLoaded;
+
+		var projectServices = new ProjectServices();
+
+		empathymapToUpdate.percentage = GetEmpathymapAverage();
+
+		empathymapToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		int result = _connection.Update(empathymapToUpdate, empathymapToUpdate.GetType());
+
+		if (result!=0)
+		{
+			DataBaseParametersCtrl.Ctrl._empathyMapLoaded = empathymapToUpdate;
+			projectServices.UpdateProject(true);
+		}
+
+		return result;
 	}
 }
 
