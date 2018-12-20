@@ -14,19 +14,24 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 	private float max;
 	private float min;
 
+	private GroupServices _GroupServices;
+//	public DataService ds;
+
 	void Start () {
 
 
 		_slider_editCurse = GameObject.Find ("SliderEditCurse").GetComponent<Slider>();
 		slider_handlerEditCurse = _slider_editCurse.GetComponent<slider_EditCurse> ();
-		Instantiate (prefab_editCurse, parent_Group.transform);
-		Instantiate (prefab_editCurse, parent_Group.transform);
-		Instantiate (prefab_editCurse, parent_Group.transform);
-		Instantiate (prefab_editCurse, parent_Group.transform);
-		Instantiate (prefab_editCurse, parent_Group.transform);
-		Instantiate (prefab_editCurse, parent_Group.transform);
-		Instantiate (prefab_editCurse, parent_Group.transform);
-		Instantiate (prefab_editCurse, parent_Group.transform);
+
+		_GroupServices = new GroupServices ();
+//		ds = new DataService ("designthinkingdbtemplate.db");
+
+		var groups = _GroupServices.GetGroups ();
+		foreach (var item in groups) {
+			var setName = Instantiate (prefab_editCurse, parent_Group.transform);
+			setName.GetComponentInChildren<Text> ().text = item.name;
+			setName.GetComponentInChildren<Text> ().text = item.studentsCounter.ToString();
+		}
 	}
 
 
@@ -51,18 +56,8 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 
 	}
 
-	public void editBtn(){
-		StartCoroutine (GotoScene ());
-	}
-
 	public void backScene(){
 		StartCoroutine (GobackScene ());
-	}
-
-	IEnumerator GotoScene(){
-		SceneManager.LoadScene ("Edit_Group", LoadSceneMode.Additive);
-		yield return null;
-		SceneManager.UnloadSceneAsync ("Edit_Curse");
 	}
 
 	IEnumerator GobackScene(){

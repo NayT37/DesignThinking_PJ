@@ -9,7 +9,7 @@ public class DOTCtrl_Cursos : MonoBehaviour {
 	void Start () {
 		DOTween.Play ("1");
 		DOTween.Play ("2");
-		DOTween.Play ("4");
+//		DOTween.Play ("4");
 		DOTween.Play ("5");
 		DOTween.Play ("6");
 
