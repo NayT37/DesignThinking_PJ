@@ -12,6 +12,7 @@ public class ReflexionCtrl : MonoBehaviour
     //Private Variables
     private GameObject[] _itemList;
     private Button _nextBtn;
+    private int _index;
     #endregion
 
 
@@ -33,14 +34,25 @@ public class ReflexionCtrl : MonoBehaviour
             _itemList[i] = GameObject.Find("Intro_" + (i + 1));
             if (i != 0)
             {
-                //     _itemList[i].SetActive(false);
+                _itemList[i].SetActive(false);
             }
         }
+        _index = 0;
     }
 
     private void NextStage()
     {
-        print("something");
+
+        if (_index < itemsQuantity - 1)
+        {
+            _itemList[_index].SetActive(false);
+            _itemList[_index + 1].SetActive(true);
+            _index++;
+        }
+        else
+        {
+            print("Change Activity");
+        }
     }
     #endregion
 
