@@ -18,7 +18,33 @@ public class ExistingDBScript : MonoBehaviour {
 
 	private MomentServices _momentServices;
 
+	private ProjectServices _projectServices;
+
+	private PublicServices _publicServices;
+
+	private ProblemServices _problemServices;
+
+	private FieldServices _fieldServices;
+
+	private EmpathymapServices _empathymapServices;
+
+	private SectorServices _sectorServices;
+
+	private StorytellingServices _storytellingServices;
+
+	private NoteServices _noteServices;
+
+	private MindmapServices _mindmapServices;
+
+	private EvaluationServices _evaluationServices;
+
+	private QuestionServices _questionServices;
+
 	private AnswerServices _answerServices;
+
+	private SectionServices _sectionServices;
+
+	private NodeServices _nodeServices;
 
 	
 
@@ -30,6 +56,22 @@ public class ExistingDBScript : MonoBehaviour {
 		_trainingServices = new TrainingServices();
 		_caseServices = new CaseServices();
 		_momentServices = new MomentServices();
+		_projectServices = new ProjectServices();
+		_publicServices = new PublicServices();
+		_problemServices = new ProblemServices();
+		_fieldServices = new FieldServices();
+		_empathymapServices = new EmpathymapServices();
+		_sectorServices = new SectorServices();
+		_storytellingServices = new StorytellingServices();
+		_noteServices = new NoteServices();
+		_mindmapServices = new MindmapServices();
+		_evaluationServices = new EvaluationServices();
+		_questionServices = new QuestionServices();
+		_answerServices = new AnswerServices();
+		_sectionServices = new SectionServices();
+		_nodeServices = new NodeServices();
+
+		
 		_answerServices = new AnswerServices();
 
 		// ds.CreateDB ();
@@ -41,13 +83,19 @@ public class ExistingDBScript : MonoBehaviour {
 				name = "Jojoa-Group-7-Updated",
 				creationDate = "2018-12-6 15:00:00",
 				studentsCounter = 5,
-				courseId = 2,
+				courseId = 9,
 				lastUpdate = date,
 		};
 
 		g.name = "Jojoa-Group-100-Created";
 
 		DataBaseParametersCtrl.Ctrl._groupLoaded = g;
+
+		var project = _projectServices.GetProjectNamed("Proyecto_Prueba_Final",15);
+		Debug.Log(project);
+		_projectServices.DeleteProject(project);
+		// var course = _courseServices.CreateCourse("Curso-Prueba-Final");
+		// Debug.Log(course);
 
 		// var moments = _momentServices.GetMoments(7);
 
@@ -62,8 +110,8 @@ public class ExistingDBScript : MonoBehaviour {
 		// var cases = _caseServices.GetCases(7);
 		// ToConsole(cases);
 
-		//var group = _groupServices.CreateGroup(g.name, g.courseId);
-		//ToConsole(group);
+		// var group = _groupServices.CreateGroup(g.name, g.courseId);
+		// Debug.Log(group);
 
 		// var result = _groupServices.GetGroupNamed(g.name, g.courseId);
 		// ToConsole(result);
@@ -76,8 +124,8 @@ public class ExistingDBScript : MonoBehaviour {
 		// var groups = _groupServices.GetGroups(2);
 		// ToConsole(groups);
 
-		var answers = _answerServices.GetAnswers();
-		ToConsole(answers);
+		// var answers = _answerServices.GetAnswers();
+		// ToConsole(answers);
 
 	}
 

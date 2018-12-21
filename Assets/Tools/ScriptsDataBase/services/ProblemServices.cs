@@ -61,8 +61,9 @@ public class ProblemServices  {
 			for (int i = 0; i < 3; i++)
 			{
 				//Creation of the fields
-				_fieldServices.CreateField(arrayfieldsname[i]);
+				_fieldServices.CreateField(arrayfieldsname[i], "Field_"+ i);
 			}
+			Debug.Log(new_p);
 			return new_p;
 		}else {
 			return _nullProblem;
@@ -120,8 +121,8 @@ public class ProblemServices  {
 	/// <returns>
 	/// A IEnumerable list of all the Problems found from the identifier of the project that was passed as a parameter
 	/// </returns>
-	public IEnumerable<Problem> GetProblems(int projectId){
-		return _connection.Table<Problem>().Where(x => x.projectId == projectId);
+	public Problem GetProblem(int projectId){
+		return _connection.Table<Problem>().Where(x => x.projectId == projectId).FirstOrDefault();
 	}
 
 	/// <summary>
@@ -142,11 +143,30 @@ public class ProblemServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
-	public int DeleteProject(Problem problemToDelete){
+	public int DeleteProblem(Problem problemToDelete){
 
-		//Se debe tener el cuenta que al eliminar un proyecto de debe eliminar 
-		//todo lo que continua hacia abajo en la jerarquia de la base de datos (problema, publico, etc)
-		return _connection.Delete(problemToDelete);
+		int problemid = problemToDelete.id;
+		// All the fields belonging to the problem that will be deleted are obtained.
+		var fields = _fieldServices.GetFields(problemid);
+
+		int result = _connection.Delete(problemToDelete);
+
+		int valueToReturn = 0;
+
+		//If the elimination of the problem is correct, then the fields corresponding to that case are eliminated.
+		if (result!=0)
+		{
+			foreach (var field in fields)
+			{
+				valueToReturn += _fieldServices.DeleteField(field);
+			}
+			Debug.Log("Se borró el problema campo correctamente");
+		} else {
+			valueToReturn = 0;
+			Debug.Log("No se borró el problema");
+		}
+
+		return valueToReturn;
 	}
 
 	/// <summary>

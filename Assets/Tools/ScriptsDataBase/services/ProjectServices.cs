@@ -12,8 +12,9 @@ public class ProjectServices  {
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
 	private EmpathymapServices _empathyMapServices = new EmpathymapServices();
-
 	private StorytellingServices _storytellingServices = new StorytellingServices();
+	private PublicServices _publicServices = new PublicServices();
+	private ProblemServices _problemServices = new ProblemServices();
 
 	private int[] arrayversions = new int[]{1,2,3};
 
@@ -46,7 +47,7 @@ public class ProjectServices  {
 
 		//The identifier of the group is obtained to be able to pass 
 		//it as an attribute in the new project that will be created
-		int groupId = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
+		int groupid = 15;//DataBaseParametersCtrl.Ctrl._groupLoaded.id;
 
 		//Get the current date to create the new course
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -57,12 +58,12 @@ public class ProjectServices  {
 				percentage = 0,
 				creationDate = date,
 				sectorName = sectorname,
-				groupId = groupId,
+				groupId = groupid,
 				lastUpdate = date
 		};
 
 		//Start-Validation that the project that will be created does not exist
-		var projectValidation = GetProjectNamed(projectname, groupId);
+		var projectValidation = GetProjectNamed(projectname, groupid);
 
 		if ((projectValidation.name).Equals("null"))
 		{
@@ -75,16 +76,21 @@ public class ProjectServices  {
 				var e = _empathyMapServices.CreateEmpathymap();
 				var s =_storytellingServices.CreateStoryTelling(1);
 
-				if (e.id != 0 && s.id!=0)
+				if (e.id != 0 && s.id!=0){
+					Debug.Log(new_p);
 					return new_p;
-				else 
+				}else{
+					Debug.Log("3");
 					return _nullProject;
+				}
 				
 			} else
 			{
+				Debug.Log("2");
 				return _nullProject;
 			}
 		} else {
+			Debug.Log("1");
 			return _nullProject;
 		}
 		//End-Validation that the project that will be created does not exist
@@ -96,15 +102,15 @@ public class ProjectServices  {
 	/// <param name="projectName">
 	/// Name of the project that will be searched
 	/// </param>
-	/// <param name="groupId">
+	/// <param name="groupid">
 	/// group identifier to find the correct project that will be searched
 	/// </param>
 	/// <returns>
 	/// An object of type project with all the data of the project that was searched and if doesnt exist so return an empty project.
 	/// </returns>
-	public Project GetProjectNamed(string projectName, int groupId){
+	public Project GetProjectNamed(string projectName, int groupid){
 		
-		var p = _connection.Table<Project>().Where(x => x.name == projectName).Where(x => x.groupId == groupId).FirstOrDefault();
+		var p = _connection.Table<Project>().Where(x => x.name == projectName).Where(x => x.groupId == groupid).FirstOrDefault();
 
 		if (p == null)
 			return _nullProject;	
@@ -121,9 +127,9 @@ public class ProjectServices  {
 	public Project GetProjectNamed(){
 
 		string projectName = DataBaseParametersCtrl.Ctrl._projectLoaded.name;
-		int groupId = DataBaseParametersCtrl.Ctrl._projectLoaded.groupId;
+		int projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 		
-		var p = _connection.Table<Project>().Where(x => x.name == projectName).Where(x => x.groupId == groupId).FirstOrDefault();
+		var p = _connection.Table<Project>().Where(x => x.name == projectName).Where(x => x.id == projectid).FirstOrDefault();
 
 		if (p == null)
 			return _nullProject;	
@@ -139,9 +145,9 @@ public class ProjectServices  {
 	/// </returns>
 	public int GetProjectsAverage(){
 
-		int groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
+		int projectid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
 		
-		var projects = _connection.Table<Project>().Where(x => x.groupId == groupid);
+		var projects = _connection.Table<Project>().Where(x => x.id == projectid);
 		int counter = 0;
 		int sum = 0;
 		int result = 0;
@@ -159,13 +165,13 @@ public class ProjectServices  {
 	/// <summary>
 	/// Description of the method to obtain all the projects of a specific group
 	/// </summary>
-	/// <param name="groupId">
+	/// <param name="projectid">
 	/// integer to define the identifier of the group from which all the related courses will be brought.
 	/// <returns>
 	/// A IEnumerable list of all the Trainings found from the identifier of the group that was passed as a parameter
 	/// </returns>
-	public IEnumerable<Project> GetProjects(int groupId){
-		return _connection.Table<Project>().Where(x => x.groupId == groupId);
+	public IEnumerable<Project> GetProjects(int projectid){
+		return _connection.Table<Project>().Where(x => x.id == projectid);
 	}
 
 	/// <summary>
@@ -188,9 +194,43 @@ public class ProjectServices  {
 	/// </returns>
 	public int DeleteProject(Project projectToDelete){
 
-		//Se debe tener el cuenta que al eliminar un proyecto de debe eliminar 
-		//todo lo que continua hacia abajo en la jerarquia de la base de datos (problema, publico, etc)
-		return _connection.Delete(projectToDelete);
+		int projectid = projectToDelete.id;
+
+		int result = _connection.Delete(projectToDelete);
+
+		int valueToReturn = 0;
+
+		
+		//If the elimination of the group is correct, then the trainings and projects corresponding to that group are eliminated.
+		if (result!=0)
+		{
+
+			var publicToDelete = _publicServices.GetPublicNamed(projectid);
+
+			int resultPublicDeleted = _publicServices.DeletePublic(publicToDelete);
+
+			var problemToDelete = _problemServices.GetProblem(projectid);
+
+			int resultProblemDeleted = _problemServices.DeleteProblem(problemToDelete);
+
+			var storyTellingsToDelete = _storytellingServices.GetStoryTellings(projectid);
+
+			foreach (var st in storyTellingsToDelete)
+			{
+				_storytellingServices.DeleteStoryTelling(st);
+			}
+
+			var empathymapToDelete = _empathyMapServices.GetEmpathyMap(projectid);
+
+			int resultEmpathyMapToDeleted = _empathyMapServices.DeleteEmpathymap(empathymapToDelete);
+			
+			Debug.Log("Se borró el grupo correctamente");
+		} else {
+			valueToReturn = 0;
+			Debug.Log("No se borró el grupo");
+		}
+
+		return valueToReturn;
 	}
 
 	/// <summary>
@@ -202,10 +242,6 @@ public class ProjectServices  {
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
 	public int UpdateProject(bool isPercentageChanged){
-		
-		var _publicServices = new PublicServices();
-
-		var _problemServices = new ProblemServices();
 
 		var _groupServices = new GroupServices();
 
@@ -230,7 +266,7 @@ public class ProjectServices  {
 			DataBaseParametersCtrl.Ctrl._projectLoaded = projectToUpdate;
 			_groupServices.UpdateGroup();
 		}
-		return 
+		return result;
 	}
 }
 

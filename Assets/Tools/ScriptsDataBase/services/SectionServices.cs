@@ -70,9 +70,10 @@ public class SectionServices  {
 						count++;
 				}
 
-				if (count == 3)
+				if (count == 3){
+					Debug.Log(new_m);
 					return new_m;
-				else
+				}else
 					return _nullSection;
 		}else
 			return _nullSection;
@@ -199,7 +200,29 @@ public class SectionServices  {
 	/// </returns>
 	public int DeleteSection(Section sectionToDelete){
 
-		return _connection.Delete(sectionToDelete);
+		int sectionid = sectionToDelete.id;
+
+		int result = _connection.Delete(sectionToDelete);
+
+		int valueToReturn = 0;
+
+		//If the elimination of the section is correct, then the nodes corresponding to that empathymap are eliminated.
+		if (result!=0)
+		{
+			// All the nodes belonging to the section that will be deleted are obtained.
+			var nodes = _nodeServices.GetNodes(sectionid);
+
+			foreach (var node in nodes)
+			{
+				valueToReturn += _nodeServices.DeleteNode(node);
+			}
+			Debug.Log("Se borró la sección correctamente");
+		} else {
+			valueToReturn = 0;
+			Debug.Log("No se borró la sección");
+		}
+
+		return valueToReturn;
 	}
 
 	/// <summary>

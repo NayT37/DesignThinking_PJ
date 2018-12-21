@@ -1,7 +1,7 @@
 ﻿using SQLite4Unity3d;
 using System;
 
-public class EmpathyMap  {
+public class Empathymap  {
 
 	[PrimaryKey, AutoIncrement]
 	public int id { get; set; }

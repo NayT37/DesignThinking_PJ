@@ -61,6 +61,7 @@ public class FieldServices  {
 
 		if (result != 0)
 		{
+			Debug.Log(new_f);
 			return new_f;
 		}else {
 			return _nullField;
@@ -141,7 +142,14 @@ public class FieldServices  {
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
 	public int DeleteField(Field fieldToDelete){
-		return _connection.Delete(fieldToDelete);
+		int result = _connection.Delete(fieldToDelete);
+
+		if (result!=0)
+			Debug.Log("Se borró el campo correctamente");
+		else
+			Debug.Log("No se borró el campo");
+		
+		return result;
 	}
 
 	/// <summary>

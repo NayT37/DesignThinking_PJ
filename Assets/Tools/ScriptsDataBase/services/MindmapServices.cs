@@ -80,9 +80,10 @@ public class MindmapServices  {
 
 				}
 
-				if (count == 6)
+				if (count == 6){
+					Debug.Log(new_m);
 					return new_m;
-				else 
+				}else 
 					return _nullMindmap;
 			
 			}else
@@ -210,8 +211,35 @@ public class MindmapServices  {
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
 	public int DeleteMindmap(Mindmap mindmapToDelete){
+		
+		int mindmapid = mindmapToDelete.id;
 
-		return _connection.Delete(mindmapToDelete);
+		int result = _connection.Delete(mindmapToDelete);
+
+		int valueToReturn = 0;
+
+		//If the elimination of the empathymap is correct, then the notes corresponding to that empathymap are eliminated.
+		if (result!=0)
+		{
+			// All the evaluations belonging to the mindmap that will be deleted are obtained.
+			var evaluation = _evaluationServices.GetEvaluationNamed(mindmapid);
+
+			int resultToEvaluationDelete = _evaluationServices.DeleteEvaluation(evaluation);
+
+			//All the sections belonging to the mindmap that will be deleted are obtained.
+			var sections = _sectionServices.GetSections(mindmapid);
+
+			foreach (var section in sections)
+			{
+				valueToReturn += _sectionServices.DeleteSection(section);
+			}
+			Debug.Log("Se borró el mindmap correctamente");
+		} else {
+			valueToReturn = 0;
+			Debug.Log("No se borró el mindmap");
+		}
+
+		return valueToReturn;
 	}
 
 	/// <summary>

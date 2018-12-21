@@ -64,9 +64,10 @@ public class StorytellingServices  {
 
 			var m = _mindmapServices.CreateMindMap(1);
 		
-			if (m.id != 0)
+			if (m.id != 0){
+				Debug.Log(new_s);
 				return new_s;
-			else
+			}else
 				return _nullStorytelling;
 			
 			
@@ -172,7 +173,37 @@ public class StorytellingServices  {
 	/// </returns>
 	public int DeleteStoryTelling(StoryTelling storytellingToDelete){
 
-		return _connection.Delete(storytellingToDelete);
+		int storytellingid = storytellingToDelete.id;
+
+		// All the notes belonging to the storytelling that will be deleted are obtained.
+		var notes = _noteServices.GetNotes(storytellingid);
+
+		// All the mindmaps belonging to the storytelling that will be deleted are obtained.
+		var mindmaps = _mindmapServices.GetMindmaps(storytellingid);
+
+		int result = _connection.Delete(storytellingToDelete);
+
+		int valueToReturn = 0;
+
+		//If the elimination of the empathymap is correct, then the notes corresponding to that empathymap are eliminated.
+		if (result!=0)
+		{
+			foreach (var note in notes)
+			{
+				valueToReturn += _noteServices.DeleteNote(note);
+			}
+
+			foreach (var mindmap in mindmaps)
+			{
+				valueToReturn += _mindmapServices.DeleteMindmap(mindmap);
+			}
+			Debug.Log("Se borró el storytelling campo correctamente");
+		} else {
+			valueToReturn = 0;
+			Debug.Log("No se borró el storytelling");
+		}
+
+		return valueToReturn;
 	}
 
 	/// <summary>
@@ -209,7 +240,7 @@ public class StorytellingServices  {
 
 		if (result!=0)
 		{
-			_projectServices.UpdateProject();
+			_projectServices.UpdateProject(true);
 		}
 
 		return result;

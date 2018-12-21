@@ -61,7 +61,7 @@ public class QuestionServices  {
 		if (result != 0)
 		{
 			DataBaseParametersCtrl.Ctrl._questionLoaded = new_q;
-
+			
 			for (int i = 0; i < 5; i++)
 			{	
 				var a = _answerServices.CreateAnswer(i+1);
@@ -70,10 +70,12 @@ public class QuestionServices  {
 					counter++;
 			}
 
-			if (counter == 5)
+			if (counter == 5){
+				Debug.Log(new_q);
 				return new_q;
-			else 
+			}else 
 				return _nullQuestion;
+
 		}else {
 			return _nullQuestion;
 		}
@@ -151,9 +153,32 @@ public class QuestionServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
-	public int DeleteEmpathymap(Question questionToDelete){
+	public int DeleteQuestion(Question questionToDelete){
 
-		return _connection.Delete(questionToDelete);
+		int questionid = questionToDelete.id;
+
+		int result = _connection.Delete(questionToDelete);
+
+		int valueToReturn = 0;
+
+		//If the elimination of the question is correct, then the answers corresponding to that empathymap are eliminated.
+		if (result!=0)
+		{
+			
+			//All the answers belonging to the question that will be deleted are obtained.
+			var answers = _answerServices.GetAnswers(questionid);
+
+			foreach (var answer in answers)
+			{
+				valueToReturn += _answerServices.DeleteAnswer(answer);
+			}
+			Debug.Log("Se borró la pregunta correctamente");
+		} else {
+			valueToReturn = 0;
+			Debug.Log("No se borró la pregunta");
+		}
+
+		return valueToReturn;
 	}
 
 	/// <summary>

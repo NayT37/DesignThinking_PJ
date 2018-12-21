@@ -56,9 +56,10 @@ public class SectorServices  {
 		{
 			int value =_connection.Insert (new_s);
 
-			if (value != 0)
+			if (value != 0){
+				Debug.Log(new_s);
 				return new_s;
-			else
+			}else
 				return _nullSector;
 			
 			
@@ -156,9 +157,7 @@ public class SectorServices  {
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
 	public int DeleteSector(Sector sectorToDelete){
-
-		//Se debe tener el cuenta que al eliminar un proyecto de debe eliminar 
-		//todo lo que continua hacia abajo en la jerarquia de la base de datos (problema, publico, etc)
+		
 		return _connection.Delete(sectorToDelete);
 	}
 
