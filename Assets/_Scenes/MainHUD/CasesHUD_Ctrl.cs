@@ -63,6 +63,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
     public int _actualCase;
     private string _actualScn;
     private Button _btnRA;
+    private GameObject _loadObj;
     #endregion
 
 
@@ -80,6 +81,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
         _actualMoment = 1;
         _actualCase = 1;
         _actualScn = "";
+        _loadObj = GameObject.Find("Loading_Bg");
         StartCoroutine(ChangeScene("C" + _actualCase + "_M" + _actualMoment, _actualScn));
 
         Btn_momento1 = GameObject.Find("Btn_1").GetComponent<Image>();
@@ -314,10 +316,14 @@ public class CasesHUD_Ctrl : MonoBehaviour
     {
         if (sceneToUnload != "")
         {
+            _loadObj.SetActive(true);
+            DOTween.Play("5");
             SceneManager.UnloadSceneAsync(sceneToUnload);
         }
         SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Additive);
         yield return null;
+        _loadObj.SetActive(false);
+        DOTween.Pause("5");
         _actualScn = sceneToLoad;
     }
 

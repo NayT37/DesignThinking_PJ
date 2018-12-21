@@ -17,6 +17,8 @@ public class ChMainHUD : MonoBehaviour
     private int _limitCtrl;
     private GameObject _loadObj;
     private bool _isHide;
+    private Transform _menuHolder;
+    private Vector3 _showPosition, _hidePosition;
     #endregion
 
 
@@ -31,10 +33,13 @@ public class ChMainHUD : MonoBehaviour
     {
         XRSettings.enabled = false;
         _isHide = false;
-        _loadObj = GameObject.Find("Loaging_Obj");
+        _loadObj = GameObject.Find("Loading_Bg");
         _actualMoment = 0;
         _limitCtrl = 0;
         _actualScn = "";
+        _menuHolder = GameObject.Find("Menu_Holder").transform;
+        _showPosition = new Vector3(0, -450, 0);
+        _hidePosition = new Vector3(0, -300, 0);
         StartCoroutine(ChangeScene("M_" + _actualMoment, _actualScn));
     }
 
@@ -43,107 +48,6 @@ public class ChMainHUD : MonoBehaviour
         XRSettings.enabled = false;
         if (_actualMoment != clickMomentValue && clickMomentValue <= _limitCtrl)
         {
-            /*            switch (momentValue)
-            {
-                case 1:
-                    VuforiaControl.instance.ResetRA();
-                    //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
-                    StartCoroutine(ChangeScene("M" + _actualMoment, _actualScn));
-
-                    //Sprites for moments
-                    Emp_Btn.sprite = EmpatizarSelected;
-                    Def_Btn.sprite = DefinirNull;
-                    Ide_Btn.sprite = IdearNull;
-                    Pro_Btn.sprite = PrototiparPointer;
-                    Eva_Btn.sprite = EvaluarNull;
-
-                    //				DOTween.Play ("3");
-                    //Texto que indica el nombre de la fase
-                    Text_Changed.text = "EMPATIZAR";
-                    try { Destroy(GameObject.Find("EvaluateHolder")); }
-                    catch (Exception e)
-                    {
-                        Debug.Log("There is no Evaluate Holder");
-                    }
-                    break;
-                case 2:
-                    VuforiaControl.instance.ResetRA();
-                    //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
-                    StartCoroutine(ChangeScene("C" + _actualCase + "_M" + momentValue, _actualScn));
-                    //Sprites for moments
-                    Emp_Btn.sprite = EmpatizarPointer;
-                    Def_Btn.sprite = DefinirSelected;
-                    Ide_Btn.sprite = IdearNull;
-                    Pro_Btn.sprite = PrototiparPointer;
-                    Eva_Btn.sprite = EvaluarNull;
-
-                    //				DOTween.Play ("3");
-                    //Texto que indica el nombre de la fase
-                    Text_Changed.text = "DEFINIR";
-                    try { Destroy(GameObject.Find("EvaluateHolder")); }
-                    catch (Exception e)
-                    {
-                        Debug.Log("There is no Evaluate Holder");
-                    }
-                    break;
-                case 3:
-                    VuforiaControl.instance.ResetRA();
-                    //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
-                    StartCoroutine(ChangeScene("C" + _actualCase + "_M" + momentValue, _actualScn));
-                    //Sprites for moments
-                    Emp_Btn.sprite = EmpatizarPointer;
-                    Def_Btn.sprite = DefinirNull;
-                    Ide_Btn.sprite = IdearSelected;
-                    Pro_Btn.sprite = PrototiparPointer;
-                    Eva_Btn.sprite = EvaluarNull;
-
-                    //				DOTween.Play ("3");
-                    //Texto que indica el nombre de la fase
-                    Text_Changed.text = "IDEAR";
-                    try { Destroy(GameObject.Find("EvaluateHolder")); }
-                    catch (Exception e)
-                    {
-                        Debug.Log("There is no Evaluate Holder");
-                    }
-                    break;
-                case 4:
-                    VuforiaControl.instance.ResetRA();
-                    //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
-                    StartCoroutine(ChangeScene("C" + _actualCase + "_M" + momentValue, _actualScn));
-
-                    //Sprites for moments
-                    Emp_Btn.sprite = EmpatizarPointer;
-                    Def_Btn.sprite = DefinirNull;
-                    Ide_Btn.sprite = IdearNull;
-                    Pro_Btn.sprite = PrototiparSelected;
-                    Eva_Btn.sprite = EvaluarNull;
-
-
-                    //				DOTween.Play ("3");
-                    //Texto que indica el nombre de la fase
-                    Text_Changed.text = "PROTOTIPAR";
-                    try { Destroy(GameObject.Find("EvaluateHolder")); }
-                    catch (Exception e)
-                    {
-                        Debug.Log("There is no Evaluate Holder");
-                    }
-                    break;
-                case 5:
-                    //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
-                    StartCoroutine(ChangeScene("C" + _actualCase + "_M" + momentValue, _actualScn));
-
-                    //Sprites for moments
-                    Emp_Btn.sprite = EmpatizarPointer;
-                    Def_Btn.sprite = DefinirNull;
-                    Ide_Btn.sprite = IdearNull;
-                    Pro_Btn.sprite = PrototiparPointer;
-                    Eva_Btn.sprite = EvaluarSelected;
-
-                    //				DOTween.Play ("3");
-                    //Texto que indica el nombre de la fase
-                    Text_Changed.text = "EVALUAR";
-                    break;
-            }*/
             _actualMoment = clickMomentValue;
             StartCoroutine(ChangeScene("M_" + _actualMoment, _actualScn));
         }
@@ -154,11 +58,11 @@ public class ChMainHUD : MonoBehaviour
         _isHide = !_isHide;
         if (_isHide)
         {
-
+            _menuHolder.localPosition = _showPosition;
         }
         else
         {
-
+            _menuHolder.localPosition = _hidePosition;
         }
     }
     #endregion
