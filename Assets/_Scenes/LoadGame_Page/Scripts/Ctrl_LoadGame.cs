@@ -19,14 +19,11 @@ public class Ctrl_LoadGame : MonoBehaviour {
 
 	private CourseServices _courseServices;
 
-//	public DataService ds;
-
 
 	// Use this for initialization
 	void Start () {
 		_sliderCurses = GameObject.Find ("SliderGame").GetComponent<Slider>();
 		slider_Handler = _sliderCurses.GetComponent<SliderHandler> ();
-//		ds = new DataService ("designthinkingdbtemplate.db");
 		_courseServices = new CourseServices ();
 
 		var courses = _courseServices.GetCourses();
