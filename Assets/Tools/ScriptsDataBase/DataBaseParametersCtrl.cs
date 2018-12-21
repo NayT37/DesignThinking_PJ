@@ -60,7 +60,7 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 	public Question _questionLoaded;
 
 	[Header ("EmpathyMap loaded")]
-	public EmpathyMap _empathyMapLoaded;
+	public Empathymap _empathyMapLoaded;
 
 	[Header ("Sector loaded")]
 	public Sector _sectorLoaded;

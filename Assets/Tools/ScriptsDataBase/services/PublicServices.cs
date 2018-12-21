@@ -61,6 +61,7 @@ public class PublicServices  {
 
 		if (result != 0)
 		{
+			Debug.Log(new_p);
 			DataBaseParametersCtrl.Ctrl._publicLoaded = new_p;
 			return new_p;
 		}else {
@@ -81,7 +82,7 @@ public class PublicServices  {
 	/// <returns>
 	/// An object of type _public with all the data of the _public that was searched and if doesnt exist so return an empty _public.
 	/// </returns>
-	public Public GetPublicNamed( int projectId){
+	public Public GetPublicNamed(int projectId){
 		
 		var p = _connection.Table<Public>().Where(x => x.projectId == projectId).FirstOrDefault();
 
@@ -119,8 +120,6 @@ public class PublicServices  {
 	/// </returns>
 	public int DeletePublic(Public publicToDelete){
 
-		//Se debe tener el cuenta que al eliminar un proyecto de debe eliminar 
-		//todo lo que continua hacia abajo en la jerarquia de la base de datos (problema, publico, etc)
 		return _connection.Delete(publicToDelete);
 	}
 

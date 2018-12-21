@@ -56,6 +56,7 @@ public class AnswerServices  {
 
 		if (result != 0)
 		{
+			Debug.Log(new_a);
 			return new_a;
 				
 		}else {
@@ -134,8 +135,15 @@ public class AnswerServices  {
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
 	public int DeleteAnswer(Answer AnswerToDelete){
+		
+		int result = _connection.Delete(AnswerToDelete);
 
-		return _connection.Delete(AnswerToDelete);
+		if (result!=0)
+			Debug.Log("Se borró la respuesta correctamente");
+		else
+			Debug.Log("No se borró la respuesta");
+		
+		return result;
 	}
 
 	/// <summary>

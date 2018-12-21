@@ -13,6 +13,8 @@ public class GroupServices  {
 
 	private TrainingServices _trainingServices = new TrainingServices();
 
+	private ProjectServices _projectServices = new ProjectServices();
+
 	private Group _nullGroup = new Group{
 				id = 0,
 				name = "null",
@@ -82,7 +84,7 @@ public class GroupServices  {
 
 		//The identifier of the course loaded is obtained to be able to pass 
 		//it as an attribute in the new group that will be created
-		int courseid = DataBaseParametersCtrl.Ctrl._courseLoaded.id; //studentscounter;
+		int courseid = studentscounter;//DataBaseParametersCtrl.Ctrl._courseLoaded.id; //studentscounter;
 
 		//Get the current date to create the new group
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -216,16 +218,26 @@ public class GroupServices  {
 	/// </returns>
 	public int DeleteGroup(Group groupToDelete){
 
+		int groupid = groupToDelete.id;
 		//All the trainings belonging to the group that will be deleted are obtained.
-		var training = _trainingServices.GetTraining(groupToDelete.id);
+		var training = _trainingServices.GetTraining(groupid);
 
 		int result = _connection.Delete(groupToDelete);
 		int valueToReturn = 0;
 
-		//If the elimination of the group is correct, then the trainings corresponding to that group are eliminated.
+		//All the trainings belonging to the group that will be deleted are obtained.
+		var projects = _projectServices.GetProjects(groupid);
+
+		//If the elimination of the group is correct, then the trainings and projects corresponding to that group are eliminated.
 		if (result!=0)
 		{
 			valueToReturn += _trainingServices.DeleteTraining(training);
+
+			foreach (var p in projects)
+			{
+				valueToReturn += _projectServices.DeleteProject(p);
+			}
+			
 			Debug.Log("Se borró el grupo correctamente");
 		} else {
 			valueToReturn = 0;

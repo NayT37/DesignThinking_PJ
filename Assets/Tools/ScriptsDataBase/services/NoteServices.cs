@@ -151,8 +151,15 @@ public class NoteServices  {
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
 	public int DeleteNote(Note noteToDelete){
+		
+		int result = _connection.Delete(noteToDelete);
 
-		return _connection.Delete(noteToDelete);
+		if (result!=0)
+			Debug.Log("Se borró el campo correctamente");
+		else
+			Debug.Log("No se borró el campo");
+		
+		return result;
 	}
 
 	/// <summary>

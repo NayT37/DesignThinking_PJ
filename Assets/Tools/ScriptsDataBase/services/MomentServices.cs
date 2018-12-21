@@ -51,6 +51,8 @@ public class MomentServices  {
 		};
 
 		int result = _connection.Insert (new_m);
+
+		Debug.Log(new_m);
 		
 		return valueToReturn;
 		

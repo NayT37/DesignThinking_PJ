@@ -11,6 +11,7 @@ public class CourseServices  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
+	private GroupServices _groupServices = new GroupServices();
 	private Course _nullCourse = new Course{
 				id = 0,
 				name = "null",
@@ -77,7 +78,7 @@ public class CourseServices  {
 		
 		//The identifier of the teacher logged in is obtained to be able to pass 
 		//it as an attribute in the new course that will be created
-		string teacherid = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
+		string teacherid = "1143";//DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
 
 		//Get the current date to create the new course
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -197,7 +198,30 @@ public class CourseServices  {
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
 	public int DeleteCourse(Course courseToDelete){
-		return _connection.Delete(courseToDelete);
+
+		int courseid = courseToDelete.id;
+		
+		int result = _connection.Delete(courseToDelete);
+
+		//All the groups belonging to the course that will be deleted are obtained.
+		var groups = _groupServices.GetGroups(courseid);
+
+		int valueToReturn = 0;
+
+		//If the elimination of the course is correct, then the groups corresponding to that course are eliminated.
+		if (result!=0)
+		{
+			foreach (var group in groups)
+			{
+				valueToReturn += _groupServices.DeleteGroup(group);
+			}
+			Debug.Log("Se borró el curso correctamente");
+		} else {
+			valueToReturn = 0;
+			Debug.Log("No se borró el entrenamiento");
+		}
+
+		return valueToReturn;
 	}
 
 	/// <summary>

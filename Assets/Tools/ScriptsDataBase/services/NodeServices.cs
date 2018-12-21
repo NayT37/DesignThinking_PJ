@@ -46,6 +46,9 @@ public class NodeServices  {
 		};
 
 		int result = _connection.Insert (new_n);
+
+		if (result!=0)	
+				Debug.Log(new_n);
 		
 		return new_n;
 		
@@ -122,7 +125,14 @@ public class NodeServices  {
 	/// </returns>
 	public int DeleteNode(Node nodeToDelete){
 
-		return _connection.Delete(nodeToDelete);
+		int result = _connection.Delete(nodeToDelete);
+
+		if (result!=0)
+			Debug.Log("Se borró el campo correctamente");
+		else
+			Debug.Log("No se borró el campo");
+		
+		return result;
 	}
 
 	/// <summary>

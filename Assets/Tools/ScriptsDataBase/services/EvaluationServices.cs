@@ -74,9 +74,10 @@ public class EvaluationServices  {
 				}
 			}
 
-			if (count == questionsCounter)
+			if (count == questionsCounter){
+				Debug.Log(new_e);
 				return new_e;
-			else
+			}else
 				return _nullEvaluation;
 				
 		}else {
@@ -175,7 +176,30 @@ public class EvaluationServices  {
 	/// </returns>
 	public int DeleteEvaluation(Evaluation evaluationToDelete){
 
-		return _connection.Delete(evaluationToDelete);
+		int evaluationid = evaluationToDelete.id;
+
+		int result = _connection.Delete(evaluationToDelete);
+
+		int valueToReturn = 0;
+
+		//If the elimination of the evaluation is correct, then the questions corresponding to that empathymap are eliminated.
+		if (result!=0)
+		{
+			
+			//All the questions belonging to the evaluation that will be deleted are obtained.
+			var questions = _questionServices.GetQuestions(evaluationid);
+
+			foreach (var question in questions)
+			{
+				valueToReturn += _questionServices.DeleteQuestion(question);
+			}
+			Debug.Log("Se borró la evaluación correctamente");
+		} else {
+			valueToReturn = 0;
+			Debug.Log("No se borró la evaluación");
+		}
+
+		return valueToReturn;
 	}
 
 	/// <summary>
