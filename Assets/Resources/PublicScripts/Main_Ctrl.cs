@@ -21,13 +21,7 @@ public class Main_Ctrl : MonoBehaviour
     #region SYSTEM_METHODS
     private void Awake() { Initializate(); }
     private void Start() { VuforiaBehaviour.Instance.enabled = false; }
-    private void Update()
-    {
-        if (Input.GetKey(key: KeyCode.Space))
-        {
-            VuforiaBehaviour.Instance.enabled = false;
-        }
-    }
+    
     #endregion
 
 

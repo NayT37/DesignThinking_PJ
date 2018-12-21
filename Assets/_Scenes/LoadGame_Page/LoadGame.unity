@@ -787,7 +787,7 @@ MonoBehaviour:
   animationType: 8
   targetType: 10
   forcedTargetType: 0
-  autoPlay: 0
+  autoPlay: 1
   useTargetAsV3: 0
   endValueFloat: 0
   endValueV3: {x: 0, y: 0, z: 0}
@@ -983,7 +983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NameCourse: {fileID: 1518123624}
-  prefab_Curse: {fileID: 1459447490592004, guid: 01c27f63967f1464bbc36b25bcdf009a,
+  prefab_Curse: {fileID: 1199507673678856, guid: d8c1580d920ac4f6db9d9a01e17914c7,
     type: 2}
   parent_group: {fileID: 1334633599}
 --- !u!224 &561935666
@@ -1167,7 +1167,7 @@ MonoBehaviour:
   animationType: 3
   targetType: 11
   forcedTargetType: 0
-  autoPlay: 0
+  autoPlay: 1
   useTargetAsV3: 0
   endValueFloat: 0
   endValueV3: {x: 0, y: 0, z: 45}
@@ -1340,8 +1340,6 @@ GameObject:
   - component: {fileID: 731074105}
   - component: {fileID: 731074104}
   - component: {fileID: 731074103}
-  - component: {fileID: 731074107}
-  - component: {fileID: 731074108}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1412,28 +1410,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &731074107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 731074102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b77bcfc9845514fd38bcba87dbe92ec7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &731074108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 731074102}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5b5519a07b44c24fb4f90c7f8047866, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &784854062
 GameObject:
   m_ObjectHideFlags: 0
@@ -2155,7 +2131,7 @@ MonoBehaviour:
   animationType: 8
   targetType: 10
   forcedTargetType: 0
-  autoPlay: 0
+  autoPlay: 1
   useTargetAsV3: 0
   endValueFloat: 0
   endValueV3: {x: 0, y: 0, z: 0}
@@ -2713,7 +2689,7 @@ MonoBehaviour:
   animationType: 6
   targetType: 3
   forcedTargetType: 0
-  autoPlay: 0
+  autoPlay: 1
   useTargetAsV3: 0
   endValueFloat: 0
   endValueV3: {x: 1, y: 1, z: 1}
@@ -2944,3 +2920,45 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1912435077}
+--- !u!1001 &1943233304
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4092797460570252, guid: 6da3cdae6bc9c4e29a165a965584f161, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 451.8927
+      objectReference: {fileID: 0}
+    - target: {fileID: 4092797460570252, guid: 6da3cdae6bc9c4e29a165a965584f161, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 376.21347
+      objectReference: {fileID: 0}
+    - target: {fileID: 4092797460570252, guid: 6da3cdae6bc9c4e29a165a965584f161, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -20.15253
+      objectReference: {fileID: 0}
+    - target: {fileID: 4092797460570252, guid: 6da3cdae6bc9c4e29a165a965584f161, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4092797460570252, guid: 6da3cdae6bc9c4e29a165a965584f161, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4092797460570252, guid: 6da3cdae6bc9c4e29a165a965584f161, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4092797460570252, guid: 6da3cdae6bc9c4e29a165a965584f161, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4092797460570252, guid: 6da3cdae6bc9c4e29a165a965584f161, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 6da3cdae6bc9c4e29a165a965584f161, type: 2}
+  m_IsPrefabParent: 0
