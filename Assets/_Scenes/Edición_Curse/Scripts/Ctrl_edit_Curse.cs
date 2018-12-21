@@ -8,6 +8,7 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 
 	public GameObject prefab_editCurse;
 	public GameObject parent_Group;
+	public GameObject NameObj;
 	private Slider _slider_editCurse;
 	private slider_EditCurse slider_handlerEditCurse;
 
@@ -15,7 +16,6 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 	private float min;
 
 	private GroupServices _GroupServices;
-//	public DataService ds;
 
 	void Start () {
 
@@ -23,14 +23,18 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 		_slider_editCurse = GameObject.Find ("SliderEditCurse").GetComponent<Slider>();
 		slider_handlerEditCurse = _slider_editCurse.GetComponent<slider_EditCurse> ();
 
+		NameObj = GameObject.Find ("CreateNameGroup");
+
 		_GroupServices = new GroupServices ();
-//		ds = new DataService ("designthinkingdbtemplate.db");
 
 		var groups = _GroupServices.GetGroups ();
 		foreach (var item in groups) {
 			var setName = Instantiate (prefab_editCurse, parent_Group.transform);
+			NameObj.GetComponentInChildren<Text>().text = item.name;
 			setName.GetComponentInChildren<Text> ().text = item.name;
+			Debug.Log ("this " + item.name);
 			setName.GetComponentInChildren<Text> ().text = item.studentsCounter.ToString();
+			Debug.Log ("number " + item.studentsCounter.ToString());
 		}
 	}
 
