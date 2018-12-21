@@ -578,7 +578,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1796306067}
+      - m_Target: {fileID: 1796306069}
         m_MethodName: SaveData
         m_Mode: 1
         m_Arguments:
@@ -851,7 +851,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1796306067}
+      - m_Target: {fileID: 1796306069}
         m_MethodName: Close
         m_Mode: 1
         m_Arguments:
@@ -2269,6 +2269,7 @@ GameObject:
   - component: {fileID: 1324457480}
   - component: {fileID: 1324457479}
   - component: {fileID: 1324457478}
+  - component: {fileID: 1324457482}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2339,6 +2340,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1324457482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1324457477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5b5519a07b44c24fb4f90c7f8047866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1345239761
 GameObject:
   m_ObjectHideFlags: 0
@@ -3603,26 +3615,14 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1796306068}
-  - component: {fileID: 1796306067}
+  - component: {fileID: 1796306069}
   m_Layer: 5
-  m_Name: Ctrl_selectActivity
+  m_Name: Ctrl_CreateCurso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1796306067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1796306066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b4b20bc2e1a44c9a9c987b1e0591722, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NameCourse: {fileID: 889423056}
 --- !u!224 &1796306068
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3641,6 +3641,18 @@ RectTransform:
   m_AnchoredPosition: {x: 639.99994, y: 400.47336}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1796306069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1796306066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de9f281b32b4ff40a7ee6c43cf493aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NameCourse: {fileID: 889423056}
 --- !u!1 &1836325151
 GameObject:
   m_ObjectHideFlags: 0
