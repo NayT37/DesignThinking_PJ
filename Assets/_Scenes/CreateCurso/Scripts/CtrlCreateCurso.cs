@@ -16,7 +16,7 @@ public class CtrlCreateCurso : MonoBehaviour {
 	void Start () {
 
 		_courseServices = new CourseServices ();
-		
+		Debug.Log ("empezo");
 	}
 
 	void Update(){
@@ -34,7 +34,7 @@ public class CtrlCreateCurso : MonoBehaviour {
 	IEnumerator Back(){
 		SceneManager.LoadScene ("SelectGame", LoadSceneMode.Additive);
 		yield return null;
-		SceneManager.UnloadSceneAsync ("SelectActivity");
+		SceneManager.UnloadSceneAsync ("CreateCurso");
 	}
 
 	IEnumerator SaveNameCourse(){
@@ -42,9 +42,10 @@ public class CtrlCreateCurso : MonoBehaviour {
 		var result = _courseServices.CreateCourse (NameCourse.text);
 		if (result.id != 0) {
 			DataBaseParametersCtrl.Ctrl._courseLoaded = result;
+			Debug.Log ("result " + result);
 			SceneManager.LoadScene ("CreateGroup", LoadSceneMode.Additive);
 			yield return null;
-			SceneManager.UnloadSceneAsync ("SelectActivity");
+			SceneManager.UnloadSceneAsync ("CreateCurso");
 		} else {
 			
 		}
