@@ -15,7 +15,7 @@ public class SectorServices  {
 				id = 0,
 				name = "null",
 				creationDate = "null",
-				empathyMapId = 0,
+				empathymapId = 0,
 				lastUpdate = "null"
 		};
 	
@@ -44,7 +44,7 @@ public class SectorServices  {
 		var new_s = new Sector{
 				name = sectorname,
 				creationDate = date,
-				empathyMapId = empathymapid,
+				empathymapId = empathymapid,
 				lastUpdate = date
 		};
 
@@ -54,14 +54,8 @@ public class SectorServices  {
 
 		if (result != 0)
 		{
-			int value =_connection.Insert (new_s);
-
-			if (value != 0){
-				Debug.Log(new_s);
-				return new_s;
-			}else
-				return _nullSector;
-			
+			Debug.Log(new_s);
+			return new_s;	
 			
 		}else {
 			return _nullSector;
@@ -87,7 +81,7 @@ public class SectorServices  {
 	/// </returns>
 	public Sector GetSectorNamed( int empathymapId){
 		
-		var s = _connection.Table<Sector>().Where(x => x.empathyMapId == empathymapId).FirstOrDefault();
+		var s = _connection.Table<Sector>().Where(x => x.empathymapId == empathymapId).FirstOrDefault();
 
 		if (s == null)
 			return _nullSector;	
@@ -103,9 +97,9 @@ public class SectorServices  {
 	/// </returns>
 	public Sector GetSectorNamed(){
 
-		int empathymapId = DataBaseParametersCtrl.Ctrl._sectorLoaded.empathyMapId;
+		int empathymapId = DataBaseParametersCtrl.Ctrl._sectorLoaded.empathymapId;
 		
-		var s = _connection.Table<Sector>().Where(x => x.empathyMapId == empathymapId).FirstOrDefault();
+		var s = _connection.Table<Sector>().Where(x => x.empathymapId == empathymapId).FirstOrDefault();
 
 		if (s == null)
 			return _nullSector;	
@@ -122,7 +116,7 @@ public class SectorServices  {
 	public int GetSectorWithDescription(){
 
 		int empathymapid = DataBaseParametersCtrl.Ctrl._empathyMapLoaded.id;	
-		int counter = _connection.Table<Sector>().Where(x => x.empathyMapId == empathymapid).Where(x => x.description != "").Count();
+		int counter = _connection.Table<Sector>().Where(x => x.empathymapId == empathymapid).Where(x => x.description != "").Count();
 		return counter;
 	}
 
@@ -135,7 +129,7 @@ public class SectorServices  {
 	/// A IEnumerable list of all the sectorsa found from the identifier of the empathyMap that was passed as a parameter
 	/// </returns>
 	public IEnumerable<Sector> GetSectors(int empathymapId){
-		return _connection.Table<Sector>().Where(x => x.empathyMapId == empathymapId);
+		return _connection.Table<Sector>().Where(x => x.empathymapId == empathymapId);
 	}
 
 	/// <summary>
@@ -177,6 +171,8 @@ public class SectorServices  {
 		var empathymapServices = new EmpathymapServices();
 
 		sectorToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		sectorToUpdate.description = newdescription;
 
 		int result = _connection.Update(sectorToUpdate, sectorToUpdate.GetType());
 

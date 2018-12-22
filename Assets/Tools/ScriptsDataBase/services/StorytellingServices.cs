@@ -48,9 +48,9 @@ public class StorytellingServices  {
 		//Creation of the new storyTelling
 		var new_s = new StoryTelling{
 				percentage = 0,
-				creationDate = "null",
-				lastUpdate = "null",
+				creationDate = date,	
 				projectId = projectid,
+				lastUpdate = date,
 				version = versionstorytelling
 		};
 
@@ -67,11 +67,14 @@ public class StorytellingServices  {
 			if (m.id != 0){
 				Debug.Log(new_s);
 				return new_s;
-			}else
+			}else{
+				Debug.Log("+++");
 				return _nullStorytelling;
+			}
 			
 			
 		}else {
+			Debug.Log("...");
 			return _nullStorytelling;
 		}
 		
@@ -228,11 +231,9 @@ public class StorytellingServices  {
 
 		int averageToNotes = ((counterNotes*100)/6);
 
-		int averageToEvaluation = _publicServices.GetPublicNamed(storytellingid).percentage;
-
 		int averageToMindmaps = _mindmapServices.GetMindmapsAverage(storytellingid);
 
-		storyTellingUpdate.percentage = ((averageToNotes+averageToEvaluation+averageToMindmaps)/3);
+		storyTellingUpdate.percentage = ((averageToNotes+averageToMindmaps)/2);
 
 		storyTellingUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
@@ -240,6 +241,7 @@ public class StorytellingServices  {
 
 		if (result!=0)
 		{
+			Debug.Log(storyTellingUpdate);
 			_projectServices.UpdateProject(true);
 		}
 

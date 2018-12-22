@@ -10,7 +10,7 @@ public class Mindmap  {
 
 	public string creationDate { get; set; }
 
-	public int storyTellingId { get; set; }
+	public int storytellingId { get; set; }
 
 	public string image { get; set; }
 
@@ -21,7 +21,7 @@ public class Mindmap  {
 	public override string ToString ()
 	{
 		return string.Format ("[Mindmap: Id={0}, percentage={1},  creationDate={2}, storyTellingId={3} image={4}, lastUpdate={5}, version={6}]", 
-								id, percentage, creationDate, image, lastUpdate, version);
+								id, percentage, creationDate,storytellingId, image, lastUpdate, version);
 	}
 
 	

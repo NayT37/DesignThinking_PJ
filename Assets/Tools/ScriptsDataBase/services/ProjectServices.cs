@@ -47,7 +47,7 @@ public class ProjectServices  {
 
 		//The identifier of the group is obtained to be able to pass 
 		//it as an attribute in the new project that will be created
-		int groupid = 15;//DataBaseParametersCtrl.Ctrl._groupLoaded.id;
+		int groupid = 1;//DataBaseParametersCtrl.Ctrl._groupLoaded.id;
 
 		//Get the current date to create the new course
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -145,9 +145,9 @@ public class ProjectServices  {
 	/// </returns>
 	public int GetProjectsAverage(){
 
-		int projectid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
+		int groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
 		
-		var projects = _connection.Table<Project>().Where(x => x.id == projectid);
+		var projects = _connection.Table<Project>().Where(x => x.groupId == groupid);
 		int counter = 0;
 		int sum = 0;
 		int result = 0;
@@ -263,6 +263,7 @@ public class ProjectServices  {
 
 		if (result != 0)
 		{
+			Debug.Log(projectToUpdate);
 			DataBaseParametersCtrl.Ctrl._projectLoaded = projectToUpdate;
 			_groupServices.UpdateGroup();
 		}

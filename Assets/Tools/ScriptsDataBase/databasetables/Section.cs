@@ -9,7 +9,7 @@ public class Section  {
 	public string creationDate { get; set; }
 
 	
-	public int mindMapId { get; set; }
+	public int mindmapId { get; set; }
 
 	public bool isOptional {get; set; }
 
@@ -18,7 +18,7 @@ public class Section  {
 	public override string ToString ()
 	{
 		return string.Format ("[Section: Id={0}, Name={1},  creationDate={2}, mindMapId={3}, isOptional={4}, lastUpdate={5}]", 
-								id, name, creationDate, mindMapId, isOptional, lastUpdate);
+								id, name, creationDate, mindmapId, isOptional, lastUpdate);
 	}
 
 	

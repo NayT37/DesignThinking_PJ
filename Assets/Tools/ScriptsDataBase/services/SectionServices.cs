@@ -17,7 +17,7 @@ public class SectionServices  {
 				id = 0,
 				name = "null",
 				creationDate = "null",
-				mindMapId = 0,
+				mindmapId = 0,
 				isOptional = false,
 				lastUpdate = "null"			
 		};
@@ -44,23 +44,23 @@ public class SectionServices  {
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
 		//Creation of the new section
-		var new_m = new Section{
+		var new_s = new Section{
 				name = sectionname,
 				creationDate = date,
-				mindMapId = mindmapid,
+				mindmapId = mindmapid,
 				isOptional = false,
 				lastUpdate = date			
 		};
 
 		//Start-Validation that the query is right
 		
-		int result = _connection.Insert (new_m);
+		int result = _connection.Insert (new_s);
 
 		int count = 0;
 
 		if (result != 0)
 		{
-			DataBaseParametersCtrl.Ctrl._sectionLoaded = new_m;
+			DataBaseParametersCtrl.Ctrl._sectionLoaded = new_s;
 		
 				for (int i = 0; i < 3; i++)
 				{
@@ -71,8 +71,8 @@ public class SectionServices  {
 				}
 
 				if (count == 3){
-					Debug.Log(new_m);
-					return new_m;
+					Debug.Log(new_s);
+					return new_s;
 				}else
 					return _nullSection;
 		}else
@@ -94,7 +94,7 @@ public class SectionServices  {
 	/// </returns>
 	public Section GetSectionNamed( int mindmapId){
 		
-		var s = _connection.Table<Section>().Where(x => x.mindMapId == mindmapId).FirstOrDefault();
+		var s = _connection.Table<Section>().Where(x => x.mindmapId == mindmapId).FirstOrDefault();
 
 		if (s == null)
 			return _nullSection;	
@@ -132,7 +132,7 @@ public class SectionServices  {
 	/// </returns>
 	public int GetSectionByAverage(int mindmapid){
 		
-		var sections = _connection.Table<Section>().Where(x => x.mindMapId == mindmapid).Where(x => x.name.StartsWith("-"));
+		var sections = _connection.Table<Section>().Where(x => x.mindmapId == mindmapid).Where(x => x.name.StartsWith("-"));
 		int counter = 0;
 
 		foreach (var s in sections)
@@ -141,8 +141,9 @@ public class SectionServices  {
 
 			foreach (var node in nodes)
 			{
-				if (!node.description.Equals(""))
+				if (!node.description.Equals("")){
 					counter++;
+				}
 			}
 		}
 		
@@ -177,7 +178,7 @@ public class SectionServices  {
 	/// A IEnumerable list of all the Sections found from the identifier of the mindMap that was passed as a parameter
 	/// </returns>
 	public IEnumerable<Section> GetSections(int mindmapId){
-		return _connection.Table<Section>().Where(x => x.mindMapId == mindmapId);
+		return _connection.Table<Section>().Where(x => x.mindmapId == mindmapId);
 	}
 
 	/// <summary>
@@ -236,6 +237,7 @@ public class SectionServices  {
 	public int UpdateSection(int sectionid){
 
 		var sectionToUpdate = GetSectionId(sectionid);
+
 		var _mindmapServices = new MindmapServices();
 
 		sectionToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -244,7 +246,7 @@ public class SectionServices  {
 
 		if (result!=0)
 		{
-			_mindmapServices.UpdateMindmap(sectionToUpdate.mindMapId);
+			_mindmapServices.UpdateMindmap(sectionToUpdate.mindmapId);
 		}
 
 		return result;

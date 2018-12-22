@@ -11,7 +11,6 @@ public class ProblemServices  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
-	private string[] arrayfieldsname = new string[]{"field_1","field_2","field_3"};
 
 	private Problem _nullProblem = new Problem{
 				id = 0,
@@ -27,25 +26,25 @@ public class ProblemServices  {
 	/// <summary>
 	/// Description to method to create a problem
 	/// </summary>
-	/// <param name="problem">
-	/// Attribute that contains an object of type problem with all the data of the problem that will be created.
+	/// <param name="arrayfieldsname">
+	/// Attribute that contains an string array with names of the each field that will be created.
 	/// </param>
 	/// <returns>
 	/// An object of type problem with all the data of the problem that was created.
 	/// </returns>
 
-	public Problem CreateProblem(Problem problem){
+	public Problem CreateProblem(string[] arrayfieldsname){
 
 		//The identifier of the project is obtained to be able to pass 
 		//it as an attribute in the new problem that will be created
-		int projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
+		int projectid = 1;//DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 
 		//Get the current date to create the new problem
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
 		//Creation of the new problem
 		var new_p = new Problem{
-				percentage = 0,
+				percentage = 100,
 				creationDate = date,
 				lastUpdate = date,
 				projectId = projectid
@@ -58,7 +57,7 @@ public class ProblemServices  {
 		if (result != 0)
 		{
 			DataBaseParametersCtrl.Ctrl._problemLoaded = new_p;
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < arrayfieldsname.Length; i++)
 			{
 				//Creation of the fields
 				_fieldServices.CreateField(arrayfieldsname[i], "Field_"+ i);
@@ -172,13 +171,23 @@ public class ProblemServices  {
 	/// <summary>
 	/// Description of the method to update a problem
 	/// </summary>
-	/// <param name="problemToUpdate">
-	/// An object of type problem that contain the problem that will be updated.
-	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateProblem(Problem problemToUpdate){
-		return _connection.Update(problemToUpdate, problemToUpdate.GetType());
+	public int UpdateProblem(){
+
+		var _projectServices = new ProjectServices();
+		
+		var problemToUpdate = DataBaseParametersCtrl.Ctrl._problemLoaded;
+		problemToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		int result = _connection.Update(problemToUpdate, problemToUpdate.GetType());
+
+		if (result!=0)
+		{
+			DataBaseParametersCtrl.Ctrl._problemLoaded = problemToUpdate;
+			_projectServices.UpdateProject(true);
+		}
+		return result;
 	}
 }
 

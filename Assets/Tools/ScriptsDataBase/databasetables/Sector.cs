@@ -11,14 +11,14 @@ public class Sector  {
 	public string creationDate { get; set; }
 
 	
-	public int empathyMapId { get; set; }
+	public int empathymapId { get; set; }
 
 	public string lastUpdate { get; set; }
 
 	public override string ToString ()
 	{
-		return string.Format ("[Section: Id={0}, Name={1}, Description={2}, creationDate={3}, mindMapId={4}, lastUpdate={5}]", 
-								id, name, description, creationDate, empathyMapId, lastUpdate);
+		return string.Format ("[Sector: Id={0}, Name={1}, Description={2}, creationDate={3}, empathyMap={4}, lastUpdate={5}]", 
+								id, name, description, creationDate, empathymapId, lastUpdate);
 	}
 
 	

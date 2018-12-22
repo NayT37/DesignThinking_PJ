@@ -80,7 +80,7 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		_dataServices = new DataService ("designthinkingdbtemplate.db");
+		_dataServices = new DataService ("dtdbtemplate.db");
 		_sqliteConnection = _dataServices._connection;
 
 	}

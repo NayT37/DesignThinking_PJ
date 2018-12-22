@@ -11,11 +11,15 @@ public class EvaluationServices  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
-	private string[] arrayDescriptions = new string[]{"question1", "question2", "question3", "question4", "question5", "question6"};
+	private string[] arrayDescriptions = new string[]{"question1", "question2", "question3", "question4", "question5", "question6", "question7", "question8", "question9", "question10"};
+
+	private string[] arraycategorys = new string[]{"viabilidad", "viabilidad", "viabilidad", "productividad", "productividad", "productividad", "economia", "economia", "otro", "otro"};
+
 	private QuestionServices _questionServices = new QuestionServices();
 
 	private Evaluation _nullEvaluation = new Evaluation{
 				id = 0,
+				category = "null",
 				percentage = 0,
 				creationDate = "null",
 				mindMapId = 0,
@@ -27,25 +31,26 @@ public class EvaluationServices  {
 	/// <summary>
 	/// Description to method to create a evaluation
 	/// </summary>
-	/// <param name="evaluation">
-	/// Attribute that contains an object of type evaluation with all the data of the evaluation that will be created.
+	/// <param name="categoryname">
+	/// Attribute that contains an string with the evaluation's category that will be created.
 	/// </param>
 	/// <returns>
 	/// An object of type evaluation with all the data of the evaluation that was created.
 	/// </returns>
 
-	public Evaluation CreateEvaluation(){
+	public Evaluation CreateEvaluation(string categoryname){
 
 		//The identifier of the mindmap is obtained to be able to pass 
 		//it as an attribute in the new evaluation that will be created
-		int mindmapid = DataBaseParametersCtrl.Ctrl._mindMapLoaded.id;
+		int mindmapid = 1;//DataBaseParametersCtrl.Ctrl._mindMapLoaded.id;
 
 		//Get the current date to create the new evaluation
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
 		//Creation of the new evaluation
 		var new_e = new Evaluation{
-				percentage = 0,
+				category = categoryname,
+				percentage = 100,
 				creationDate = date,
 				mindMapId = mindmapid,
 				lastUpdate = date			
@@ -57,7 +62,7 @@ public class EvaluationServices  {
 
 		int count = 0;
 
-		int questionsCounter = 1;
+		int questionsCounter = 10;
 
 		if (result != 0)
 		{
@@ -66,7 +71,7 @@ public class EvaluationServices  {
 			//Queda pendiente saber cuantás preguntas son----
 			for (int i = 0; i < questionsCounter; i++)
 			{
-				var q = _questionServices.CreateQuestion(arrayDescriptions[i]);	
+				var q = _questionServices.CreateQuestion(arrayDescriptions[i], arraycategorys[i]);	
 				
 				if (q.id != 0)
 				{

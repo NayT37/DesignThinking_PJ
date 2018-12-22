@@ -20,7 +20,7 @@ public class MindmapServices  {
 				id = 0,
 				percentage = 0,
 				creationDate = "null",
-				storyTellingId = 0,
+				storytellingId = 0,
 				image = "null",
 				lastUpdate = "null",
 				version = 0		
@@ -51,7 +51,7 @@ public class MindmapServices  {
 		var new_m = new Mindmap{
 				percentage = 0,
 				creationDate = date,
-				storyTellingId = storytellingid,
+				storytellingId = storytellingid,
 				image = "",
 				lastUpdate = date,
 				version = versionmindmap
@@ -65,34 +65,27 @@ public class MindmapServices  {
 
 		if (result != 0)
 		{
-			int value =_connection.Insert (new_m);
 
-			if (value != 0){
-				DataBaseParametersCtrl.Ctrl._mindMapLoaded = new_m;
-				//var e = _evaluationServices.CreateEvaluation();	
+			DataBaseParametersCtrl.Ctrl._mindMapLoaded = new_m;
+			//var e = _evaluationServices.CreateEvaluation();	
 
-				for (int i = 0; i < 6; i++)
-				{
-					var s = _sectionServices.CreateSection(arraysectionsname[i]);
+			for (int i = 0; i < 6; i++)
+			{
+				var s = _sectionServices.CreateSection(arraysectionsname[i]);
 
-					if (s.id != 0)
-						count++;
+				if (s.id != 0)
+					count++;
 
-				}
+			}
 
-				if (count == 6){
-					Debug.Log(new_m);
-					return new_m;
-				}else 
-					return _nullMindmap;
-			
-			}else
+			if (count == 6){
+				Debug.Log(new_m);
+				return new_m;
+			}else 
 				return _nullMindmap;
-			
-			
-		}else {
+		}else
 			return _nullMindmap;
-		}
+	
 		//End-Validation that the query		
 		
 	}
@@ -108,7 +101,7 @@ public class MindmapServices  {
 	/// </returns>
 	public Mindmap GetMindmapNamed( int storytellingId){
 		
-		var m = _connection.Table<Mindmap>().Where(x => x.storyTellingId == storytellingId).FirstOrDefault();
+		var m = _connection.Table<Mindmap>().Where(x => x.storytellingId == storytellingId).FirstOrDefault();
 
 		if (m == null)
 			return _nullMindmap;	
@@ -125,14 +118,15 @@ public class MindmapServices  {
 	/// <returns>
 	/// An object of type mindmap with all the data of the mindmap that was searched and if doesnt exist so return an empty mindmap.
 	/// </returns>
-	public Mindmap GetMindmapId( int mindmpaid){
+	public Mindmap GetMindmapId( int mindmapid){
 		
-		var m = _connection.Table<Mindmap>().Where(x => x.id == mindmpaid).FirstOrDefault();
+		var m = _connection.Table<Mindmap>().Where(x => x.id == mindmapid).FirstOrDefault();
 
 		if (m == null)
 			return _nullMindmap;	
-		else 
+		else{
 			return m;
+		}
 	}
 
 	/// <summary>
@@ -143,9 +137,9 @@ public class MindmapServices  {
 	/// </returns>
 	public Mindmap GetMindmapNamed(){
 
-		int storytellingId = DataBaseParametersCtrl.Ctrl._mindMapLoaded.storyTellingId;
+		int storytellingId = DataBaseParametersCtrl.Ctrl._mindMapLoaded.storytellingId;
 		
-		var m = _connection.Table<Mindmap>().Where(x => x.storyTellingId == storytellingId).FirstOrDefault();
+		var m = _connection.Table<Mindmap>().Where(x => x.storytellingId == storytellingId).FirstOrDefault();
 
 		if (m == null)
 			return _nullMindmap;	
@@ -162,7 +156,7 @@ public class MindmapServices  {
 	/// A IEnumerable list of all the Notes found from the identifier of the project that was passed as a parameter
 	/// </returns>
 	public IEnumerable<Mindmap> GetMindmaps(int storytellingId){
-		return _connection.Table<Mindmap>().Where(x => x.storyTellingId == storytellingId);
+		return _connection.Table<Mindmap>().Where(x => x.storytellingId == storytellingId);
 	}
 	
 	
@@ -177,7 +171,7 @@ public class MindmapServices  {
 	/// </returns>
 	public int GetMindmapsAverage(int storyTellingId){
 		
-		var mindmaps = _connection.Table<Mindmap>().Where(x => x.storyTellingId == storyTellingId);
+		var mindmaps = _connection.Table<Mindmap>().Where(x => x.storytellingId == storyTellingId);
 		int counter = 0;
 		int sum = 0;
 		int result = 0;
@@ -252,6 +246,8 @@ public class MindmapServices  {
 	/// </returns>
 	public int UpdateMindmap(int mindmapid){
 
+		var _storytellingServices = new StorytellingServices();
+
 		var mindmapToUpdate = GetMindmapId(mindmapid);
 		
 		int counter = _sectionServices.GetSectionByAverage(mindmapid);
@@ -264,6 +260,11 @@ public class MindmapServices  {
 		mindmapToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
 		int result = _connection.Update(mindmapToUpdate, mindmapToUpdate.GetType());
+
+		if (result!=0)
+		{
+			_storytellingServices.UpdateStoryTelling();
+		}
 
 		return result;
 	}
