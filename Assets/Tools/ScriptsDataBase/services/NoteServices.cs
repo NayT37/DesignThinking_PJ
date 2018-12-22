@@ -16,7 +16,7 @@ public class NoteServices  {
 				position = 0,
 				creationDate = "null",
 				description = "null",
-				storyTellingId = 0,
+				storytellingId = 0,
 				lastUpdate = "null"			
 		};
 	
@@ -36,7 +36,7 @@ public class NoteServices  {
 
 		//The identifier of the storytellind is obtained to be able to pass 
 		//it as an attribute in the new note that will be created
-		int storytellingid = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
+		int storytellingid = 1;//DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
 
 		//Get the current date to create the new empathymap
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -45,10 +45,10 @@ public class NoteServices  {
 
 		//Creation of the new storyTelling
 		var new_n = new Note{
-				position = 0,
+				position = 1,
 				creationDate = date,
 				description = notedescription,
-				storyTellingId = storytellingid,
+				storytellingId = storytellingid,
 				lastUpdate = date		
 		};
 
@@ -60,7 +60,7 @@ public class NoteServices  {
 		{
 			valueToReturn = result;
 			DataBaseParametersCtrl.Ctrl._noteLoaded = new_n;
-		
+			Debug.Log(new_n);
 			return new_n;
 		}else {
 			return _nullNote;
@@ -79,7 +79,7 @@ public class NoteServices  {
 	/// </returns>
 	public Note GetNoteNamed( int storytellingId){
 		
-		var n = _connection.Table<Note>().Where(x => x.storyTellingId == storytellingId).FirstOrDefault();
+		var n = _connection.Table<Note>().Where(x => x.storytellingId == storytellingId).FirstOrDefault();
 
 		if (n == null)
 			return _nullNote;	
@@ -95,9 +95,9 @@ public class NoteServices  {
 	/// </returns>
 	public Note GetNoteNamed(){
 
-		int storytellingId = DataBaseParametersCtrl.Ctrl._noteLoaded.storyTellingId;
+		int storytellingId = DataBaseParametersCtrl.Ctrl._noteLoaded.storytellingId;
 		
-		var n = _connection.Table<Note>().Where(x => x.storyTellingId == storytellingId).FirstOrDefault();
+		var n = _connection.Table<Note>().Where(x => x.storytellingId == storytellingId).FirstOrDefault();
 
 		if (n == null)
 			return _nullNote;	
@@ -114,7 +114,7 @@ public class NoteServices  {
 	/// A IEnumerable list of all the Notes found from the identifier of the project that was passed as a parameter
 	/// </returns>
 	public IEnumerable<Note> GetNotes(int storytellingId){
-		return _connection.Table<Note>().Where(x => x.storyTellingId == storytellingId);
+		return _connection.Table<Note>().Where(x => x.storytellingId == storytellingId);
 	}
 
 	/// <summary>
@@ -128,7 +128,7 @@ public class NoteServices  {
 	/// </returns>
 	public int GetNotesToPosition(int storyTellingid){
 		
-		int counter = _connection.Table<Note>().Where(x => x.storyTellingId == storyTellingid).Where(x => x.position != 0).Count();
+		int counter = _connection.Table<Note>().Where(x => x.storytellingId == storyTellingid).Where(x => x.position != 0).Count();
 		return counter;
 	}
 
@@ -165,8 +165,8 @@ public class NoteServices  {
 	/// <summary>
 	/// Description of the method to update a note
 	/// </summary>
-	/// <param name="positionToUpdate">
-	/// Attribute that contains an integer with the position of the note that will be created.
+	/// <param name="noteToUpdate">
+	/// Attribute that contains an object type of note with the object note that will be created.
 	/// <returns>
 	/// <param name="newdescription">
 	/// Attribute that contains an string with the new description of the note that will be created.
@@ -174,18 +174,16 @@ public class NoteServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateNote(int positionToUpdate, string newdescription){
-
-		var noteToUpdate = DataBaseParametersCtrl.Ctrl._noteLoaded;
-
+	public int UpdateNote(Note noteToUpdate, string newdescription){
+		
 		var storytellingServices = new StorytellingServices();
 
 		noteToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
-		if (positionToUpdate == 0)
+		if (!newdescription.Equals(""))
+		{
 			noteToUpdate.description = newdescription;
-		else 
-			noteToUpdate.position = positionToUpdate;
+		}
 
 		int result = _connection.Update(noteToUpdate, noteToUpdate.GetType());
 

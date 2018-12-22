@@ -13,7 +13,7 @@ public class Empathymap  {
 
 	public override string ToString ()
 	{
-		return string.Format ("[EmpathyMap: Id={0},  percentage={1}, creationDate={2}, projectIdId={3}, lastUpdate={4}]", 
+		return string.Format ("[EmpathyMap: Id={0},  percentage={1}, creationDate={2}, projectId={3}, lastUpdate={4}]", 
 								id, percentage, creationDate, projectId, lastUpdate);
 	}
 

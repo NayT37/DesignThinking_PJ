@@ -15,11 +15,11 @@ public class QuestionServices  {
 
 	private Question _nullQuestion = new Question{
 				id = 0,
-				grade = 0,
 				creationDate = "null",
 				description = "null",
 				evaluationId = 0,
-				lastUpdate = "null"			
+				lastUpdate = "null",
+				category = "null"		
 		};
 	
 
@@ -28,13 +28,16 @@ public class QuestionServices  {
 	/// Description to method to create a question
 	/// </summary>
 	/// <param name="descriptionOfQuestion">
-	/// Attribute that contains an string with the dfescription of the question that will be created.
+	/// Attribute that contains an string with the fescription of the question that will be created.
+	/// </param>
+	/// <param name="categoryQuestion">
+	/// Attribute that contains an string with the category of the question that will be created.
 	/// </param>
 	/// <returns>
 	/// An object of type question with all the data of the question that was created.
 	/// </returns>
 
-	public Question CreateQuestion(string descriptionOfQuestion){
+	public Question CreateQuestion(string descriptionOfQuestion, string categoryQuestion){
 
 		//The identifier of the evaluation is obtained to be able to pass 
 		//it as an attribute in the new question that will be created
@@ -45,11 +48,11 @@ public class QuestionServices  {
 
 		//Creation of the new question
 		var new_q = new Question{
-				grade = 0,
 				creationDate = date,
 				description = descriptionOfQuestion,
 				evaluationId = evaluationid,
-				lastUpdate = date			
+				lastUpdate = date,
+				category = 	categoryQuestion		
 		};
 
 		//Start-Validation that the query is right

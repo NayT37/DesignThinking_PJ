@@ -155,13 +155,43 @@ public class FieldServices  {
 	/// <summary>
 	/// Description of the method to update a field
 	/// </summary>
-	/// <param name="fieldToUpdate">
-	/// An object of type field that contain the field that will be updated.
+	/// <param name="arraystringsfield">
+	/// Attribute that contains an string array with new desciption of the each field that will be created.
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateField(Field fieldToUpdate){
-		return _connection.Update(fieldToUpdate, fieldToUpdate.GetType());
+	public int UpdateFields(string [] arraystringsfield){
+
+		var _problemServices = new ProblemServices();
+		
+		int problemid = DataBaseParametersCtrl.Ctrl._problemLoaded.id;
+		
+		var fields = GetFields(problemid);
+
+		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		int counter = 0;
+
+		int result = 0;
+
+		foreach (var f in fields)
+		{
+			f.description = arraystringsfield[counter];
+			f.lastUpdate = date;
+			result+=_connection.Update(f, f.GetType());
+
+		}
+
+		if (result == 3) {
+			int r = _problemServices.UpdateProblem();
+			if (r!=0)
+			{
+				result = 1;
+			}
+			
+		}else 
+			result = 0;
+		return result;
 	}
 }
 

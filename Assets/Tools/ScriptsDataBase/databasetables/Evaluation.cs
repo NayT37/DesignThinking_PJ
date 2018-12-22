@@ -5,6 +5,8 @@ public class Evaluation  {
 
 	[PrimaryKey, AutoIncrement]
 	public int id { get; set; }
+
+	public string category {get; set; }
 	public int percentage { get; set; }
 	public string creationDate { get; set; }
 
@@ -13,8 +15,8 @@ public class Evaluation  {
 
 	public override string ToString ()
 	{
-		return string.Format ("[Evaluation: Id={0},  percentage={1}, creationDate={2}, mindMapId={3}, lastUpdate={4}]", 
-								id, percentage, creationDate, mindMapId, lastUpdate);
+		return string.Format ("[Evaluation: Id={0}, category={1},  percentage={2}, creationDate={3}, mindMapId={4}, lastUpdate={5}]", 
+								id, category, percentage, creationDate, mindMapId, lastUpdate);
 	}
 
 	

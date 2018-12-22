@@ -10,13 +10,13 @@ public class Note  {
 
 	public string description { get; set; }
 
-	public int storyTellingId { get; set; }
+	public int storytellingId { get; set; }
 	public string lastUpdate { get; set; }
 
 	public override string ToString ()
 	{
 		return string.Format ("[Note: Id={0}, position={1}, creationDate={2}, description={3}, storyTellingId={4}, lastUpdate={5}]", 
-								id, position, creationDate, description, storyTellingId, lastUpdate);
+								id, position, creationDate, description, storytellingId, lastUpdate);
 	}
 
 	

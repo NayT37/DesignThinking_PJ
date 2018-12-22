@@ -15,7 +15,7 @@ public class Answer  {
 
 	public override string ToString ()
 	{
-		return string.Format ("[Answer: Id={0}, counter={1}, value={2}, creationDate={4}, description{5}, questionId={6}]", 
+		return string.Format ("[Answer: Id={0}, counter={1}, value={2}, creationDate={3}, description{4}, questionId={5}]", 
 								id, counter, value, creationDate, lastUpdate, questionId);
 	}
 

@@ -14,7 +14,7 @@ public class Node  {
 
 	public override string ToString ()
 	{
-		return string.Format ("[Node: Id={0}, creationDate={2}, description{3}, sectionId={4}, lastUpdate={5}]", 
+		return string.Format ("[Node: Id={0}, creationDate={1}, description={2}, sectionId={3}, lastUpdate={4}]", 
 								id, creationDate, description, sectionId, lastUpdate);
 	}
 

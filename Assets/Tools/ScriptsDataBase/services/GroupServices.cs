@@ -303,6 +303,7 @@ public class GroupServices  {
 
 			if (result!=0)
 			{
+				Debug.Log(groupToUpdate);
 				result = _courseServices.UpdateCourse();
 			}
 			

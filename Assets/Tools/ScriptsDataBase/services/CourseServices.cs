@@ -273,7 +273,7 @@ public class CourseServices  {
 			courseToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
 			valueToReturn = _connection.Update(courseToUpdate, courseToUpdate.GetType());
-
+			Debug.Log(courseToUpdate);
 		} else {
 			valueToReturn = 0;
 		}

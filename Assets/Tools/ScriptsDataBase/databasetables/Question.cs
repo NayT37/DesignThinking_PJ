@@ -5,7 +5,6 @@ public class Question  {
 
 	[PrimaryKey, AutoIncrement]
 	public int id { get; set; }
-	public int grade { get; set; }
 	public string creationDate { get; set; }
 
 	public string description { get; set; }
@@ -13,10 +12,12 @@ public class Question  {
 	public int evaluationId { get; set; }
 	public string lastUpdate { get; set; }
 
+	public string category {get; set; }
+
 	public override string ToString ()
 	{
-		return string.Format ("[Question: Id={0},  grade={1}, creationDate={2}, description{3}, evaluationId={4}, lastUpdate={5}]", 
-								id, grade, creationDate, description, evaluationId, lastUpdate);
+		return string.Format ("[Question: Id={0}, creationDate={1}, description{2}, evaluationId={3}, lastUpdate={4}, category={5}]", 
+								id,  creationDate, description, evaluationId, lastUpdate, category);
 	}
 
 	

@@ -40,7 +40,7 @@ public class PublicServices  {
 
 		//The identifier of the project is obtained to be able to pass 
 		//it as an attribute in the new public that will be created
-		int projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
+		int projectid = 1;//DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 
 		//Get the current date to create the new public
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -131,7 +131,7 @@ public class PublicServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateProblem(Public publicToUpdate){
+	public int UpdatePublic(Public publicToUpdate){
 		return _connection.Update(publicToUpdate, publicToUpdate.GetType());
 	}
 }
