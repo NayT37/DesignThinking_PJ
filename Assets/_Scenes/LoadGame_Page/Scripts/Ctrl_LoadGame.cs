@@ -8,7 +8,6 @@ using DG.Tweening;
 public class Ctrl_LoadGame : MonoBehaviour {
 
 
-	public Text NameCourse;
 	public GameObject prefab_Curse;
 	public GameObject parent_group;
 	private Slider _sliderCurses;
@@ -18,6 +17,7 @@ public class Ctrl_LoadGame : MonoBehaviour {
 	private float min; 
 
 	private CourseServices _courseServices;
+	private Text _nameConstant;
 
 
 	// Use this for initialization
@@ -68,7 +68,7 @@ public class Ctrl_LoadGame : MonoBehaviour {
 	}
 
 	IEnumerator GoScene(){
-//		Main_Ctrl.instance.NameCourse = NameCourse.text.ToString();
+//		Main_Ctrl.instance.NameCourse = variableConstant;
 		SceneManager.LoadScene ("Edit_Curse", LoadSceneMode.Additive);
 		yield return null;
 		SceneManager.UnloadSceneAsync ("LoadGame");

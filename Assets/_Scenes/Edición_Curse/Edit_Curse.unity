@@ -1674,10 +1674,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f44946548c514f36a85299659e102d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab_editCurse: {fileID: 1248543500088720, guid: 1b81e8f58504c48be8a8f4c277e95e61,
+  prefab_editCurse: {fileID: 1935898711450938, guid: f94f9e4fafc4f437db6f803ec36d6077,
     type: 2}
   parent_Group: {fileID: 1546325354}
-  NameObj: {fileID: 1546325354}
 --- !u!4 &1148532514
 Transform:
   m_ObjectHideFlags: 0
@@ -2831,7 +2830,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4362,7 +4361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
