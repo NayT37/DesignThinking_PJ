@@ -40,10 +40,34 @@ public class TeacherServices  {
 	/// </returns>
 	public Teacher GetTeacherNamed(string teacherEmail, string password){
 		
-		var t = _connection.Table<Teacher>().Where(x => x.email == teacherEmail).Where(x => x.identityCard == password).FirstOrDefault();
+		var t = _connection.Table<Teacher>().Where(x => x.email == teacherEmail).Where(x => x.password == password).FirstOrDefault();
 
-		if (t == null)
-			return _nullTeacher;	
+		if (t == null){
+		
+		//Get the current date to create the new empathymap
+		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		var teacher = new Teacher{
+				identityCard = "1143",
+				documentTypeId = 1,
+				names = "test",
+				surnames = "sapare",
+				phone = "",
+				address = "",
+				email = teacherEmail,
+				password = password,
+				creationDate = date,
+				headquartersId = 1,
+		};
+
+		int result = _connection.Insert(teacher);
+
+		if (result!=0){
+			DataBaseParametersCtrl.Ctrl._teacherLoggedIn = teacher;
+			return teacher;
+		}else
+			return _nullTeacher;
+		}	
 		else{
 			DataBaseParametersCtrl.Ctrl._teacherLoggedIn = t;
 			return t;

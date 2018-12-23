@@ -11,9 +11,18 @@ public class EvaluationServices  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
-	private string[] arrayDescriptions = new string[]{"question1", "question2", "question3", "question4", "question5", "question6", "question7", "question8", "question9", "question10"};
+	private string[] arrayDescriptions = new string[]{"Factor innovador de producto/servicio en el mercado actual. (Diferenciador respecto de la competencia).",
+													  "Nivel de respuesta a las necesidades, costumbres y hábitos de los potenciales clientes y/o beneficiarios.", 
+													  "En que medida el producto/servicio soluciona un problema.", 
+													  "Nivel de probabilidad de que existan o pueden aparecer productos /servicios que sustituyan a mi idea.", 
+													  "Nivel de dificultad para poner en marcha el desarrollo de la idea (Producto/servicio).", 
+													  "Nivel de competencia existente hace que sea complicado el desarrollo del producto/servicio.", 
+													  "Necesidad de Financiación externa.", 
+													  "Estimación de que suba la demanda y el interés por el producto/servicio prototipado en el tiempo.", 
+													  "Nivel de disponibilidad de recursos (humano, técnicos, Financieros) para el desarrollo de producto/servicio.", 
+													  "Probabilidad de desarrollar el producto/servicio, en corto tiempo."};
 
-	private string[] arraycategorys = new string[]{"viabilidad", "viabilidad", "viabilidad", "productividad", "productividad", "productividad", "economia", "economia", "otro", "otro"};
+	private string[] arraycategorys = new string[]{"pertinencia", "pertinencia", "pertinencia", "competitividad", "competitividad", "competitividad", "competitividad", "viabilidad", "viabilidad", "viabilidad"};
 
 	private QuestionServices _questionServices = new QuestionServices();
 

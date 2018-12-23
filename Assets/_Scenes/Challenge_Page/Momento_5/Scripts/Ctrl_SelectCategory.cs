@@ -26,6 +26,7 @@ public class Ctrl_SelectCategory : MonoBehaviour {
     private void eventClick(string name)
     {
         DOTween.Play(name);
+		DOTween.Play("bg_transition");
 		StartCoroutine(ChangeScene());
 
     }
@@ -39,7 +40,7 @@ public class Ctrl_SelectCategory : MonoBehaviour {
     private IEnumerator ChangeScene()
     {
 		
-        yield return new WaitForSeconds(1.5f);	
+        yield return new WaitForSeconds(2.0f);
 		SceneManager.LoadScene("M_5A", LoadSceneMode.Additive);
         SceneManager.UnloadSceneAsync("M_5");
     }
