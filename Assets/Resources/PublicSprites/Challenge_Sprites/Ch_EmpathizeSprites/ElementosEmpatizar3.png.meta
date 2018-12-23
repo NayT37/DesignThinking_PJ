@@ -4,15 +4,15 @@ timeCreated: 1545326125
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: ElementosEmpatizar3_0
-    21300002: ElementosEmpatizar3_1
-    21300004: ElementosEmpatizar3_2
+    21300000: Head_1
+    21300002: Head_3
+    21300004: Head_5
     21300006: ElementosEmpatizar3_3
     21300008: ElementosEmpatizar3_4
     21300010: ElementosEmpatizar3_5
-    21300012: ElementosEmpatizar3_6
-    21300014: ElementosEmpatizar3_7
-    21300016: ElementosEmpatizar3_8
+    21300012: Head_2
+    21300014: Head_4
+    21300016: Head_6
     21300018: ElementosEmpatizar3_9
   externalObjects: {}
   serializedVersion: 4
@@ -97,14 +97,14 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 47
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     androidETC2FallbackOverride: 0
   - buildTarget: WebGL
     maxTextureSize: 2048
@@ -120,7 +120,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ElementosEmpatizar3_0
+      name: Head_1
       rect:
         serializedVersion: 2
         x: 375
@@ -128,13 +128,13 @@ TextureImporter:
         width: 732
         height: 1059
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: ElementosEmpatizar3_1
+      name: Head_3
       rect:
         serializedVersion: 2
         x: 1733
@@ -142,13 +142,13 @@ TextureImporter:
         width: 825
         height: 1088
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: ElementosEmpatizar3_2
+      name: Head_5
       rect:
         serializedVersion: 2
         x: 3095
@@ -156,7 +156,7 @@ TextureImporter:
         width: 745
         height: 1058
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -170,7 +170,7 @@ TextureImporter:
         width: 118
         height: 120
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -184,7 +184,7 @@ TextureImporter:
         width: 137
         height: 137
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -198,13 +198,13 @@ TextureImporter:
         width: 2696
         height: 1672
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: ElementosEmpatizar3_6
+      name: Head_2
       rect:
         serializedVersion: 2
         x: 360
@@ -212,13 +212,13 @@ TextureImporter:
         width: 738
         height: 1062
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: ElementosEmpatizar3_7
+      name: Head_4
       rect:
         serializedVersion: 2
         x: 1714
@@ -226,13 +226,13 @@ TextureImporter:
         width: 749
         height: 1058
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: ElementosEmpatizar3_8
+      name: Head_6
       rect:
         serializedVersion: 2
         x: 3076
@@ -240,7 +240,7 @@ TextureImporter:
         width: 730
         height: 1059
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -254,7 +254,7 @@ TextureImporter:
         width: 2759
         height: 1186
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

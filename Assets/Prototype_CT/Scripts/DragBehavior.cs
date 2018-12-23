@@ -19,7 +19,7 @@ public class DragBehavior : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
 
     #region System Methods
-	public virtual void  Start()
+    public virtual void Start()
     {
         itemDragged = null;
         _initPosition = transform.position;
@@ -27,7 +27,7 @@ public class DragBehavior : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         _raycastImg = GetComponent<Image>();
     }
     //This method is implemented from the IBeginDragHandler Interface
-	public virtual void OnBeginDrag(PointerEventData eventData)
+    public virtual void OnBeginDrag(PointerEventData eventData)
     {
         //Set the dragged item to this gameobject
         itemDragged = gameObject;
@@ -40,13 +40,13 @@ public class DragBehavior : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         }
     }
     //This method is implemented from the IDragHandler Interface
-	public virtual void OnDrag(PointerEventData eventData)
+    public virtual void OnDrag(PointerEventData eventData)
     {
         //Make this object follow the mouse
         transform.position = Input.mousePosition;
     }
     //This method is implemented from the IEndDragHandle Interface
-	public virtual void OnEndDrag(PointerEventData eventData)
+    public virtual void OnEndDrag(PointerEventData eventData)
     {
         //The draggable item doest not exists
         itemDragged = null;
@@ -66,11 +66,16 @@ public class DragBehavior : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
 
     #region Created Methods
-	public virtual void resetItem()
+    public virtual void resetItem()
     {
         transform.position = _initPosition;
         transform.SetParent(_originalParent);
         transform.SetAsFirstSibling();
+    }
+
+    public virtual void SetRaycastTarget(bool value)
+    {
+        _raycastImg.raycastTarget = value;
     }
 
     public static GameObject getItemDragged()
