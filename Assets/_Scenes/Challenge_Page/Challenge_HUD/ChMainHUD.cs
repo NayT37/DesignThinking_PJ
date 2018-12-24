@@ -38,8 +38,8 @@ public class ChMainHUD : MonoBehaviour
         _limitCtrl = 0;
         _actualScn = "";
         _menuHolder = GameObject.Find("Menu_Holder").transform;
-        _showPosition = new Vector3(0, -450, 0);
-        _hidePosition = new Vector3(0, -300, 0);
+        _showPosition = new Vector3(0, 0, 0);
+        _hidePosition = new Vector3(0, -155, 0);
         StartCoroutine(ChangeScene("M_" + _actualMoment, _actualScn));
     }
 

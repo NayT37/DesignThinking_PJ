@@ -116,6 +116,9 @@ public class ZeroMomentCtrl : MonoBehaviour
         {
             //Load scene M_1
             print("go next");
+            ChMainHUD temp = GameObject.FindObjectOfType<ChMainHUD>();
+            temp.SetLimitCtrl(5);
+            temp.MomentBtnClick(1);
         }
         else
         {

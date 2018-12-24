@@ -22,8 +22,7 @@ public class LoadDataEditCurse : MonoBehaviour, IPointerDownHandler {
 
 	public void OnPointerDown (PointerEventData eventData)
 	{
-//		StartCoroutine (GotoScene ());
-		Debug.Log("Click");
+		StartCoroutine (GotoScene ());
 	}
 
 	#endregion
