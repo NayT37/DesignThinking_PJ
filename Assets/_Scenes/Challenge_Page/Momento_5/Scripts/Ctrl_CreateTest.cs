@@ -11,9 +11,16 @@ public class Ctrl_CreateTest : MonoBehaviour {
 	public Button _btnCreateTest;
 	public Button _btnLoadData;
 
+	private bool _doDataToLoad;
+
+	public GameObject _notData;
+
+	public Transform _TextTransform;
+
 	// Use this for initialization
 	void Start () {
-		
+
+		_doDataToLoad = false;
 		_btnCreateTest.onClick.AddListener(delegate{ eventClick(_btnCreateTest.name);});
 		_btnLoadData.onClick.AddListener(delegate{ eventClick(_btnLoadData.name);});
 
@@ -21,17 +28,43 @@ public class Ctrl_CreateTest : MonoBehaviour {
 
     private void eventClick(string name)
     {
+		bool isChange = false;
+		if (Ctrl_Moment5.Ctrl._answersValue[0] != 0)
+		{
+			_doDataToLoad = true;
+		}
+
 		string newSceneToLoad = "";
-        DOTween.Play(name);
-		DOTween.Play("bg_transition");
 
-		if (name.Equals("NewTestBtn"))
+		if (name.Equals("NewTestBtn")){
 			newSceneToLoad = "M_5B";
-		else 
-			newSceneToLoad = "M_5C";
+			isChange = true;
+		}else{ 
+			if (_doDataToLoad)
+			{
+				newSceneToLoad = "M_5C";
+				isChange = true;
+			} else{
+				GameObject obj = Instantiate(_notData, _TextTransform);
+				StartCoroutine(DeletePrefab(obj));
+				Debug.Log("No hay resultados para cargar");
+			}	
+		}
 		
-		StartCoroutine(ChangeScene(newSceneToLoad));
+		if (isChange)
+		{
+        	DOTween.Play(name);
+			DOTween.Play("bg_transition");
+			StartCoroutine(ChangeScene(newSceneToLoad));
+		}
+		
 
+    }
+
+    private IEnumerator DeletePrefab(GameObject obj)
+    {
+        yield return new WaitForSeconds(4.0f);	
+        DestroyImmediate(obj);
     }
 
     // Update is called once per frame
