@@ -19,7 +19,7 @@ public class Ctrl_ChoiseUser : MonoBehaviour {
 	}
 
 	IEnumerator Challenge(){
-		SceneManager.LoadScene ("Activities", LoadSceneMode.Additive);
+		SceneManager.LoadScene ("Challenge_HUD", LoadSceneMode.Additive);
 		yield return null;
 		SceneManager.UnloadSceneAsync ("ChoiseUser");
 	}
