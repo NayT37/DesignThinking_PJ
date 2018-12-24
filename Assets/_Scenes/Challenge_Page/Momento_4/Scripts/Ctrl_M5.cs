@@ -17,6 +17,8 @@ public class Ctrl_M5 : MonoBehaviour {
 	private GameObject[] squadR;
 	private GameObject[] addCheck;
 	public GameObject PanelFull;
+	public GameObject panelUi2;
+
 
 
 	void Start () {
@@ -75,15 +77,6 @@ public class Ctrl_M5 : MonoBehaviour {
 
 	public void CheckIdea(){
 		addCheck = GameObject.FindGameObjectsWithTag ("add");
-
-		for (int i = 0 ; i < addCheck.Length; i++) {
-			Debug.Log (addCheck [i] + "hola");
-		}
-
-//		foreach (var item in addCheck) {
-//			if (item.tag.Equals("add")) {
-//				Debug.Log ("aqui " + item);
-//			}
-//		}
+		panelUi2.SetActive (true);
 	}
 }
