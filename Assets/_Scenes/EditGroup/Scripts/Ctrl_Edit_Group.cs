@@ -16,7 +16,6 @@ public class Ctrl_Edit_Group : MonoBehaviour {
 
 
 	private GroupServices _groupServices;
-	public DataService ds;
 
 	void Start () {
 		addBtn = GameObject.Find ("MasIcon").GetComponent<Button> ();
@@ -24,7 +23,12 @@ public class Ctrl_Edit_Group : MonoBehaviour {
 
 		_nameGroupUpdate = GameObject.Find ("IFNameGroup").GetComponent<InputField> ();
 		_groupServices = new GroupServices ();
-		ds = new DataService ("designthinkingdbtemplate.db");
+
+		var groups = _groupServices.GetGroups ();
+		Debug.Log ("grupos " + groups);
+		var nameGroups = _groupServices.GetGroupNamed ("Test");
+		Debug.Log ("hay uno" + nameGroups);
+
 
 	}
 
@@ -51,6 +55,7 @@ public class Ctrl_Edit_Group : MonoBehaviour {
 	}
 
 	public void saveDataUpdate(){
+
 		StartCoroutine (GotoScene());
 	}
 
