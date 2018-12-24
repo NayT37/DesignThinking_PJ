@@ -69,11 +69,8 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         _raycastImg.raycastTarget = false;
         //  _originalParent = _mainPanel;
 
-
-
         if (transform.parent != _originalParent)
         {
-            print("OnBegin");
             //If it doesn't change the parent (is not attached at an some EmptySlot), reset it
             resetItem();
         }
@@ -96,6 +93,7 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
     public void ChangeText(string text)
     {
+        _internalText = GetComponentInChildren<Text>();
         _internalText.text = text;
     }
     #endregion
