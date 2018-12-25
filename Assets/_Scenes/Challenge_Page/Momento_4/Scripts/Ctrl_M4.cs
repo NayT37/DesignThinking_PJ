@@ -114,7 +114,7 @@ public class Ctrl_M4 : MonoBehaviour {
 	}
 
 	IEnumerator NewScene(){
-		SceneManager.LoadScene ("M_5Full", LoadSceneMode.Additive);
+		SceneManager.LoadScene ("M_5", LoadSceneMode.Additive);
 		yield return null;
 		SceneManager.UnloadSceneAsync ("M_4");
 	}
