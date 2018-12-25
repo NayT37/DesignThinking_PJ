@@ -47,8 +47,9 @@ public class TeacherServices  {
 		//Get the current date to create the new empathymap
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
+
 		var teacher = new Teacher{
-				identityCard = "1143",
+				identityCard = teacherEmail + "-" + password,
 				documentTypeId = 1,
 				names = "test",
 				surnames = "sapare",

@@ -11,6 +11,8 @@ public class SelectGame : MonoBehaviour
     //Private Variables
     private Image newGameBtn, loadGameBtn;
     private DOTweenAnimation newGameCtrl;
+
+    private CourseServices _courseServices;
     #endregion
 
 
@@ -23,6 +25,9 @@ public class SelectGame : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate()
     {
+
+        _courseServices = new CourseServices();
+
         DOTween.Init();
         // EXAMPLE B: initialize with custom settings, and set capacities immediately
         DOTween.Init(true, true, LogBehaviour.Verbose).SetCapacity(200, 10);
@@ -37,11 +42,26 @@ public class SelectGame : MonoBehaviour
         StartCoroutine(WaitAnimationTime());
     }
 
-	public void NewGameBtnBhvr() { Main_Ctrl.instance.GoToScene("CreateCurso"); 
+	public void NewGameBtnBhvr() { 
+
+        string name = "CreateCurso";
+
+        StartCoroutine(ChangeScene(name));
 		Debug.Log ("hola");}
 
-    public void LoadGameBtnBhvr() { Main_Ctrl.instance.GoToScene("LoadGame"); 
-		Debug.Log ("hello");}
+    public void LoadGameBtnBhvr() { 
+
+        string name = "LoadGame";
+        int count = _courseServices.GetCoursesCount();
+
+        if (count!=0)
+        {
+            StartCoroutine(ChangeScene(name));
+        } else {
+		    Debug.Log ("No hay cursos asociados"); 
+        }
+
+        }
     #endregion
 
 
@@ -60,5 +80,14 @@ public class SelectGame : MonoBehaviour
         newGameBtn.raycastTarget = true;
         loadGameBtn.raycastTarget = true;
     }
+
+    private IEnumerator ChangeScene(string name)
+    {
+        DOTween.Play("bg_transition");
+        yield return new WaitForSeconds(1.0f);
+        Main_Ctrl.instance.GoToScene(name);
+    }
+
+     
     #endregion
 }

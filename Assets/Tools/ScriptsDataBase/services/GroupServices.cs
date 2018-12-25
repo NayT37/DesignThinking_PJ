@@ -84,7 +84,7 @@ public class GroupServices  {
 
 		//The identifier of the course loaded is obtained to be able to pass 
 		//it as an attribute in the new group that will be created
-		int courseid = studentscounter;//DataBaseParametersCtrl.Ctrl._courseLoaded.id; //studentscounter;
+		int courseid = DataBaseParametersCtrl.Ctrl._courseLoaded.id; //studentscounter;
 
 		//Get the current date to create the new group
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();

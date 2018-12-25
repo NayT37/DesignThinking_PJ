@@ -12,13 +12,31 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 	public InputField userName;
 	public InputField passName;	
 	private DOTweenAnimation animationGame;
+	
+	private TeacherServices _teacherServices;
 	#endregion
 
-
+	public void Start(){
+		_teacherServices = new TeacherServices();
+	}
 	public void GoUser(){
 
-		if(userName.GetComponent<InputField>().text.Equals("juan") && passName.GetComponent<InputField>().text.Equals("1234")){			
-			StartCoroutine (ResgisterUser ());
+		string name =userName.text;
+		string password = passName.text;
+
+		if(!name.Equals("") && !passName.Equals("")){
+			var teacher = _teacherServices.GetTeacherNamed(name, password);	
+
+			if (teacher.identityCard.Equals("null"))
+			{
+				DOTween.Play ("7");
+			} else {
+				
+				DOTween.Play("bg_transition");
+				userName.text = "";
+				passName.text = "";		
+				StartCoroutine (ResgisterUser ());
+			}
 		}else{
 //			userName.GetComponent<InputField> ();
 //			userName.placeholder.transform.localScale = new Vector3 (1.5f,1.5f,1);
@@ -27,8 +45,9 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 	}
 
 	IEnumerator ResgisterUser(){
+		
+		yield return new WaitForSeconds(1.0f);	
 		SceneManager.LoadScene ("SelectGame", LoadSceneMode.Additive);
-		yield return null;
 		SceneManager.UnloadSceneAsync ("RegisterUser");
 	}
 }

@@ -78,7 +78,7 @@ public class CourseServices  {
 		
 		//The identifier of the teacher logged in is obtained to be able to pass 
 		//it as an attribute in the new course that will be created
-		string teacherid = "1143";//DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
+		string teacherid = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
 
 		//Get the current date to create the new course
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -177,6 +177,16 @@ public class CourseServices  {
 	public IEnumerable<Course> GetCourses(){
 		string teacherId = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
 		return _connection.Table<Course>().Where(x => x.teacherIdentityCard == teacherId);
+	}
+
+	/// <summary>
+	/// Description of the method to obtain number the groups of a specific course
+	/// </summary>
+	/// A IEnumerable list of all the courses found from the identifier of the teacher loggedIn
+	/// </returns>
+	public int GetCoursesCount(){
+		string teacherId = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
+		return _connection.Table<Course>().Where(x => x.teacherIdentityCard == teacherId).Count();
 	}
 
 	/// <summary>

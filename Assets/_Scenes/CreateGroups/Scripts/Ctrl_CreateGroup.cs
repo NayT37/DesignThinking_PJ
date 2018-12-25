@@ -115,14 +115,16 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 
 	/* Corrutina cambio de escena */
 	IEnumerator GoScene(){
+		DOTween.Play("bg_transition");
+		yield return new WaitForSeconds(1.0f);	
 		SceneManager.LoadScene ("ChoiseUser", LoadSceneMode.Additive);
-		yield return null;
 		SceneManager.UnloadSceneAsync ("CreateGroup");
 	}
 
 	IEnumerator backScene(){
+		DOTween.Play("bg_transition");
+		yield return new WaitForSeconds(1.0f);	
 		SceneManager.LoadScene ("CreateCurso", LoadSceneMode.Additive);
-		yield return null;
 		SceneManager.UnloadSceneAsync ("CreateGroup");
 	}
 
@@ -131,7 +133,7 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 		//Activar gameobject que contiene el check
 		saveCheck.SetActive (true);
 		inputUserGroup.SetActive (false);
-		yield return new WaitForSeconds (1.2f);
+		yield return new WaitForSeconds (0.2f);
 		inputUserGroup.SetActive (true);
 		saveCheck.SetActive (false);
 		//Setiar los valores en predeterminado para un nuevo grupo

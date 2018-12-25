@@ -25,9 +25,15 @@ public class Ctrl_Test : MonoBehaviour {
 
     private int[] _answersValue;
 
+    private int[] _answersposition;
+
     private int _evaluationPosition;
 
     private bool isContinue;
+
+    public Image[] _arrayShadowsAnswer;
+
+    private int _lastShadowActivated;
 
     private string[] _arrayDescriptions = new string[]{"Factor innovador de producto/servicio en el mercado actual. (Diferenciador respecto de la competencia).",
 													  "Nivel de respuesta a las necesidades, costumbres y hábitos de los potenciales clientes y/o beneficiarios.", 
@@ -43,9 +49,15 @@ public class Ctrl_Test : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+        _lastShadowActivated = 1;
+
+        //_arrayShadowsAnswer[_lastShadowActivated-1].color = new Color32(255,255,255,255);
+        
         isContinue = true;
 
         _answersValue = new int[10]{1,1,1,1,1,1,1,1,1,1};
+
+        _answersposition = new int[10]{1,1,1,1,1,1,1,1,1,1};
 
         _evaluationPosition = 1;
 
@@ -77,21 +89,35 @@ public class Ctrl_Test : MonoBehaviour {
 
     private void answerClick(string name)
     {
-        Debug.Log(name);
-        _answersValue[_evaluationPosition-1] = Convert.ToInt32(name);
+
+        if (name.Equals(_lastShadowActivated.ToString()))
+        {
+            
+        } else {
+            _arrayShadowsAnswer[_lastShadowActivated-1].color = new Color32(255,255,255,0);
+            _lastShadowActivated = Convert.ToInt32(name);
+            _arrayShadowsAnswer[_lastShadowActivated-1].color = new Color32(255,255,255,255);
+            _answersValue[_evaluationPosition-1] = Convert.ToInt32(name);
+            _answersposition[_evaluationPosition-1] = _lastShadowActivated;
+        }
+        
+        
     }
 
     private void closeClick(string name)
     {
         if (name.Equals("yesBtn"))
         {
-            
+          
         } else if (name.Equals("noBtn"))
         {
             
         } else{
             Debug.Log("Button close pressed");
         }
+        
+        DOTween.Play("bg_transition_err");
+        StartCoroutine(ChangeScene());
     }
 
     private void eventClick(string name)
@@ -99,11 +125,11 @@ public class Ctrl_Test : MonoBehaviour {
 
         if (name.Equals("nextBtn"))
         { 
-            _evaluationPosition++;
-
-            if (_evaluationPosition<11)
+           
+            if (_evaluationPosition<10)
             {
-                if (_evaluationPosition==2)
+                
+                if (_evaluationPosition==1)
                 {
                     isContinue = false;
                     //Hacer lógica para mostrar el botón de back
@@ -112,15 +138,20 @@ public class Ctrl_Test : MonoBehaviour {
                     isContinue = false;   
                 }else {
 
-                    for (int i = 0; i < _answersValue.Length; i++)
-                    {
-                        Debug.Log(_answersValue[i]);
-                    }
-                    isContinue = true;
-                    //Lógica para desaparecer botón next
+                   
                 } 
+                
+                _evaluationPosition++;
+
+                _arrayShadowsAnswer[_lastShadowActivated-1].color = new Color32(255,255,255,0);
+                _arrayShadowsAnswer[_answersposition[_evaluationPosition-1]-1].color = new Color32(255,255,255,255);
+                _lastShadowActivated = _answersposition[_evaluationPosition-1];
+
             } else {
                 _evaluationPosition=10;
+                Ctrl_Moment5.Ctrl._answersValue = _answersValue;
+                DOTween.Play("bg_transition_suc");
+                StartCoroutine(ChangeScene());
             }
 
             
@@ -130,6 +161,12 @@ public class Ctrl_Test : MonoBehaviour {
             
             if (_evaluationPosition>0)
             {
+
+                _arrayShadowsAnswer[_lastShadowActivated-1].color = new Color32(255,255,255,0);
+                _arrayShadowsAnswer[_answersposition[_evaluationPosition-1]-1].color = new Color32(255,255,255,255);
+                _lastShadowActivated = _answersposition[_evaluationPosition-1];
+
+                
                 if (_evaluationPosition==1)
                 {
                     isContinue = true;
@@ -167,10 +204,10 @@ public class Ctrl_Test : MonoBehaviour {
 	#region COROUTINES
     private IEnumerator ChangeScene()
     {
-		
-        yield return new WaitForSeconds(2.0f);	
-		SceneManager.LoadScene("M_5B", LoadSceneMode.Additive);
-        SceneManager.UnloadSceneAsync("M_5A");
+		DOTween.Play("bg_transition");
+        yield return new WaitForSeconds(3.0f);	
+		SceneManager.LoadScene("M_5A", LoadSceneMode.Additive);
+        SceneManager.UnloadSceneAsync("M_5B");
     }
     #endregion
 }
