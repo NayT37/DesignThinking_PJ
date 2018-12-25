@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class CtrlCreateCurso : MonoBehaviour {
 
@@ -32,8 +33,9 @@ public class CtrlCreateCurso : MonoBehaviour {
 	}
 		
 	IEnumerator Back(){
+		DOTween.Play("bg_transition");
+		yield return new WaitForSeconds(1.0f);
 		SceneManager.LoadScene ("SelectGame", LoadSceneMode.Additive);
-		yield return null;
 		SceneManager.UnloadSceneAsync ("CreateCurso");
 	}
 
@@ -43,8 +45,9 @@ public class CtrlCreateCurso : MonoBehaviour {
 		if (result.id != 0) {
 			DataBaseParametersCtrl.Ctrl._courseLoaded = result;
 			Debug.Log ("result " + result);
+			DOTween.Play("bg_transition");
+			yield return new WaitForSeconds(1.0f);
 			SceneManager.LoadScene ("CreateGroup", LoadSceneMode.Additive);
-			yield return null;
 			SceneManager.UnloadSceneAsync ("CreateCurso");
 		} else {
 			

@@ -3,7 +3,7 @@ using System;
 
 public class Teacher  {
 
-	[PrimaryKey, AutoIncrement]
+	[PrimaryKey]
 	public string identityCard { get; set; }
 	public int documentTypeId { get; set; }
 

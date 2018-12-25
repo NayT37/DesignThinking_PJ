@@ -69,8 +69,8 @@ public class Ctrl_LoadGame : MonoBehaviour {
 
 	IEnumerator GoScene(){
 //		Main_Ctrl.instance.NameCourse = variableConstant;
-		SceneManager.LoadScene ("Edit_Curse", LoadSceneMode.Additive);
 		yield return null;
+		SceneManager.LoadScene ("Edit_Curse", LoadSceneMode.Additive);
 		SceneManager.UnloadSceneAsync ("LoadGame");
 	}
 }
