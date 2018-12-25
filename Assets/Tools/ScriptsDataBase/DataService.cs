@@ -12,6 +12,8 @@ public class DataService  {
 	public SQLiteConnection _connection;
 	private SQLiteException _exception;
 
+	private bool _isFirstTime = false;
+
 	public DataService(string DatabaseName){
 
 		#if UNITY_EDITOR
@@ -31,6 +33,8 @@ public class DataService  {
 						while (!loadDb.isDone) { }  // CAREFUL here, for safety reasons you shouldn't let this while loop unattended, place a timer and error check
 						// then save to Application.persistentDataPath
 						File.WriteAllBytes(filepath, loadDb.bytes);
+						_isFirstTime = true;
+
 			#elif UNITY_IOS
 							var loadDb = Application.dataPath + "/Raw/" + DatabaseName;  // this is the path to your StreamingAssets in iOS
 							// then save to Application.persistentDataPath
@@ -57,12 +61,18 @@ public class DataService  {
 			#endif
 
 					Debug.Log("Database written");
-					}
+
+			}
 
 					var dbPath = filepath;
 		#endif
         _connection = new SQLiteConnection(dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
         Debug.Log("Final PATH: " + dbPath); 
+
+		if (_isFirstTime)
+		{
+			createTables();
+		}
 
 	}
 
@@ -76,6 +86,35 @@ public class DataService  {
 	/// an arrangement that contains all the groups that were successfully inserted.
 	/// </returns>
 
+	private void createTables(){
+
+		_connection.CreateTable<Zone>();
+		_connection.CreateTable<Town>();
+		_connection.CreateTable<School>();
+		_connection.CreateTable<Headquarters>();
+		_connection.CreateTable<Teacher>();
+		_connection.CreateTable<DocumentType>();
+		_connection.CreateTable<Teacher>();
+		_connection.CreateTable<Course>();
+		_connection.CreateTable<Group>();
+		_connection.CreateTable<Training>();
+		_connection.CreateTable<Case>();
+		_connection.CreateTable<Moment>();
+		_connection.CreateTable<Project>();
+		_connection.CreateTable<Public>();
+		_connection.CreateTable<Problem>();
+		_connection.CreateTable<Field>();
+		_connection.CreateTable<Empathymap>();
+		_connection.CreateTable<Section>();
+		_connection.CreateTable<StoryTelling>();
+		_connection.CreateTable<Mindmap>();		
+		_connection.CreateTable<Evaluation>();
+		_connection.CreateTable<Question>();
+		_connection.CreateTable<Answer>();
+		_connection.CreateTable<Section>();
+		_connection.CreateTable<Node>();
+
+	}
 	public void InsertGroups(string date){
 		
 
