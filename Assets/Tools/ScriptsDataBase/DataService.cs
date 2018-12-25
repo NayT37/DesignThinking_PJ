@@ -18,7 +18,7 @@ public class DataService  {
 				var dbPath = string.Format(@"Assets/StreamingAssets/{0}", DatabaseName);
 		#else
         // check if file exists in Application.persistentDataPath
-        var filepath = string.Format("{0}/{1}", Application.persistentDataPath, DatabaseName);
+        var filepath = string.Format("{0}/{1}", Application.streamingAssetsPath, DatabaseName);
 
         if (!File.Exists(filepath))
         {

@@ -65,7 +65,7 @@ public class Ctrl_Edit_Group : MonoBehaviour {
 
 	IEnumerator GotoScene(){
 		var groupUpdate = _groupServices.GetGroupId (1);
-		var result = _groupServices.UpdateGroup (groupUpdate ,_nameGroupUpdate.text,Convert.ToInt32((numberPerson.ToString())));
+		var result = _groupServices.UpdateGroup (groupUpdate ,_nameGroupUpdate.text, Convert.ToInt32((numberPerson.ToString())));
 		groupUpdate = _groupServices.GetGroupId (1);
 		if (result != 0) {
 			DataBaseParametersCtrl.Ctrl._groupLoaded = groupUpdate;
