@@ -117,15 +117,13 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 	IEnumerator GoScene(){
 		DOTween.Play("bg_transition");
 		yield return new WaitForSeconds(1.0f);	
-		SceneManager.LoadScene ("ChoiseUser", LoadSceneMode.Additive);
-		SceneManager.UnloadSceneAsync ("CreateGroup");
+		SceneManager.LoadScene ("ChoiseUser");
 	}
 
 	IEnumerator backScene(){
 		DOTween.Play("bg_transition");
 		yield return new WaitForSeconds(1.0f);	
-		SceneManager.LoadScene ("CreateCurso", LoadSceneMode.Additive);
-		SceneManager.UnloadSceneAsync ("CreateGroup");
+		SceneManager.LoadScene ("CreateCurso");
 	}
 
 	/* Corrutina para el cambio de gameobject sobre el check */
@@ -133,12 +131,13 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 		//Activar gameobject que contiene el check
 		saveCheck.SetActive (true);
 		inputUserGroup.SetActive (false);
-		yield return new WaitForSeconds (0.2f);
+		yield return new WaitForSeconds (0.05f);
 		inputUserGroup.SetActive (true);
 		saveCheck.SetActive (false);
 		//Setiar los valores en predeterminado para un nuevo grupo
 		groupName.text = "";
 		numberPerson.text = "0";
+		tmp = 0;
 	}
 	//Corrutina donde se ejecuta la animación se espera un tiempo determinado y se pausa
 	IEnumerator feedback(){

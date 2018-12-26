@@ -20,8 +20,8 @@ public class Ctrl_MainScene : MonoBehaviour
 
     IEnumerator ResgisterUser()
     {
-        SceneManager.LoadScene("RegisterUser", LoadSceneMode.Additive);
+        
         yield return null;
-        SceneManager.UnloadSceneAsync("Main_Scene");
+        SceneManager.LoadScene("RegisterUser");
     }
 }

@@ -17,9 +17,11 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 	#endregion
 
 	public void Start(){
-		_teacherServices = new TeacherServices();
+	
 	}
 	public void GoUser(){
+
+		_teacherServices = new TeacherServices();
 
 		string name =userName.text;
 		string password = passName.text;
@@ -47,7 +49,6 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 	IEnumerator ResgisterUser(){
 		
 		yield return new WaitForSeconds(1.0f);	
-		SceneManager.LoadScene ("SelectGame", LoadSceneMode.Additive);
-		SceneManager.UnloadSceneAsync ("RegisterUser");
+		SceneManager.LoadScene ("SelectGame");
 	}
 }

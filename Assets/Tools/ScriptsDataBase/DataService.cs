@@ -69,11 +69,6 @@ public class DataService  {
         _connection = new SQLiteConnection(dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create);
         Debug.Log("Final PATH: " + dbPath); 
 
-		if (_isFirstTime)
-		{
-			createTables();
-		}
-
 	}
 
 	/// <summary>

@@ -19,13 +19,13 @@ public class Ctrl_ChoiseUser : MonoBehaviour {
 	}
 
 	IEnumerator Challenge(){
-		SceneManager.LoadScene ("Challenge_HUD", LoadSceneMode.Additive);
+		
 		yield return null;
-		SceneManager.UnloadSceneAsync ("ChoiseUser");
+		SceneManager.LoadScene ("Challenge_HUD");
 	}
 	IEnumerator Trainning(){
-		SceneManager.LoadScene ("Main_HUD", LoadSceneMode.Additive);
+		
 		yield return null;
-		SceneManager.UnloadSceneAsync ("ChoiseUser");
+		SceneManager.LoadScene ("Main_HUD");
 	}
 }
