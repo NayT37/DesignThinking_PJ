@@ -35,8 +35,7 @@ public class CtrlCreateCurso : MonoBehaviour {
 	IEnumerator Back(){
 		DOTween.Play("bg_transition");
 		yield return new WaitForSeconds(1.0f);
-		SceneManager.LoadScene ("SelectGame", LoadSceneMode.Additive);
-		SceneManager.UnloadSceneAsync ("CreateCurso");
+		SceneManager.LoadScene ("SelectGame");
 	}
 
 	IEnumerator SaveNameCourse(){
@@ -47,8 +46,7 @@ public class CtrlCreateCurso : MonoBehaviour {
 			Debug.Log ("result " + result);
 			DOTween.Play("bg_transition");
 			yield return new WaitForSeconds(1.0f);
-			SceneManager.LoadScene ("CreateGroup", LoadSceneMode.Additive);
-			SceneManager.UnloadSceneAsync ("CreateCurso");
+			SceneManager.LoadScene ("CreateGroup");
 		} else {
 			
 		}
