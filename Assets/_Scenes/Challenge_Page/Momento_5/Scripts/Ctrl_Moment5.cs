@@ -24,6 +24,12 @@ public class Ctrl_Moment5 : MonoBehaviour {
 	private QuestionServices _questionServices;
 
 	private AnswerServices _answerServices;
+
+	private int evaluationid;
+
+	IEnumerable<Question> questions;
+
+	IEnumerable<Answer> answers;
     void Awake () {
         if (Ctrl == null) {
             Ctrl = this;
@@ -41,6 +47,10 @@ public class Ctrl_Moment5 : MonoBehaviour {
 		_questionServices = new QuestionServices();
 
 		_answerServices = new AnswerServices();
+
+		evaluationid = DataBaseParametersCtrl.Ctrl._evaluationLoaded.id;
+
+		questions = _questionServices.GetQuestions(evaluationid);
 		
 
 	}
@@ -56,14 +66,11 @@ public class Ctrl_Moment5 : MonoBehaviour {
 		
 		int result = 0;
 
-		int evaluationid = DataBaseParametersCtrl.Ctrl._evaluationLoaded.id;
-
-		var questions = _questionServices.GetQuestions(evaluationid);
-
 		int counter = 0;
+
 		foreach (var q in questions)
 		{
-			var answers = _answerServices.GetAnswers(q.id);
+			answers = _answerServices.GetAnswers(q.id);
 			Answer[] arrayanswers = new Answer[5];
 			int count = 0;
 			foreach (var a in answers)
@@ -77,6 +84,34 @@ public class Ctrl_Moment5 : MonoBehaviour {
 		}
 
 		return result;
+	}
+
+	public void getAnswersValue(){
+
+		int[] answersarray = new int[50];
+
+		int result = 0;
+
+		foreach (var a in answers)
+		{
+			result+= a.counter;
+		}
+
+		int counterQuestions = (result%50);
+
+		int counterArrayIn = 0;
+		int counterArrayOut = 0;
+		for (int i = 0; i < answersarray.Length; i++)
+		{
+			_answersValue[counterArrayIn] += ((answersarray[i]*(counterArrayOut+1))*counterQuestions);
+			counterArrayOut++;
+			if (i%5==0)
+			{
+				counterArrayIn++;
+				counterArrayOut = 0;
+			}
+		}
+
 	}
 	
 	// Update is called once per frame

@@ -32,6 +32,8 @@ public class Ctrl_LoadData : MonoBehaviour {
 		
 		_btnClose.onClick.AddListener(delegate{ eventClick(_btnClose.name);});
 
+		Ctrl_Moment5.Ctrl.getAnswersValue();
+
 		int[] arrayv = Ctrl_Moment5.Ctrl._answersValue;
 
 
