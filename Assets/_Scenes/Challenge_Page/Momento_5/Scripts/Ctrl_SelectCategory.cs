@@ -25,9 +25,23 @@ public class Ctrl_SelectCategory : MonoBehaviour {
 
     private void eventClick(string name)
     {
-        DOTween.Play(name);
-		DOTween.Play("bg_transition");
-		StartCoroutine(ChangeScene());
+		string nameCategory = "";
+		if (name.Equals("ServiceBtn"))
+			nameCategory = "Servicio";
+		else 
+			nameCategory = "Producto";
+		
+		Ctrl_Moment5.Ctrl._evaluationCategory = nameCategory;
+		var result = Ctrl_Moment5.Ctrl.createEvaluation();
+
+		if (result.id!=0)
+		{
+			DataBaseParametersCtrl.Ctrl._evaluationLoaded = result;
+			DOTween.Play(name);
+			DOTween.Play("bg_transition");
+			StartCoroutine(ChangeScene());
+		}
+        
 
     }
 
