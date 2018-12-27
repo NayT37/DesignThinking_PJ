@@ -23,9 +23,6 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 
 	private GroupServices _groupServices;
 
-	private IEnumerable<Group> _arrayGroups;
-
-//	public DataService ds;
 
 
 
@@ -43,8 +40,6 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 		addBtn = GameObject.Find ("AddBtn").GetComponent<Button> ();
 		subBtn = GameObject.Find ("RestBtn").GetComponent<Button> ();
 
-//		ds = new DataService ("designthinkingdbtemplate.db");
-
 		_groupServices = new GroupServices ();
 
 
@@ -58,7 +53,9 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 	 */
 
 	public void GotoScene(){
-		StartCoroutine (GoScene());
+		if (!groupName.text.Equals ("") || !numberPerson.text.Equals ("0")) {
+			StartCoroutine (GoScene());	
+		}
 	} 
 	#endregion
 
@@ -73,6 +70,7 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 		if (groupName.text.Equals ("") || numberPerson.text.Equals("0")) {
 			//Inicia corrutina para mostrar un feedback de lo que debe llenar
 			StartCoroutine(feedback());
+//			DOTween.Play ("8");
 		} else {
 			//Enviar a base de datos el nuevo grupo creado con dos parametros, el nombre y el número de estudiantes por grupo
 			var group = _groupServices.CreateGroup (groupName.text,Convert.ToInt32(numberPerson.text.ToString()));
@@ -131,18 +129,19 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 		//Activar gameobject que contiene el check
 		saveCheck.SetActive (true);
 		inputUserGroup.SetActive (false);
-		yield return new WaitForSeconds (0.05f);
+		yield return new WaitForSeconds (1f);
 		inputUserGroup.SetActive (true);
 		saveCheck.SetActive (false);
 		//Setiar los valores en predeterminado para un nuevo grupo
 		groupName.text = "";
 		numberPerson.text = "0";
 		tmp = 0;
+		DOTween.Play ("8");
 	}
 	//Corrutina donde se ejecuta la animación se espera un tiempo determinado y se pausa
 	IEnumerator feedback(){
 		DOTween.Play ("6");
-		yield return new WaitForSeconds (1f);
+		yield return new WaitForSeconds (3f);
 		DOTween.Pause ("6");
 	}
 
@@ -152,5 +151,8 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 		yield return new WaitForSeconds (1.2f);
 		inputUserGroup.SetActive (true);
 		_feedbackGroup.SetActive (false);
+		groupName.text = "";
+		numberPerson.text = "0";
+		tmp = 0;
 	}
 }
