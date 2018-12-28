@@ -24,7 +24,9 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 		slider_handlerEditCurse = _slider_editCurse.GetComponent<slider_EditCurse> ();
 		_GroupServices = new GroupServices ();
 
-		var groups = _GroupServices.GetGroups ();
+		var courseId = DataBaseParametersCtrl.Ctrl._courseLoaded.id;
+
+		var groups = _GroupServices.GetGroups (courseId);
 		foreach (var item in groups) {
 			var setName = Instantiate (prefab_editCurse, parent_Group.transform);
 			Textos = setName.GetComponentsInChildren<Text> ();

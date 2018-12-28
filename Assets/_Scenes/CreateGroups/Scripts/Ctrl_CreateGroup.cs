@@ -20,6 +20,7 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 	private GameObject _feedbackGroup;
 	private Button addBtn;
 	private Button subBtn;
+	private int contador = 0;
 
 	private GroupServices _groupServices;
 
@@ -53,7 +54,8 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 	 */
 
 	public void GotoScene(){
-		if (!groupName.text.Equals ("") || !numberPerson.text.Equals ("0")) {
+		
+		if (contador >= 1) {
 			StartCoroutine (GoScene());	
 		}
 	} 
@@ -70,10 +72,11 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 		if (groupName.text.Equals ("") || numberPerson.text.Equals("0")) {
 			//Inicia corrutina para mostrar un feedback de lo que debe llenar
 			StartCoroutine(feedback());
-//			DOTween.Play ("8");
 		} else {
 			//Enviar a base de datos el nuevo grupo creado con dos parametros, el nombre y el número de estudiantes por grupo
 			var group = _groupServices.CreateGroup (groupName.text,Convert.ToInt32(numberPerson.text.ToString()));
+			contador += 1;
+			Debug.Log (contador + " contador");
 			//Se devuelve el Id del grupo desde la base de datos, cuando sea 1 se guardara y cuando sea 0 es porque ese grupo
 			//ya existe
 			Debug.Log (group);
