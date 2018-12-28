@@ -24,6 +24,8 @@ public class TriviaCtrl : MiniGame_Ctrl
     private GameObject _triviaGame, _contextObj;
     private Button _contextBtn, _closeContext;
     private GameObject _panelFinal;
+
+    private MomentServices _momentServices;
     #endregion
 
 
@@ -63,6 +65,8 @@ public class TriviaCtrl : MiniGame_Ctrl
 
     private void Initializate()
     {
+        _momentServices = new MomentServices();
+
         for (int i = 0; i < _answersQuantity; i++)
         {
             _btnsArray[i] = GameObject.Find("BtnOption_" + (i + 1)).GetComponent<TriviaBtn>();
@@ -136,7 +140,10 @@ public class TriviaCtrl : MiniGame_Ctrl
             }
             _panelFinal.SetActive(true);
             isGameFinished = true;
+            
             //DB
+            _momentServices.UpdateMoment(100);
+            
             
         }
     }
