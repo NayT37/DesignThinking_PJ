@@ -250,8 +250,6 @@ public class GroupServices  {
 	/// <summary>
 	/// Description of the method to update a group
 	/// </summary>
-	/// <param name="groupToUpdate">
-	/// An object of type group that contain the group that will be updated.
 	/// <param name="newnamegroup">
 	/// An string that contain the new name of the group that will be updated.
 	/// <param name="newstudentscount">
@@ -259,8 +257,9 @@ public class GroupServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateGroup(Group groupToUpdate, string newnamegroup, int newstudenscount){
+	public int UpdateGroup(string newnamegroup, int newstudenscount){
 		
+		var groupToUpdate = DataBaseParametersCtrl.Ctrl._groupLoaded;
 		groupToUpdate.name = newnamegroup;
 		groupToUpdate.studentsCounter = newstudenscount;
 		groupToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();

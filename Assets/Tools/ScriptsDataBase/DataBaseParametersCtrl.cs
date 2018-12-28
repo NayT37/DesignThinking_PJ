@@ -20,7 +20,7 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 	public Training _trainingloaded;
 
 	[Header ("Case loaded")]
-	public IEnumerable<Case> _caseLoaded;
+	public Case _caseLoaded;
 
 	[Header ("Moment loaded")]
 	public Moment _momentLoaded;

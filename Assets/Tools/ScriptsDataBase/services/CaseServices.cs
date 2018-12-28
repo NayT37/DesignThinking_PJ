@@ -129,7 +129,8 @@ public class CaseServices  {
 	/// A IEnumerable list of all the cases found
 	/// </returns>
 	public IEnumerable<Case> GetCases(){
-		return _connection.Table<Case>();
+		int trainingid = DataBaseParametersCtrl.Ctrl._trainingloaded.id;
+		return _connection.Table<Case>().Where(x => x.trainingId == trainingid);
 	}
 
 	/// <summary>

@@ -96,6 +96,7 @@ public class MomentServices  {
 	/// A IEnumerable list of all the cases found
 	/// </returns>
 	public IEnumerable<Moment> GetMoments(){
+		int caseid = DataBaseParametersCtrl.Ctrl._caseLoaded.id;
 		return _connection.Table<Moment>();
 	}
 
@@ -121,16 +122,14 @@ public class MomentServices  {
 	/// <summary>
 	/// Description of the method to update a moment
 	/// </summary>
-	/// <param name="momentToUpdate">
-	/// An object of type moment that contain the moment that will be updated.
-	/// <returns>
 	/// <param name="newpercentage">
 	/// An integer that contain the new percetage that will be updated.
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateMoment(Moment momentToUpdate, int newpercentage){
-
+	public int UpdateMoment(int newpercentage){
+		
+		var momentToUpdate = DataBaseParametersCtrl.Ctrl._momentLoaded;
 		
 		var _caseServices = new CaseServices();
 

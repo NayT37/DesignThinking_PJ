@@ -64,6 +64,18 @@ public class CasesHUD_Ctrl : MonoBehaviour
     private string _actualScn;
     private Button _btnRA;
     private GameObject _loadObj;
+
+    private CaseServices _caseServices;
+
+    private MomentServices _momentServices;
+
+    private IEnumerable<Case> _casesIEnumerable;
+
+    private IEnumerable<Moment> _momentsIEnumerable;
+
+    private Case[] _casesArray;
+
+    private Moment[] _momentsArray;
     #endregion
 
 
@@ -77,8 +89,13 @@ public class CasesHUD_Ctrl : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate()
     {
+        
+        InitializeServices();
+
         XRSettings.enabled = false;
         _actualMoment = 1;
+
+        
         _actualCase = 1;
         _actualScn = "";
         _loadObj = GameObject.Find("Loading_Bg");
@@ -101,6 +118,41 @@ public class CasesHUD_Ctrl : MonoBehaviour
         _btnRA.onClick.AddListener(ChangeRA);
     }
 
+    public void InitializeServices(){
+
+        _caseServices = new CaseServices();
+
+        _casesArray = new Case[3];
+
+        _casesIEnumerable = _caseServices.GetCases();
+
+        int counterCases = 0;
+
+        foreach (var c in _casesIEnumerable)
+        {
+            _casesArray[counterCases] = c;
+            counterCases++;
+        }
+
+        DataBaseParametersCtrl.Ctrl._caseLoaded = _casesArray[0];
+
+        _momentServices = new MomentServices();
+
+        _momentsArray = new Moment[5];
+
+        _momentsIEnumerable = _momentServices.GetMoments();
+
+        int counterMoments = 0;
+
+        foreach (var m in _momentsIEnumerable)
+        {
+            _momentsArray[counterMoments] = m;
+            counterMoments++;
+        }
+
+        DataBaseParametersCtrl.Ctrl._momentLoaded = _momentsArray[0];
+    }
+
     public void CaseBtnClick(int caseValue)
     {
         VuforiaControl.instance.ResetRA();
@@ -121,6 +173,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
             switch (caseValue)
             {
                 case 1:
+                    DataBaseParametersCtrl.Ctrl._caseLoaded = _casesArray[0];
                     //Sprites for cases
                     Btn_momento1.sprite = Moment1_Selected;
                     Btn_momento2.sprite = Moment2_Null;
@@ -139,6 +192,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     Text_Changed.text = "EMPATIZAR";
                     break;
                 case 2:
+                    DataBaseParametersCtrl.Ctrl._caseLoaded = _casesArray[1];
                     //Sprites for cases
                     Btn_momento2.sprite = Moment2_Selected;
                     Btn_momento1.sprite = Moment1_Null;
@@ -157,6 +211,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     Text_Changed.text = "EMPATIZAR";
                     break;
                 case 3:
+                    DataBaseParametersCtrl.Ctrl._caseLoaded = _casesArray[2];
                     //Sprite for cases
                     Btn_momento3.sprite = Moment3_Selected;
                     Btn_momento1.sprite = Moment1_Null;
@@ -186,6 +241,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
             switch (momentValue)
             {
                 case 1:
+                    DataBaseParametersCtrl.Ctrl._momentLoaded = _momentsArray[0];
                     VuforiaControl.instance.ResetRA();
                     //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
                     StartCoroutine(ChangeScene("C" + _actualCase + "_M" + momentValue, _actualScn));
@@ -207,6 +263,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     }
                     break;
                 case 2:
+                    DataBaseParametersCtrl.Ctrl._momentLoaded = _momentsArray[1];
                     VuforiaControl.instance.ResetRA();
                     //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
                     StartCoroutine(ChangeScene("C" + _actualCase + "_M" + momentValue, _actualScn));
@@ -227,6 +284,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     }
                     break;
                 case 3:
+                    DataBaseParametersCtrl.Ctrl._momentLoaded = _momentsArray[2];
                     VuforiaControl.instance.ResetRA();
                     //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
                     StartCoroutine(ChangeScene("C" + _actualCase + "_M" + momentValue, _actualScn));
@@ -247,6 +305,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     }
                     break;
                 case 4:
+                    DataBaseParametersCtrl.Ctrl._momentLoaded = _momentsArray[3];
                     VuforiaControl.instance.ResetRA();
                     //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
                     StartCoroutine(ChangeScene("C" + _actualCase + "_M" + momentValue, _actualScn));
@@ -269,6 +328,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     }
                     break;
                 case 5:
+                    DataBaseParametersCtrl.Ctrl._momentLoaded = _momentsArray[4];
                     //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
                     StartCoroutine(ChangeScene("C" + _actualCase + "_M" + momentValue, _actualScn));
 

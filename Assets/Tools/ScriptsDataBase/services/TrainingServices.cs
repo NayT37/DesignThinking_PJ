@@ -55,6 +55,8 @@ public class TrainingServices  {
 
 		//If the creation of the training is correct, then the cases corresponding to that training are created.
 		if (result!=0){
+
+			DataBaseParametersCtrl.Ctrl._trainingloaded = new_t;
 			
 			for (int i = 0; i < 3; i++)
 			{
@@ -123,9 +125,7 @@ public class TrainingServices  {
 
 		var result = _connection.Table<Training>().Where(x => x.groupId == groupId).FirstOrDefault();
 
-		if (result.id != 0)
-			DataBaseParametersCtrl.Ctrl._caseLoaded = _caseServices.GetCases(result.id);
-		else
+		if (result.id == 0)
 			result = _nullTraining;
 		
 		return result;
