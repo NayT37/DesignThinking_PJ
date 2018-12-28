@@ -124,7 +124,7 @@ public class TinderGame : MonoBehaviour
         _displayedTxt = transform.Find("TextToDisplay").GetComponent<Text>();
         // GameObject.Find("TextToDisplay").GetComponent<Text>();
         _displayedTxt.transform.SetParent(NewObj.transform);
-        _displayedTxt.transform.localPosition = new Vector3(0, 47, 0);
+        _displayedTxt.transform.localPosition = new Vector3(0, 62, 0);
     }
 
     public void UpdateDisplayedImage()
