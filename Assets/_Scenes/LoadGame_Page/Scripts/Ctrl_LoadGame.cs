@@ -19,17 +19,29 @@ public class Ctrl_LoadGame : MonoBehaviour {
 	private CourseServices _courseServices;
 	private Text _nameConstant;
 
+	private Course[] _courses;
+
 
 	// Use this for initialization
 	void Start () {
+
+		_courses = new Course[10];
 		_sliderCurses = GameObject.Find ("SliderGame").GetComponent<Slider>();
 		slider_Handler = _sliderCurses.GetComponent<SliderHandler> ();
 		_courseServices = new CourseServices ();
 
 		var courses = _courseServices.GetCourses();
+
+		int counter = 0;
 		foreach (var item in courses) {
 			var SetName = Instantiate (prefab_Curse, parent_group.transform);
+			SetName.name = counter.ToString();
+			_courses [counter] = item;
+			counter++;
 			SetName.GetComponentInChildren<Text> ().text = item.name;
+			SetName.GetComponentInChildren<Button> ().onClick.AddListener (delegate{GetCoursePressed (SetName.name);});
+
+
 
 //			DOTweenAnimation[] animations = g.GetComponentsInChildren<DOTweenAnimation>();
 //			for(int i=0;i< animations.Length; i++)
@@ -41,6 +53,14 @@ public class Ctrl_LoadGame : MonoBehaviour {
 //			}
 			Debug.Log ("name" + item.name);
 		}
+	}
+
+	void GetCoursePressed(string positionInToArray) {
+
+		int value = int.Parse (positionInToArray);
+		Debug.Log ("position " + positionInToArray);
+
+		DataBaseParametersCtrl.Ctrl._courseLoaded = _courses[value];
 	}
 
 	void Update(){
