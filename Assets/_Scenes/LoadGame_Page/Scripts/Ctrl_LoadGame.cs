@@ -39,7 +39,8 @@ public class Ctrl_LoadGame : MonoBehaviour {
 			_courses [counter] = item;
 			counter++;
 			SetName.GetComponentInChildren<Text> ().text = item.name;
-			SetName.GetComponentInChildren<Button> ().onClick.AddListener (delegate{GetCoursePressed (SetName.name);});
+			SetName.GetComponentInChildren<Button> ().onClick.AddListener (delegate{GetCoursePressed (SetName.name, item.name);});
+
 
 
 
@@ -55,12 +56,17 @@ public class Ctrl_LoadGame : MonoBehaviour {
 		}
 	}
 
-	void GetCoursePressed(string positionInToArray) {
+	void GetCoursePressed(string positionInToArray, string nameCourse) {
+
+		Main_Ctrl.instance.NameCourse = nameCourse;
 
 		int value = int.Parse (positionInToArray);
 		Debug.Log ("position " + positionInToArray);
 
 		DataBaseParametersCtrl.Ctrl._courseLoaded = _courses[value];
+
+
+		goToScene ();
 	}
 
 	void Update(){
@@ -88,9 +94,8 @@ public class Ctrl_LoadGame : MonoBehaviour {
 	}
 
 	IEnumerator GoScene(){
-//		Main_Ctrl.instance.NameCourse = variableConstant;
-		yield return null;
 		SceneManager.LoadScene ("Edit_Curse", LoadSceneMode.Additive);
+		yield return null;
 		SceneManager.UnloadSceneAsync ("LoadGame");
 	}
 }
