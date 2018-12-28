@@ -42,8 +42,6 @@ public class EmpathyPanel : MonoBehaviour
 
     private void SaveInfo()
     {
-
-
         if (_levelCtrl == null)
         {
             _levelCtrl = GameObject.FindObjectOfType<M1_Ctrl>();
@@ -53,6 +51,7 @@ public class EmpathyPanel : MonoBehaviour
             _internalText = _internalInput.text;
             _isInfoEmpty = false;
             _levelCtrl.OnPanelTextChanged(_panelId);
+            //Send internalText to DB
         }
         _levelCtrl.ActivePanelByNumber(0);
     }

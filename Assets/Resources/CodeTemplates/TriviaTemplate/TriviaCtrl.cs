@@ -140,8 +140,11 @@ public class TriviaCtrl : MiniGame_Ctrl
             }
             _panelFinal.SetActive(true);
             isGameFinished = true;
-
+            
+            //DB
             _momentServices.UpdateMoment(100);
+            
+            
         }
     }
 

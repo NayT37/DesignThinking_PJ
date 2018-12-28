@@ -14,6 +14,8 @@ public class Ctrl_Edit_Group : MonoBehaviour {
 	private int tmp = 0;
 	private InputField _nameGroupUpdate;
 
+	private Text TextGroup;
+
 
 	private GroupServices _groupServices;
 
@@ -24,11 +26,8 @@ public class Ctrl_Edit_Group : MonoBehaviour {
 		_nameGroupUpdate = GameObject.Find ("IFNameGroup").GetComponent<InputField> ();
 		_groupServices = new GroupServices ();
 
-		var groups = _groupServices.GetGroups ();
-		Debug.Log ("grupos " + groups);
-		var nameGroups = _groupServices.GetGroupNamed ("Test");
-		Debug.Log ("hay uno" + nameGroups);
-
+		TextGroup = GameObject.Find ("TitleGroup").GetComponent<Text> ();
+		TextGroup.text = Main_Ctrl.instance.NameCourse;
 
 	}
 

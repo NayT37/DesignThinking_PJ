@@ -58,6 +58,16 @@ public class M1_Ctrl : MonoBehaviour
     {
         _checkByPanel[panelId - 1].SetActive(true);
     }
+
+    public void ClosePanel(int panelNumber)
+    {
+        if (panelNumber != _activePanel)
+        {
+            _panelsArray[_activePanel].SetActivePanel(false);
+            _panelsArray[panelNumber].SetActivePanel(true);
+            _activePanel = panelNumber;
+        }
+    }
     #endregion
 
 

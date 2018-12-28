@@ -17,7 +17,6 @@ public class CtrlCreateCurso : MonoBehaviour {
 	void Start () {
 
 		_courseServices = new CourseServices ();
-		Debug.Log ("empezo");
 	}
 
 	void Update(){
@@ -48,7 +47,7 @@ public class CtrlCreateCurso : MonoBehaviour {
 			yield return new WaitForSeconds(1.0f);
 			SceneManager.LoadScene ("CreateGroup");
 		} else {
-			
+			DOTween.Play ("7");
 		}
 
 	}

@@ -14,25 +14,49 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 
 	private float max;
 	private float min;
+	private Text texCourse;
 
 	private GroupServices _GroupServices;
+	private Group[] _arrayGroup;
 
 	void Start () {
 
-
+		_arrayGroup = new Group[10];
 		_slider_editCurse = GameObject.Find ("SliderEditCurse").GetComponent<Slider>();
 		slider_handlerEditCurse = _slider_editCurse.GetComponent<slider_EditCurse> ();
 		_GroupServices = new GroupServices ();
+		texCourse = GameObject.Find ("TitleCurse").GetComponent<Text> ();
+		texCourse.text = Main_Ctrl.instance.NameCourse;
 
-		var groups = _GroupServices.GetGroups ();
+		var courseId = DataBaseParametersCtrl.Ctrl._courseLoaded.id;
+
+		var counter = 0;
+		var groups = _GroupServices.GetGroups (courseId);
 		foreach (var item in groups) {
 			var setName = Instantiate (prefab_editCurse, parent_Group.transform);
+			setName.name = counter.ToString ();
+			_arrayGroup [counter] = item;
+			counter++;
 			Textos = setName.GetComponentsInChildren<Text> ();
 			Textos [0].text = item.name;
 			Textos [1].text = item.studentsCounter.ToString ();
+			setName.GetComponentInChildren<Button>().onClick.AddListener(delegate{getPushButtonGroups (setName.name, item.name);});
 		}
 	}
 
+
+	void getPushButtonGroups(string positionInArrayGroup, string nameGroup){
+		int value = int.Parse (positionInArrayGroup);
+
+
+		Main_Ctrl.instance.NameCourse = nameGroup;
+
+		DataBaseParametersCtrl.Ctrl._groupLoaded = _arrayGroup[value];
+		Debug.Log ("position " + positionInArrayGroup);
+
+		goNextEscene ();
+
+	}
 
 	void Update () {
 		
@@ -59,8 +83,18 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 		StartCoroutine (GobackScene ());
 	}
 
+	void goNextEscene(){
+		StartCoroutine (GotoScene ());
+	}
+
 	IEnumerator GobackScene(){
 		SceneManager.LoadScene ("LoadGame", LoadSceneMode.Additive);
+		yield return null;
+		SceneManager.UnloadSceneAsync ("Edit_Curse");
+	}
+
+	IEnumerator GotoScene(){
+		SceneManager.LoadScene ("Edit_Group", LoadSceneMode.Additive);
 		yield return null;
 		SceneManager.UnloadSceneAsync ("Edit_Curse");
 	}
