@@ -16,6 +16,8 @@ public class MainTinderCtrl : MiniGame_Ctrl
     private Text _finalCanvasTxt;
     private Image _trueImg, _falseImg;
     private Transform _trueImgSize, _falseImgSize;
+
+    private MomentServices _momentServices;
     #endregion
 
 
@@ -27,6 +29,8 @@ public class MainTinderCtrl : MiniGame_Ctrl
     #region CREATED_METHODS
     private void Initializate()
     {
+        _momentServices = new MomentServices();
+
         _roundsNumber = _canvasByRound.Length;
         _finishedCanvasQuantity = 0;
         _finalCanvasTxt = GameObject.Find("FinalCanvas_Txt").GetComponent<Text>();
@@ -55,6 +59,7 @@ public class MainTinderCtrl : MiniGame_Ctrl
         {
             isGameFinished = true;
             _finalCanvasTxt.gameObject.SetActive(true);
+            _momentServices.UpdateMoment(100);
         }
     }
     #endregion

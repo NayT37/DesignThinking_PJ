@@ -115,7 +115,6 @@ public class ZeroMomentCtrl : MonoBehaviour
         if (_isGenderSelected && _isAgeSelected)
         {
             //Load scene M_1
-            print("go next");
             ChMainHUD temp = GameObject.FindObjectOfType<ChMainHUD>();
             temp.SetLimitCtrl(5);
             temp.MomentBtnClick(1);

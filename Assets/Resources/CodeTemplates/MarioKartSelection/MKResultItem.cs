@@ -17,6 +17,8 @@ public class MKResultItem : MonoBehaviour
 
     private EvaluateHolder _evaluateHolder;
     private CasesHUD_Ctrl HUDCtrl;
+
+    private MomentServices _momentServices;
     #endregion
 
 
@@ -36,6 +38,9 @@ public class MKResultItem : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate()
     {
+        _momentServices = new MomentServices();
+
+
         _MKItemsArray = FindObjectsOfType<MKItem>();
         _obtainedResultsArray = new int[_MKItemsArray.Length];
 
@@ -76,6 +81,9 @@ public class MKResultItem : MonoBehaviour
         {
             // HUDCtrl.GetMKValue(true);
             _evaluateHolder.SetCorrect(true);
+
+            //DB
+            _momentServices.UpdateMoment(100);
         }
         else
         {

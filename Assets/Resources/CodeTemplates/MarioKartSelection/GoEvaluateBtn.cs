@@ -21,6 +21,7 @@ public class GoEvaluateBtn : MonoBehaviour, IPointerClickHandler
     private Animator evaluateHolder;
     private EvaluateHolder _evaluateHolder;
 
+    private MomentServices _momentServices;
     #endregion
 
 
@@ -39,6 +40,8 @@ public class GoEvaluateBtn : MonoBehaviour, IPointerClickHandler
     #region CREATED_METHODS
     private void Initializate()
     {
+        _momentServices = new MomentServices();
+
         HUDCtrl = GameObject.FindObjectOfType<CasesHUD_Ctrl>();
         _isTesting = false;
     }
@@ -71,6 +74,9 @@ public class GoEvaluateBtn : MonoBehaviour, IPointerClickHandler
                 _selectedPrototype.transform.localEulerAngles = new Vector3(0, 0, 0);
                 break;
         }
+
+        //DB
+        _momentServices.UpdateMoment(100);
 
         _evaluateHolder.playAnimation(HUDCtrl._actualCase);
         VuforiaControl.instance.ResetRA();

@@ -25,6 +25,7 @@ public class MindMap_Ctrl : MonoBehaviour
     private List<MindMapItem> _mmItemsList;
     private GameObject[] _blockerObjsArray;
     private GameObject _finalPanel;
+    private MomentServices _momentServices;
     #endregion
 
 
@@ -46,6 +47,8 @@ public class MindMap_Ctrl : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate()
     {
+        _momentServices = new MomentServices();
+
         _arrowLeft = GameObject.Find("mm_ArrowL").GetComponent<Button>();
         _arrowRight = GameObject.Find("mm_ArrowR").GetComponent<Button>();
         _arrowLeft.onClick.AddListener(ChangeBackwards);
@@ -161,6 +164,9 @@ public class MindMap_Ctrl : MonoBehaviour
         else
         {
             _finalPanel.SetActive(true);
+
+            //DB
+            _momentServices.UpdateMoment(100);
         }
 
         if (_mmItemsList.Count < 10)
