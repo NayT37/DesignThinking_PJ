@@ -23,7 +23,7 @@ public class Ctrl_Edit_Group : MonoBehaviour {
 		addBtn = GameObject.Find ("MasIcon").GetComponent<Button> ();
 		subBtn = GameObject.Find ("MenosIcon").GetComponent<Button> ();
 
-		_nameGroupUpdate = GameObject.Find ("IFNameGroup").GetComponent<InputField> ();
+		_nameGroupUpdate = GameObject.Find ("NameGroup").GetComponent<InputField> ();
 		_groupServices = new GroupServices ();
 
 		TextGroup = GameObject.Find ("TitleGroup").GetComponent<Text> ();
@@ -55,29 +55,25 @@ public class Ctrl_Edit_Group : MonoBehaviour {
 
 	public void saveDataUpdate(){
 
-		StartCoroutine (GotoScene());
-	}
-
-	public void backScene(){
-		StartCoroutine (GobackScene ());
-	}
-
-	IEnumerator GotoScene(){
-		var groupUpdate = _groupServices.GetGroupId (1);
-		var result = _groupServices.UpdateGroup (groupUpdate ,_nameGroupUpdate.text, Convert.ToInt32((numberPerson.ToString())));
-		groupUpdate = _groupServices.GetGroupId (1);
+		var result = _groupServices.UpdateGroup (_nameGroupUpdate.text, Convert.ToInt32((numberPerson.text.ToString())));
 		if (result != 0) {
-			DataBaseParametersCtrl.Ctrl._groupLoaded = groupUpdate;
-			SceneManager.LoadScene ("SelectGame", LoadSceneMode.Additive);
-			yield return null;
-			SceneManager.UnloadSceneAsync ("Edit_Group");
+			SceneManager.LoadScene ("Edit_Curse");
 		}
 	}
 
-	IEnumerator GobackScene(){
-		SceneManager.LoadScene ("Edit_Curse", LoadSceneMode.Additive);
-		yield return null;
-		SceneManager.UnloadSceneAsync ("Edit_Group");
+	public void backScene(){
+		SceneManager.LoadScene ("Edit_Curse");
 	}
+
+	public void deleteGroup(){
+
+		var result = _groupServices.DeleteGroup ();
+		if (result != 0) {
+			SceneManager.LoadScene ("Edit_Curse");
+		}
+		
+	}
+
+
 
 }

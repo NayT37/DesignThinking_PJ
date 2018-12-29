@@ -235,19 +235,55 @@ public class CourseServices  {
 	}
 
 	/// <summary>
+	/// Description of the method to delete a course
+	/// </summary>
+	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
+	/// </returns>
+	public int DeleteCourse( ){
+
+		var courseToDelete = DataBaseParametersCtrl.Ctrl._courseLoaded;
+
+		int courseid = courseToDelete.id;
+
+		int result = _connection.Delete(courseToDelete);
+
+		//All the groups belonging to the course that will be deleted are obtained.
+		var groups = _groupServices.GetGroups(courseid);
+
+		int valueToReturn = 0;
+
+		//If the elimination of the course is correct, then the groups corresponding to that course are eliminated.
+		if (result!=0)
+		{
+			foreach (var group in groups)
+			{
+				valueToReturn += _groupServices.DeleteGroup(group);
+			}
+			Debug.Log("Se borró el curso correctamente");
+		} else {
+			valueToReturn = 0;
+			Debug.Log("No se borró el entrenamiento");
+		}
+
+		return valueToReturn;
+	}
+
+	/// <summary>
 	/// Description of the method to update a course
 	/// </summary>
-	/// <param name="courseToUpdate">
-	/// An object of type course that contain the course that will be updated.
 	/// <param name="newnamecourse">
 	/// An object of type course that contain the course that will be updated.
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateCourse(Course courseToUpdate, string newnamecourse){
+	public int UpdateCourse(string newnamecourse){
+
+		var courseToUpdate = DataBaseParametersCtrl.Ctrl._courseLoaded;
 
 		courseToUpdate.name = newnamecourse;
 		courseToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		DataBaseParametersCtrl.Ctrl._courseLoaded = courseToUpdate;
 
 		return _connection.Update(courseToUpdate, courseToUpdate.GetType());
 	}

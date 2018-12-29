@@ -48,10 +48,11 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 	void getPushButtonGroups(string positionInArrayGroup, string nameGroup){
 		int value = int.Parse (positionInArrayGroup);
 
-
 		Main_Ctrl.instance.NameCourse = nameGroup;
 
+		Debug.Log (_arrayGroup[value]);
 		DataBaseParametersCtrl.Ctrl._groupLoaded = _arrayGroup[value];
+		Debug.Log (DataBaseParametersCtrl.Ctrl._groupLoaded); 
 		Debug.Log ("position " + positionInArrayGroup);
 
 		goNextEscene ();
@@ -84,7 +85,9 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 	}
 
 	void goNextEscene(){
-		StartCoroutine (GotoScene ());
+
+		SceneManager.LoadScene ("Edit_Group");
+//		StartCoroutine (GotoScene ());
 	}
 
 	IEnumerator GobackScene(){
