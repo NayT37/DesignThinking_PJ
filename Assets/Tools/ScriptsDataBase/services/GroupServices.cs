@@ -211,6 +211,44 @@ public class GroupServices  {
 	/// <summary>
 	/// Description of the method to delete a group
 	/// </summary>
+	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
+	/// </returns>
+	public int DeleteGroup(){
+
+		var groupToDelete = DataBaseParametersCtrl.Ctrl._groupLoaded;
+
+		int groupid = groupToDelete.id;
+		//All the trainings belonging to the group that will be deleted are obtained.
+		var training = _trainingServices.GetTraining(groupid);
+
+		int result = _connection.Delete(groupToDelete);
+		int valueToReturn = 0;
+
+		//All the trainings belonging to the group that will be deleted are obtained.
+		var projects = _projectServices.GetProjects(groupid);
+
+		//If the elimination of the group is correct, then the trainings and projects corresponding to that group are eliminated.
+		if (result!=0)
+		{
+			valueToReturn += _trainingServices.DeleteTraining(training);
+
+			foreach (var p in projects)
+			{
+				valueToReturn += _projectServices.DeleteProject(p);
+			}
+
+			Debug.Log("Se borró el grupo correctamente");
+		} else {
+			valueToReturn = 0;
+			Debug.Log("No se borró el grupo");
+		}
+
+		return valueToReturn;
+	}
+
+	/// <summary>
+	/// Description of the method to delete a group
+	/// </summary>
 	/// <param name="groupToDelete">
 	/// An object of type group that contain the group that will be deleted.
 	/// <returns>
@@ -257,14 +295,16 @@ public class GroupServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateGroup(string newnamegroup, int newstudenscount){
+	public int UpdateGroup( string newnamegroup, int newstudenscount){
+
+		var gU = DataBaseParametersCtrl.Ctrl._groupLoaded;
 		
-		var groupToUpdate = DataBaseParametersCtrl.Ctrl._groupLoaded;
-		groupToUpdate.name = newnamegroup;
-		groupToUpdate.studentsCounter = newstudenscount;
-		groupToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+		Debug.Log ("sssss    " + gU );
+		gU.name = newnamegroup;
+		gU.studentsCounter = newstudenscount;
+		gU.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
 		
-		return _connection.Update(groupToUpdate, groupToUpdate.GetType());
+		return _connection.Update(gU, gU.GetType());
 	}
 
 	/// <summary>
