@@ -93,8 +93,18 @@ public class Ctrl_LoadGame : MonoBehaviour {
 		StartCoroutine (GoScene ());
 	}
 
+	public void backToScene(){
+		StartCoroutine (BackOne ());
+	}
+
 	IEnumerator GoScene(){
 		SceneManager.LoadScene ("Edit_Curse", LoadSceneMode.Additive);
+		yield return null;
+		SceneManager.UnloadSceneAsync ("LoadGame");
+	}
+
+	IEnumerator BackOne(){
+		SceneManager.LoadScene ("SelectGame", LoadSceneMode.Additive);
 		yield return null;
 		SceneManager.UnloadSceneAsync ("LoadGame");
 	}
