@@ -55,8 +55,16 @@ public class DataService  {
 					File.Copy(loadDb, filepath);
 			#else
 				var loadDb = Application.dataPath + "/StreamingAssets/" + DatabaseName;  // this is the path to your StreamingAssets in PC
+				
+				string result;
+				if (loadDb.Contains("://") || loadDb.Contains(":///"))
+				{
+					WWW www = new WWW(loadDb);
+					yield return www;
+					result = www.text;
+				}
 				// then save to Application.persistentDataPath
-				File.Copy(loadDb, filepath);
+				File.Copy(result, filepath);
 
 			#endif
 
