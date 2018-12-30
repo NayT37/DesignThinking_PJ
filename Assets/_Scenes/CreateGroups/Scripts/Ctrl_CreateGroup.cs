@@ -118,7 +118,7 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 	IEnumerator GoScene(){
 		DOTween.Play("bg_transition");
 		yield return new WaitForSeconds(1.0f);	
-		SceneManager.LoadScene ("ChoiseUser");
+		SceneManager.LoadScene ("SelectGame");
 	}
 
 	IEnumerator backScene(){
