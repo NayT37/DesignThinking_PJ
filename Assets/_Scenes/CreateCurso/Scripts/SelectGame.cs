@@ -13,6 +13,10 @@ public class SelectGame : MonoBehaviour
     private DOTweenAnimation newGameCtrl;
 
     private CourseServices _courseServices;
+    
+	public GameObject _notData;
+
+	public Transform _TextTransform;
     #endregion
 
 
@@ -58,7 +62,9 @@ public class SelectGame : MonoBehaviour
         {
             StartCoroutine(ChangeScene(name));
         } else {
-		    Debug.Log ("No hay cursos asociados"); 
+            GameObject obj = Instantiate(_notData, _TextTransform);
+			StartCoroutine(DeletePrefab(obj));
+			Debug.Log("No hay resultados para cargar");
         }
 
         }
@@ -79,6 +85,12 @@ public class SelectGame : MonoBehaviour
         yield return new WaitForSeconds(newGameCtrl.duration * 3);
         newGameBtn.raycastTarget = true;
         loadGameBtn.raycastTarget = true;
+    }
+
+    private IEnumerator DeletePrefab(GameObject obj)
+    {
+        yield return new WaitForSeconds(4.0f);	
+        DestroyImmediate(obj);
     }
 
     private IEnumerator ChangeScene(string name)

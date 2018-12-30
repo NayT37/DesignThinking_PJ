@@ -33,9 +33,6 @@ public class ProjectServices  {
 	/// <summary>
 	/// Description to method to create a project
 	/// </summary>
-	/// <param name="projectname">
-	/// Attribute that contains an string with the name of the project that will be created.
-	/// </param>
 	/// <param name="sectorname">
 	/// Attribute that contains an string with the sector's name of the project that will be created.
 	/// </param>
@@ -43,18 +40,20 @@ public class ProjectServices  {
 	/// An object of type project with all the data of the project that was created.
 	/// </returns>
 
-	public Project CreateProject(string projectname, string sectorname){
+	public Project CreateProject(string sectorname){
 
 		//The identifier of the group is obtained to be able to pass 
 		//it as an attribute in the new project that will be created
 		int groupid = 1;//DataBaseParametersCtrl.Ctrl._groupLoaded.id;
+
+		int counter = GetProjectsCounter(groupid);
 
 		//Get the current date to create the new course
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
 		//Creation of the new project
 		var new_p  = new Project{
-				name = projectname,
+				name = "Proyecto_"+(counter+1),
 				percentage = 0,
 				creationDate = date,
 				sectorName = sectorname,
@@ -63,7 +62,7 @@ public class ProjectServices  {
 		};
 
 		//Start-Validation that the project that will be created does not exist
-		var projectValidation = GetProjectNamed(projectname, groupid);
+		var projectValidation = GetProjectNamed(new_p.name, groupid);
 
 		if ((projectValidation.name).Equals("null"))
 		{
