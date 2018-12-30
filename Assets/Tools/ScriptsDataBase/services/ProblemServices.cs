@@ -37,7 +37,7 @@ public class ProblemServices  {
 
 		//The identifier of the project is obtained to be able to pass 
 		//it as an attribute in the new problem that will be created
-		int projectid = 1;//DataBaseParametersCtrl.Ctrl._projectLoaded.id;
+		int projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 
 		//Get the current date to create the new problem
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();

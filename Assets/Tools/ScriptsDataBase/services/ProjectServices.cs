@@ -33,9 +33,6 @@ public class ProjectServices  {
 	/// <summary>
 	/// Description to method to create a project
 	/// </summary>
-	/// <param name="projectname">
-	/// Attribute that contains an string with the name of the project that will be created.
-	/// </param>
 	/// <param name="sectorname">
 	/// Attribute that contains an string with the sector's name of the project that will be created.
 	/// </param>
@@ -43,18 +40,20 @@ public class ProjectServices  {
 	/// An object of type project with all the data of the project that was created.
 	/// </returns>
 
-	public Project CreateProject(string projectname, string sectorname){
+	public Project CreateProject(string sectorname){
 
 		//The identifier of the group is obtained to be able to pass 
 		//it as an attribute in the new project that will be created
 		int groupid = 1;//DataBaseParametersCtrl.Ctrl._groupLoaded.id;
+
+		int counter = GetProjectsCounter(groupid);
 
 		//Get the current date to create the new course
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
 		//Creation of the new project
 		var new_p  = new Project{
-				name = projectname,
+				name = "Proyecto_"+(counter+1),
 				percentage = 0,
 				creationDate = date,
 				sectorName = sectorname,
@@ -63,7 +62,7 @@ public class ProjectServices  {
 		};
 
 		//Start-Validation that the project that will be created does not exist
-		var projectValidation = GetProjectNamed(projectname, groupid);
+		var projectValidation = GetProjectNamed(new_p.name, groupid);
 
 		if ((projectValidation.name).Equals("null"))
 		{
@@ -166,12 +165,24 @@ public class ProjectServices  {
 	/// Description of the method to obtain all the projects of a specific group
 	/// </summary>
 	/// <param name="projectid">
-	/// integer to define the identifier of the group from which all the related courses will be brought.
+	/// integer to define the identifier of the project from which all the related courses will be brought.
 	/// <returns>
 	/// A IEnumerable list of all the Trainings found from the identifier of the group that was passed as a parameter
 	/// </returns>
 	public IEnumerable<Project> GetProjects(int projectid){
 		return _connection.Table<Project>().Where(x => x.id == projectid);
+	}
+
+	/// <summary>
+	/// Description of the method to obtain all the projects of a specific group
+	/// </summary>
+	/// <param name="groupId">
+	/// integer to define the identifier of the group from which all the related courses will be brought.
+	/// <returns>
+	/// Counter projects related with an specified group
+	/// </returns>
+	public int GetProjectsCounter(int groupId){
+		return _connection.Table<Project>().Where(x => x.groupId == groupId).Count();
 	}
 
 	/// <summary>
