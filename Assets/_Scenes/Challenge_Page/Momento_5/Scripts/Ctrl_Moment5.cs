@@ -97,7 +97,7 @@ public class Ctrl_Moment5 : MonoBehaviour {
 			result+= a.counter;
 		}
 
-		int counterQuestions = (result%50);
+		int counterQuestions = (result%10);
 
 		int counterArrayIn = 0;
 		int counterArrayOut = 0;
