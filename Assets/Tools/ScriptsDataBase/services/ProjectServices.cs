@@ -166,12 +166,24 @@ public class ProjectServices  {
 	/// Description of the method to obtain all the projects of a specific group
 	/// </summary>
 	/// <param name="projectid">
-	/// integer to define the identifier of the group from which all the related courses will be brought.
+	/// integer to define the identifier of the project from which all the related courses will be brought.
 	/// <returns>
 	/// A IEnumerable list of all the Trainings found from the identifier of the group that was passed as a parameter
 	/// </returns>
 	public IEnumerable<Project> GetProjects(int projectid){
 		return _connection.Table<Project>().Where(x => x.id == projectid);
+	}
+
+	/// <summary>
+	/// Description of the method to obtain all the projects of a specific group
+	/// </summary>
+	/// <param name="groupId">
+	/// integer to define the identifier of the group from which all the related courses will be brought.
+	/// <returns>
+	/// Counter projects related with an specified group
+	/// </returns>
+	public int GetProjectsCounter(int groupId){
+		return _connection.Table<Project>().Where(x => x.groupId == groupId).Count();
 	}
 
 	/// <summary>

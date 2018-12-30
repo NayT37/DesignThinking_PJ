@@ -199,6 +199,18 @@ public class GroupServices  {
 	}
 
 	/// <summary>
+	/// Description of the method to obtain all the groups of a specific course
+	/// </summary>
+	/// <param name="courseId">
+	/// integer to define the identifier of the course from which all the related groups will be brought.
+	/// <returns>
+	/// Counter groups related with an specified course
+	/// </returns>
+	public int GetGroupsCounter(int courseId){
+		return _connection.Table<Group>().Where(x => x.courseId == courseId).Count();
+	}
+
+	/// <summary>
 	/// (This is a test method) Description of the method to obtain all the groups
 	/// </summary>
 	/// <returns>
