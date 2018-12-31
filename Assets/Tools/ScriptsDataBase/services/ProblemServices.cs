@@ -60,7 +60,7 @@ public class ProblemServices  {
 			for (int i = 0; i < arrayfieldsname.Length; i++)
 			{
 				//Creation of the fields
-				_fieldServices.CreateField(arrayfieldsname[i], "Field_"+ i);
+				_fieldServices.CreateField("Field_"+(i+1), arrayfieldsname[i]);
 			}
 			Debug.Log(new_p);
 			return new_p;
@@ -132,6 +132,17 @@ public class ProblemServices  {
 	/// </returns>
 	public IEnumerable<Problem> GetProblems(){
 		return _connection.Table<Problem>();
+	}
+
+	/// <summary>
+	/// (This is a test method) Description of the method to obtain all the Problem
+	/// </summary>
+	/// <returns>
+	/// A IEnumerable list of all the projects found
+	/// </returns>
+	public int GetProblemsCounter(){
+		int projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
+		return _connection.Table<Problem>().Where(x => x.projectId == projectid).Count();
 	}
 
 	/// <summary>

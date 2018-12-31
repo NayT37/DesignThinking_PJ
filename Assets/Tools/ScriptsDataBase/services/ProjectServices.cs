@@ -247,6 +247,29 @@ public class ProjectServices  {
 	/// <summary>
 	/// Description of the method to update a project
 	/// </summary>
+	/// <param name="newsector">
+	/// An string that contain the newsector that will be updated.
+	/// <returns>
+	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
+	/// </returns>
+	public int UpdateProject(string newsector){
+
+		var projectToUpdate = DataBaseParametersCtrl.Ctrl._projectLoaded;
+
+		projectToUpdate.sectorName = newsector;
+		projectToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+
+		int result = _connection.Update(projectToUpdate, projectToUpdate.GetType());
+
+		DataBaseParametersCtrl.Ctrl._projectLoaded = projectToUpdate;
+
+		return result;
+	}
+
+	/// <summary>
+	/// Description of the method to update a project
+	/// </summary>
 	/// <param name="projectToUpdate">
 	/// An object of type project that contain the project that will be updated.
 	/// <returns>

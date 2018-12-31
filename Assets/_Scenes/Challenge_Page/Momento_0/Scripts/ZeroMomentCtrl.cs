@@ -18,6 +18,12 @@ public class ZeroMomentCtrl : MonoBehaviour
     private Image[] _ageImgsArray, _genderImgsArray;
     private GameObject _genderHolderObj, _ageHolderObj;
     private GameObject _genderItemHolder, _ageItemHolder;
+
+    private string _genderResult, _ageResult, _sectorResult;
+
+    private ProjectServices _projectServices;
+
+    private PublicServices _publicServices;
     #endregion
 
 
@@ -30,6 +36,16 @@ public class ZeroMomentCtrl : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate()
     {
+
+        //Initialize services
+        _projectServices = new ProjectServices();
+        _publicServices = new PublicServices();
+
+        //Intialize strings
+        _genderResult = "";
+        _ageResult = "";
+        _sectorResult = "";
+
         _sectorObj = GameObject.Find("SectoresObj");
         _publicObj = GameObject.Find("PublicoObj");
         //Get Buttons
@@ -79,6 +95,7 @@ public class ZeroMomentCtrl : MonoBehaviour
 
     private void PressProductivo()
     {
+        _sectorResult = "Productivo";
         _isSectorSelected = true;
         _imgProductivo.color = _selectedClr;
         _imgEducativo.color = _neutralClr;
@@ -86,6 +103,7 @@ public class ZeroMomentCtrl : MonoBehaviour
     }
     private void PressEducativo()
     {
+        _sectorResult = "Educativo";
         _isSectorSelected = true;
         _imgProductivo.color = _neutralClr;
         _imgEducativo.color = _selectedClr;
@@ -93,6 +111,7 @@ public class ZeroMomentCtrl : MonoBehaviour
     }
     private void PressSalud()
     {
+        _sectorResult = "Salud";
         _isSectorSelected = true;
         _imgProductivo.color = _neutralClr;
         _imgEducativo.color = _neutralClr;
@@ -115,9 +134,16 @@ public class ZeroMomentCtrl : MonoBehaviour
         if (_isGenderSelected && _isAgeSelected)
         {
             //Load scene M_1
-            ChMainHUD temp = GameObject.FindObjectOfType<ChMainHUD>();
-            temp.SetLimitCtrl(5);
-            temp.MomentBtnClick(1);
+            var project = _projectServices.UpdateProject(_sectorResult);
+            var _public = _publicServices.CreatePublic(_ageResult, _genderResult);
+
+            if (project != 0 && _public.id != 0)
+            {
+                ChMainHUD temp = GameObject.FindObjectOfType<ChMainHUD>();
+                temp.SetLimitCtrl(1);
+                temp.MomentBtnClick(1);
+            }
+
         }
         else
         {
@@ -129,6 +155,7 @@ public class ZeroMomentCtrl : MonoBehaviour
 
     public void GenderSelection(string value)
     {
+        _genderResult = value;
         _isGenderSelected = true;
         for (int i = 0; i < _genderImgsArray.Length; i++)
         {
@@ -138,6 +165,7 @@ public class ZeroMomentCtrl : MonoBehaviour
     }
     public void AgeSelection(string value)
     {
+        _ageResult = value;
         _isAgeSelected = true;
         for (int i = 0; i < _ageImgsArray.Length; i++)
         {

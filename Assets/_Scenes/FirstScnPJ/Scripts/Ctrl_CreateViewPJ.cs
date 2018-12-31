@@ -44,12 +44,13 @@ public class Ctrl_CreateViewPJ : MonoBehaviour {
 		string newSceneToLoad = "";
 
 		if (name.Equals("NewProjectBtn")){
+			var project = _projectServices.CreateProject("");
 			newSceneToLoad = "Challenge_HUD";
 			isChange = true;
 		}else{ 
 			if (_doDataToLoad)
 			{
-				newSceneToLoad = "Challenge_HUD";
+				newSceneToLoad = "ViewPJs";
 				isChange = true;
 			} else{
 				GameObject obj = Instantiate(_notData, _TextTransform);

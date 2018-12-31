@@ -8,6 +8,9 @@ public class Drop_M3_Zone : MonoBehaviour, IDropHandler
     #region VARIABLES
     //Public Variables
     //Private Variables
+    private int _internalID;
+
+    private NoteServices _noteServices;
     protected GameObject internalItem
     {
         get
@@ -35,7 +38,21 @@ public class Drop_M3_Zone : MonoBehaviour, IDropHandler
 
 
     #region CREATED_METHODS
-    private void Initializate() { }
+    private void Initializate()
+    {
+        _noteServices = new NoteServices();
+        _internalID = int.Parse(name.Split('_')[1]);
+    }
+
+    public void CheckForChild()
+    {
+        print(_internalID + " has a child " + transform.GetChild(0));
+        //Make the dropped object a child of this...
+        transform.GetChild(0).transform.SetParent(transform);
+        //Set to 0,0 position and...
+        transform.GetChild(0).transform.localPosition = new Vector2(0, 0);
+
+    }
     #endregion
 
 
@@ -44,10 +61,13 @@ public class Drop_M3_Zone : MonoBehaviour, IDropHandler
     {
         if (!internalItem)
         {
+            _noteServices.UpdateNote(_internalID, "");
             //Make the dropped object a child of this...
             Drag_M3_Item.getItemDragged().transform.SetParent(transform);
             //Set to 0,0 position and...
             Drag_M3_Item.getItemDragged().transform.localPosition = new Vector2(0, 0);
+            Drag_M3_Item.getItemDragged().GetComponent<Drag_M3_Item>().internalID = _internalID;
+            //_internalID
         }
     }
     #endregion

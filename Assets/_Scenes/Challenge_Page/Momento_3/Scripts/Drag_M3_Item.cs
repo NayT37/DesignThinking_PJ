@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine;
+using System;
 
 public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     #region VARIABLES
     //Public Variables
+    public int internalID;
+
+    public Note _note;
+    public RectTransform rectTransform;
     //Private Variables
     private Transform _mainPanel;
     private Transform _contentParent;
@@ -25,6 +30,7 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
 
     #region SYSTEM_METHODS
+    private void Awake() { rectTransform = GetComponent<RectTransform>(); }
     private void Start() { Initializate(); }
     private void Update() { }
     #endregion
@@ -40,8 +46,10 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         _originalParent = transform.parent;
         _temporalParent = _mainPanel;
         _raycastImg = GetComponent<Image>();
-        _parentGL = GetComponentInParent<VerticalLayoutGroup>();
+        _parentGL = GameObject.Find("Content").GetComponent<VerticalLayoutGroup>();
         _internalText = GetComponentInChildren<Text>();
+        transform.position = new Vector3(0, 0, 0);
+        transform.localPosition = new Vector3(0, 0, 0);
     }
 
     public virtual void resetItem()
@@ -55,6 +63,13 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     {
         return itemDragged;
     }
+
+
+    public void ChangeText(string text)
+    {
+        _internalText = GetComponentInChildren<Text>();
+        _internalText.text = text;
+    }
     #endregion
 
 
@@ -62,6 +77,7 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     //This method is implemented from the IBeginDragHandler Interface
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
+        DataBaseParametersCtrl.Ctrl._noteLoaded = _note;
         //Set the dragged item to this gameobject
         transform.SetParent(_mainPanel);
         itemDragged = gameObject;
@@ -90,18 +106,10 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         _parentGL.enabled = true;
         itemDragged = null;
     }
-
-    public void ChangeText(string text)
-    {
-        _internalText = GetComponentInChildren<Text>();
-        _internalText.text = text;
-    }
     #endregion
 
 
     #region GETTERS_AND_SETTERS
-
-
     public virtual void SetRaycastTarget(bool value)
     {
         _raycastImg.raycastTarget = value;

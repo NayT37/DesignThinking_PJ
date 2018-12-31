@@ -12,6 +12,10 @@ public class M1_Ctrl : MonoBehaviour
     private EmpathyPanel[] _panelsArray;
     private GameObject[] _checkByPanel;
     private int _activePanel;
+
+    private SectorServices _sectorServices;
+
+    private Sector[] _arraySectors;
     #endregion
 
 
@@ -24,6 +28,27 @@ public class M1_Ctrl : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate()
     {
+        _sectorServices = new SectorServices();
+
+        _arraySectors = new Sector[6];
+
+        int empathymapid = DataBaseParametersCtrl.Ctrl._empathyMapLoaded.id;
+
+        var sectors = _sectorServices.GetSectors(empathymapid);
+
+        int counter = 0;
+
+        foreach (var item in sectors)
+        {
+            _arraySectors[counter] = item;
+            counter++;
+        }
+
+        // DataBaseParametersCtrl.Ctrl._sectorLoaded = _arraySectors[0];
+        //  _sectorServices.UpdateSector("");
+
+        _sectorServices = new SectorServices();
+
         _panelsArray = new EmpathyPanel[_panelQuantity];
         _checkByPanel = new GameObject[_panelQuantity - 1];
 
@@ -46,17 +71,21 @@ public class M1_Ctrl : MonoBehaviour
 
     public void ActivePanelByNumber(int panelNumber)
     {
+        DataBaseParametersCtrl.Ctrl._sectorLoaded = _arraySectors[panelNumber - 1];
         if (panelNumber != _activePanel)
         {
+            _panelsArray[panelNumber - 1].UpdateText(_arraySectors[panelNumber - 1].description);
             _panelsArray[_activePanel].SetActivePanel(false);
             _panelsArray[panelNumber].SetActivePanel(true);
             _activePanel = panelNumber;
         }
     }
 
-    public void OnPanelTextChanged(int panelId)
+    public void OnPanelTextChanged(int panelId, string value)
     {
         _checkByPanel[panelId - 1].SetActive(true);
+        var s = _sectorServices.UpdateSector(value);
+        _arraySectors[panelId - 1] = s;
     }
 
     public void ClosePanel(int panelNumber)

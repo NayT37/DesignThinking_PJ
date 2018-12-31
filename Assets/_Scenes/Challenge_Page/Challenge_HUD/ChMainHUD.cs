@@ -19,6 +19,8 @@ public class ChMainHUD : MonoBehaviour
     private bool _isHide;
     private Transform _menuHolder;
     private Vector3 _showPosition, _hidePosition;
+
+    private PublicServices _publicServices;
     #endregion
 
 
@@ -31,10 +33,23 @@ public class ChMainHUD : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate()
     {
+        _actualMoment = 0;
+
+        _publicServices = new PublicServices();
+
+        int projectId = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
+
+        var _public = _publicServices.GetPublicNamed(projectId);
+        
+        if (_public.id != 0)
+        {
+            _actualMoment = 1;
+        }
+
         XRSettings.enabled = false;
         _isHide = false;
         _loadObj = GameObject.Find("Loading_Bg");
-        _actualMoment = 0;
+        
         _limitCtrl = 0;
         _actualScn = "";
         _menuHolder = GameObject.Find("Menu_Holder").transform;
