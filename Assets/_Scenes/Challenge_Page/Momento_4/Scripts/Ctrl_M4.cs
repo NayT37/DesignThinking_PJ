@@ -8,114 +8,55 @@ using DG.Tweening;
 public class Ctrl_M4 : MonoBehaviour {
 
 
-	public GameObject panelUI;
-	public GameObject panelShadow;
-	public GameObject panelMiddle;
-	public GameObject squadLeft;
-	public GameObject squadRigth;
-	private InputField title;
-	private GameObject[] left;
-	private GameObject[] right;
-	private GameObject[] squadL;
-	private GameObject[] squadR;
-	private GameObject[] addCheck;
-	public GameObject PanelFull;
-	public GameObject panelUi2;
-	public Image check;
-	public Image addNew;
+	public GameObject PrefabObject;
+	public GameObject parentLeft;
+	public GameObject parentRigth;
+	public GameObject parentPanelUI;
+	public GameObject _panelUI;
+	public GameObject panelMain;
+	private GameObject MainIdeaText;
 
+	private IdeaDescription[] _TextIdeaDescription;
 
 
 	void Start () {
-	}
-	
 
+		_TextIdeaDescription = new IdeaDescription[18];
+
+		MainIdeaText = GameObject.Find ("MainIdea");
+		_panelUI.SetActive (false);
+
+
+
+//		Instantiate (PrefbaObject, parentLeft.transform);
+//		Instantiate (PrefbaObject, parentLeft.transform);
+//		Instantiate (PrefbaObject, parentLeft.transform);
+
+//		Instantiate (PrefbaObject, parentRigth.transform);
+//		Instantiate (PrefbaObject, parentRigth.transform);
+//		Instantiate (PrefbaObject, parentRigth.transform);
+	}
 	void Update () {
-
 		
 	}
-
-	public void MainIdea(){
-		panelUI.SetActive (true);
-		panelShadow.SetActive (false);
-
-	}
-	public void CloseIdea(){
-		panelShadow.SetActive (true);
-		panelUI.SetActive (false);
-	}
-	public void close(){
-		panelShadow.SetActive (true);
-		panelMiddle.SetActive (true);
-		PanelFull.SetActive (true);
-		panelUi2.SetActive (false);
-	}
-	public void saveDataNew(){
-		check.gameObject.SetActive (true);
-		addNew.gameObject.SetActive (false);
-		panelUi2.SetActive (false);
-		DOTween.Play ("1");
+	public void IdeaMethod(){
+		DOTween.Pause ("5");
+		_panelUI.SetActive (true);
+		panelMain.SetActive (false);
 	}
 
-	public void MoveesceneNew(){
-		StartCoroutine (NewScene ());
-	}
-	public void SaveData(){
-		
-		var st = panelUI.GetComponentsInChildren<InputField> ();
-		Debug.Log (st[0].text);
-
-		if (st[0].text.Equals("")) {
-			Debug.Log ("claro");
-		} else {
-			panelShadow.SetActive (true);
-			panelMiddle.SetActive (true);
-			panelUI.SetActive (false);	
-		}
-	}
-
-	public void AddIdea(){
-		left = GameObject.FindGameObjectsWithTag ("left");
-		right = GameObject.FindGameObjectsWithTag ("Rigth");
-
-		foreach (var item in right) {
-			if (item.tag.Equals("Rigth")) {
-				Debug.Log ("algo");
-				squadRigth.SetActive (true);
-			}
-		}
-		foreach (var itemL in left) {
-			if (itemL.tag.Equals("left")) {
-				Debug.Log ("some");
-				squadLeft.SetActive (true);
-			}
-		}
-	}
-
-	public void SquadBtn(){
-		squadL = GameObject.FindGameObjectsWithTag ("left");
-		squadR = GameObject.FindGameObjectsWithTag ("Rigth");
-
-		foreach (var item in squadL) {
-			if (item.tag.Equals("left")) {
-				PanelFull.SetActive (true);
-			}
-		}
-		foreach (var item in squadR) {
-			if (item.tag.Equals("Rigth")) {
-				PanelFull.SetActive (true);
-			}
-		}
-	}
-
-	public void CheckIdea(){
-		addCheck = GameObject.FindGameObjectsWithTag ("add");
-		panelUi2.SetActive (true);
-	}
-
-	IEnumerator NewScene(){
-		SceneManager.LoadScene ("M_5", LoadSceneMode.Additive);
-		yield return null;
-		SceneManager.UnloadSceneAsync ("M_4");
-	}
+//	public void getTextDescription(){
+//		temp = GameObject.Find ("TextIdea").GetComponent<Text> ();
+//		TextEmpty = GameObject.Find ("TextEmpty").GetComponent<Text> ();
+//		TextEmpty.text = temp.text;
+//		Debug.Log (temp.text + " valor digitado");
+//		Debug.Log (TextEmpty.text + " valor actual");
+//
+//
+//
+//		for (int i = 0; i < _TextIdeaDescription.Length; i++) {
+//			_TextIdeaDescription [0].text = TextEmpty.text;
+//			Debug.Log (_TextIdeaDescription [i].text + " Este es el aaray");	
+//		}
+//	}
 }
