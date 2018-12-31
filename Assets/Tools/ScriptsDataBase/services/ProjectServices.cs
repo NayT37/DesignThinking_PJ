@@ -224,7 +224,7 @@ public class ProjectServices  {
 
 			int resultProblemDeleted = _problemServices.DeleteProblem(problemToDelete);
 
-			var storyTellingsToDelete = _storytellingServices.GetStoryTellings(projectid);
+			var storyTellingsToDelete = _storytellingServices.GetStoryTellings();
 
 			foreach (var st in storyTellingsToDelete)
 			{
