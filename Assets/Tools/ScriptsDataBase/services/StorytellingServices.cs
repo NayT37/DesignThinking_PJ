@@ -152,18 +152,22 @@ public class StorytellingServices  {
 	/// <returns>
 	/// A IEnumerable list of all the StoryTellings found from the identifier of the project that was passed as a parameter
 	/// </returns>
-	public IEnumerable<StoryTelling> GetStoryTellings(int projectId){
+	public IEnumerable<StoryTelling> GetStoryTellings(){
+		int projectId = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 		return _connection.Table<StoryTelling>().Where(x => x.projectId == projectId);
 	}
 
 	/// <summary>
-	/// (This is a test method) Description of the method to obtain all the StoryTellings
+	/// Description of the method to obtain all the storyTellings of a specific project
 	/// </summary>
+	/// <param name="projectId">
+	/// integer to define the identifier of the project from which all the related StoryTellings will be brought.
 	/// <returns>
-	/// A IEnumerable list of all the storyTellings found
+	/// A IEnumerable list of all the StoryTellings found from the identifier of the project that was passed as a parameter
 	/// </returns>
-	public IEnumerable<StoryTelling> GetStoryTellings(){
-		return _connection.Table<StoryTelling>();
+	public int GetStoryTellingsCounters(){
+		int projectId = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
+		return _connection.Table<StoryTelling>().Where(x => x.projectId == projectId).Count();
 	}
 
 	/// <summary>
@@ -176,10 +180,11 @@ public class StorytellingServices  {
 	/// </returns>
 	public int DeleteStoryTelling(StoryTelling storytellingToDelete){
 
+
 		int storytellingid = storytellingToDelete.id;
 
 		// All the notes belonging to the storytelling that will be deleted are obtained.
-		var notes = _noteServices.GetNotes(storytellingid);
+		var notes = _noteServices.GetNotes();
 
 		// All the mindmaps belonging to the storytelling that will be deleted are obtained.
 		var mindmaps = _mindmapServices.GetMindmaps(storytellingid);
@@ -207,6 +212,80 @@ public class StorytellingServices  {
 		}
 
 		return valueToReturn;
+	}
+
+	/// <summary>
+	/// Description of the method to delete a empathymap
+	/// </summary>
+	/// <param name="storytellingToDelete">
+	/// An object of type empathymap that contain the empathymap that will be deleted.
+	/// <returns>
+	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
+	/// </returns>
+	public int DeleteStoryTelling(){
+
+		var storytellingToDelete = DataBaseParametersCtrl.Ctrl._storyTellingLoaded;
+
+		int storytellingid = storytellingToDelete.id;
+
+		// All the notes belonging to the storytelling that will be deleted are obtained.
+		var notes = _noteServices.GetNotes();
+
+		// All the mindmaps belonging to the storytelling that will be deleted are obtained.
+		var mindmaps = _mindmapServices.GetMindmaps(storytellingid);
+
+		int result = _connection.Delete(storytellingToDelete);
+
+		int valueToReturn = 0;
+
+		//If the elimination of the empathymap is correct, then the notes corresponding to that empathymap are eliminated.
+		if (result!=0)
+		{
+			foreach (var note in notes)
+			{
+				valueToReturn += _noteServices.DeleteNote(note);
+			}
+
+			foreach (var mindmap in mindmaps)
+			{
+				valueToReturn += _mindmapServices.DeleteMindmap(mindmap);
+			}
+			Debug.Log("Se borró el storytelling campo correctamente");
+		} else {
+			valueToReturn = 0;
+			Debug.Log("No se borró el storytelling");
+		}
+
+		return valueToReturn;
+	}
+
+	/// <summary>
+	/// Description of the method to update a moment
+	/// </summary>
+	/// <param name="mindmapid">
+	/// An integer that contain the identifier section that will be updated.
+	/// <returns>
+	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
+	/// </returns>
+	public int UpdateStoryTelling(StoryTelling storyTellingUpdate, int newVersion){
+
+
+		int storytellingid = storyTellingUpdate.id;
+		
+		int counterNotes = _noteServices.GetNotesToPosition(storytellingid);
+
+		storyTellingUpdate.version = newVersion;
+
+		storyTellingUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+		int result = _connection.Update(storyTellingUpdate, storyTellingUpdate.GetType());
+
+		if (result!=0)
+		{
+			Debug.Log(storyTellingUpdate);
+		}
+
+		return result;
 	}
 
 	/// <summary>
