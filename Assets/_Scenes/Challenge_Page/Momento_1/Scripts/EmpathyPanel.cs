@@ -50,10 +50,16 @@ public class EmpathyPanel : MonoBehaviour
         {
             _internalText = _internalInput.text;
             _isInfoEmpty = false;
-            _levelCtrl.OnPanelTextChanged(_panelId);
+            _levelCtrl.OnPanelTextChanged(_panelId, _internalText);
             //Send internalText to DB
         }
         _levelCtrl.ActivePanelByNumber(0);
+    }
+
+    public void UpdateText(string value)
+    {
+        _internalText = value;
+        _internalInput.text = _internalText;
     }
     #endregion
 
@@ -67,6 +73,11 @@ public class EmpathyPanel : MonoBehaviour
     {
         _isActivePanel = value;
         this.gameObject.SetActive(_isActivePanel);
+    }
+
+    public void ChangeText(string value)
+    {
+        _internalText = value;
     }
     #endregion
 

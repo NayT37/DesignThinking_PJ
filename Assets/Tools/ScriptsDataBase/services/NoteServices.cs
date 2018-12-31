@@ -36,7 +36,7 @@ public class NoteServices  {
 
 		//The identifier of the storytellind is obtained to be able to pass 
 		//it as an attribute in the new note that will be created
-		int storytellingid = 1;//DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
+		int storytellingid = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
 
 		//Get the current date to create the new empathymap
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -113,8 +113,22 @@ public class NoteServices  {
 	/// <returns>
 	/// A IEnumerable list of all the Notes found from the identifier of the project that was passed as a parameter
 	/// </returns>
-	public IEnumerable<Note> GetNotes(int storytellingId){
+	public IEnumerable<Note> GetNotes(){
+		int storytellingId = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
 		return _connection.Table<Note>().Where(x => x.storytellingId == storytellingId);
+	}
+
+	/// <summary>
+	/// Description of the method to obtain all the notes of a specific project
+	/// </summary>
+	/// <param name="storytellingId">
+	/// integer to define the identifier of the project from which all the related Notes will be brought.
+	/// <returns>
+	/// A IEnumerable list of all the Notes found from the identifier of the project that was passed as a parameter
+	/// </returns>
+	public int GetNotesCounter(){
+		int storytellingId = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
+		return _connection.Table<Note>().Where(x => x.storytellingId == storytellingId).Count();
 	}
 
 	/// <summary>
@@ -130,16 +144,6 @@ public class NoteServices  {
 		
 		int counter = _connection.Table<Note>().Where(x => x.storytellingId == storyTellingid).Where(x => x.position != 0).Count();
 		return counter;
-	}
-
-	/// <summary>
-	/// (This is a test method) Description of the method to obtain all the Notes
-	/// </summary>
-	/// <returns>
-	/// A IEnumerable list of all the notes found
-	/// </returns>
-	public IEnumerable<Note> GetNotes(){
-		return _connection.Table<Note>();
 	}
 
 	/// <summary>
@@ -174,7 +178,9 @@ public class NoteServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateNote(Note noteToUpdate, string newdescription){
+	public int UpdateNote(int position, string newdescription){
+
+		var noteToUpdate = DataBaseParametersCtrl.Ctrl._noteLoaded;
 		
 		var storytellingServices = new StorytellingServices();
 
@@ -183,7 +189,9 @@ public class NoteServices  {
 		if (!newdescription.Equals(""))
 		{
 			noteToUpdate.description = newdescription;
-		}
+		} 
+
+		noteToUpdate.position = position;
 
 		int result = _connection.Update(noteToUpdate, noteToUpdate.GetType());
 

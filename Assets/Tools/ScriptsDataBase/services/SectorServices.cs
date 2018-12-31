@@ -14,6 +14,7 @@ public class SectorServices  {
 	private Sector _nullSector = new Sector{
 				id = 0,
 				name = "null",
+				description = "",
 				creationDate = "null",
 				empathymapId = 0,
 				lastUpdate = "null"
@@ -43,6 +44,7 @@ public class SectorServices  {
 		//Creation of the new empathymap
 		var new_s = new Sector{
 				name = sectorname,
+				description = "",
 				creationDate = date,
 				empathymapId = empathymapid,
 				lastUpdate = date
@@ -164,7 +166,7 @@ public class SectorServices  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateSector(string newdescription){
+	public Sector UpdateSector(string newdescription){
 
 		var sectorToUpdate = DataBaseParametersCtrl.Ctrl._sectorLoaded;
 
@@ -182,7 +184,7 @@ public class SectorServices  {
 			empathymapServices.UpdateEmpathymap();
 		}
 
-		return result;
+		return sectorToUpdate;
 	}
 }
 
