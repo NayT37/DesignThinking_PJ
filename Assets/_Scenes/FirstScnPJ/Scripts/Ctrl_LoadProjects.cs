@@ -21,6 +21,11 @@ public class Ctrl_LoadProjects : MonoBehaviour {
 	void Start () {
 		
 		
+		// for (int i = 0; i < 8; i++)
+		// {
+		// 	Instantiate (prefab_project, parent_project.transform);
+		// }
+
 		_projectServices = new ProjectServices ();
 
 		int groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
@@ -45,14 +50,12 @@ public class Ctrl_LoadProjects : MonoBehaviour {
 
 	void GetCoursePressed(string positionInToArray, string nameCourse) {
 
-		Main_Ctrl.instance.NameCourse = nameCourse;
+		// int value = int.Parse (positionInToArray);
+		// Debug.Log ("position " + positionInToArray);
 
-		int value = int.Parse (positionInToArray);
-		Debug.Log ("position " + positionInToArray);
+		// DataBaseParametersCtrl.Ctrl._projectLoaded = _projects[value];
 
-		DataBaseParametersCtrl.Ctrl._projectLoaded = _projects[value];
-
-
+		DOTween.Play("bg_transition");
 		goToScene ();
 	}
 
@@ -61,9 +64,10 @@ public class Ctrl_LoadProjects : MonoBehaviour {
 		
 	}
 
-	public void goToScene(){
+	public IEnumerator goToScene(){
 
-		SceneManager.LoadScene ("M_1", LoadSceneMode.Additive);
+		yield return new WaitForSeconds(1);
+		SceneManager.LoadScene ("Challenge_HUD", LoadSceneMode.Additive);
 	}
 
 }
