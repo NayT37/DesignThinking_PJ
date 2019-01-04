@@ -7,16 +7,22 @@ using DG.Tweening;
 
 public class Ctrl_ChoiseUser : MonoBehaviour {
 
+	private TrainingServices _trainingServices;
+
 	// Use this for initialization
 	void Start () {
+
+		_trainingServices = new TrainingServices();
 		
 	}
 	
 	public void GoChallenge(){
+
 		DOTween.Play("bg_transition");
 		StartCoroutine (Challenge ());
 	}
 	public void GoTrainning(){
+		DataBaseParametersCtrl.Ctrl._trainingloaded = _trainingServices.GetTraining(DataBaseParametersCtrl.Ctrl._groupLoaded.id);
 		DOTween.Play("bg_transition");
 		StartCoroutine (Trainning());
 	}

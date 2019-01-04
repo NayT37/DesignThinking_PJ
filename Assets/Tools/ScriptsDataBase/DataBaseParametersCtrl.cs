@@ -108,4 +108,14 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 		return lastUpdateString;
 
 	}
+
+	public bool doConnection(){
+		bool isConn = false;
+		if(Application.internetReachability == NetworkReachability.NotReachable)
+			isConn = false;
+		else 
+			isConn = true;
+		
+		return isConn;
+	}
 }

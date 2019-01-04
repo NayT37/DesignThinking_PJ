@@ -38,40 +38,47 @@ public class TeacherServices  {
 	/// <returns>
 	/// An object of type teacher with all the data of the teacher that was searched and if doesnt exist so return an empty teacher.
 	/// </returns>
-	public Teacher GetTeacherNamed(string teacherEmail, string password){
-		
-		var t = _connection.Table<Teacher>().Where(x => x.email == teacherEmail).Where(x => x.password == password).FirstOrDefault();
+	public Teacher GetTeacherNamed(string teacherEmail, string password, bool isFirstTime){
 
-		if (t == null){
-		
-		//Get the current date to create the new empathymap
-		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
-
-
-		var teacher = new Teacher{
-				identityCard = teacherEmail + "-" + password,
-				documentTypeId = 1,
-				names = "test",
-				surnames = "sapare",
-				phone = "",
-				address = "",
-				email = teacherEmail,
-				password = password,
-				creationDate = date,
-				headquartersId = 1,
-		};
-
-		int result = _connection.Insert(teacher);
-
-		if (result!=0){
-			DataBaseParametersCtrl.Ctrl._teacherLoggedIn = teacher;
-			return teacher;
-		}else
+		if (isFirstTime)
+		{
+			Debug.Log("Validar en Web y luego crear el usuario local");
 			return _nullTeacher;
-		}	
-		else{
-			DataBaseParametersCtrl.Ctrl._teacherLoggedIn = t;
-			return t;
+		} else {
+			Debug.Log("Validar en base de datos local");
+			var t = _connection.Table<Teacher>().Where(x => x.email == teacherEmail).Where(x => x.password == password).FirstOrDefault();
+
+			if (t == null){
+			
+			//Get the current date to create the new empathymap
+			string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+
+
+			var teacher = new Teacher{
+					identityCard = teacherEmail + "-" + password,
+					documentTypeId = 1,
+					names = "test",
+					surnames = "sapare",
+					phone = "",
+					address = "",
+					email = teacherEmail,
+					password = password,
+					creationDate = date,
+					headquartersId = 1,
+			};
+
+			int result = _connection.Insert(teacher);
+
+			if (result!=0){
+				DataBaseParametersCtrl.Ctrl._teacherLoggedIn = teacher;
+				return teacher;
+			}else
+				return _nullTeacher;
+			}	
+			else{
+				DataBaseParametersCtrl.Ctrl._teacherLoggedIn = t;
+				return t;
+			}
 		}
 	}
 

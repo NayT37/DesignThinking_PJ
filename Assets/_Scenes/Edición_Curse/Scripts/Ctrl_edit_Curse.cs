@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Ctrl_edit_Curse : MonoBehaviour {
 
@@ -21,7 +22,6 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 
 	void Start () {
 
-		_arrayGroup = new Group[10];
 		_slider_editCurse = GameObject.Find ("SliderEditCurse").GetComponent<Slider>();
 		slider_handlerEditCurse = _slider_editCurse.GetComponent<slider_EditCurse> ();
 		_GroupServices = new GroupServices ();
@@ -29,6 +29,10 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 		texCourse.text = Main_Ctrl.instance.NameCourse;
 
 		var courseId = DataBaseParametersCtrl.Ctrl._courseLoaded.id;
+
+		int countergroups = _GroupServices.GetGroupsCounter(courseId);
+
+		_arrayGroup = new Group[countergroups];
 
 		var counter = 0;
 		var groups = _GroupServices.GetGroups (courseId);
@@ -40,7 +44,20 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 			Textos = setName.GetComponentsInChildren<Text> ();
 			Textos [0].text = item.name;
 			Textos [1].text = item.studentsCounter.ToString ();
-			setName.GetComponentInChildren<Button>().onClick.AddListener(delegate{getPushButtonGroups (setName.name, item.name);});
+			Button[] _btns = new Button[2];
+			_btns = setName.GetComponentsInChildren<Button>();
+			
+			Debug.Log(_btns[0].name);
+			Debug.Log(_btns[1].name);
+			if (_btns[0].name.Equals("group_Open"))
+			{
+				_btns[0].onClick.AddListener(delegate{openToGroup (setName.name);});
+				_btns[1].onClick.AddListener(delegate{getPushButtonGroups (setName.name, item.name);});
+			} else{
+				_btns[1].onClick.AddListener(delegate{openToGroup (setName.name);});
+				_btns[0].onClick.AddListener(delegate{getPushButtonGroups (setName.name, item.name);});
+			}
+			//setName.GetComponentInChildren<Button>().onClick.AddListener(delegate{getPushButtonGroups (setName.name, item.name);});
 		}
 	}
 
@@ -53,10 +70,20 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 		Debug.Log (_arrayGroup[value]);
 		DataBaseParametersCtrl.Ctrl._groupLoaded = _arrayGroup[value];
 		Debug.Log (DataBaseParametersCtrl.Ctrl._groupLoaded); 
-		Debug.Log ("position " + positionInArrayGroup);
 
-		goNextEscene ();
+		StartCoroutine(GotoScene ());
 
+	}
+
+	void openToGroup(string positionToArrayGroup){
+		int value = int.Parse (positionToArrayGroup);
+
+
+		Debug.Log (_arrayGroup[value]);
+		DataBaseParametersCtrl.Ctrl._groupLoaded = _arrayGroup[value];
+		Debug.Log (DataBaseParametersCtrl.Ctrl._groupLoaded); 
+
+		StartCoroutine(GoToGroup ());
 	}
 
 	void Update () {
@@ -84,21 +111,21 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 		StartCoroutine (GobackScene ());
 	}
 
-	void goNextEscene(){
-
-		SceneManager.LoadScene ("Edit_Group");
-//		StartCoroutine (GotoScene ());
-	}
-
 	IEnumerator GobackScene(){
-		SceneManager.LoadScene ("LoadGame", LoadSceneMode.Additive);
-		yield return null;
-		SceneManager.UnloadSceneAsync ("Edit_Curse");
+		DOTween.Play("bg_transition");
+		yield return new WaitForSeconds(1.0f);
+		SceneManager.LoadScene ("LoadGame");
 	}
 
 	IEnumerator GotoScene(){
-		SceneManager.LoadScene ("Edit_Group", LoadSceneMode.Additive);
-		yield return null;
-		SceneManager.UnloadSceneAsync ("Edit_Curse");
+		DOTween.Play("bg_transition");
+		yield return new WaitForSeconds(1.0f);
+		SceneManager.LoadScene ("Edit_Group");
+	}
+
+	IEnumerator GoToGroup(){
+		DOTween.Play("bg_transition");
+		yield return new WaitForSeconds(1.0f);
+		SceneManager.LoadScene ("ChoiseUser");
 	}
 }
