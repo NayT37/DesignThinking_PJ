@@ -11,6 +11,11 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 	#region  variables
 	public InputField userName;
 	public InputField passName;	
+
+	public Transform _parentText;
+
+	public GameObject _prefabText;
+	public Toggle _checkFirstTime;
 	private DOTweenAnimation animationGame;
 	
 	private TeacherServices _teacherServices;
@@ -25,20 +30,45 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 
 		string name =userName.text;
 		string password = passName.text;
-
+		bool isFirstTime = _checkFirstTime.isOn;
 		if(!name.Equals("") && !passName.Equals("")){
-			var teacher = _teacherServices.GetTeacherNamed(name, password);	
 
-			if (teacher.identityCard.Equals("null"))
+			bool isConn = DataBaseParametersCtrl.Ctrl.doConnection();
+			bool doOtherMethod = false;
+			var teacher = new Teacher();
+
+			if (isFirstTime)
 			{
-				DOTween.Play ("7");
-			} else {
+				if (isConn)
+				{
+					teacher = _teacherServices.GetTeacherNamed(name, password, isFirstTime);
+					doOtherMethod = true;	
+				} else{
+					GameObject obj = Instantiate(_prefabText, _parentText);
+					StartCoroutine(DeletePrefab(obj));
+					Debug.Log("No tiene conexión a internet...");
+				}
 				
-				DOTween.Play("bg_transition");
-				userName.text = "";
-				passName.text = "";		
-				StartCoroutine (ResgisterUser ());
+			} else{
+					teacher = _teacherServices.GetTeacherNamed(name, password, isFirstTime);	
+					doOtherMethod = true;
 			}
+				
+			if (doOtherMethod)
+			{
+					
+
+				if (teacher.identityCard.Equals("null"))
+				{
+					DOTween.Play ("7");
+				} else {
+					
+					DOTween.Play("bg_transition");
+					userName.text = "";
+					passName.text = "";		
+					StartCoroutine (ResgisterUser ());
+				}
+			} 
 		}else{
 //			userName.GetComponent<InputField> ();
 //			userName.placeholder.transform.localScale = new Vector3 (1.5f,1.5f,1);
@@ -51,4 +81,10 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 		yield return new WaitForSeconds(1.0f);	
 		SceneManager.LoadScene ("SelectGame");
 	}
+
+	private IEnumerator DeletePrefab(GameObject obj)
+    {
+        yield return new WaitForSeconds(3.0f);	
+        DestroyImmediate(obj);
+    }
 }

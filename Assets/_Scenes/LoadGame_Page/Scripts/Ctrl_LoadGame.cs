@@ -25,12 +25,14 @@ public class Ctrl_LoadGame : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		_courses = new Course[10];
 		_sliderCurses = GameObject.Find ("SliderGame").GetComponent<Slider>();
 		slider_Handler = _sliderCurses.GetComponent<SliderHandler> ();
 		_courseServices = new CourseServices ();
 
 		var courses = _courseServices.GetCourses();
+
+		int countercourses = _courseServices.GetCoursesCount();
+		_courses = new Course[countercourses];
 
 		int counter = 0;
 		foreach (var item in courses) {
@@ -40,18 +42,6 @@ public class Ctrl_LoadGame : MonoBehaviour {
 			counter++;
 			SetName.GetComponentInChildren<Text> ().text = item.name;
 			SetName.GetComponentInChildren<Button> ().onClick.AddListener (delegate{GetCoursePressed (SetName.name, item.name);});
-
-
-
-
-//			DOTweenAnimation[] animations = g.GetComponentsInChildren<DOTweenAnimation>();
-//			for(int i=0;i< animations.Length; i++)
-//			{
-//				if (animations[i].animationType.Equals("Text"))
-//				{
-//					Debug.Log("animations " + animations[i].animationType);
-//				}
-//			}
 			Debug.Log ("name" + item.name);
 		}
 	}
@@ -98,14 +88,14 @@ public class Ctrl_LoadGame : MonoBehaviour {
 	}
 
 	IEnumerator GoScene(){
-		SceneManager.LoadScene ("Edit_Curse", LoadSceneMode.Additive);
-		yield return null;
-		SceneManager.UnloadSceneAsync ("LoadGame");
+		DOTween.Play("bg_transition");
+		yield return new WaitForSeconds(1.0f);
+		SceneManager.LoadScene ("Edit_Curse");
 	}
 
 	IEnumerator BackOne(){
-		SceneManager.LoadScene ("SelectGame", LoadSceneMode.Additive);
-		yield return null;
-		SceneManager.UnloadSceneAsync ("LoadGame");
+		DOTween.Play("bg_transition");
+		yield return new WaitForSeconds(1.0f);
+		SceneManager.LoadScene ("SelectGame");
 	}
 }
