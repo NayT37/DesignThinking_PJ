@@ -7,7 +7,7 @@ public class CtrlInternalText : MonoBehaviour
     #region VARIABLES
     //Public Variables
     //Private Variables
-    private string _titleType, _internalText;
+    public string _titleTxt, _internalTxt;
     #endregion
 
 
@@ -27,7 +27,18 @@ public class CtrlInternalText : MonoBehaviour
 
 
     #region GETTERS_AND_SETTERS
-    public void SetInternalText() { }
+    public string GetTitleTxt()
+    {
+        return _titleTxt;
+    }
+    public string GetInternalTxt()
+    {
+        return _internalTxt;
+    }
+    public void SetInternalTxt(string value)
+    {
+        _internalTxt = value;
+    }
     #endregion
 
 

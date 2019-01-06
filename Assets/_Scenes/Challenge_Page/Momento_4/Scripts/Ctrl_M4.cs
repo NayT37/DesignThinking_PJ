@@ -5,14 +5,13 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
-public class Ctrl_M4 : MonoBehaviour
+public class Ctrl_M4 : CtrlInternalText
 {
     #region VARIABLES
     //Public Variables
     //Private Variables
     private string _mainIdea;
     [SerializeField]
-    private string _internalTxt, _titleTxt;
     #endregion
 
 
@@ -26,15 +25,14 @@ public class Ctrl_M4 : MonoBehaviour
     private void Initializate()
     {
         PanelSaveIdea.instance.ClosePanel();
-        //DB stuff
-        _mainIdea = "";
-        _internalTxt = "";
         _titleTxt = "Idea Principal";
+        //DB stuff
+        _internalTxt = "";
     }
     public void OpenSavePanel()
     {
         //DB stuff
-        PanelSaveIdea.instance.OpenPanel(_titleTxt, _internalTxt);
+        PanelSaveIdea.instance.OpenPanel(this);
     }
     public void CloseSavePanel()
     {
@@ -45,7 +43,7 @@ public class Ctrl_M4 : MonoBehaviour
     {
         if (PanelSaveIdea.instance.inputTxt.text != "")
         {
-            PanelSaveIdea.instance.txtToChange = PanelSaveIdea.instance.inputTxt.text;
+            PanelSaveIdea.instance.ctrlTxtObj.SetInternalTxt(PanelSaveIdea.instance.inputTxt.text);
             //DB stuff
             PanelSaveIdea.instance.ClosePanel();
         }

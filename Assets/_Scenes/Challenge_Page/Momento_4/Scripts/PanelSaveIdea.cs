@@ -12,6 +12,7 @@ public class PanelSaveIdea : MonoBehaviour
     //Private Variables
     private Text _titleTxt;
     public InputField inputTxt;
+    public CtrlInternalText ctrlTxtObj;
     #endregion
 
 
@@ -43,12 +44,13 @@ public class PanelSaveIdea : MonoBehaviour
         internalInpuptTxt = inputTxt.text;
     }
 
-    public void OpenPanel(string title, string text)
+    public void OpenPanel(CtrlInternalText obj)
     {
         this.gameObject.SetActive(true);
-        _titleTxt.text = title;
-        inputTxt.text = text;
-        txtToChange = text;
+        ctrlTxtObj = obj;
+        _titleTxt.text = ctrlTxtObj.GetTitleTxt();
+        inputTxt.text = ctrlTxtObj.GetInternalTxt();
+
     }
     public void ClosePanel()
     {
