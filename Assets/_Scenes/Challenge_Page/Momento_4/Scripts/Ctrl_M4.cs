@@ -5,58 +5,60 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
-public class Ctrl_M4 : MonoBehaviour {
+public class Ctrl_M4 : CtrlInternalText
+{
+    #region VARIABLES
+    //Public Variables
+    //Private Variables
+    private string _mainIdea;
+    [SerializeField]
+    #endregion
 
 
-	public GameObject PrefabObject;
-	public GameObject parentLeft;
-	public GameObject parentRigth;
-	public GameObject parentPanelUI;
-	public GameObject _panelUI;
-	public GameObject panelMain;
-	private GameObject MainIdeaText;
-
-	private IdeaDescription[] _TextIdeaDescription;
+    #region SYSTEM_METHODS
+    private void Start() { Initializate(); }
+    private void Update() { }
+    #endregion
 
 
-	void Start () {
+    #region CREATED_METHODS
+    private void Initializate()
+    {
+        PanelSaveIdea.instance.ClosePanel();
+        _titleTxt = "Idea Principal";
+        //DB stuff
+        _internalTxt = "";
+    }
+    public void OpenSavePanel()
+    {
+        //DB stuff
+        PanelSaveIdea.instance.OpenPanel(this);
+    }
+    public void CloseSavePanel()
+    {
+        PanelSaveIdea.instance.ClosePanel();
+    }
 
-		_TextIdeaDescription = new IdeaDescription[18];
+    public void SaveInfoPanel()
+    {
+        if (PanelSaveIdea.instance.inputTxt.text != "")
+        {
+            PanelSaveIdea.instance.ctrlTxtObj.SetInternalTxt(PanelSaveIdea.instance.inputTxt.text);
+            //DB stuff
+            PanelSaveIdea.instance.ClosePanel();
+        }
+    }
+    #endregion
 
-		MainIdeaText = GameObject.Find ("MainIdea");
-		_panelUI.SetActive (false);
+
+    #region INTERFACE_METHODS
+    #endregion
 
 
+    #region GETTERS_AND_SETTERS
+    #endregion
 
-//		Instantiate (PrefbaObject, parentLeft.transform);
-//		Instantiate (PrefbaObject, parentLeft.transform);
-//		Instantiate (PrefbaObject, parentLeft.transform);
 
-//		Instantiate (PrefbaObject, parentRigth.transform);
-//		Instantiate (PrefbaObject, parentRigth.transform);
-//		Instantiate (PrefbaObject, parentRigth.transform);
-	}
-	void Update () {
-		
-	}
-	public void IdeaMethod(){
-		DOTween.Pause ("5");
-		_panelUI.SetActive (true);
-		panelMain.SetActive (false);
-	}
-
-//	public void getTextDescription(){
-//		temp = GameObject.Find ("TextIdea").GetComponent<Text> ();
-//		TextEmpty = GameObject.Find ("TextEmpty").GetComponent<Text> ();
-//		TextEmpty.text = temp.text;
-//		Debug.Log (temp.text + " valor digitado");
-//		Debug.Log (TextEmpty.text + " valor actual");
-//
-//
-//
-//		for (int i = 0; i < _TextIdeaDescription.Length; i++) {
-//			_TextIdeaDescription [0].text = TextEmpty.text;
-//			Debug.Log (_TextIdeaDescription [i].text + " Este es el aaray");	
-//		}
-//	}
+    #region COROUTINES
+    #endregion
 }

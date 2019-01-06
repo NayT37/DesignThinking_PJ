@@ -15,7 +15,7 @@ public class M3_Ctrl : MonoBehaviour
     private Transform _contentHolder;
     private int _postItQntt;
     private PostIt _editableItem;
-    private Button _mainTab;
+    private Button _mainTab, _addIdea, _detIdea;
     private bool _showTabs;
     private Transform[] _dropZonesArray;
 
@@ -25,7 +25,8 @@ public class M3_Ctrl : MonoBehaviour
 
     private StoryTelling[] _arraystorytellings;
 
-    private int counterstorytelling;
+    [SerializeField]
+    private int counterstorytelling, _actualTab;
 
     private List<GameObject> _arrayPostit;
     #endregion
@@ -33,16 +34,15 @@ public class M3_Ctrl : MonoBehaviour
 
     #region SYSTEM_METHODS
     private void Start() { Initializate(); }
-    private void Update() { }
     #endregion
 
 
     #region CREATED_METHODS
     private void Initializate()
     {
-        _noteServices = new NoteServices();
+        //     _noteServices = new NoteServices();
 
-        _storytellingServices = new StorytellingServices();
+        //    _storytellingServices = new StorytellingServices();
 
         _mainPanel = GameObject.Find("Main_Panel");
         _addPostItPanel = GameObject.Find("AddPostIt_Panel");
@@ -56,15 +56,24 @@ public class M3_Ctrl : MonoBehaviour
             _dropZonesArray[i] = GameObject.Find("DropZone_" + (i + 1)).transform;
         }
 
+        _actualTab = 1;
+
         _addPostItPanel.SetActive(false);
         _postItQntt = 0;
         _mainTab = GameObject.Find("Btn_1").GetComponent<Button>();
+        _addIdea = GameObject.Find("AddIdea_Btn").GetComponent<Button>();
+        _detIdea = GameObject.Find("DetIdea_Btn").GetComponent<Button>();
         _mainTab.onClick.AddListener(ShowHideTabs);
-        _showTabs = true;
-        ShowHideTabs();
+        _addIdea.onClick.AddListener(CreateNewIdea);
+        _detIdea.onClick.AddListener(DeleteCurrentIdea);
+        _detIdea.gameObject.SetActive(false);
+        _showTabs = false;
+        HideTabs();
+        _arrayPostit = new List<GameObject>(); //Delete this line
+        counterstorytelling = 1; //Delete this line
 
-        ChargeNotesToStoryTelling();
-        ChangeStoryTellingVersion(1);
+        /*         ChargeNotesToStoryTelling();
+                ChangeStoryTellingVersion(1); */
 
     }
 
@@ -76,7 +85,7 @@ public class M3_Ctrl : MonoBehaviour
         _arraystorytellings = new StoryTelling[counterstorytelling];
 
         setArrayStoryTellings();
-        
+
         _arrayPostit = new List<GameObject>();
 
     }
@@ -84,7 +93,7 @@ public class M3_Ctrl : MonoBehaviour
     public void ChangeStoryTellingVersion(int version)
     {
 
-       deleteNotesPrefab();
+        deleteNotesPrefab();
 
         DataBaseParametersCtrl.Ctrl._storyTellingLoaded = _arraystorytellings[version - 1];
 
@@ -129,7 +138,8 @@ public class M3_Ctrl : MonoBehaviour
 
     }
 
-    public void deleteStorytelling(){
+    public void deleteStorytelling()
+    {
 
         int versionToDelete = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.version;
 
@@ -137,7 +147,9 @@ public class M3_Ctrl : MonoBehaviour
         {
             _storytellingServices.UpdateStoryTelling(_arraystorytellings[1], 1);
             _storytellingServices.UpdateStoryTelling(_arraystorytellings[2], 2);
-        } else if(versionToDelete == 2){
+        }
+        else if (versionToDelete == 2)
+        {
             _storytellingServices.UpdateStoryTelling(_arraystorytellings[2], 2);
         }
 
@@ -146,20 +158,19 @@ public class M3_Ctrl : MonoBehaviour
         ChargeNotesToStoryTelling();
 
         ChangeStoryTellingVersion(1);
-
-
     }
 
-    public void deleteNotesPrefab(){
+    public void deleteNotesPrefab()
+    {
 
-         if (_arrayPostit.Count != 0)
+        if (_arrayPostit.Count != 0)
         {
             for (int i = 0; i < _arrayPostit.Count; i++)
             {
                 DestroyImmediate(_arrayPostit[i]);
             }
 
-             _arrayPostit.Clear();
+            _arrayPostit.Clear();
         }
     }
 
@@ -180,8 +191,8 @@ public class M3_Ctrl : MonoBehaviour
             temp.transform.SetParent(_contentHolder);
             temp.transform.localScale = new Vector3(1, 1, 1);
             drag.ChangeText(text);
-            var note = _noteServices.CreateNote(text);
-            drag._note = note;
+            //          var note = _noteServices.CreateNote(text);
+            //         drag._note = note;
             _arrayPostit.Add(temp);
         }
         _mainPanel.SetActive(true);
@@ -191,10 +202,13 @@ public class M3_Ctrl : MonoBehaviour
 
     public void ShowHideTabs()
     {
-        _showTabs = !_showTabs;
-        for (int i = 1; i < _mainTab.transform.childCount; i++)
+        if (counterstorytelling != 1)
         {
-            _mainTab.transform.GetChild(i).gameObject.SetActive(_showTabs);
+            _showTabs = !_showTabs;
+            for (int i = 1; i < counterstorytelling; i++)
+            {
+                _mainTab.transform.GetChild(i).gameObject.SetActive(_showTabs);
+            }
         }
     }
 
@@ -231,6 +245,49 @@ public class M3_Ctrl : MonoBehaviour
 
 
     }
+
+    public void CreateNewIdea()
+    {
+        if (counterstorytelling < 2)
+        {
+            counterstorytelling++;
+            _detIdea.gameObject.SetActive(true);
+        }
+        else if (_addIdea.gameObject.activeInHierarchy)
+        {
+            counterstorytelling++;
+            _addIdea.gameObject.SetActive(false);
+        }
+        HideTabs();
+        _showTabs = false;
+    }
+
+    public void DeleteCurrentIdea()
+    {
+
+        if (counterstorytelling > 2)
+        {
+            counterstorytelling--;
+            _addIdea.gameObject.SetActive(true);
+        }
+        else if (_detIdea.gameObject.activeInHierarchy)
+        {
+            counterstorytelling--;
+            _detIdea.gameObject.SetActive(false);
+        }
+        HideTabs();
+        _showTabs = false;
+        print(counterstorytelling);
+    }
+
+    public void HideTabs()
+    {
+        _showTabs = false;
+        for (int i = 1; i < 3; i++)
+        {
+            _mainTab.transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
     #endregion
 
 
@@ -239,6 +296,10 @@ public class M3_Ctrl : MonoBehaviour
 
 
     #region GETTERS_AND_SETTERS
+    public void SetActualTab(int value)
+    {
+        _actualTab = value;
+    }
     #endregion
 
 

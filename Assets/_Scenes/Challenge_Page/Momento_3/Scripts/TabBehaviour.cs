@@ -14,6 +14,7 @@ public class TabBehaviour : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private int _internalID;
     private Text _internalText;
+    private M3_Ctrl _mainCtrl;
     #endregion
 
 
@@ -28,6 +29,7 @@ public class TabBehaviour : MonoBehaviour, IPointerClickHandler
     {
         _internalText = transform.GetChild(0).GetComponent<Text>();
         _internalText.text = "IDEA " + _internalID;
+        _mainCtrl = null;
     }
 
     public void ChangeText(string text)
@@ -42,6 +44,7 @@ public class TabBehaviour : MonoBehaviour, IPointerClickHandler
     {
         if (!_isMain)
         {
+            if (_mainCtrl == null) _mainCtrl = GameObject.FindObjectOfType<M3_Ctrl>();
             TabBehaviour temp = transform.parent.GetComponent<TabBehaviour>();
             int tempID = temp.GetInernalID();
             temp.SetInernalID(_internalID);
@@ -49,6 +52,7 @@ public class TabBehaviour : MonoBehaviour, IPointerClickHandler
             this._internalID = temp.GetInernalID();
             this.ChangeText("IDEA " + _internalID);
             this.SetInernalID(tempID);
+            _mainCtrl.HideTabs();
         }
     }
     #endregion
