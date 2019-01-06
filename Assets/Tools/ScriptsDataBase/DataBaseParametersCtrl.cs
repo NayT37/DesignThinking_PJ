@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using SQLite4Unity3d;
 using System;
+using System.IO;
+using System.Security.Cryptography;
+using System.Security;
+using System.Text;
 
 public class DataBaseParametersCtrl : MonoBehaviour {
 
@@ -69,6 +73,7 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 
 	public DataService _dataServices;
 
+	private string Salt;
 
     void Awake () {
         if (Ctrl == null) {
@@ -80,6 +85,7 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		Salt = "EHS-dpa";
 		_dataServices = new DataService ("dtdbtemplate.db");
 		_sqliteConnection = _dataServices._connection;
 
@@ -118,4 +124,24 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 		
 		return isConn;
 	}
+
+	
+	public string GenerateSHA512String(string inputString)
+    {
+        SHA512 sha512 = SHA512Managed.Create();
+        byte[] bytes = Encoding.UTF8.GetBytes(inputString);
+        byte[] hash = sha512.ComputeHash(bytes);
+        return GetStringFromHash(hash);
+    }
+
+	private static string GetStringFromHash(byte[] hash)
+    {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < hash.Length; i++)
+        {
+            result.Append(hash[i].ToString("X2"));
+        }
+        return result.ToString();
+    }
+
 }
