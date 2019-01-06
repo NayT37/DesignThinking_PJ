@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class ChildSubMainIdea : MonoBehaviour, IPointerClickHandler
+public class ChildSubMainIdea : CtrlInternalText, IPointerClickHandler
 {
     #region VARIABLES
     //Public Variables
@@ -17,11 +17,8 @@ public class ChildSubMainIdea : MonoBehaviour, IPointerClickHandler
     private ChildType _childType;
     private Image _internalImg;
     private Color _activeClr, _deactiveClr;
-    private string _internalTxt;
     private SubMainIdea _parentIdea;
     private int _internalID;
-    private string _titleType, _internalText;
-
     #endregion
 
 
@@ -47,8 +44,8 @@ public class ChildSubMainIdea : MonoBehaviour, IPointerClickHandler
         }
         _parentIdea = GetComponentInParent<SubMainIdea>();
         _internalID = _parentIdea.GetInternalID();
-        if (_childType == ChildType.risk) { _titleType = "Riesgos"; } else { _titleType = "Ventajas"; }
-        _internalText = "";
+        if (_childType == ChildType.risk) { _titleTxt = "Riesgos"; } else { _titleTxt = "Ventajas"; }
+        _internalTxt = "";
     }
 
 
@@ -59,7 +56,7 @@ public class ChildSubMainIdea : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         //Active a panel to change
-        PanelSaveIdea.instance.OpenPanel(_titleType, _internalText);
+        PanelSaveIdea.instance.OpenPanel(this);
     }
     #endregion
 
