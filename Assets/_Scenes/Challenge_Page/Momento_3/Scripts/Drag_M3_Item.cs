@@ -77,7 +77,7 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     //This method is implemented from the IBeginDragHandler Interface
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
-        //   DataBaseParametersCtrl.Ctrl._noteLoaded = _note;
+        DataBaseParametersCtrl.Ctrl._noteLoaded = _note;
         //Set the dragged item to this gameobject
         transform.SetParent(_mainPanel);
         itemDragged = gameObject;

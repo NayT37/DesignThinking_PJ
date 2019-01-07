@@ -35,8 +35,9 @@ public class M2_Ctrl : MonoBehaviour
 
         int counterProblem = _problemServices.GetProblemsCounter();
 
-        if (counterProblem==0){
-            var problem =_problemServices.CreateProblem(_arrayResults);
+        if (counterProblem == 0)
+        {
+            var problem = _problemServices.CreateProblem(_arrayResults);
         }
 
         _txtField1 = GameObject.Find("FieldHolder_1").GetComponentInChildren<InputField>();
@@ -46,12 +47,15 @@ public class M2_Ctrl : MonoBehaviour
 
     public void SendText()
     {
-        if (_txtField1.text != "") { }
-        if (_txtField2.text != "") { }
-        if (_txtField3.text != "") { }
+        if (_txtField1.text != "") { _arrayResults[0] = _txtField1.text; }
+        if (_txtField2.text != "") { _arrayResults[1] = _txtField2.text; }
+        if (_txtField3.text != "") { _arrayResults[2] = _txtField3.text; }
+        UpdateProblem();
+        ChMainHUD.instance.SetLimitCtrl(3);
     }
 
-    public void UpdateProblem(){
+    public void UpdateProblem()
+    {
 
         _fieldServices.UpdateFields(_arrayResults);
 
