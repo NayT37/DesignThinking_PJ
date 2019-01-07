@@ -27,6 +27,10 @@ public class Ctrl_ChoiseUser : MonoBehaviour {
 		StartCoroutine (Trainning());
 	}
 
+	public void backToScene(){
+		StartCoroutine (BackOne ());
+	}
+
 	IEnumerator Challenge(){
 		
 		yield return new WaitForSeconds(1);
@@ -36,5 +40,11 @@ public class Ctrl_ChoiseUser : MonoBehaviour {
 		
 		yield return new WaitForSeconds(1);
 		SceneManager.LoadScene ("Main_HUD");
+	}
+
+	IEnumerator BackOne(){
+		DOTween.Play("bg_transition");
+		yield return new WaitForSeconds(1.0f);
+		SceneManager.LoadScene ("RegisterUser");
 	}
 }

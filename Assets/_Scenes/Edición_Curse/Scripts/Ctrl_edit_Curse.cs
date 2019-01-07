@@ -78,10 +78,8 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 	void openToGroup(string positionToArrayGroup){
 		int value = int.Parse (positionToArrayGroup);
 
-
 		Debug.Log (_arrayGroup[value]);
 		DataBaseParametersCtrl.Ctrl._groupLoaded = _arrayGroup[value];
-		Debug.Log (DataBaseParametersCtrl.Ctrl._groupLoaded); 
 
 		StartCoroutine(GoToGroup ());
 	}

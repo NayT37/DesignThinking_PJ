@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using DG.Tweening;
 
 public class Ctrl_Edit_Group : MonoBehaviour {
 
@@ -11,6 +12,10 @@ public class Ctrl_Edit_Group : MonoBehaviour {
 	private Button addBtn;
 	private Button subBtn;
 	public Text numberPerson;
+
+	public GameObject _validationDelete, _msgDelete;
+
+	public Transform _parentValidation, _textParent;
 	private int tmp = 0;
 	private InputField _nameGroupUpdate;
 
@@ -67,12 +72,49 @@ public class Ctrl_Edit_Group : MonoBehaviour {
 
 	public void deleteGroup(){
 
-		var result = _groupServices.DeleteGroup ();
-		if (result != 0) {
-			SceneManager.LoadScene ("Edit_Curse");
-		}
+		Button[] _btns = new Button[2];
+        GameObject obj = Instantiate(_validationDelete, _parentValidation);
+        _btns = obj.GetComponentsInChildren<Button>();
+        _btns[0].onClick.AddListener(delegate {ValidationSyncBtnBhvr(_btns[0].name, obj);});
+        _btns[1].onClick.AddListener(delegate {ValidationSyncBtnBhvr(_btns[1].name, obj);});
 		
 	}
+
+	public void ValidationSyncBtnBhvr(string res, GameObject obj){
+
+        int r = int.Parse(res);
+        if (r!=1){
+            DOTween.Play("bg_outSyncYes");
+            StartCoroutine(waitForExitValidation(obj, true));
+            Debug.Log("Yes validation");   
+            
+        }else{
+            DOTween.Play("bg_syncExit");
+            Debug.Log("No validation");
+            StartCoroutine(waitForExitValidation(obj, false));
+        }
+    }
+
+    private IEnumerator DeletePrefab(GameObject obj)
+    {
+        yield return new WaitForSeconds(4.0f);	
+        DestroyImmediate(obj);
+    }
+
+	private IEnumerator waitForExitValidation(GameObject go, bool isDelete)
+    {
+        yield return new WaitForSeconds(0.5f);
+        DestroyImmediate(go);
+        if (isDelete)
+        {
+            GameObject obj = Instantiate(_msgDelete, _textParent);
+            StartCoroutine(DeletePrefab(obj));
+			// var result = _groupServices.DeleteGroup ();
+			// if (result != 0) {
+			// 	SceneManager.LoadScene ("Edit_Curse");
+			// }
+        }
+    }
 
 
 
