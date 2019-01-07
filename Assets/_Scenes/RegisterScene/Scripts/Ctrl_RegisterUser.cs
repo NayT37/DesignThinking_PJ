@@ -21,61 +21,68 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 	private TeacherServices _teacherServices;
 	#endregion
 
-	public void Start(){
+	public void Start(){	
+
+		var teacher = DataBaseParametersCtrl.Ctrl._teacherLoggedIn;
+
+		if (teacher != null)
+		{
+			userName.text = teacher.email;
+		}
 	
 	}
 	public void GoUser(){
 
 		_teacherServices = new TeacherServices();
 
-		string name =userName.text;
+		string name = userName.text;
 		string password = DataBaseParametersCtrl.Ctrl.GenerateSHA512String(passName.text);
 
-		Debug.Log(passName.text+ " .... "+ password);
-// 		bool isFirstTime = _checkFirstTime.isOn;
-// 		if(!name.Equals("") && !passName.Equals("")){
+		//Debug.Log(passName.text+ " .... "+ password);
+		bool isFirstTime = _checkFirstTime.isOn;
+		if(!name.Equals("") && !passName.Equals("")){
 
-// 			bool isConn = DataBaseParametersCtrl.Ctrl.doConnection();
-// 			bool doOtherMethod = false;
-// 			var teacher = new Teacher();
+			bool isConn = DataBaseParametersCtrl.Ctrl.doConnection();
+			bool doOtherMethod = false;
+			var teacher = new Teacher();
 
-// 			if (isFirstTime)
-// 			{
-// 				if (isConn)
-// 				{
-// 					teacher = _teacherServices.GetTeacherNamed(name, password, isFirstTime);
-// 					doOtherMethod = true;	
-// 				} else{
-// 					GameObject obj = Instantiate(_prefabText, _parentText);
-// 					StartCoroutine(DeletePrefab(obj));
-// 					Debug.Log("No tiene conexión a internet...");
-// 				}
+			if (isFirstTime)
+			{
+				if (isConn)
+				{
+					teacher = _teacherServices.GetTeacherNamed(name, password, isFirstTime);
+					doOtherMethod = true;	
+				} else{
+					GameObject obj = Instantiate(_prefabText, _parentText);
+					StartCoroutine(DeletePrefab(obj));
+					Debug.Log("No tiene conexión a internet...");
+				}
 				
-// 			} else{
-// 					teacher = _teacherServices.GetTeacherNamed(name, password, isFirstTime);	
-// 					doOtherMethod = true;
-// 			}
+			} else{
+					teacher = _teacherServices.GetTeacherNamed(name, password, isFirstTime);	
+					doOtherMethod = true;
+			}
 				
-// 			if (doOtherMethod)
-// 			{
+			if (doOtherMethod)
+			{
 					
 
-// 				if (teacher.identityCard.Equals("null"))
-// 				{
-// 					DOTween.Play ("7");
-// 				} else {
+				if (teacher.identityCard.Equals("null"))
+				{
+					DOTween.Play ("7");
+				} else {
 					
-// 					DOTween.Play("bg_transition");
-// 					userName.text = "";
-// 					passName.text = "";		
-// 					StartCoroutine (ResgisterUser ());
-// 				}
-// 			} 
-// 		}else{
-// //			userName.GetComponent<InputField> ();
-// //			userName.placeholder.transform.localScale = new Vector3 (1.5f,1.5f,1);
-// 			DOTween.Play ("7");
-// 		}
+					DOTween.Play("bg_transition");
+					userName.text = "";
+					passName.text = "";		
+					StartCoroutine (ResgisterUser ());
+				}
+			} 
+		}else{
+//			userName.GetComponent<InputField> ();
+//			userName.placeholder.transform.localScale = new Vector3 (1.5f,1.5f,1);
+			DOTween.Play ("7");
+		}
 	}
 
 	IEnumerator ResgisterUser(){

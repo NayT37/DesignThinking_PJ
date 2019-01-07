@@ -14,7 +14,7 @@ public class SelectGame : MonoBehaviour
 
     private CourseServices _courseServices;
     
-	public GameObject _notData, _syncprefab, _syncSucc;
+	public GameObject _notData, _syncprefab, _syncSucc, _noConn;
 
 	public Transform _TextTransform, _syncTransform;
     #endregion
@@ -48,7 +48,6 @@ public class SelectGame : MonoBehaviour
 
     public void syncBtnBhvr(){
         Button[] _btns = new Button[2];
-        Debug.Log("Sync DataBase...");
         GameObject obj = Instantiate(_syncprefab, _syncTransform);
         _btns = obj.GetComponentsInChildren<Button>();
         _btns[0].onClick.AddListener(delegate {ValidationSyncBtnBhvr(_btns[0].name, obj);});
@@ -58,14 +57,22 @@ public class SelectGame : MonoBehaviour
     public void ValidationSyncBtnBhvr(string res, GameObject obj){
 
         int r = int.Parse(res);
+        bool isConn = DataBaseParametersCtrl.Ctrl.doConnection();
         if (r!=1){
-            DOTween.Play("bg_outSyncYes");
-            StartCoroutine(waitForYesValidation(obj));
-            Debug.Log("Yes validation");
+            if (isConn)
+            {
+                DOTween.Play("bg_outSyncYes");
+                StartCoroutine(waitForYesValidation(obj));
+                Debug.Log("Yes validation");   
+            } else {
+                DOTween.Play("bg_syncExit");
+                Debug.Log("No validation");
+                StartCoroutine(waitForExitValidation(obj, true, false));
+            }
         }else{
             DOTween.Play("bg_syncExit");
             Debug.Log("No validation");
-            StartCoroutine(waitForExitValidation(obj, false));
+            StartCoroutine(waitForExitValidation(obj, false, false));
         }
     }
 	public void NewGameBtnBhvr() { 
@@ -109,14 +116,21 @@ public class SelectGame : MonoBehaviour
         loadGameBtn.raycastTarget = true;
     }
 
-    private IEnumerator waitForExitValidation(GameObject go, bool isSync)
+    private IEnumerator waitForExitValidation(GameObject go, bool isSync, bool isConn)
     {
         yield return new WaitForSeconds(0.5f);
         DestroyImmediate(go);
         if (isSync)
         {
-           GameObject obj = Instantiate(_syncSucc, _TextTransform);
-		   StartCoroutine(DeletePrefab(obj));
+            if (isConn)
+            {
+                GameObject obj = Instantiate(_syncSucc, _TextTransform);
+                StartCoroutine(DeletePrefab(obj));
+            }else {
+                GameObject obj = Instantiate(_noConn, _TextTransform);
+                StartCoroutine(DeletePrefab(obj));
+            }
+           
         }
     }
 
@@ -127,7 +141,7 @@ public class SelectGame : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         DOTween.Play("bg_syncExit");
         Debug.Log("Sync Finished");
-        StartCoroutine(waitForExitValidation(go, true));
+        StartCoroutine(waitForExitValidation(go, true, true));
     }
 
     private IEnumerator DeletePrefab(GameObject obj)

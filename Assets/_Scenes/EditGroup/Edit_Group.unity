@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1673,6 +1673,7 @@ RectTransform:
   - {fileID: 1269078578}
   - {fileID: 831606041}
   - {fileID: 1367017566}
+  - {fileID: 1931744050}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3879,6 +3880,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberPerson: {fileID: 853948021}
+  _validationDelete: {fileID: 1402409020916642, guid: 0b5240d4aed379c4d97874b38d8bfca9,
+    type: 2}
+  _msgDelete: {fileID: 1662890665799342, guid: c49536c40f03b2c4aa8a8fbbfeb8e686, type: 2}
+  _parentValidation: {fileID: 1931744050}
+  _textParent: {fileID: 1269078578}
 --- !u!224 &1619501286
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4442,6 +4448,39 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1811966436}
+--- !u!1 &1931744049
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1931744050}
+  m_Layer: 5
+  m_Name: parentValidation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1931744050
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1931744049}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.8385215, y: 2.8385222, z: 2.8385222}
+  m_Children: []
+  m_Father: {fileID: 971513364}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.0046692, y: 0.09024}
+  m_SizeDelta: {x: 450.9, y: 281.9}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1955099897
 GameObject:
   m_ObjectHideFlags: 0
