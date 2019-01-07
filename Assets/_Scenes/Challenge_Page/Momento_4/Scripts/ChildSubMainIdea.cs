@@ -19,6 +19,7 @@ public class ChildSubMainIdea : CtrlInternalText, IPointerClickHandler
     private Color _activeClr, _deactiveClr;
     private SubMainIdea _parentIdea;
     private int _internalID;
+    private bool _canWrite;
     #endregion
 
 
@@ -31,23 +32,22 @@ public class ChildSubMainIdea : CtrlInternalText, IPointerClickHandler
     private void Initializate()
     {
         _internalTxt = ""; //DB here to get internal text if exists
+        _canWrite = false; // DB here to know if user can write on this
         _activeClr = new Color32(255, 255, 255, 255);
         _deactiveClr = new Color32(255, 255, 255, 100);
         _internalImg = GetComponent<Image>();
-        if (_internalTxt != "")
+        if (_canWrite)
         {
-            _internalImg.color = _deactiveClr;
+            _internalImg.color = _activeClr;
         }
         else
         {
-            _internalImg.color = _activeClr;
+            _internalImg.color = _deactiveClr;
         }
         _parentIdea = GetComponentInParent<SubMainIdea>();
         _internalID = _parentIdea.GetInternalID();
         if (_childType == ChildType.risk) { _titleTxt = "Riesgos"; } else { _titleTxt = "Ventajas"; }
-        _internalTxt = "";
     }
-
 
     #endregion
 
@@ -55,20 +55,28 @@ public class ChildSubMainIdea : CtrlInternalText, IPointerClickHandler
     #region INTERFACE_METHODS
     public void OnPointerClick(PointerEventData eventData)
     {
-        //Active a panel to change
-        PanelSaveIdea.instance.OpenPanel(this);
+        if (_canWrite)
+        {
+            //Active a panel to change
+            PanelSaveIdea.instance.OpenPanel(this);
+        }
     }
     #endregion
 
 
     #region GETTERS_AND_SETTERS
-    public void SetInternalTxt(string value)
+    public void SetCanWrite(bool value)
     {
-        _internalTxt = value;
+        _canWrite = value;
+        if (value)
+        {
+            _internalImg.color = _activeClr;
+        }
     }
     #endregion
 
 
     #region COROUTINES
+    
     #endregion
 }

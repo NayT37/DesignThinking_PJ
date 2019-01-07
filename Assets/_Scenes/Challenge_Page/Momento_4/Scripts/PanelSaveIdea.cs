@@ -8,11 +8,13 @@ public class PanelSaveIdea : MonoBehaviour
     #region VARIABLES
     //Public Variables
     public static PanelSaveIdea instance = null;
-    public string txtToChange, internalInpuptTxt;
+    [HideInInspector]
+    public InputField inputTxt;
+    [HideInInspector]
+    public CtrlInternalText ctrlTxtObj;
     //Private Variables
     private Text _titleTxt;
-    public InputField inputTxt;
-    public CtrlInternalText ctrlTxtObj;
+
     #endregion
 
 
@@ -40,8 +42,6 @@ public class PanelSaveIdea : MonoBehaviour
 
         _titleTxt = transform.GetChild(0).GetChild(0).Find("Title_Txt").GetComponent<Text>();
         inputTxt = transform.GetChild(0).GetChild(1).Find("InputField_Txt").GetComponent<InputField>();
-        txtToChange = null;
-        internalInpuptTxt = inputTxt.text;
     }
 
     public void OpenPanel(CtrlInternalText obj)
@@ -54,9 +54,6 @@ public class PanelSaveIdea : MonoBehaviour
     }
     public void ClosePanel()
     {
-        _titleTxt.text = null;
-        inputTxt.text = null;
-        txtToChange = null;
         this.gameObject.SetActive(false);
     }
     #endregion

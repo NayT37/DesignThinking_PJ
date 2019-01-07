@@ -10,8 +10,8 @@ public class Ctrl_M4 : CtrlInternalText
     #region VARIABLES
     //Public Variables
     //Private Variables
-    private string _mainIdea;
-    [SerializeField]
+    private SubMainIdea[] _subMainIdeasArray;
+    private PanelSaveFeedback _panelFeedback;
     #endregion
 
 
@@ -26,8 +26,16 @@ public class Ctrl_M4 : CtrlInternalText
     {
         PanelSaveIdea.instance.ClosePanel();
         _titleTxt = "Idea Principal";
+        _subMainIdeasArray = new SubMainIdea[6];
+        for (int i = 0; i < 6; i++)
+        {
+            _subMainIdeasArray[i] = GameObject.Find("SubIdea_" + (i + 1)).GetComponent<SubMainIdea>();
+        }
         //DB stuff
         _internalTxt = "";
+        _panelFeedback = GameObject.FindObjectOfType<PanelSaveFeedback>();
+        _panelFeedback.gameObject.SetActive(false);
+        SetSubMainIdeaText();
     }
     public void OpenSavePanel()
     {
@@ -47,6 +55,22 @@ public class Ctrl_M4 : CtrlInternalText
             //DB stuff
             PanelSaveIdea.instance.ClosePanel();
         }
+    }
+
+    private void SetSubMainIdeaText()
+    {
+        //DB stuff
+        for (int i = 0; i < 6; i++)
+        {
+            _subMainIdeasArray[i].SetInternalTxt("Hola soy " + (i + 1));
+            _subMainIdeasArray[i].SetChildsText("Oportunidad " + i, "Riesgo " + (i + 1));
+        }
+    }
+
+    public void SavePrototypeVersion()
+    {
+        //DBStuff
+        _panelFeedback.OpenPanel(1, 1);
     }
     #endregion
 

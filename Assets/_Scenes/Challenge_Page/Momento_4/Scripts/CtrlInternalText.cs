@@ -6,14 +6,14 @@ public class CtrlInternalText : MonoBehaviour
 {
     #region VARIABLES
     //Public Variables
-    //Private Variables
+    [HideInInspector]
     public string _titleTxt, _internalTxt;
+    //Private Variables
     #endregion
 
 
     #region SYSTEM_METHODS
     private void Start() { Initializate(); }
-    private void Update() { }
     #endregion
 
 
@@ -35,7 +35,7 @@ public class CtrlInternalText : MonoBehaviour
     {
         return _internalTxt;
     }
-    public void SetInternalTxt(string value)
+    public virtual void SetInternalTxt(string value)
     {
         _internalTxt = value;
     }

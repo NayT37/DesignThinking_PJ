@@ -11,6 +11,8 @@ public class SubMainIdea : CtrlInternalText, IPointerClickHandler
     //Private Variables
     [SerializeField]
     private int _internalID;
+    private GameObject _feedbackObj;
+    private ChildSubMainIdea[] _childsArray;
     #endregion
 
 
@@ -23,6 +25,7 @@ public class SubMainIdea : CtrlInternalText, IPointerClickHandler
     #region CREATED_METHODS
     private void Initializate()
     {
+        _childsArray = new ChildSubMainIdea[2];
         if (_internalID < 4)
         {
             _titleTxt = "Requisitos";
@@ -32,6 +35,37 @@ public class SubMainIdea : CtrlInternalText, IPointerClickHandler
             _titleTxt = "Cómo";
         }
         _internalTxt = "";
+        _feedbackObj = transform.Find("FeedbackImg").gameObject;
+        _feedbackObj.SetActive(false);
+    }
+
+    public override void SetInternalTxt(string value)
+    {
+        base.SetInternalTxt(value);
+        if (value != "")
+        {
+            _feedbackObj.SetActive(true);
+            if (_childsArray[0] == null)
+            {
+                _childsArray[0] = transform.GetChild(0).GetComponent<ChildSubMainIdea>();
+                _childsArray[1] = transform.GetChild(1).GetComponent<ChildSubMainIdea>();
+            }
+            _childsArray[0].SetCanWrite(true);
+            _childsArray[1].SetCanWrite(true);
+        }
+    }
+
+    public void SetChildsText(string oportunityTxt, string riskTxt)
+    {
+        if (_childsArray[0] == null)
+        {
+            _childsArray[0] = transform.GetChild(0).GetComponent<ChildSubMainIdea>();
+            _childsArray[1] = transform.GetChild(1).GetComponent<ChildSubMainIdea>();
+        }
+        _childsArray[0].SetInternalTxt(oportunityTxt);
+        _childsArray[1].SetInternalTxt(riskTxt);
+        _childsArray[0].SetCanWrite(true);
+        _childsArray[1].SetCanWrite(true);
     }
     #endregion
 
