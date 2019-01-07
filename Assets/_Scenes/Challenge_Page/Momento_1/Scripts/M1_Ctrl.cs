@@ -11,6 +11,7 @@ public class M1_Ctrl : MonoBehaviour
     private int _panelQuantity;
     private EmpathyPanel[] _panelsArray;
     private GameObject[] _checkByPanel;
+    [SerializeField]
     private int _activePanel;
 
     private SectorServices _sectorServices;
@@ -71,14 +72,28 @@ public class M1_Ctrl : MonoBehaviour
 
     public void ActivePanelByNumber(int panelNumber)
     {
-        DataBaseParametersCtrl.Ctrl._sectorLoaded = _arraySectors[panelNumber - 1];
+        print("Active is: " + _activePanel);
+        print("panel is: " + panelNumber);
+        print("Array is: " + _arraySectors.Length);
+        if (panelNumber != 0)
+        {
+            DataBaseParametersCtrl.Ctrl._sectorLoaded = _arraySectors[panelNumber - 1];
+            _panelsArray[panelNumber - 1].UpdateText(_arraySectors[panelNumber - 1].description);
+        }
+        else
+        {
+            DataBaseParametersCtrl.Ctrl._sectorLoaded = _arraySectors[_activePanel - 1];
+            _panelsArray[_activePanel - 1].UpdateText(_arraySectors[_activePanel - 1].description);
+        }
         if (panelNumber != _activePanel)
         {
-            _panelsArray[panelNumber - 1].UpdateText(_arraySectors[panelNumber - 1].description);
             _panelsArray[_activePanel].SetActivePanel(false);
             _panelsArray[panelNumber].SetActivePanel(true);
             _activePanel = panelNumber;
         }
+
+        //When some limit is cleared...
+        ChMainHUD.instance.SetLimitCtrl(2);
     }
 
     public void OnPanelTextChanged(int panelId, string value)

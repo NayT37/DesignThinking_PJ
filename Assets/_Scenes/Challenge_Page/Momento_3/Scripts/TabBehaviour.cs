@@ -20,7 +20,6 @@ public class TabBehaviour : MonoBehaviour, IPointerClickHandler
 
     #region SYSTEM_METHODS
     private void Start() { Initializate(); }
-    private void Update() { }
     #endregion
 
 
@@ -48,9 +47,7 @@ public class TabBehaviour : MonoBehaviour, IPointerClickHandler
             TabBehaviour temp = transform.parent.GetComponent<TabBehaviour>();
             int tempID = temp.GetInernalID();
             temp.SetInernalID(_internalID);
-            temp.ChangeText("Idea " + _internalID);
-            this._internalID = temp.GetInernalID();
-            this.ChangeText("IDEA " + _internalID);
+            _mainCtrl.SetActualTab(_internalID);
             this.SetInernalID(tempID);
             _mainCtrl.HideTabs();
         }

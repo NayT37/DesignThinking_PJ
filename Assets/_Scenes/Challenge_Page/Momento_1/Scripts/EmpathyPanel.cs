@@ -38,6 +38,10 @@ public class EmpathyPanel : MonoBehaviour
             _saveInfoBtn = transform.Find("BtnGuardar").GetComponent<Button>();
             _saveInfoBtn.onClick.AddListener(SaveInfo);
         }
+        else
+        {
+            _internalInput = null;
+        }
     }
 
     private void SaveInfo()
@@ -58,8 +62,11 @@ public class EmpathyPanel : MonoBehaviour
 
     public void UpdateText(string value)
     {
-        _internalText = value;
-        _internalInput.text = _internalText;
+        if (!_isMainPanel)
+        {
+            _internalText = value;
+            _internalInput.text = _internalText;
+        }
     }
     #endregion
 

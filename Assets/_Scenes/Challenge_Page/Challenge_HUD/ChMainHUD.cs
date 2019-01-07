@@ -10,6 +10,7 @@ public class ChMainHUD : MonoBehaviour
 {
     #region VARIABLES
     //Public Variables
+    public static ChMainHUD instance = null;
     //Private Variables
     private int _actualMoment;
     private string _actualScn;
@@ -25,6 +26,20 @@ public class ChMainHUD : MonoBehaviour
 
 
     #region SYSTEM_METHODS
+    void Awake()
+    {
+        //Check if instance already exists
+        if (instance == null)
+
+            //if not, set instance to this
+            instance = this;
+
+        //If instance already exists and it's not this:
+        else if (instance != this)
+
+            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
+            Destroy(gameObject);
+    }
     private void Start() { Initializate(); }
     private void Update() { }
     #endregion
@@ -40,7 +55,7 @@ public class ChMainHUD : MonoBehaviour
         int projectId = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 
         var _public = _publicServices.GetPublicNamed(projectId);
-        
+
         if (_public.id != 0)
         {
             _actualMoment = 1;
@@ -49,7 +64,7 @@ public class ChMainHUD : MonoBehaviour
         XRSettings.enabled = false;
         _isHide = false;
         _loadObj = GameObject.Find("Loading_Bg");
-        
+
         _limitCtrl = 0;
         _actualScn = "";
         _menuHolder = GameObject.Find("Menu_Holder").transform;

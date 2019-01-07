@@ -40,7 +40,7 @@ public class Drop_M3_Zone : MonoBehaviour, IDropHandler
     #region CREATED_METHODS
     private void Initializate()
     {
-      //  _noteServices = new NoteServices();
+        _noteServices = new NoteServices();
         _internalID = int.Parse(name.Split('_')[1]);
     }
 
@@ -61,7 +61,7 @@ public class Drop_M3_Zone : MonoBehaviour, IDropHandler
     {
         if (!internalItem)
         {
-   //         _noteServices.UpdateNote(_internalID, "");
+            _noteServices.UpdateNote(_internalID, "");
             //Make the dropped object a child of this...
             Drag_M3_Item.getItemDragged().transform.SetParent(transform);
             //Set to 0,0 position and...
