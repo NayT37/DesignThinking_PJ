@@ -21,31 +21,31 @@ public class Ctrl_LoadProjects : MonoBehaviour {
 	void Start () {
 		
 		
-		// for (int i = 0; i < 8; i++)
-		// {
-		// 	Instantiate (prefab_project, parent_project.transform);
-		// }
-
-		_projectServices = new ProjectServices ();
-
-		int groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
-		int counterProjects = _projectServices.GetProjectsCounter(groupid);
-
-		_projects = new Project[counterProjects];
-
-		var projects = _projectServices.GetProjects(groupid);
-
-		int counter = 0;
-		foreach (var item in projects) {
-			var SetName = Instantiate (prefab_project, parent_project.transform);
-			SetName.name = counter.ToString();
-			_projects [counter] = item;
-			counter++;
-			SetName.GetComponentInChildren<Text> ().text = item.name;
-			SetName.GetComponentInChildren<Button> ().onClick.AddListener (delegate{GetCoursePressed (SetName.name, item.name);});
-
-			Debug.Log ("name" + item.name);
+		for (int i = 0; i < 8; i++)
+		{
+			Instantiate (prefab_project, parent_project.transform);
 		}
+
+		// _projectServices = new ProjectServices ();
+
+		// int groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
+		// int counterProjects = _projectServices.GetProjectsCounter(groupid);
+
+		// _projects = new Project[counterProjects];
+
+		// var projects = _projectServices.GetProjects(groupid);
+
+		// int counter = 0;
+		// foreach (var item in projects) {
+		// 	var SetName = Instantiate (prefab_project, parent_project.transform);
+		// 	SetName.name = counter.ToString();
+		// 	_projects [counter] = item;
+		// 	counter++;
+		// 	SetName.GetComponentInChildren<Text> ().text = item.name;
+		// 	SetName.GetComponentInChildren<Button> ().onClick.AddListener (delegate{GetCoursePressed (SetName.name, item.name);});
+
+		// 	Debug.Log ("name" + item.name);
+		// }
 	}
 
 	void GetCoursePressed(string positionInToArray, string nameCourse) {
