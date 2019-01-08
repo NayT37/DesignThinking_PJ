@@ -123,17 +123,6 @@ public class CaseServices  {
 	}
 
 	/// <summary>
-	/// (This is a test method) Description of the method to obtain all the Cases
-	/// </summary>
-	/// <returns>
-	/// A IEnumerable list of all the cases found
-	/// </returns>
-	public IEnumerable<Case> GetCases(){
-		int trainingid = DataBaseParametersCtrl.Ctrl._trainingloaded.id;
-		return _connection.Table<Case>().Where(x => x.trainingId == trainingid);
-	}
-
-	/// <summary>
 	/// Description of the method to delete a case
 	/// </summary>
 	/// <param name="caseToDelete">

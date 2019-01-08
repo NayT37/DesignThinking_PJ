@@ -90,17 +90,6 @@ public class MomentServices  {
 	}
 
 	/// <summary>
-	/// (This is a test method) Description of the method to obtain all the Cases
-	/// </summary>
-	/// <returns>
-	/// A IEnumerable list of all the cases found
-	/// </returns>
-	public IEnumerable<Moment> GetMoments(){
-		int caseid = DataBaseParametersCtrl.Ctrl._caseLoaded.id;
-		return _connection.Table<Moment>();
-	}
-
-	/// <summary>
 	/// Description of the method to delete a moment
 	/// </summary>
 	/// <param name="momentToDelete">
