@@ -22,8 +22,6 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 
 	void Start () {
 
-		_slider_editCurse = GameObject.Find ("SliderEditCurse").GetComponent<Slider>();
-		slider_handlerEditCurse = _slider_editCurse.GetComponent<slider_EditCurse> ();
 		_GroupServices = new GroupServices ();
 		texCourse = GameObject.Find ("TitleCurse").GetComponent<Text> ();
 		texCourse.text = Main_Ctrl.instance.NameCourse;
@@ -86,22 +84,6 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 
 	void Update () {
 		
-		if(slider_handlerEditCurse.slider_value < _slider_editCurse.value){
-			if (max < _slider_editCurse.value) {
-				parent_Group.transform.position += new Vector3 (0.0f, _slider_editCurse.value, 0.0f);	
-			} else if(max > _slider_editCurse.value){
-				parent_Group.transform.position += new Vector3 (0.0f, -_slider_editCurse.value , 0.0f);
-			}
-			max = _slider_editCurse.value;
-		}else if(slider_handlerEditCurse.slider_value > _slider_editCurse.value){
-			if (min > _slider_editCurse.value) {
-				parent_Group.transform.position += new Vector3 (0.0f, -_slider_editCurse.value , 0.0f);	
-			} else if(min < _slider_editCurse.value){
-				parent_Group.transform.position += new Vector3 (0.0f, _slider_editCurse.value, 0.0f);
-			}
-			min = _slider_editCurse.value;
-
-		}
 
 	}
 
