@@ -37,7 +37,7 @@ public class M1_DropZone : DropBehavior
         DragBehavior temp = internalItem.GetComponent<DragBehavior>();
         temp.resetItem();
         temp.SetRaycastTarget(true);
-        _levelCtrl.ActivePanelByNumber(_internalNumber);
+        _levelCtrl.ActivePanelByNumber(_internalNumber, true);
     }
     #endregion
 

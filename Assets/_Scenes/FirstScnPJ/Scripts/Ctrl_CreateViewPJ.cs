@@ -34,9 +34,9 @@ public class Ctrl_CreateViewPJ : MonoBehaviour
     private void eventClick(string name)
     {
         bool isChange = false;
-        // int groupId = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
+        int groupId = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
 
-        int counterProjects = 0;//_projectServices.GetProjectsCounter(groupId);
+        int counterProjects = _projectServices.GetProjectsCounter(groupId);
 
         if (counterProjects != 0)
         {
@@ -87,6 +87,16 @@ public class Ctrl_CreateViewPJ : MonoBehaviour
     {
 
     }
+
+    public void backToScene(){
+		StartCoroutine (BackOne ());
+	}
+
+	IEnumerator BackOne(){
+		DOTween.Play("bg_transition");
+		yield return new WaitForSeconds(1.0f);
+		SceneManager.LoadScene ("ChoiseUser");
+	}
 
     #region COROUTINES
     private IEnumerator ChangeScene(string newSceneToLoad)

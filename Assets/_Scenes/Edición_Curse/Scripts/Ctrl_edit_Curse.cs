@@ -18,13 +18,16 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 	private Text texCourse;
 
 	private GroupServices _GroupServices;
+
+	private TrainingServices _trainingServices;
 	private Group[] _arrayGroup;
 
 	void Start () {
 
 		_GroupServices = new GroupServices ();
-		texCourse = GameObject.Find ("TitleCurse").GetComponent<Text> ();
-		texCourse.text = Main_Ctrl.instance.NameCourse;
+		_trainingServices = new TrainingServices();
+		texCourse = GameObject.Find ("titleCourse").GetComponent<Text> ();
+		texCourse.text = "CURSO: " + Main_Ctrl.instance.NameCourse;
 
 		var courseId = DataBaseParametersCtrl.Ctrl._courseLoaded.id;
 
@@ -78,13 +81,24 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 
 		Debug.Log (_arrayGroup[value]);
 		DataBaseParametersCtrl.Ctrl._groupLoaded = _arrayGroup[value];
+		DataBaseParametersCtrl.Ctrl._trainingloaded = _trainingServices.GetTraining(_arrayGroup[value].id);
 
 		StartCoroutine(GoToGroup ());
+	}
+
+	public void addGroup(){
+		StartCoroutine (waitAddGroup ());
 	}
 
 	void Update () {
 		
 
+	}
+
+	IEnumerator waitAddGroup(){
+		DOTween.Play("bg_transition");
+		yield return new WaitForSeconds(1.0f);
+		SceneManager.LoadScene ("CreateGroup");
 	}
 
 	public void backScene(){

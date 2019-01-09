@@ -14,7 +14,7 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 
 	public Transform _parentText;
 
-	public GameObject _prefabText;
+	public GameObject _prefabText, _noUserPrefab;
 	public Toggle _checkFirstTime;
 	private DOTweenAnimation animationGame;
 	
@@ -70,6 +70,11 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 				if (teacher.identityCard.Equals("null"))
 				{
 					DOTween.Play ("7");
+					userName.text = "";
+					passName.text = "";
+					GameObject obj = Instantiate(_noUserPrefab, _parentText);
+					StartCoroutine(DeletePrefab(obj));
+
 				} else {
 					
 					DOTween.Play("bg_transition");
