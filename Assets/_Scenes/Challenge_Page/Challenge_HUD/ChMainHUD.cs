@@ -22,6 +22,10 @@ public class ChMainHUD : MonoBehaviour
     private Vector3 _showPosition, _hidePosition;
 
     private PublicServices _publicServices;
+
+    private EmpathymapServices _empathymapServices;
+
+    public RectTransform _transformShowHideBtn;
     #endregion
 
 
@@ -51,6 +55,8 @@ public class ChMainHUD : MonoBehaviour
         _actualMoment = 0;
 
         _publicServices = new PublicServices();
+        
+        _empathymapServices = new EmpathymapServices();
 
         int projectId = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 
@@ -58,7 +64,10 @@ public class ChMainHUD : MonoBehaviour
 
         if (_public.id != 0)
         {
+            var empathymap = _empathymapServices.GetEmpathyMap(projectId);
             _actualMoment = 1;
+            DataBaseParametersCtrl.Ctrl._empathyMapLoaded = empathymap;
+
         }
 
         XRSettings.enabled = false;
@@ -83,17 +92,19 @@ public class ChMainHUD : MonoBehaviour
         }
     }
 
-    public void ShowHideMenu()
+    public void ShowHideMenu(GameObject go)
     {
-        _isHide = !_isHide;
         if (_isHide)
         {
             _menuHolder.localPosition = _showPosition;
+            _transformShowHideBtn.Rotate( new Vector3( 0, 0, -180 ) );
         }
         else
         {
             _menuHolder.localPosition = _hidePosition;
+            _transformShowHideBtn.Rotate( new Vector3( 0, 0, 180 ) );
         }
+        _isHide = !_isHide;
     }
     #endregion
 

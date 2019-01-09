@@ -28,7 +28,7 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 
 
 	void Start () {
-		TitleCurse.text = Main_Ctrl.instance.NameCourse;
+		TitleCurse.text = "CURSO: "+ Main_Ctrl.instance.NameCourse;
 		groupName = GameObject.Find ("IFNameGroup").GetComponent<InputField> ();
 
 		saveCheck = GameObject.Find ("CuadroShowSave");

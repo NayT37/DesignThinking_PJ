@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class SelectGame : MonoBehaviour
 {
@@ -97,6 +98,10 @@ public class SelectGame : MonoBehaviour
         }
 
         }
+    
+    public void backToScene(){
+		StartCoroutine (BackOne ());
+	}
     #endregion
 
 
@@ -109,6 +114,13 @@ public class SelectGame : MonoBehaviour
 
 
     #region COROUTINES
+
+    
+	IEnumerator BackOne(){
+		DOTween.Play("bg_transition");
+		yield return new WaitForSeconds(1.0f);
+		SceneManager.LoadScene ("RegisterUser");
+	}
     private IEnumerator WaitAnimationTime()
     {
         yield return new WaitForSeconds(newGameCtrl.duration * 3);

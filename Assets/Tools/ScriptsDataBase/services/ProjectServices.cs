@@ -44,7 +44,7 @@ public class ProjectServices  {
 
 		//The identifier of the group is obtained to be able to pass 
 		//it as an attribute in the new project that will be created
-		int groupid = 1;//DataBaseParametersCtrl.Ctrl._groupLoaded.id;
+		int groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
 
 		int counter = GetProjectsCounter(groupid);
 
@@ -289,7 +289,11 @@ public class ProjectServices  {
 			int percentagePublic = _publicServices.GetPublicNamed(projectid).percentage;
 			int percentageStoryTelling = _storytellingServices.GetStorytellingAverage(projectid);
 			int percentageEmpathymap = DataBaseParametersCtrl.Ctrl._empathyMapLoaded.percentage;
-			int percentageProblem = DataBaseParametersCtrl.Ctrl._problemLoaded.percentage;
+			int percentageProblem = 0;
+			if (DataBaseParametersCtrl.Ctrl._problemLoaded != null)
+			{
+				percentageProblem = DataBaseParametersCtrl.Ctrl._problemLoaded.percentage;
+			}
 			projectToUpdate.percentage = ((percentagePublic+percentageStoryTelling+percentageEmpathymap+percentageProblem)/4);
 		} 
 

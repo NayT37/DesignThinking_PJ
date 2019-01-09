@@ -39,19 +39,24 @@ public class M1_Ctrl : MonoBehaviour
 
         int counter = 0;
 
+        _panelsArray = new EmpathyPanel[_panelQuantity];
+        _checkByPanel = new GameObject[_panelQuantity - 1];
+
         foreach (var item in sectors)
         {
             _arraySectors[counter] = item;
-            counter++;
+            Debug.Log(_arraySectors[counter].ToString());
+            _checkByPanel[counter] = GameObject.Find("Zones").transform.GetChild(counter).Find("CheckObj").gameObject;
+            if (item.description.Equals(""))
+            {   
+                _checkByPanel[counter].SetActive(false);
+            }
+            counter++;      
         }
 
         // DataBaseParametersCtrl.Ctrl._sectorLoaded = _arraySectors[0];
         //  _sectorServices.UpdateSector("");
 
-        _sectorServices = new SectorServices();
-
-        _panelsArray = new EmpathyPanel[_panelQuantity];
-        _checkByPanel = new GameObject[_panelQuantity - 1];
 
         for (int i = 0; i < _panelsArray.Length; i++)
         {
@@ -62,29 +67,42 @@ public class M1_Ctrl : MonoBehaviour
             }
         }
         _activePanel = 0;
-        for (int i = 0; i < _checkByPanel.Length; i++)
-        {
-            _checkByPanel[i] = GameObject.Find("Zones").transform.GetChild(i).Find("CheckObj").gameObject;
-            _checkByPanel[i].SetActive(false);
-        }
+        // for (int i = 0; i < _checkByPanel.Length; i++)
+        // {
+        //     _checkByPanel[i] = GameObject.Find("Zones").transform.GetChild(i).Find("CheckObj").gameObject;
+        //     _checkByPanel[i].SetActive(false);
+        // }
 
     }
 
-    public void ActivePanelByNumber(int panelNumber)
+    public void activePanel(int panelNumber){
+        ActivePanelByNumber(panelNumber, true);
+    }
+
+    public void ActivePanelByNumber(int panelNumber, bool isActive)
     {
-        print("Active is: " + _activePanel);
-        print("panel is: " + panelNumber);
-        print("Array is: " + _arraySectors.Length);
-        if (panelNumber != 0)
-        {
-            DataBaseParametersCtrl.Ctrl._sectorLoaded = _arraySectors[panelNumber - 1];
-            _panelsArray[panelNumber - 1].UpdateText(_arraySectors[panelNumber - 1].description);
-        }
-        else
-        {
-            DataBaseParametersCtrl.Ctrl._sectorLoaded = _arraySectors[_activePanel - 1];
-            _panelsArray[_activePanel - 1].UpdateText(_arraySectors[_activePanel - 1].description);
-        }
+        print("Active is: " + panelNumber);
+       
+            if (panelNumber != 0)
+            {
+                if (isActive)
+                {
+                  DataBaseParametersCtrl.Ctrl._sectorLoaded = _arraySectors[panelNumber - 1];
+                  _panelsArray[panelNumber].UpdateText(_arraySectors[panelNumber - 1].description);  
+                }
+                
+            }
+            // else
+            // {
+            //     DataBaseParametersCtrl.Ctrl._sectorLoaded = _arraySectors[_activePanel - 1];
+            //     if (isActive)
+            //     {
+            //       _panelsArray[_activePanel - 1].UpdateText(_arraySectors[_activePanel - 1].description);  
+            //     } 
+            // }
+        
+
+        
         if (panelNumber != _activePanel)
         {
             _panelsArray[_activePanel].SetActivePanel(false);

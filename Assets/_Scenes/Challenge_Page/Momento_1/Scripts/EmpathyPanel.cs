@@ -57,7 +57,7 @@ public class EmpathyPanel : MonoBehaviour
             _levelCtrl.OnPanelTextChanged(_panelId, _internalText);
             //Send internalText to DB
         }
-        _levelCtrl.ActivePanelByNumber(0);
+        _levelCtrl.ActivePanelByNumber(0, false);
     }
 
     public void UpdateText(string value)
