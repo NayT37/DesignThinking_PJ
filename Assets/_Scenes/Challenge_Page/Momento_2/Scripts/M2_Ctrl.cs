@@ -10,6 +10,8 @@ public class M2_Ctrl : MonoBehaviour
     //Private Variables
     private InputField _txtField1, _txtField2, _txtField3;
 
+    private InputField[] _arrayInputs;
+
     private ProblemServices _problemServices;
 
     private FieldServices _fieldServices;
@@ -35,14 +37,36 @@ public class M2_Ctrl : MonoBehaviour
 
         int counterProblem = _problemServices.GetProblemsCounter();
 
-        if (counterProblem == 0)
-        {
-            var problem = _problemServices.CreateProblem(_arrayResults);
-        }
-
         _txtField1 = GameObject.Find("FieldHolder_1").GetComponentInChildren<InputField>();
         _txtField2 = GameObject.Find("FieldHolder_2").GetComponentInChildren<InputField>();
         _txtField3 = GameObject.Find("FieldHolder_3").GetComponentInChildren<InputField>();
+
+        _arrayInputs = new InputField[3];
+
+        _arrayInputs[0] = _txtField1;
+        _arrayInputs[1] = _txtField2;
+        _arrayInputs[2] = _txtField3;
+
+        if (counterProblem == 0)
+        {
+            var problem = _problemServices.CreateProblem(_arrayResults);
+        } else {
+            int projectId = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
+            var problem = _problemServices.GetProblem(projectId);
+            DataBaseParametersCtrl.Ctrl._problemLoaded = problem;
+            var fields = _fieldServices.GetFields(problem.id);
+
+            int counter = 0;
+            foreach (var item in fields)
+            {
+                _arrayInputs[counter].text = item.description;
+                Debug.Log(item.ToString());
+                counter++;
+            }
+            ChMainHUD.instance.SetLimitCtrl(3);
+        }
+
+        
     }
 
     public void SendText()

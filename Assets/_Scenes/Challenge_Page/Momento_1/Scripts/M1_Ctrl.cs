@@ -42,6 +42,7 @@ public class M1_Ctrl : MonoBehaviour
         _panelsArray = new EmpathyPanel[_panelQuantity];
         _checkByPanel = new GameObject[_panelQuantity - 1];
 
+        bool isCheck = true;
         foreach (var item in sectors)
         {
             _arraySectors[counter] = item;
@@ -49,6 +50,11 @@ public class M1_Ctrl : MonoBehaviour
             _checkByPanel[counter] = GameObject.Find("Zones").transform.GetChild(counter).Find("CheckObj").gameObject;
             if (item.description.Equals(""))
             {   
+                if (isCheck)
+                {
+                    ChMainHUD.instance.SetLimitCtrl(2);
+                    isCheck = false;
+                }
                 _checkByPanel[counter].SetActive(false);
             }
             counter++;      

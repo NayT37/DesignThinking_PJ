@@ -16,6 +16,8 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     //Private Variables
     private Transform _mainPanel;
     private Transform _contentParent;
+
+    private Image __viewPort;
     private VerticalLayoutGroup _parentGL;
     //An static variable to call the dragged item easily from anywhere
     private static GameObject itemDragged;
@@ -41,6 +43,7 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     {
         _mainPanel = GameObject.Find("TemporalParent").transform;
         _contentParent = GameObject.Find("Content").transform;
+        __viewPort = GameObject.Find("VW").GetComponent<Image>();
         itemDragged = null;
         _initPosition = transform.position;
         _originalParent = transform.parent;
@@ -81,8 +84,9 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         //Set the dragged item to this gameobject
         transform.SetParent(_mainPanel);
         itemDragged = gameObject;
-        _parentGL.enabled = false;
+        //_parentGL.enabled = false;
         _raycastImg.raycastTarget = false;
+        __viewPort.raycastTarget = false;
         //  _originalParent = _mainPanel;
 
         if (transform.parent != _originalParent)
@@ -103,8 +107,9 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     {
         //The draggable item doest not exists
         _raycastImg.raycastTarget = true;
-        _parentGL.enabled = true;
+        //_parentGL.enabled = true;
         itemDragged = null;
+        __viewPort.raycastTarget = true;
     }
     #endregion
 

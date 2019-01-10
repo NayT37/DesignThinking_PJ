@@ -88,11 +88,12 @@ public class ChMainHUD : MonoBehaviour
         if (_actualMoment != clickMomentValue && clickMomentValue <= _limitCtrl)
         {
             _actualMoment = clickMomentValue;
+            ShowHideMenu();
             StartCoroutine(ChangeScene("M_" + _actualMoment, _actualScn));
         }
     }
 
-    public void ShowHideMenu(GameObject go)
+    public void ShowHideMenu()
     {
         if (_isHide)
         {
