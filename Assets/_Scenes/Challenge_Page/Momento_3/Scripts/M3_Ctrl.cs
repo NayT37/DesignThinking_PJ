@@ -225,6 +225,7 @@ public class M3_Ctrl : MonoBehaviour
             //  var temp = _arrayPostit[counter];
             var temp = Instantiate(_postIt, new Vector2(0, 0), Quaternion.identity);
             Drag_M3_Item drag = temp.GetComponent<Drag_M3_Item>();
+            drag._note = item;
             _arrayPostit.Add(temp);
             //DB
             drag.ChangeText(item.description);
@@ -232,11 +233,12 @@ public class M3_Ctrl : MonoBehaviour
             try
             {
                 drag.internalID = 1;
-                temp.transform.SetParent(_dropZonesArray[drag.internalID - 1]);
+                //temp.transform.SetParent(_dropZonesArray[drag.internalID - 1]);
+                temp.transform.SetParent(_contentHolder);
                 drag.rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
                 drag.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
                 temp.transform.localScale = new Vector3(1, 1, 1);
-                _dropZonesArray[drag.internalID - 1].GetComponent<Drop_M3_Zone>().CheckForChild();
+                //_dropZonesArray[drag.internalID - 1].GetComponent<Drop_M3_Zone>().CheckForChild();
             }
             catch (IndexOutOfRangeException e)
             {

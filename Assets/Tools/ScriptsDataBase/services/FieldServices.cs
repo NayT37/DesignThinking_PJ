@@ -178,6 +178,7 @@ public class FieldServices  {
 		{
 			f.description = arraystringsfield[counter];
 			f.lastUpdate = date;
+			counter++;
 			result+=_connection.Update(f, f.GetType());
 
 		}

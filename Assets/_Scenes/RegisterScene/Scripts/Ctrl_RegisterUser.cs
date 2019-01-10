@@ -22,6 +22,7 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 	#endregion
 
 	public void Start(){	
+		
 
 		var teacher = DataBaseParametersCtrl.Ctrl._teacherLoggedIn;
 
