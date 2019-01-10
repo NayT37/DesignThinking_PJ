@@ -72,6 +72,28 @@ public class Ctrl_M4 : CtrlInternalText
         //DBStuff
         _panelFeedback.OpenPanel(1, 1);
     }
+
+    public void ChangeActiveVersion()
+    {
+        EraseInfoAtPanel();
+        //DBStuff
+    }
+
+    public void EraseInfoAtPanel()
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            _subMainIdeasArray[i].SetInternalTxt("");
+            _subMainIdeasArray[i].SetChildsText("", "");
+        }
+    }
+
+    public void DeleteVersion() { }
+
+    public void AddVersion()
+    {
+        EraseInfoAtPanel();
+    }
     #endregion
 
 
