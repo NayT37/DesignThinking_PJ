@@ -56,7 +56,6 @@ public class AnswerServices  {
 
 		if (result != 0)
 		{
-			Debug.Log(new_a);
 			return new_a;
 				
 		}else {

@@ -114,8 +114,14 @@ public class CasesHUD_Ctrl : MonoBehaviour
         Text_Changed = GameObject.Find("NamePhase").GetComponent<Text>();
         Text_TitleCase = GameObject.Find("CaseTitle").GetComponent<Text>();
 
+        Text_TitleCase.text = "CASO 1";
+        Text_Changed.text = "EMPATIZAR";
+
         _btnRA = GameObject.Find("RA_Btn").GetComponent<Button>();
         _btnRA.onClick.AddListener(ChangeRA);
+
+        
+        Btn_momento1.sprite = Moment1_Selected;
     }
 
     public void InitializeServices(){
@@ -192,7 +198,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
 
                     //Texto Cambio de Nombre del caso
-                    Text_TitleCase.text = "CASO1";
+                    Text_TitleCase.text = "CASO 1";
                     Text_Changed.text = "EMPATIZAR";
                     break;
                 case 2:
@@ -211,7 +217,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
 
                     //Texto Cambio de Nombre del caso
-                    Text_TitleCase.text = "CASO2";
+                    Text_TitleCase.text = "CASO 2";
                     Text_Changed.text = "EMPATIZAR";
                     break;
                 case 3:
@@ -229,7 +235,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     Eva_Btn.sprite = EvaluarNull;
 
                     //Texto Cambio de Nombre del caso
-                    Text_TitleCase.text = "CASO3";
+                    Text_TitleCase.text = "CASO 3";
                     Text_Changed.text = "EMPATIZAR";
                     break;
             }

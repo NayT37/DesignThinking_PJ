@@ -78,7 +78,8 @@ public class ChMainHUD : MonoBehaviour
         _actualScn = "";
         _menuHolder = GameObject.Find("Menu_Holder").transform;
         _showPosition = new Vector3(0, 0, 0);
-        _hidePosition = new Vector3(0, -155, 0);
+        _hidePosition = new Vector3(0, -155, 0); 
+        ShowHideMenu();
         StartCoroutine(ChangeScene("M_" + _actualMoment, _actualScn));
     }
 
