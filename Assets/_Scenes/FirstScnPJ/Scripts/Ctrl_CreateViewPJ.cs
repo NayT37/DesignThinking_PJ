@@ -20,10 +20,12 @@ public class Ctrl_CreateViewPJ : MonoBehaviour
 
     private ProjectServices _projectServices;
 
+    private bool createProject;
+
     // Use this for initialization
     void Start()
     {
-
+        createProject = false;
         _doDataToLoad = false;
         _btnCreateProject.onClick.AddListener(delegate { eventClick(_btnCreateProject.name); });
         _btnLoadProjects.onClick.AddListener(delegate { eventClick(_btnLoadProjects.name); });
@@ -47,7 +49,7 @@ public class Ctrl_CreateViewPJ : MonoBehaviour
 
         if (name.Equals("NewProjectBtn"))
         {
-            var project = _projectServices.CreateProject("");
+            createProject = true;
             newSceneToLoad = "Challenge_HUD";
             isChange = true;
         }
@@ -103,12 +105,11 @@ public class Ctrl_CreateViewPJ : MonoBehaviour
     {
 
         yield return new WaitForSeconds(2.0f);
-        /*
-		It doesn't need to load asyncrhonous...
-
-		SceneManager.LoadScene(newSceneToLoad, LoadSceneMode.Additive);
-        SceneManager.UnloadSceneAsync("M_5A"); 
-		*/
+        if (createProject)
+        {
+            var project = _projectServices.CreateProject("");
+        }
+        DOTween.Play("bg_transition_end");
         SceneManager.LoadScene(newSceneToLoad);
     }
     #endregion

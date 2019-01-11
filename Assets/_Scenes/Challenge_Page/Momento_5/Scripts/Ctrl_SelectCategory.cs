@@ -32,15 +32,9 @@ public class Ctrl_SelectCategory : MonoBehaviour {
 			nameCategory = "Producto";
 		
 		Ctrl_Moment5.Ctrl._evaluationCategory = nameCategory;
-		var result = Ctrl_Moment5.Ctrl.createEvaluation();
-
-		if (result.id!=0)
-		{
-			DataBaseParametersCtrl.Ctrl._evaluationLoaded = result;
-			DOTween.Play(name);
-			DOTween.Play("bg_transition");
-			StartCoroutine(ChangeScene());
-		}
+		DOTween.Play(name);
+		DOTween.Play("bg_transition");
+		StartCoroutine(ChangeScene());
         
 
     }
@@ -53,10 +47,13 @@ public class Ctrl_SelectCategory : MonoBehaviour {
 	#region COROUTINES
     private IEnumerator ChangeScene()
     {
-		
         yield return new WaitForSeconds(2.0f);
+		var result = Ctrl_Moment5.Ctrl.createEvaluation();
+		DataBaseParametersCtrl.Ctrl._evaluationLoaded = result;
 		SceneManager.LoadScene("M_5A", LoadSceneMode.Additive);
+		DOTween.Play("bg_transition_end");
         SceneManager.UnloadSceneAsync("M_5");
+		
     }
     #endregion
 }

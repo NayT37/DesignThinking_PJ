@@ -7,6 +7,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Security;
 using System.Text;
+using UnityEngine.SceneManagement;
 
 public class DataBaseParametersCtrl : MonoBehaviour {
 
@@ -73,6 +74,8 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 
 	public DataService _dataServices;
 
+	public bool isWaitingToDB;
+
 	private string Salt;
 
     void Awake () {
@@ -85,6 +88,7 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		isWaitingToDB = true;
 		Salt = "EHS-dpa";
 		_dataServices = new DataService ("dtdbtemplate.db");
 		_sqliteConnection = _dataServices._connection;
@@ -131,6 +135,22 @@ public class DataBaseParametersCtrl : MonoBehaviour {
         HMACSHA512 hmacsha512 = new HMACSHA512 (Encoding.ASCII.GetBytes (Salt));
         hmacsha512.ComputeHash (Encoding.ASCII.GetBytes (inputString));
         return BitConverter.ToString (hmacsha512.Hash).Replace ("-", "").ToLower();
+    }
+
+
+	public Evaluation createEvaluation(){
+
+		StartCoroutine(CreateEvaluation());
+		return null;
+	}
+	private IEnumerator CreateEvaluation()
+    {	
+		while (isWaitingToDB)
+		{	
+			Debug.Log("...");	
+		} 
+
+		yield return null;
     }
 
 

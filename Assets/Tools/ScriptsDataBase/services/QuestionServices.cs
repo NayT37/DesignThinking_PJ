@@ -59,8 +59,6 @@ public class QuestionServices  {
 		
 		int result = _connection.Insert (new_q);
 
-		int counter = 0;
-
 		if (result != 0)
 		{
 			DataBaseParametersCtrl.Ctrl._questionLoaded = new_q;
@@ -69,15 +67,10 @@ public class QuestionServices  {
 			{	
 				var a = _answerServices.CreateAnswer(i+1);
 
-				if (a.id != 0)
-					counter++;
 			}
 
-			if (counter == 5){
-				Debug.Log(new_q);
-				return new_q;
-			}else 
-				return _nullQuestion;
+		return new_q;
+		
 
 		}else {
 			return _nullQuestion;

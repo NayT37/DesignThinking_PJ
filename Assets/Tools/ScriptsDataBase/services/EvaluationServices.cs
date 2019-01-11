@@ -51,7 +51,9 @@ public class EvaluationServices  {
 
 		//The identifier of the mindmap is obtained to be able to pass 
 		//it as an attribute in the new evaluation that will be created
-		int mindmapid = 1;//DataBaseParametersCtrl.Ctrl._mindMapLoaded.id;
+		int mindmapid = DataBaseParametersCtrl.Ctrl._mindMapLoaded.id;
+
+		//DataBaseParametersCtrl.Ctrl.createEvaluation();
 
 		//Get the current date to create the new evaluation
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -69,8 +71,6 @@ public class EvaluationServices  {
 		
 		int result = _connection.Insert (new_e);
 
-		int count = 0;
-
 		int questionsCounter = 10;
 
 		if (result != 0)
@@ -82,21 +82,14 @@ public class EvaluationServices  {
 			{
 				var q = _questionServices.CreateQuestion(arrayDescriptions[i], arraycategorys[i]);	
 				
-				if (q.id != 0)
-				{
-					count++;
-				}
 			}
 
-			if (count == questionsCounter){
-				Debug.Log(new_e);
-				return new_e;
-			}else
-				return _nullEvaluation;
+			return new_e;
 				
 		}else {
 			return _nullEvaluation;
 		}
+
 		//End-Validation that the query		
 		
 		

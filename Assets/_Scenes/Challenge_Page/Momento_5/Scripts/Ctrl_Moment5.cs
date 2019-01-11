@@ -105,7 +105,7 @@ public class Ctrl_Moment5 : MonoBehaviour {
 		{
 			_answersValue[counterArrayIn] += ((answersarray[i]*(counterArrayOut+1))*counterQuestions);
 			counterArrayOut++;
-			if (i%5==0)
+			if ((i+1)%5==0)
 			{
 				counterArrayIn++;
 				counterArrayOut = 0;
