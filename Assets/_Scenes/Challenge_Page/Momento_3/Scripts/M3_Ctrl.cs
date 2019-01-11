@@ -148,15 +148,23 @@ public class M3_Ctrl : MonoBehaviour
     {
 
         int versionToDelete = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.version;
+        int lengthStorys = _arraystorytellings.Length;
 
         if (versionToDelete == 1)
         {
             _storytellingServices.UpdateStoryTelling(_arraystorytellings[1], 1);
-            _storytellingServices.UpdateStoryTelling(_arraystorytellings[2], 2);
+            if (lengthStorys == 3)
+            {
+                _storytellingServices.UpdateStoryTelling(_arraystorytellings[2], 2);          
+            }
         }
         else if (versionToDelete == 2)
         {
-            _storytellingServices.UpdateStoryTelling(_arraystorytellings[2], 2);
+            if (lengthStorys == 3)
+            {
+                _storytellingServices.UpdateStoryTelling(_arraystorytellings[2], 2);  
+            }
+            
         }
 
         _storytellingServices.DeleteStoryTelling();
@@ -310,7 +318,7 @@ public class M3_Ctrl : MonoBehaviour
         _actualTab = value;
         deleteNotesPrefab();
         ChargeNotesToStoryTelling();
-        ChangeStoryTellingVersion(1);
+        ChangeStoryTellingVersion(value);
     }
     #endregion
 

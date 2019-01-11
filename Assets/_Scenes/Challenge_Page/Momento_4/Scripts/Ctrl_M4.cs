@@ -35,7 +35,7 @@ public class Ctrl_M4 : CtrlInternalText
         _internalTxt = "";
         _panelFeedback = GameObject.FindObjectOfType<PanelSaveFeedback>();
         _panelFeedback.gameObject.SetActive(false);
-        SetSubMainIdeaText();
+       // SetSubMainIdeaText();
     }
     public void OpenSavePanel()
     {
