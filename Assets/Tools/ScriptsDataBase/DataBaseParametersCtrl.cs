@@ -76,6 +76,8 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 
 	public bool isWaitingToDB;
 
+	public string _path;
+
 	private string Salt;
 
     void Awake () {
@@ -151,6 +153,21 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 		} 
 
 		yield return null;
+    }
+
+	public void WriteResult(string[] paths) {
+        if (paths.Length == 0) {
+            return;
+        }
+
+        _path = "";
+        foreach (var p in paths) {
+            _path += p + "\n";
+        }
+    }
+
+    public void WriteResult(string path) {
+        _path = path;
     }
 
 

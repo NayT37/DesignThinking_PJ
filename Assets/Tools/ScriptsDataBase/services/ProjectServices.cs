@@ -62,10 +62,10 @@ public class ProjectServices  {
 		};
 
 		//Start-Validation that the project that will be created does not exist
-		var projectValidation = GetProjectNamed(new_p.name, groupid);
+		//var projectValidation = GetProjectNamed(new_p.name, groupid);
 
-		if ((projectValidation.name).Equals("null"))
-		{
+		//if ((projectValidation.name).Equals("null"))
+		//{
 			int r = _connection.Insert (new_p);
 
 			if (r!=0)
@@ -88,10 +88,6 @@ public class ProjectServices  {
 				Debug.Log("2");
 				return _nullProject;
 			}
-		} else {
-			Debug.Log("1");
-			return _nullProject;
-		}
 		//End-Validation that the project that will be created does not exist
 	}
 
@@ -173,6 +169,8 @@ public class ProjectServices  {
 		return _connection.Table<Project>().Where(x => x.id == projectid);
 	}
 
+	
+
 	/// <summary>
 	/// Description of the method to obtain all the projects of a specific group
 	/// </summary>
@@ -192,7 +190,8 @@ public class ProjectServices  {
 	/// A IEnumerable list of all the projects found
 	/// </returns>
 	public IEnumerable<Project> GetProjects(){
-		return _connection.Table<Project>();
+		int groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
+		return _connection.Table<Project>().Where(x => x.groupId == groupid);
 	}
 
 	/// <summary>

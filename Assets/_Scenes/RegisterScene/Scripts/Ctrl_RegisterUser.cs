@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using SFB;
 
 
 public class Ctrl_RegisterUser : MonoBehaviour {
@@ -87,7 +88,7 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 		}else{
 //			userName.GetComponent<InputField> ();
 //			userName.placeholder.transform.localScale = new Vector3 (1.5f,1.5f,1);
-			DOTween.Play ("7");
+			//DOTween.Play ("7");
 		}
 	}
 
@@ -102,4 +103,6 @@ public class Ctrl_RegisterUser : MonoBehaviour {
         yield return new WaitForSeconds(3.0f);	
         DestroyImmediate(obj);
     }
+
+	
 }

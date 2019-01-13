@@ -28,7 +28,7 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 
 
 	void Start () {
-		TitleCurse.text = "CURSO: "+ Main_Ctrl.instance.NameCourse;
+		TitleCurse.text = "CURSO: "+ Main_Ctrl.instance.NameCourse.ToUpper();
 		groupName = GameObject.Find ("IFNameGroup").GetComponent<InputField> ();
 
 		saveCheck = GameObject.Find ("CuadroShowSave");
@@ -74,7 +74,7 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 			StartCoroutine(feedback());
 		} else {
 			//Enviar a base de datos el nuevo grupo creado con dos parametros, el nombre y el número de estudiantes por grupo
-			var group = _groupServices.CreateGroup (groupName.text,Convert.ToInt32(numberPerson.text.ToString()));
+			var group = _groupServices.CreateGroup (groupName.text.ToUpper(),Convert.ToInt32(numberPerson.text.ToString()));
 			contador += 1;
 			Debug.Log (contador + " contador");
 			//Se devuelve el Id del grupo desde la base de datos, cuando sea 1 se guardara y cuando sea 0 es porque ese grupo
