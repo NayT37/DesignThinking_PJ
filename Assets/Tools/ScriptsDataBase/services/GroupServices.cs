@@ -237,7 +237,7 @@ public class GroupServices  {
 		int valueToReturn = 0;
 
 		//All the trainings belonging to the group that will be deleted are obtained.
-		var projects = _projectServices.GetProjects(groupid);
+		var projects = _projectServices.GetProjects();
 
 		//If the elimination of the group is correct, then the trainings and projects corresponding to that group are eliminated.
 		if (result!=0)

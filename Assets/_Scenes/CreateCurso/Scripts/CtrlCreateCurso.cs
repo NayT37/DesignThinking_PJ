@@ -38,8 +38,8 @@ public class CtrlCreateCurso : MonoBehaviour {
 	}
 
 	IEnumerator SaveNameCourse(){
-		Main_Ctrl.instance.NameCourse = NameCourse.text;
-		var result = _courseServices.CreateCourse (NameCourse.text);
+		Main_Ctrl.instance.NameCourse = NameCourse.text.ToUpper();
+		var result = _courseServices.CreateCourse (NameCourse.text.ToUpper());
 		if (result.id != 0) {
 			DataBaseParametersCtrl.Ctrl._courseLoaded = result;
 			Debug.Log ("result " + result);
