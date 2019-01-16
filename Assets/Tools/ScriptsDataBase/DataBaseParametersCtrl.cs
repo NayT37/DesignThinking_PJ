@@ -79,8 +79,8 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 	public string _path;
 
 	private string Salt;
+    public string _ipServer;
 
-	public string _ipServer;
 
     void Awake () {
         if (Ctrl == null) {

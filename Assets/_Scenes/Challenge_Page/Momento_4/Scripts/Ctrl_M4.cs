@@ -12,6 +12,20 @@ public class Ctrl_M4 : CtrlInternalText
     //Private Variables
     private SubMainIdea[] _subMainIdeasArray;
     private PanelSaveFeedback _panelFeedback;
+
+    private MindmapServices _mindmapServices;
+
+    private SectionServices _sectionServices;
+
+    private NodeServices _nodeServices;
+
+    private Mindmap[] _arrayMindmaps;
+
+    private Section[] _arraySections;
+
+    private Node[] _arrayNodes;
+
+    private int counterMindmaps;
     #endregion
 
 
@@ -24,6 +38,15 @@ public class Ctrl_M4 : CtrlInternalText
     #region CREATED_METHODS
     private void Initializate()
     {
+        counterMindmaps = 0;
+        _mindmapServices = new MindmapServices();
+        _sectionServices = new SectionServices();
+        _nodeServices = new NodeServices();
+
+        _arraySections = new Section[6] { null, null, null, null, null, null };
+
+        _arrayNodes = new Node[18] { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null };
+
         PanelSaveIdea.instance.ClosePanel();
         _titleTxt = "Idea Principal";
         _subMainIdeasArray = new SubMainIdea[6];
@@ -35,7 +58,140 @@ public class Ctrl_M4 : CtrlInternalText
         _internalTxt = "";
         _panelFeedback = GameObject.FindObjectOfType<PanelSaveFeedback>();
         _panelFeedback.gameObject.SetActive(false);
-       // SetSubMainIdeaText();
+        // SetSubMainIdeaText();
+
+        ChargeNodesMindmap();
+        ChangeMindmapVersion(1);
+    }
+
+    public void ChargeNodesMindmap()
+    {
+
+        counterMindmaps = _mindmapServices.GetMindmapsCounter();
+
+        _arrayMindmaps = new Mindmap[counterMindmaps];
+
+        setArrayMindmaps();
+
+        //_arrayPostit = new List<GameObject>();
+
+    }
+
+    public void setArrayMindmaps()
+    {
+
+        var mindmaps = _mindmapServices.GetMindmaps();
+
+        int counter = 0;
+
+        foreach (var item in mindmaps)
+        {
+            _arrayMindmaps[counter] = item;
+            counter++;
+        }
+    }
+
+    public void ChangeMindmapVersion(int version)
+    {
+
+
+        DataBaseParametersCtrl.Ctrl._mindMapLoaded = _arrayMindmaps[version - 1];
+
+        setArraySections();
+        setArrayNodes();
+        setTextNodes();
+
+
+    }
+
+    public void setArraySections()
+    {
+
+        var sections = _sectionServices.GetSections();
+
+        int counter = 0;
+
+        foreach (var item in sections)
+        {
+            _arraySections[counter] = item;
+            counter++;
+        }
+    }
+
+    public void setArrayNodes()
+    {
+        int count = 0;
+        for (int i = 0; i < _arraySections.Length; i++)
+        {
+
+            var nodes = _nodeServices.GetNodes(_arraySections[i].id);
+
+            foreach (var item in nodes)
+            {
+                _arrayNodes[i + count] = item;
+                count++;
+            }
+
+        }
+    }
+
+    public void createMindmap()
+    {
+        int version = 0;
+        if (counterMindmaps == 1)
+        {
+            version = 2;
+        }
+        else
+        {
+            version = 3;
+        }
+
+        _mindmapServices.CreateMindMap(version);
+
+        ChargeNodesMindmap();
+        ChangeMindmapVersion(version);
+    }
+
+    public void deleteMindmap()
+    {
+        var mindmaptodelete = DataBaseParametersCtrl.Ctrl._mindMapLoaded;
+        int versionToDelete = mindmaptodelete.version;
+        int lengthStorys = _arrayMindmaps.Length;
+
+        if (versionToDelete == 1)
+        {
+            _mindmapServices.UpdateMindmap(_arrayMindmaps[1], 1);
+            if (lengthStorys == 3)
+            {
+                _mindmapServices.UpdateMindmap(_arrayMindmaps[2], 2);
+            }
+        }
+        else if (versionToDelete == 2)
+        {
+            if (lengthStorys == 3)
+            {
+                _mindmapServices.UpdateMindmap(_arrayMindmaps[2], 2);
+            }
+
+        }
+
+        _mindmapServices.DeleteMindmap(mindmaptodelete);
+
+        ChargeNodesMindmap();
+
+        ChangeMindmapVersion(1);
+    }
+
+    private void setTextNodes()
+    {
+
+        for (int i = 0; i < _arraySections.Length; i++)
+        {
+            _subMainIdeasArray[6 + i].SetInternalTxt(_arrayNodes[6 + i].description);
+            _subMainIdeasArray[i].SetChildsOportunityTxt(_arrayNodes[i].description);
+            _subMainIdeasArray[i].SetChildsRiskTxt(_arrayNodes[12 + i].description);
+        }
     }
     public void OpenSavePanel()
     {
@@ -49,9 +205,12 @@ public class Ctrl_M4 : CtrlInternalText
 
     public void SaveInfoPanel()
     {
-        if (PanelSaveIdea.instance.inputTxt.text != "")
+        string text = PanelSaveIdea.instance.inputTxt.text;
+        if (text != "")
         {
-            PanelSaveIdea.instance.ctrlTxtObj.SetInternalTxt(PanelSaveIdea.instance.inputTxt.text);
+            int position = PanelSaveIdea.instance.ctrlTxtObj.databaseID;
+            _nodeServices.UpdateNode(_arrayNodes[position], text);
+            PanelSaveIdea.instance.ctrlTxtObj.SetInternalTxt(text);
             //DB stuff
             PanelSaveIdea.instance.ClosePanel();
         }

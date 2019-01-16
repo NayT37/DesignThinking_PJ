@@ -134,6 +134,7 @@ public class NodeServices:MonoBehaviour  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
+	
 	public int UpdateNode(Node nodeToUpdate, string newdescription){
 
 		//valueToResponse = 4
