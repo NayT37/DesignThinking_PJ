@@ -16,6 +16,7 @@ public class ZeroMomentCtrl : MonoBehaviour
     private bool _isSectorSelected, _isGenderSelected, _isAgeSelected;
     private int _pageCtrl;
     private Image[] _ageImgsArray, _genderImgsArray;
+    private Text[] _ageTxtArray, _genderTxtArray;
     private GameObject _genderHolderObj, _ageHolderObj;
     private GameObject _genderItemHolder, _ageItemHolder;
 
@@ -74,14 +75,19 @@ public class ZeroMomentCtrl : MonoBehaviour
         _genderImgsArray = new Image[_genderItemHolder.transform.childCount];
         _ageImgsArray = new Image[_ageItemHolder.transform.childCount];
 
+        //Getting texts
+        _ageTxtArray = new Text[_ageImgsArray.Length];
+        _genderTxtArray = new Text[_genderImgsArray.Length];
+
         for (int i = 0; i < _genderImgsArray.Length; i++)
         {
             _genderImgsArray[i] = _genderItemHolder.transform.GetChild(i).GetComponent<Image>();
-
+            _genderTxtArray[i] = _genderItemHolder.transform.GetChild(i).GetComponentInChildren<Text>();
         }
         for (int i = 0; i < _ageImgsArray.Length; i++)
         {
             _ageImgsArray[i] = _ageItemHolder.transform.GetChild(i).GetComponent<Image>();
+            _ageTxtArray[i] = _ageItemHolder.transform.GetChild(i).GetComponentInChildren<Text>();
         }
 
         _isSectorSelected = false;
@@ -160,8 +166,10 @@ public class ZeroMomentCtrl : MonoBehaviour
         for (int i = 0; i < _genderImgsArray.Length; i++)
         {
             _genderImgsArray[i].color = _neutralClr;
+            _genderTxtArray[i].color = _neutralClr;
         }
         EventSystem.current.currentSelectedGameObject.GetComponent<Image>().color = _selectedClr;
+        EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().color = _selectedClr;
     }
     public void AgeSelection(string value)
     {
@@ -170,8 +178,10 @@ public class ZeroMomentCtrl : MonoBehaviour
         for (int i = 0; i < _ageImgsArray.Length; i++)
         {
             _ageImgsArray[i].color = _neutralClr;
+            _ageTxtArray[i].color = _neutralClr;
         }
         EventSystem.current.currentSelectedGameObject.GetComponent<Image>().color = _selectedClr;
+        EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().color = _selectedClr;
     }
     #endregion
 

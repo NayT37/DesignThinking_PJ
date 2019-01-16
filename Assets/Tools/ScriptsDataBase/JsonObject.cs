@@ -415,6 +415,20 @@ public class ResponseDeleteMindmap {
 	public string msg;
 	public int result;
 }
+
+[Serializable]
+public class ResponseUpdateMindmap {
+	public bool error;
+	public string msg;
+	public int result;
+}
+
+[Serializable]
+public class ResponseGetMindmapsCounter {
+	public bool error;
+	public string msg;
+	public int counter;
+}
 #endregion
 
 #region RESPONSES EVALUATION

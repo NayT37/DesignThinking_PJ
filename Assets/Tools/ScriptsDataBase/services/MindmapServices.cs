@@ -160,11 +160,45 @@ public class MindmapServices:MonoBehaviour  {
 	/// <returns>
 	/// A IEnumerable list of all the Notes found from the identifier of the project that was passed as a parameter
 	/// </returns>
-	public IEnumerable<Mindmap> GetMindmaps(int storytellingId){
+	public IEnumerable<Mindmap> GetMindmaps(){
+
+		int storytellingid = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
 
 		//valueToResponse = 2
 		
-		return _connection.Table<Mindmap>().Where(x => x.storytellingId == storytellingId);
+		return _connection.Table<Mindmap>().Where(x => x.storytellingId == storytellingid);
+	}
+
+	/// <summary>
+	/// Description of the method to obtain all the notes of a specific project
+	/// </summary>
+	/// <param name="storytellingId">
+	/// integer to define the identifier of the project from which all the related Notes will be brought.
+	/// <returns>
+	/// A IEnumerable list of all the Notes found from the identifier of the project that was passed as a parameter
+	/// </returns>
+	public IEnumerable<Mindmap> GetMindmaps(int storytellingid){
+
+
+		//valueToResponse = 2
+		
+		return _connection.Table<Mindmap>().Where(x => x.storytellingId == storytellingid);
+	}
+	/// <summary>
+	/// Description of the method to obtain all the notes of a specific project
+	/// </summary>
+	/// <param name="storytellingId">
+	/// integer to define the identifier of the project from which all the related Notes will be brought.
+	/// <returns>
+	/// A IEnumerable list of all the Notes found from the identifier of the project that was passed as a parameter
+	/// </returns>
+	public int GetMindmapsCounter(){
+
+		int storytellingid = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
+
+		//valueToResponse = 3
+		
+		return _connection.Table<Mindmap>().Where(x => x.storytellingId == storytellingid).Count();
 	}
 	
 	
@@ -204,7 +238,7 @@ public class MindmapServices:MonoBehaviour  {
 	/// </returns>
 	public int DeleteMindmap(Mindmap mindmapToDelete){
 
-		//valueToResponse = 3
+		//valueToResponse = 4
 		
 		int mindmapid = mindmapToDelete.id;
 
@@ -234,6 +268,25 @@ public class MindmapServices:MonoBehaviour  {
 		}
 
 		return valueToReturn;
+	}
+
+	/// <summary>
+	/// Description of the method to update a moment
+	/// </summary>
+	/// <param name="mindmapid">
+	/// An integer that contain the identifier section that will be updated.
+	/// <returns>
+	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
+	/// </returns>
+	public int UpdateMindmap(Mindmap mindmapToUpdate, int newversion){
+
+		var _storytellingServices = new StorytellingServices();
+		
+		mindmapToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+		mindmapToUpdate.version = newversion;
+		int result = _connection.Update(mindmapToUpdate, mindmapToUpdate.GetType());
+
+		return result;
 	}
 
 	/// <summary>
@@ -284,9 +337,15 @@ public class MindmapServices:MonoBehaviour  {
 
 				break;
 
-				case 3:
+				case 4:
 
 				StartCoroutine (waitDB_ToDeleteMindmap (postRequest));
+				
+				break;
+
+				case 5:
+
+				StartCoroutine (waitDB_ToUpdateMindmap (postRequest));
 				
 				break;
 
@@ -386,6 +445,47 @@ public class MindmapServices:MonoBehaviour  {
         yield return null;
     }
 
+	
+	IEnumerator waitDB_ToUpdateMindmap (UnityWebRequest www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseUpdateMindmap resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseUpdateMindmap> (www.downloadHandler.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					resultToDB = resp.result;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
 	#endregion
 
 	#region METHODS to get data to DB
@@ -393,7 +493,22 @@ public class MindmapServices:MonoBehaviour  {
 
             WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
            
-			yield return (waitDB_ToGetMindmaps (postRequest));
+			switch(valueToResponse){
+
+				case 2:
+
+				yield return (waitDB_ToGetMindmaps (postRequest));
+
+				break;
+
+				case 3:
+
+				yield return (waitDB_ToGetMindmapsCounter (postRequest));
+				
+				break;
+
+			}
+			
 		
         }
 
@@ -422,6 +537,46 @@ public class MindmapServices:MonoBehaviour  {
             if (resp != null) { // Informacion obtenida exitosamente
                 if (!resp.error) { // sin error en el servidor
 					_mindmapsLoaded = resp.mindmaps;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+		IEnumerator waitDB_ToGetMindmapsCounter (WWW www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseGetMindmapsCounter resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseGetMindmapsCounter> (www.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					resultToDB = resp.counter;
 					isQueryOk = true;
                     } else { // no existen usuarios
                     }

@@ -67,6 +67,28 @@ public class SubMainIdea : CtrlInternalText, IPointerClickHandler
         _childsArray[0].SetCanWrite(true);
         _childsArray[1].SetCanWrite(true);
     }
+
+    public void SetChildsOportunityTxt(string oportunityTxt)
+    {
+        if (_childsArray[0] == null)
+        {
+            _childsArray[0] = transform.GetChild(0).GetComponent<ChildSubMainIdea>();
+        }
+        _childsArray[0].SetInternalTxt(oportunityTxt);
+        _childsArray[0].SetCanWrite(true);
+    }
+
+    public void SetChildsRiskTxt(string riskTxt)
+    {
+        if (_childsArray[1] == null)
+        {
+            _childsArray[1] = transform.GetChild(1).GetComponent<ChildSubMainIdea>();
+        }
+        _childsArray[1].SetInternalTxt(riskTxt);
+        _childsArray[1].SetCanWrite(true);
+    }
+
+
     #endregion
 
 

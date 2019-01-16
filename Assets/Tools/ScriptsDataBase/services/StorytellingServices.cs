@@ -187,7 +187,7 @@ public class StorytellingServices:MonoBehaviour  {
 	public int DeleteStoryTelling(StoryTelling storytellingToDelete){
 
 		//valueToResponse = 4
-
+		
 		int storytellingid = storytellingToDelete.id;
 
 		// All the notes belonging to the storytelling that will be deleted are obtained.

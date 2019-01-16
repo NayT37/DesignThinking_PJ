@@ -77,6 +77,6 @@ public class ChildSubMainIdea : CtrlInternalText, IPointerClickHandler
 
 
     #region COROUTINES
-    
+
     #endregion
 }

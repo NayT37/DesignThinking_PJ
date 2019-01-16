@@ -6,6 +6,7 @@ public class CtrlInternalText : MonoBehaviour
 {
     #region VARIABLES
     //Public Variables
+    public int databaseID;
     [HideInInspector]
     public string _titleTxt, _internalTxt;
     //Private Variables
