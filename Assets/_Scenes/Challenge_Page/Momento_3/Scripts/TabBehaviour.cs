@@ -49,7 +49,7 @@ public class TabBehaviour : MonoBehaviour, IPointerClickHandler
             temp.SetInernalID(_internalID);
             _mainCtrl.SetActualTab(_internalID);
             this.SetInernalID(tempID);
-            _mainCtrl.HideTabs();
+            //   _mainCtrl.HideTabs();
         }
     }
     #endregion
