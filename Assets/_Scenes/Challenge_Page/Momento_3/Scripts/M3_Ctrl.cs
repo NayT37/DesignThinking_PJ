@@ -15,7 +15,9 @@ public class M3_Ctrl : MonoBehaviour
     private Transform _contentHolder;
     private int _postItQntt;
     private PostIt _editableItem;
-    private Button _mainTab, _addIdea, _detIdea;
+    //private Button _mainTab, _addIdea, _detIdea;
+    private Button _addIdea, _detIdea;
+
     private bool _showTabs;
     private Transform[] _dropZonesArray;
 
@@ -29,12 +31,16 @@ public class M3_Ctrl : MonoBehaviour
     private int counterstorytelling, _actualTab;
 
     private List<GameObject> _arrayPostit;
-    TabBehaviour[] _tabsArray;
+    //TabBehaviour[] _tabsArray;
+    private MainTab _mainTab;
     #endregion
 
 
     #region SYSTEM_METHODS
     private void Start() { Initializate(); }
+
+    private void OnEnable() { MainTab.OnTabChange += MainTabChanged; }
+    private void OnDisable() { MainTab.OnTabChange -= MainTabChanged; }
     #endregion
 
 
@@ -62,23 +68,23 @@ public class M3_Ctrl : MonoBehaviour
         _addPostItPanel.SetActive(false);
         _postItQntt = 0;
 
-        _tabsArray = new TabBehaviour[3];
-        for (int i = 0; i < _tabsArray.Length; i++)
-        {
-            _tabsArray[i] = GameObject.Find("Btn_" + (i + 1)).GetComponent<TabBehaviour>();
+        /*         _tabsArray = new TabBehaviour[3];
+                for (int i = 0; i < _tabsArray.Length; i++)
+                {
+                    _tabsArray[i] = GameObject.Find("Btn_" + (i + 1)).GetComponent<TabBehaviour>();
 
-        }
-        _mainTab = _tabsArray[0].GetComponent<Button>();
+                } */
+        //_mainTab = _tabsArray[0].GetComponent<Button>();
 
         _addIdea = GameObject.Find("AddIdea_Btn").GetComponent<Button>();
         _detIdea = GameObject.Find("DetIdea_Btn").GetComponent<Button>();
-        _mainTab.onClick.AddListener(ShowHideTabs);
+        //_mainTab.onClick.AddListener(ShowHideTabs);
         _addIdea.onClick.AddListener(CreateNewIdea);
         _detIdea.onClick.AddListener(DeleteCurrentIdea);
         _detIdea.gameObject.SetActive(false);
         _showTabs = false;
-        HideTabs();
-        //       _arrayPostit = new List<GameObject>(); //Delete this line
+        // HideTabs();
+        _arrayPostit = new List<GameObject>();
         //      counterstorytelling = 1; //Delete this line
 
         ChargeNotesToStoryTelling();
@@ -155,16 +161,16 @@ public class M3_Ctrl : MonoBehaviour
             _storytellingServices.UpdateStoryTelling(_arraystorytellings[1], 1);
             if (lengthStorys == 3)
             {
-                _storytellingServices.UpdateStoryTelling(_arraystorytellings[2], 2);          
+                _storytellingServices.UpdateStoryTelling(_arraystorytellings[2], 2);
             }
         }
         else if (versionToDelete == 2)
         {
             if (lengthStorys == 3)
             {
-                _storytellingServices.UpdateStoryTelling(_arraystorytellings[2], 2);  
+                _storytellingServices.UpdateStoryTelling(_arraystorytellings[2], 2);
             }
-            
+
         }
 
         _storytellingServices.DeleteStoryTelling();
@@ -269,7 +275,13 @@ public class M3_Ctrl : MonoBehaviour
             counterstorytelling++;
             _addIdea.gameObject.SetActive(false);
         }
-        HideTabs();
+        //  HideTabs();
+        if (!_mainTab)
+        {
+            _mainTab = GameObject.FindObjectOfType<MainTab>();
+        }
+        _mainTab.SetTabsToShowCouner(counterstorytelling);
+        _mainTab.HideTabs();
         _showTabs = false;
     }
 
@@ -286,24 +298,36 @@ public class M3_Ctrl : MonoBehaviour
             _detIdea.gameObject.SetActive(false);
         }
         _actualTab = 1;
-        for (int i = 0; i < _tabsArray.Length; i++)
-        {
-            _tabsArray[i].SetInernalID(i + 1);
-        }
-        HideTabs();
+        /*         for (int i = 0; i < _tabsArray.Length; i++)
+                {
+                    _tabsArray[i].SetInernalID(i + 1);
+                } */
+        // HideTabs();
+        _mainTab.SetTabsToShowCouner(counterstorytelling);
+        _mainTab.HideTabs();
+        _mainTab.SetSelectedTab(1);
         _showTabs = false;
         deleteNotesPrefab();
         ChargeNotesToStoryTelling();
         ChangeStoryTellingVersion(1);
     }
 
-    public void HideTabs()
-    {
-        _showTabs = false;
-        for (int i = 1; i < 3; i++)
+    /*     public void HideTabs()
         {
-            _mainTab.transform.GetChild(i).gameObject.SetActive(false);
+            _showTabs = false;
+            for (int i = 1; i < 3; i++)
+            {
+                _mainTab.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        } */
+
+    private void MainTabChanged()
+    {
+        if (!_mainTab)
+        {
+            _mainTab = GameObject.FindObjectOfType<MainTab>();
         }
+        ChangeStoryTellingVersion(_mainTab.GetSelectedTab());
     }
     #endregion
 

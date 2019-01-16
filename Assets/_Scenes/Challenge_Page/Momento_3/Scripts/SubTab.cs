@@ -22,7 +22,7 @@ public class SubTab : MonoBehaviour, IPointerClickHandler
 
 
     #region SYSTEM_METHODS
-    private void Start() { Initializate(); }
+    private void Awake() { Initializate(); }
     private void Update() { }
     #endregion
 
@@ -49,14 +49,16 @@ public class SubTab : MonoBehaviour, IPointerClickHandler
         {
             _mainTab.SetSelectedTab(_internalID);
             OnStateChange();
+            if (_isActiveState) { _internalImg.color = _activeClr; } else { _internalImg.color = _deactiveClr; }
         }
-        if (_isActiveState) { _internalImg.color = _activeClr; } else { _internalImg.color = _deactiveClr; }
     }
 
     public void SetStateTo(bool value)
     {
         _isActiveState = value;
-        if (_isActiveState) { _internalImg.color = _activeClr; } else { _internalImg.color = _deactiveClr; }
+        if (_isActiveState)
+        { _internalImg.color = _activeClr; }
+        else { _internalImg.color = _deactiveClr; }
 
     }
     #endregion
