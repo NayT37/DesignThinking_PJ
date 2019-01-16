@@ -1,19 +1,22 @@
 ﻿using SQLite4Unity3d;
 using UnityEngine;
 using System;
+using UnityEngine.Networking;
+using System.Collections;
 #if !UNITY_EDITOR
 using System.Collections;
 using System.IO;
 #endif
 using System.Collections.Generic;
 
-public class QuestionServices  {
+public class QuestionServices:MonoBehaviour  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
 	private AnswerServices _answerServices = new AnswerServices();
 
-	private Question _nullQuestion = new Question{
+	private Question _nullQuestion = 
+		new Question{
 				id = 0,
 				creationDate = "null",
 				description = "null",
@@ -22,7 +25,38 @@ public class QuestionServices  {
 				category = "null"		
 		};
 	
+	private bool isQueryOk = false;
 
+	private Question _questionGetToDB = new Question();
+
+	private int resultToDB = 0;
+
+	private IEnumerable<Question> _questionsLoaded = new Question[]{
+		new Question{
+				id = 0,
+				creationDate = "null",
+				description = "null",
+				evaluationId = 0,
+				lastUpdate = "null",
+				category = "null"		
+		},
+		new Question{
+				id = 0,
+				creationDate = "null",
+				description = "null",
+				evaluationId = 0,
+				lastUpdate = "null",
+				category = "null"		
+		},
+		new Question{
+				id = 0,
+				creationDate = "null",
+				description = "null",
+				evaluationId = 0,
+				lastUpdate = "null",
+				category = "null"		
+		}
+	};
 
 	/// <summary>
 	/// Description to method to create a question
@@ -38,6 +72,8 @@ public class QuestionServices  {
 	/// </returns>
 
 	public Question CreateQuestion(string descriptionOfQuestion, string categoryQuestion){
+
+		//valueToResponse = 1
 
 		//The identifier of the evaluation is obtained to be able to pass 
 		//it as an attribute in the new question that will be created
@@ -80,24 +116,6 @@ public class QuestionServices  {
 		
 	}
 
-	/// <summary>
-	/// Description to method Get Question with the specified evaluationId
-	/// </summary>
-	/// <param name="evaluationId">
-	/// evaluation identifier to find the correct question that will be searched
-	/// </param>
-	/// <returns>
-	/// An object of type question with all the data of the question that was searched and if doesnt exist so return an empty question.
-	/// </returns>
-	public Question GetQuestionNamed( int evaluationId){
-		
-		var q = _connection.Table<Question>().Where(x => x.evaluationId == evaluationId).FirstOrDefault();
-
-		if (q == null)
-			return _nullQuestion;	
-		else 
-			return q;
-	}
 
 	/// <summary>
 	/// Description to method Get Question with the specified evaluationId
@@ -109,6 +127,8 @@ public class QuestionServices  {
 	/// An object of type question with all the data of the question that was searched and if doesnt exist so return an empty question.
 	/// </returns>
 	public Question GetQuestionId(int questionid){
+
+		//valueToResponse = 2
 		
 		var q = _connection.Table<Question>().Where(x => x.id == questionid).FirstOrDefault();
 
@@ -128,17 +148,10 @@ public class QuestionServices  {
 	/// A IEnumerable list of all the Questions found from the identifier of the evaluation that was passed as a parameter
 	/// </returns>
 	public IEnumerable<Question> GetQuestions(int evaluationId){
-		return _connection.Table<Question>().Where(x => x.evaluationId == evaluationId);
-	}
+		
+		//valueToResponse = 3
 
-	/// <summary>
-	/// (This is a test method) Description of the method to obtain all the Questions
-	/// </summary>
-	/// <returns>
-	/// A IEnumerable list of all the notes found
-	/// </returns>
-	public IEnumerable<Question> GetQuestions(){
-		return _connection.Table<Question>();
+		return _connection.Table<Question>().Where(x => x.evaluationId == evaluationId);
 	}
 
 	/// <summary>
@@ -150,6 +163,8 @@ public class QuestionServices  {
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
 	public int DeleteQuestion(Question questionToDelete){
+
+		//valueToResponse = 4
 
 		int questionid = questionToDelete.id;
 
@@ -177,17 +192,6 @@ public class QuestionServices  {
 		return valueToReturn;
 	}
 
-	/// <summary>
-	/// Description of the method to update a question
-	/// </summary>
-	/// <param name="questionToUpdate">
-	/// An object of type question that contain the question that will be updated.
-	/// <returns>
-	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
-	/// </returns>
-	public int UpdateQuestion(Question questionToUpdate){
-		return _connection.Update(questionToUpdate, questionToUpdate.GetType());
-	}
 
 	/// <summary>
 	/// Description of the method to update a question
@@ -210,5 +214,228 @@ public class QuestionServices  {
 		}
 		return result;
 	}
+
+	#region METHODS to get data to DB
+
+	public void setDBToWeb(string methodToCall, int valueToResponse, Question evaluation){
+
+		//UserData tempUser = new UserData (player.id, player.cycle, game);
+		string json = JsonUtility.ToJson (evaluation, true);
+		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
+		if (postRequest != null){
+			switch(valueToResponse){
+				case 1:
+
+				StartCoroutine (waitDB_ToCreateQuestion (postRequest));
+
+				break;
+
+				case 4:
+
+				StartCoroutine (waitDB_ToDeleteQuestion (postRequest));
+				
+				break;
+
+			}
+		}
+			
+	
+	}
+
+	private UnityWebRequest SetJsonForm (string json, string method) {
+		try {
+			UnityWebRequest web = UnityWebRequest.Put (DataBaseParametersCtrl.Ctrl._ipServer + method + "/put", json);
+			web.SetRequestHeader ("Content-Type", "application/json");
+			return web;
+		} catch {
+			return null;
+		}
+	}
+
+	IEnumerator waitDB_ToCreateQuestion (UnityWebRequest www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseCreateQuestion resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseCreateQuestion> (www.downloadHandler.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_questionGetToDB = resp.questionCreated;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	IEnumerator waitDB_ToDeleteQuestion (UnityWebRequest www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseDeleteQuestion resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseDeleteQuestion> (www.downloadHandler.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					resultToDB = resp.result;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	#endregion
+
+	#region METHODS to get data to DB
+	public IEnumerator GetToDB (string methodToCall, string parameterToGet, int valueToResponse) {
+
+            WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
+			switch(valueToResponse){
+
+				case 2:
+
+				yield return waitDB_ToGetQuestion (postRequest);
+
+				break;
+
+				case 3:
+
+				yield return (waitDB_ToGetQuestions (postRequest));
+				
+				break;
+
+			}
+			
+		
+        }
+
+	IEnumerator waitDB_ToGetQuestion (WWW www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseGetQuestion resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseGetQuestion> (www.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_questionGetToDB = resp.question;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+	IEnumerator waitDB_ToGetQuestions (WWW www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseGetQuestions resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseGetQuestions> (www.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_questionsLoaded = resp.questions;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	#endregion
 }
 

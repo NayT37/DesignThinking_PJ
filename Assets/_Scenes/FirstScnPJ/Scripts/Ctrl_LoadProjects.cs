@@ -33,7 +33,7 @@ public class Ctrl_LoadProjects : MonoBehaviour {
 
 		_projects = new Project[counterProjects];
 
-		var projects = _projectServices.GetProjects(groupid);
+		var projects = _projectServices.GetProjects();
 
 		int counter = 0;
 		foreach (var item in projects) {

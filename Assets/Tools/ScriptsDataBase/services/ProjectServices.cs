@@ -1,13 +1,15 @@
 ﻿using SQLite4Unity3d;
 using UnityEngine;
 using System;
+using UnityEngine.Networking;
+using System.Collections;
 #if !UNITY_EDITOR
 using System.Collections;
 using System.IO;
 #endif
 using System.Collections.Generic;
 
-public class ProjectServices  {
+public class ProjectServices:MonoBehaviour  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
@@ -18,7 +20,8 @@ public class ProjectServices  {
 
 	private int[] arrayversions = new int[]{1,2,3};
 
-	private Project _nullProject = new Project{
+	private Project _nullProject = 
+		new Project{
 				id = 0,
 				name = "null",
 				percentage = 0,
@@ -27,6 +30,51 @@ public class ProjectServices  {
 				groupId = 0,
 				lastUpdate = "null"
 		};
+
+	private bool isQueryOk = false;
+
+	private Project _projectGetToDB = new Project();
+
+	private int resultToDB = 0;
+
+	private IEnumerable<Project> _projectsLoaded = new Project[]{
+		new Project{
+				id = 0,
+				name = "null",
+				percentage = 0,
+				creationDate = "null",
+				sectorName = "null",
+				groupId = 0,
+				lastUpdate = "null"
+		},
+		new Project{
+				id = 0,
+				name = "null",
+				percentage = 0,
+				creationDate = "null",
+				sectorName = "null",
+				groupId = 0,
+				lastUpdate = "null"
+		},
+		new Project{
+				id = 0,
+				name = "null",
+				percentage = 0,
+				creationDate = "null",
+				sectorName = "null",
+				groupId = 0,
+				lastUpdate = "null"
+		},
+		new Project{
+				id = 0,
+				name = "null",
+				percentage = 0,
+				creationDate = "null",
+				sectorName = "null",
+				groupId = 0,
+				lastUpdate = "null"
+		}
+	};
 	
 
 
@@ -41,6 +89,8 @@ public class ProjectServices  {
 	/// </returns>
 
 	public Project CreateProject(string sectorname){
+
+		//valueToResponse = 1
 
 		//The identifier of the group is obtained to be able to pass 
 		//it as an attribute in the new project that will be created
@@ -166,11 +216,12 @@ public class ProjectServices  {
 	/// A IEnumerable list of all the Trainings found from the identifier of the group that was passed as a parameter
 	/// </returns>
 	public IEnumerable<Project> GetProjects(int projectid){
+		
+		//valueToResponse = 2
+		
 		return _connection.Table<Project>().Where(x => x.id == projectid);
 	}
-
 	
-
 	/// <summary>
 	/// Description of the method to obtain all the projects of a specific group
 	/// </summary>
@@ -180,8 +231,12 @@ public class ProjectServices  {
 	/// Counter projects related with an specified group
 	/// </returns>
 	public int GetProjectsCounter(int groupId){
+		
+		//valueToResponse = 3
+
 		return _connection.Table<Project>().Where(x => x.groupId == groupId).Count();
 	}
+
 
 	/// <summary>
 	/// (This is a test method) Description of the method to obtain all the Project
@@ -190,6 +245,8 @@ public class ProjectServices  {
 	/// A IEnumerable list of all the projects found
 	/// </returns>
 	public IEnumerable<Project> GetProjects(){
+
+		//valueToResponse = 4
 		int groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
 		return _connection.Table<Project>().Where(x => x.groupId == groupid);
 	}
@@ -203,6 +260,8 @@ public class ProjectServices  {
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
 	public int DeleteProject(Project projectToDelete){
+
+		//valueToResponse = 5
 
 		int projectid = projectToDelete.id;
 
@@ -252,6 +311,8 @@ public class ProjectServices  {
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
 	public int UpdateProject(string newsector){
+
+		//valueToResponse = 6
 
 		var projectToUpdate = DataBaseParametersCtrl.Ctrl._projectLoaded;
 
@@ -306,5 +367,316 @@ public class ProjectServices  {
 		}
 		return result;
 	}
+
+		#region METHODS to get data to DB
+
+	public void setDBToWeb(string methodToCall, int valueToResponse, Project project){
+
+		//UserData tempUser = new UserData (player.id, player.cycle, game);
+		string json = JsonUtility.ToJson (project, true);
+		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
+		if (postRequest != null){
+			switch(valueToResponse){
+				case 1:
+
+				StartCoroutine (waitDB_ToCreateProject (postRequest));
+
+				break;
+
+				case 5:
+
+				StartCoroutine (waitDB_ToDeleteProject (postRequest));
+				
+				break;
+
+				case 6:
+
+				StartCoroutine (waitDB_ToUpdateProject (postRequest));
+				
+				break;
+			}
+		}
+			
+	
+	}
+
+	private UnityWebRequest SetJsonForm (string json, string method) {
+		try {
+			UnityWebRequest web = UnityWebRequest.Put (DataBaseParametersCtrl.Ctrl._ipServer + method + "/put", json);
+			web.SetRequestHeader ("Content-Type", "application/json");
+			return web;
+		} catch {
+			return null;
+		}
+	}
+
+	IEnumerator waitDB_ToCreateProject (UnityWebRequest www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseCreateProject resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseCreateProject> (www.downloadHandler.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_projectGetToDB = resp.projectCreated;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	IEnumerator waitDB_ToDeleteProject (UnityWebRequest www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseDeleteProject resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseDeleteProject> (www.downloadHandler.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					resultToDB = resp.result;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	IEnumerator waitDB_ToUpdateProject (UnityWebRequest www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseUpdateProject resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseUpdateProject> (www.downloadHandler.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					resultToDB = resp.result;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	#endregion
+
+	#region METHODS to get data to DB
+	public IEnumerator GetToDB (string methodToCall, string parameterToGet, int valueToResponse) {
+
+            WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
+            switch(valueToResponse){
+				case 2:
+
+				yield return (waitDB_ToGetProject (postRequest));
+
+				break;
+
+				case 3:
+
+				yield return (waitDB_ToGetProjectsCounter (postRequest));
+				
+				break;
+
+				case 4:
+
+				yield return (waitDB_ToGetProjects (postRequest));
+				
+				break;
+			}
+        }
+
+	IEnumerator waitDB_ToGetProject (WWW www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseGetProjectId resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseGetProjectId> (www.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_projectGetToDB = resp.project;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	IEnumerator waitDB_ToGetProjects (WWW www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseGetProjects resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseGetProjects> (www.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_projectsLoaded = resp.projects;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	IEnumerator waitDB_ToGetProjectsCounter (WWW www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseGetProjectsCounter resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseGetProjectsCounter> (www.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					resultToDB = resp.counter;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	#endregion
 }
 

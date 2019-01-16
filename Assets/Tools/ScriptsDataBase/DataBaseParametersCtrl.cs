@@ -80,6 +80,8 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 
 	private string Salt;
 
+	public string _ipServer;
+
     void Awake () {
         if (Ctrl == null) {
             Ctrl = this;
@@ -90,6 +92,7 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		_ipServer = "0.0.0.0/";
 		isWaitingToDB = true;
 		Salt = "EHS-dpa";
 		_dataServices = new DataService ("dtdbtemplate.db");

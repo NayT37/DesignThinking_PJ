@@ -1,13 +1,15 @@
 ﻿using SQLite4Unity3d;
 using UnityEngine;
 using System;
+using UnityEngine.Networking;
+using System.Collections;
 #if !UNITY_EDITOR
 using System.Collections;
 using System.IO;
 #endif
 using System.Collections.Generic;
 
-public class TrainingServices  {
+public class TrainingServices:MonoBehaviour  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
@@ -21,6 +23,13 @@ public class TrainingServices  {
 		};
 	
 	private CaseServices _caseServices = new CaseServices();
+
+	private bool isQueryOk = false;
+
+	private Training _trainingGetToDB = new Training();
+
+	private int resultToDB = 0;
+
 
 	private string[] _arraycasesname = new string[]{"case_1","case_2","case_3"};
 
@@ -36,6 +45,8 @@ public class TrainingServices  {
 	/// </returns>
 
 	public int CreateTraining(int groupid){
+
+		//valueToResponse = 1
 		
 		//Get the current date to create the new group
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -76,25 +87,6 @@ public class TrainingServices  {
 	}
 
 	/// <summary>
-	/// Description to method Get Training that contain in the DataBaseParametersCtrl.!-- _trainingLoaded
-	/// </summary>
-	/// <returns>
-	/// An object of type training with all the data of the training that was searched and if doesnt exist so return an empty training.
-	/// </returns>
-	public Training GetTrainingNamed(){
-
-		string trainingName = DataBaseParametersCtrl.Ctrl._trainingloaded.name;
-		int groupId = DataBaseParametersCtrl.Ctrl._trainingloaded.groupId;
-		
-		var g = _connection.Table<Training>().Where(x => x.name == trainingName).Where(x => x.groupId == groupId).FirstOrDefault();
-
-		if (g == null)
-			return _nullTraining;	
-		else 
-			return g;
-	}
-
-	/// <summary>
 	/// Description to method Get group that contain in the DataBaseParametersCtrl.!-- _trainingLoaded
 	/// </summary>
 	/// <param name="trainingid">
@@ -105,6 +97,8 @@ public class TrainingServices  {
 	/// </returns>
 	public Training GetTrainingId(int trainingid){
 		
+		//valueToResponse = 2
+
 		var t = _connection.Table<Training>().Where(x => x.id == trainingid).FirstOrDefault();
 
 		if (t == null)
@@ -123,6 +117,8 @@ public class TrainingServices  {
 	/// </returns>
 	public Training GetTraining(int groupId){
 
+		//valueToResponse = 3
+
 		var result = _connection.Table<Training>().Where(x => x.groupId == groupId).FirstOrDefault();
 
 		if (result.id == 0)
@@ -137,22 +133,11 @@ public class TrainingServices  {
 	/// <returns>
 	/// A IEnumerable list of all the trainings found
 	/// </returns>
-	public IEnumerable<Training> GetTrainings(){
-		return _connection.Table<Training>();
-	}
 
-	/// <summary>
-	/// Description of the method to delete a training
-	/// </summary>
-	/// <param name="trainingToDelete">
-	/// An object of type training that contain the training that will be deleted.
-	/// <returns>
-	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
-	/// </returns>
 	public int DeleteTraining(Training trainingToDelete){
 
 		//All the cases belonging to the training that will be deleted are obtained.
-		var cases = _caseServices.GetCases(trainingToDelete.id);
+		var cases = _caseServices.GetCases(trainingToDelete.groupId);
 
 		int result = _connection.Delete(trainingToDelete);
 		int valueToReturn = 0;
@@ -212,5 +197,173 @@ public class TrainingServices  {
 		}
 		return _connection.Update(trainingToUpdate, trainingToUpdate.GetType());
 	}
+
+	#region METHODS to get data to DB
+
+	public void setDBToWeb(string methodToCall, int valueToResponse, Training training){
+
+		//UserData tempUser = new UserData (player.id, player.cycle, game);
+		string json = JsonUtility.ToJson (training, true);
+		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
+		if (postRequest != null){
+			
+				StartCoroutine (waitDB_ToCreateTraining (postRequest));
+
+			}	
+	
+	}
+
+	private UnityWebRequest SetJsonForm (string json, string method) {
+		try {
+			UnityWebRequest web = UnityWebRequest.Put (DataBaseParametersCtrl.Ctrl._ipServer + method + "/put", json);
+			web.SetRequestHeader ("Content-Type", "application/json");
+			return web;
+		} catch {
+			return null;
+		}
+	}
+
+	IEnumerator waitDB_ToCreateTraining (UnityWebRequest www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseCreateTraining resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseCreateTraining> (www.downloadHandler.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_trainingGetToDB = resp.trainingCreated;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	#endregion
+
+	#region METHODS to get data to DB
+	public IEnumerator GetToDB (string methodToCall, string parameterToGet, int valueToResponse) {
+
+            WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
+            switch(valueToResponse){
+				case 2:
+
+				yield return (waitDB_ToGetTrainingId (postRequest));
+
+				break;
+
+				case 3:
+
+				yield return (waitDB_ToGetTraining (postRequest));
+				
+				break;
+			}
+        }
+
+	IEnumerator waitDB_ToGetTrainingId (WWW www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseGetTrainingId resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseGetTrainingId> (www.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_trainingGetToDB = resp.training;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	IEnumerator waitDB_ToGetTraining (WWW www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseGetTrainingGroupId resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseGetTrainingGroupId> (www.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_trainingGetToDB = resp.training;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	#endregion
 }
 

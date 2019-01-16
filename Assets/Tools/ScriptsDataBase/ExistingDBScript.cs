@@ -94,26 +94,9 @@ public class ExistingDBScript : MonoBehaviour {
 
 	
 		
-		DataBaseParametersCtrl.Ctrl._courseLoaded = _courseServices.GetCourseId(1);
+		//DataBaseParametersCtrl.Ctrl._courseLoaded = _courseServices.GetCourseId();
 
-		DataBaseParametersCtrl.Ctrl._groupLoaded = _groupServices.GetGroupId(1);
-
-		DataBaseParametersCtrl.Ctrl._trainingloaded = _trainingServices.GetTrainingId(1);
-
-		DataBaseParametersCtrl.Ctrl._projectLoaded = _projectServices.GetProjectNamed("Proyecto_Prueba_Final", 1);
-
-		DataBaseParametersCtrl.Ctrl._mindMapLoaded = _mindmapServices.GetMindmapId(1);
-
-		DataBaseParametersCtrl.Ctrl._empathyMapLoaded = _empathymapServices.GetEmpathyMap(1);
-
-		DataBaseParametersCtrl.Ctrl._storyTellingLoaded = _storytellingServices.GetStoryTellingNamed(1);
-
-		DataBaseParametersCtrl.Ctrl._publicLoaded = _publicServices.GetPublicNamed(1);
-
-		DataBaseParametersCtrl.Ctrl._problemLoaded = _problemServices.GetProblemNamed(1, 1);
-
-		DataBaseParametersCtrl.Ctrl._evaluationLoaded = _evaluationServices.GetEvaluationId(1);
-
+		
 		//DataBaseParametersCtrl.Ctrl._sectorLoaded = _sectorServices.GetSectorNamed();
 
 		//var sector = _sectorServices.UpdateSector("nuevo dato por diligenciar");
@@ -133,12 +116,12 @@ public class ExistingDBScript : MonoBehaviour {
 		Debug.Log(DataBaseParametersCtrl.Ctrl._storyTellingLoaded);
 		Debug.Log(DataBaseParametersCtrl.Ctrl._mindMapLoaded);
 
-		var nodes = _nodeServices.GetNodes();
+		//var nodes = _nodeServices.GetNodes();
 
-		foreach (var item in nodes)
-		{
-			Debug.Log(item.ToString());
-		}
+		// foreach (var item in nodes)
+		// {
+		// 	Debug.Log(item.ToString());
+		// }
 
 		var notes = _noteServices.GetNotes();
 
