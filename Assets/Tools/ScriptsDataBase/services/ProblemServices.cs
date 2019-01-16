@@ -1,13 +1,15 @@
 ﻿using SQLite4Unity3d;
 using UnityEngine;
 using System;
+using UnityEngine.Networking;
+using System.Collections;
 #if !UNITY_EDITOR
 using System.Collections;
 using System.IO;
 #endif
 using System.Collections.Generic;
 
-public class ProblemServices  {
+public class ProblemServices:MonoBehaviour  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
@@ -22,6 +24,12 @@ public class ProblemServices  {
 	
 	private FieldServices _fieldServices = new FieldServices();
 
+	private bool isQueryOk = false;
+
+	private Problem _problemGetToDB = new Problem();
+
+	private int resultToDB = 0;
+
 
 	/// <summary>
 	/// Description to method to create a problem
@@ -34,6 +42,8 @@ public class ProblemServices  {
 	/// </returns>
 
 	public Problem CreateProblem(string[] arrayfieldsname){
+
+		//valueToResponse = 1
 
 		//The identifier of the project is obtained to be able to pass 
 		//it as an attribute in the new problem that will be created
@@ -72,47 +82,6 @@ public class ProblemServices  {
 	}
 
 	/// <summary>
-	/// Description to method Get Problem with the specified name and projectId
-	/// </summary>
-	/// <param name="id">
-	/// identifier of the problem that will be searched
-	/// </param>
-	/// <param name="projectId">
-	/// project identifier to find the correct problem that will be searched
-	/// </param>
-	/// <returns>
-	/// An object of type problem with all the data of the problem that was searched and if doesnt exist so return an empty problem.
-	/// </returns>
-	public Problem GetProblemNamed(int id, int projectId){
-		
-		var p = _connection.Table<Problem>().Where(x => x.id == id).Where(x => x.projectId == projectId).FirstOrDefault();
-
-		if (p == null)
-			return _nullProblem;	
-		else 
-			return p;
-	}
-
-	/// <summary>
-	/// Description to method Get Problem that contain in the DataBaseParametersCtrl.!-- _problemLoaded
-	/// </summary>
-	/// <returns>
-	/// An object of type problem with all the data of the problem that was searched and if doesnt exist so return an empty problem.
-	/// </returns>
-	// public Problem GetProblemNamed(){
-
-	// 	string problemName = DataBaseParametersCtrl.Ctrl._problemLoaded.name;
-	// 	int projectId = DataBaseParametersCtrl.Ctrl._problemLoaded.projectId;
-		
-	// 	var p = _connection.Table<Problem>().Where(x => x.name == problemName).Where(x => x.projectId == projectId).FirstOrDefault();
-
-	// 	if (p == null)
-	// 		return _nullProblem;	
-	// 	else 
-	// 		return p;
-	// }
-
-	/// <summary>
 	/// Description of the method to obtain all the problems of a specific project
 	/// </summary>
 	/// <param name="projectId">
@@ -121,6 +90,9 @@ public class ProblemServices  {
 	/// A IEnumerable list of all the Problems found from the identifier of the project that was passed as a parameter
 	/// </returns>
 	public Problem GetProblem(int projectId){
+
+		//valueToResponse = 2
+
 		return _connection.Table<Problem>().Where(x => x.projectId == projectId).FirstOrDefault();
 	}
 
@@ -130,17 +102,10 @@ public class ProblemServices  {
 	/// <returns>
 	/// A IEnumerable list of all the projects found
 	/// </returns>
-	public IEnumerable<Problem> GetProblems(){
-		return _connection.Table<Problem>();
-	}
-
-	/// <summary>
-	/// (This is a test method) Description of the method to obtain all the Problem
-	/// </summary>
-	/// <returns>
-	/// A IEnumerable list of all the projects found
-	/// </returns>
 	public int GetProblemsCounter(){
+
+		//valueToResponse = 3
+
 		int projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 		return _connection.Table<Problem>().Where(x => x.projectId == projectid).Count();
 	}
@@ -154,6 +119,8 @@ public class ProblemServices  {
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
 	public int DeleteProblem(Problem problemToDelete){
+
+		//valueToResponse = 4
 
 		int problemid = problemToDelete.id;
 		// All the fields belonging to the problem that will be deleted are obtained.
@@ -200,5 +167,226 @@ public class ProblemServices  {
 		}
 		return result;
 	}
+
+	
+		#region METHODS to get data to DB
+
+	public void setDBToWeb(string methodToCall, int valueToResponse, Problem problem){
+
+		//UserData tempUser = new UserData (player.id, player.cycle, game);
+		string json = JsonUtility.ToJson (problem, true);
+		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
+		if (postRequest != null){
+			switch(valueToResponse){
+				case 1:
+
+				StartCoroutine (waitDB_ToCreateProblem (postRequest));
+
+				break;
+
+				case 4:
+
+				StartCoroutine (waitDB_ToDeleteProblem (postRequest));
+				
+				break;
+			}
+		}
+			
+	
+	}
+
+	private UnityWebRequest SetJsonForm (string json, string method) {
+		try {
+			UnityWebRequest web = UnityWebRequest.Put (DataBaseParametersCtrl.Ctrl._ipServer + method + "/put", json);
+			web.SetRequestHeader ("Content-Type", "application/json");
+			return web;
+		} catch {
+			return null;
+		}
+	}
+
+	IEnumerator waitDB_ToCreateProblem (UnityWebRequest www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseCreateProblem resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseCreateProblem> (www.downloadHandler.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_problemGetToDB = resp.problemCreated;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	IEnumerator waitDB_ToDeleteProblem (UnityWebRequest www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseDeleteProblem resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseDeleteProblem> (www.downloadHandler.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					resultToDB = resp.result;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	#endregion
+
+	#region METHODS to get data to DB
+	public IEnumerator GetToDB (string methodToCall, string parameterToGet, int valueToResponse) {
+
+            WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
+            switch(valueToResponse){
+				case 2:
+
+				yield return (waitDB_ToGetProblem (postRequest));
+
+				break;
+
+				case 3:
+
+				yield return (waitDB_ToGetProblemsCounter (postRequest));
+				
+				break;
+
+			}
+        }
+
+	IEnumerator waitDB_ToGetProblem (WWW www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseGetProblem resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseGetProblem> (www.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_problemGetToDB = resp.problem;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	IEnumerator waitDB_ToGetProblemsCounter (WWW www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseGetProblemCounter resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseGetProblemCounter> (www.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					resultToDB = resp.counter;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	#endregion
 }
 

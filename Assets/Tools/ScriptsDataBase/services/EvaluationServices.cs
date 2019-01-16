@@ -1,13 +1,15 @@
 ﻿using SQLite4Unity3d;
 using UnityEngine;
 using System;
+using UnityEngine.Networking;
+using System.Collections;
 #if !UNITY_EDITOR
 using System.Collections;
 using System.IO;
 #endif
 using System.Collections.Generic;
 
-public class EvaluationServices  {
+public class EvaluationServices:MonoBehaviour  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
@@ -35,7 +37,11 @@ public class EvaluationServices  {
 				lastUpdate = "null"			
 		};
 	
+	private bool isQueryOk = false;
 
+	private Evaluation _evaluationGetToDB = new Evaluation();
+
+	private int resultToDB = 0;
 
 	/// <summary>
 	/// Description to method to create a evaluation
@@ -48,6 +54,8 @@ public class EvaluationServices  {
 	/// </returns>
 
 	public Evaluation CreateEvaluation(string categoryname){
+
+		//valueToResponse = 1
 
 		//The identifier of the mindmap is obtained to be able to pass 
 		//it as an attribute in the new evaluation that will be created
@@ -105,6 +113,8 @@ public class EvaluationServices  {
 	/// An object of type evaluation with all the data of the evaluation that was searched and if doesnt exist so return an empty evaluation.
 	/// </returns>
 	public Evaluation GetEvaluationNamed(int mindmapId){
+
+		//valueToResponse = 2
 		
 		var e = _connection.Table<Evaluation>().Where(x => x.mindMapId == mindmapId).FirstOrDefault();
 
@@ -133,45 +143,6 @@ public class EvaluationServices  {
 			return e;
 	}
 
-	/// <summary>
-	/// Description to method Get Evaluation that contain in the DataBaseParametersCtrl.!-- _empathyMapLoaded
-	/// </summary>
-	/// <returns>
-	/// An object of type evaluation with all the data of the evaluation that was searched and if doesnt exist so return an empty evaluation.
-	/// </returns>
-	public Evaluation GetEvaluationNamed(){
-
-		int mindmapId = DataBaseParametersCtrl.Ctrl._evaluationLoaded.mindMapId;
-		
-		var e = _connection.Table<Evaluation>().Where(x => x.mindMapId == mindmapId).FirstOrDefault();
-
-		if (e == null)
-			return _nullEvaluation;	
-		else 
-			return e;
-	}
-
-	/// <summary>
-	/// Description of the method to obtain all the notes of a specific project
-	/// </summary>
-	/// <param name="mindmapId">
-	/// integer to define the identifier of the project from which all the related Evaluations will be brought.
-	/// <returns>
-	/// A IEnumerable list of all the Evaluations found from the identifier of the project that was passed as a parameter
-	/// </returns>
-	public IEnumerable<Evaluation> GetEvaluations(int mindmapId){
-		return _connection.Table<Evaluation>().Where(x => x.mindMapId == mindmapId);
-	}
-
-	/// <summary>
-	/// (This is a test method) Description of the method to obtain all the Evaluations
-	/// </summary>
-	/// <returns>
-	/// A IEnumerable list of all the notes found
-	/// </returns>
-	public IEnumerable<Evaluation> GetEvaluations(){
-		return _connection.Table<Evaluation>();
-	}
 
 	/// <summary>
 	/// Description of the method to delete a evaluation
@@ -182,6 +153,8 @@ public class EvaluationServices  {
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
 	public int DeleteEvaluation(Evaluation evaluationToDelete){
+
+		//valueToResponse = 3
 
 		int evaluationid = evaluationToDelete.id;
 
@@ -231,5 +204,176 @@ public class EvaluationServices  {
 		}
 		return result;
 	}
+
+	#region METHODS to get data to DB
+
+	public void setDBToWeb(string methodToCall, int valueToResponse, Evaluation evaluation){
+
+		//UserData tempUser = new UserData (player.id, player.cycle, game);
+		string json = JsonUtility.ToJson (evaluation, true);
+		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
+		if (postRequest != null){
+			switch(valueToResponse){
+				case 1:
+
+				StartCoroutine (waitDB_ToCreateEvaluation (postRequest));
+
+				break;
+
+				case 3:
+
+				StartCoroutine (waitDB_ToDeleteEvaluation (postRequest));
+				
+				break;
+
+			}
+		}
+			
+	
+	}
+
+	private UnityWebRequest SetJsonForm (string json, string method) {
+		try {
+			UnityWebRequest web = UnityWebRequest.Put (DataBaseParametersCtrl.Ctrl._ipServer + method + "/put", json);
+			web.SetRequestHeader ("Content-Type", "application/json");
+			return web;
+		} catch {
+			return null;
+		}
+	}
+
+	IEnumerator waitDB_ToCreateEvaluation (UnityWebRequest www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseCreateEvaluation resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseCreateEvaluation> (www.downloadHandler.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_evaluationGetToDB = resp.evaluationCreated;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	IEnumerator waitDB_ToDeleteEvaluation (UnityWebRequest www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseDeleteEvaluation resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseDeleteEvaluation> (www.downloadHandler.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					resultToDB = resp.result;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	#endregion
+
+	#region METHODS to get data to DB
+	public IEnumerator GetToDB (string methodToCall, string parameterToGet, int valueToResponse) {
+
+            WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
+           
+			yield return (waitDB_ToGetEvaluation (postRequest));
+		
+        }
+
+
+	IEnumerator waitDB_ToGetEvaluation (WWW www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseGetEvaluation resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseGetEvaluation> (www.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_evaluationGetToDB = resp.evaluation;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	#endregion
 }
 

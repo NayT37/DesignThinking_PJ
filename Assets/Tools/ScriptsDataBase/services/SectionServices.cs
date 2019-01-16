@@ -1,19 +1,22 @@
 ﻿using SQLite4Unity3d;
 using UnityEngine;
 using System;
+using UnityEngine.Networking;
+using System.Collections;
 #if !UNITY_EDITOR
 using System.Collections;
 using System.IO;
 #endif
 using System.Collections.Generic;
 
-public class SectionServices  {
+public class SectionServices:MonoBehaviour  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
 	private NodeServices _nodeServices = new NodeServices();
 
-	private Section _nullSection = new Section{
+	private Section _nullSection = 
+		new Section{
 				id = 0,
 				name = "null",
 				creationDate = "null",
@@ -23,6 +26,46 @@ public class SectionServices  {
 		};
 	
 
+	private bool isQueryOk = false;
+
+	private Section _sectionGetToDB = new Section();
+
+	private int resultToDB = 0;
+
+	private IEnumerable<Section> _sectionsLoaded = new Section[]{
+		new Section{
+				id = 0,
+				name = "null",
+				creationDate = "null",
+				mindmapId = 0,
+				isOptional = false,
+				lastUpdate = "null"			
+		},
+		new Section{
+				id = 0,
+				name = "null",
+				creationDate = "null",
+				mindmapId = 0,
+				isOptional = false,
+				lastUpdate = "null"			
+		},
+		new Section{
+				id = 0,
+				name = "null",
+				creationDate = "null",
+				mindmapId = 0,
+				isOptional = false,
+				lastUpdate = "null"			
+		},
+		new Section{
+				id = 0,
+				name = "null",
+				creationDate = "null",
+				mindmapId = 0,
+				isOptional = false,
+				lastUpdate = "null"			
+		}
+	};
 
 	/// <summary>
 	/// Description to method to create a section
@@ -35,6 +78,8 @@ public class SectionServices  {
 	/// </returns>
 
 	public Section CreateSection(string sectionname){
+
+		//valueToResponse = 1
 
 		//The identifier of the mindmap is obtained to be able to pass 
 		//it as an attribute in the new section that will be created
@@ -86,25 +131,6 @@ public class SectionServices  {
 	/// <summary>
 	/// Description to method Get Section with the specified mindmapId
 	/// </summary>
-	/// <param name="mindmapId">
-	/// mindMap identifier to find the correct section that will be searched
-	/// </param>
-	/// <returns>
-	/// An object of type section with all the data of the section that was searched and if doesnt exist so return an empty section.
-	/// </returns>
-	public Section GetSectionNamed( int mindmapId){
-		
-		var s = _connection.Table<Section>().Where(x => x.mindmapId == mindmapId).FirstOrDefault();
-
-		if (s == null)
-			return _nullSection;	
-		else 
-			return s;
-	}
-
-	/// <summary>
-	/// Description to method Get Section with the specified mindmapId
-	/// </summary>
 	/// <param name="sectionid">
 	/// section identifier to find the correct section that will be searched
 	/// </param>
@@ -150,24 +176,6 @@ public class SectionServices  {
 		return counter;
 	}
 
-	/// <summary>
-	/// Description to method Get Section with the specified mindmapId
-	/// </summary>
-	/// <param name="sectionname">
-	/// section name to find the correct section that will be searched
-	/// </param>
-	/// <returns>
-	/// An object of type section with all the data of the section that was searched and if doesnt exist so return an empty section.
-	/// </returns>
-	public Section GetSectionId(string sectionname){
-		
-		var s = _connection.Table<Section>().Where(x => x.name == sectionname).FirstOrDefault();
-
-		if (s == null)
-			return _nullSection;	
-		else 
-			return s;
-	}
 
 	/// <summary>
 	/// Description of the method to obtain all the sections of a specific mindMap
@@ -188,6 +196,9 @@ public class SectionServices  {
 	/// A IEnumerable list of all the sections found
 	/// </returns>
 	public IEnumerable<Section> GetSections(){
+
+		//valueToResponse = 2
+
 		return _connection.Table<Section>();
 	}
 
@@ -200,6 +211,8 @@ public class SectionServices  {
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
 	public int DeleteSection(Section sectionToDelete){
+
+		//valueToResponse = 3
 
 		int sectionid = sectionToDelete.id;
 
@@ -252,6 +265,176 @@ public class SectionServices  {
 		return result;
 	}
 
+	#region METHODS to get data to DB
+
+	public void setDBToWeb(string methodToCall, int valueToResponse, Section section){
+
+		//UserData tempUser = new UserData (player.id, player.cycle, game);
+		string json = JsonUtility.ToJson (section, true);
+		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
+		if (postRequest != null){
+			switch(valueToResponse){
+				case 1:
+
+				StartCoroutine (waitDB_ToCreateSection (postRequest));
+
+				break;
+
+				case 3:
+
+				StartCoroutine (waitDB_ToDeleteSection (postRequest));
+				
+				break;
+
+			}
+		}
+			
+	
+	}
+
+	private UnityWebRequest SetJsonForm (string json, string method) {
+		try {
+			UnityWebRequest web = UnityWebRequest.Put (DataBaseParametersCtrl.Ctrl._ipServer + method + "/put", json);
+			web.SetRequestHeader ("Content-Type", "application/json");
+			return web;
+		} catch {
+			return null;
+		}
+	}
+
+	IEnumerator waitDB_ToCreateSection (UnityWebRequest www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseCreateSection resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseCreateSection> (www.downloadHandler.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_sectionGetToDB = resp.sectionCreated;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	IEnumerator waitDB_ToDeleteSection (UnityWebRequest www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseDeleteSection resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseDeleteSection> (www.downloadHandler.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					resultToDB = resp.result;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	#endregion
+
+	#region METHODS to get data to DB
+	public IEnumerator GetToDB (string methodToCall, string parameterToGet, int valueToResponse) {
+
+            WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
+           
+			yield return (waitDB_ToGetSections (postRequest));
+		
+        }
+
+
+	IEnumerator waitDB_ToGetSections (WWW www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseGetSections resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseGetSections> (www.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_sectionsLoaded = resp.sections;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	#endregion
 
 }
 

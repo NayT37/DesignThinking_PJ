@@ -1,13 +1,15 @@
 ﻿using SQLite4Unity3d;
 using UnityEngine;
 using System;
+using UnityEngine.Networking;
+using System.Collections;
 #if !UNITY_EDITOR
 using System.Collections;
 using System.IO;
 #endif
 using System.Collections.Generic;
 
-public class MindmapServices  {
+public class MindmapServices:MonoBehaviour  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
@@ -16,7 +18,8 @@ public class MindmapServices  {
 	private SectionServices _sectionServices = new SectionServices();
 
 	private string[] arraysectionsname = new string[]{"advantages","opportunities","-requirements","-how","risk_a", "risk_o"};
-	private Mindmap _nullMindmap = new Mindmap{
+	private Mindmap _nullMindmap = 
+		new Mindmap{
 				id = 0,
 				percentage = 0,
 				creationDate = "null",
@@ -26,7 +29,42 @@ public class MindmapServices  {
 				version = 0		
 		};
 	
+	
+	private bool isQueryOk = false;
 
+	private Mindmap _mindmapGetToDB = new Mindmap();
+
+	private int resultToDB = 0;
+
+	private IEnumerable<Mindmap> _mindmapsLoaded = new Mindmap[]{
+		new Mindmap{
+				id = 0,
+				percentage = 0,
+				creationDate = "null",
+				storytellingId = 0,
+				image = "null",
+				lastUpdate = "null",
+				version = 0		
+		},
+		new Mindmap{
+				id = 0,
+				percentage = 0,
+				creationDate = "null",
+				storytellingId = 0,
+				image = "null",
+				lastUpdate = "null",
+				version = 0		
+		},
+		new Mindmap{
+				id = 0,
+				percentage = 0,
+				creationDate = "null",
+				storytellingId = 0,
+				image = "null",
+				lastUpdate = "null",
+				version = 0		
+		}
+	};
 
 	/// <summary>
 	/// Description to method to create a mindmap
@@ -39,6 +77,8 @@ public class MindmapServices  {
 	/// </returns>
 
 	public Mindmap CreateMindMap(int versionmindmap){
+
+		//valueToResponse = 1
 
 		//The identifier of the storytelling is obtained to be able to pass 
 		//it as an attribute in the new mindmap that will be created
@@ -90,24 +130,6 @@ public class MindmapServices  {
 		
 	}
 
-	/// <summary>
-	/// Description to method Get Mindmap with the specified storytellingId
-	/// </summary>
-	/// <param name="storytellingId">
-	/// storyTelling identifier to find the correct mindmap that will be searched
-	/// </param>
-	/// <returns>
-	/// An object of type mindmap with all the data of the mindmap that was searched and if doesnt exist so return an empty mindmap.
-	/// </returns>
-	public Mindmap GetMindmapNamed( int storytellingId){
-		
-		var m = _connection.Table<Mindmap>().Where(x => x.storytellingId == storytellingId).FirstOrDefault();
-
-		if (m == null)
-			return _nullMindmap;	
-		else 
-			return m;
-	}
 
 	/// <summary>
 	/// Description to method Get Mindmap with the specified storytellingId
@@ -129,23 +151,6 @@ public class MindmapServices  {
 		}
 	}
 
-	/// <summary>
-	/// Description to method Get Mindmap that contain in the DataBaseParametersCtrl.!-- _empathyMapLoaded
-	/// </summary>
-	/// <returns>
-	/// An object of type mindmap with all the data of the mindmap that was searched and if doesnt exist so return an empty mindmap.
-	/// </returns>
-	public Mindmap GetMindmapNamed(){
-
-		int storytellingId = DataBaseParametersCtrl.Ctrl._mindMapLoaded.storytellingId;
-		
-		var m = _connection.Table<Mindmap>().Where(x => x.storytellingId == storytellingId).FirstOrDefault();
-
-		if (m == null)
-			return _nullMindmap;	
-		else 
-			return m;
-	}
 
 	/// <summary>
 	/// Description of the method to obtain all the notes of a specific project
@@ -156,6 +161,9 @@ public class MindmapServices  {
 	/// A IEnumerable list of all the Notes found from the identifier of the project that was passed as a parameter
 	/// </returns>
 	public IEnumerable<Mindmap> GetMindmaps(int storytellingId){
+
+		//valueToResponse = 2
+		
 		return _connection.Table<Mindmap>().Where(x => x.storytellingId == storytellingId);
 	}
 	
@@ -187,16 +195,6 @@ public class MindmapServices  {
 	}
 
 	/// <summary>
-	/// (This is a test method) Description of the method to obtain all the Notes
-	/// </summary>
-	/// <returns>
-	/// A IEnumerable list of all the notes found
-	/// </returns>
-	public IEnumerable<Mindmap> GetMindmaps(){
-		return _connection.Table<Mindmap>();
-	}
-
-	/// <summary>
 	/// Description of the method to delete a mindmap
 	/// </summary>
 	/// <param name="mindmapToDelete">
@@ -205,6 +203,8 @@ public class MindmapServices  {
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
 	public int DeleteMindmap(Mindmap mindmapToDelete){
+
+		//valueToResponse = 3
 		
 		int mindmapid = mindmapToDelete.id;
 
@@ -268,5 +268,176 @@ public class MindmapServices  {
 
 		return result;
 	}
+
+	#region METHODS to get data to DB
+
+	public void setDBToWeb(string methodToCall, int valueToResponse, Mindmap mindmap){
+
+		//UserData tempUser = new UserData (player.id, player.cycle, game);
+		string json = JsonUtility.ToJson (mindmap, true);
+		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
+		if (postRequest != null){
+			switch(valueToResponse){
+				case 1:
+
+				StartCoroutine (waitDB_ToCreateMindmap (postRequest));
+
+				break;
+
+				case 3:
+
+				StartCoroutine (waitDB_ToDeleteMindmap (postRequest));
+				
+				break;
+
+			}
+		}
+			
+	
+	}
+
+	private UnityWebRequest SetJsonForm (string json, string method) {
+		try {
+			UnityWebRequest web = UnityWebRequest.Put (DataBaseParametersCtrl.Ctrl._ipServer + method + "/put", json);
+			web.SetRequestHeader ("Content-Type", "application/json");
+			return web;
+		} catch {
+			return null;
+		}
+	}
+
+	IEnumerator waitDB_ToCreateMindmap (UnityWebRequest www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseCreateMindmap resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseCreateMindmap> (www.downloadHandler.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_mindmapGetToDB = resp.mindmapCreated;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	IEnumerator waitDB_ToDeleteMindmap (UnityWebRequest www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseDeleteMindmap resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseDeleteMindmap> (www.downloadHandler.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					resultToDB = resp.result;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	#endregion
+
+	#region METHODS to get data to DB
+	public IEnumerator GetToDB (string methodToCall, string parameterToGet, int valueToResponse) {
+
+            WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
+           
+			yield return (waitDB_ToGetMindmaps (postRequest));
+		
+        }
+
+
+	IEnumerator waitDB_ToGetMindmaps (WWW www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseGetMindmaps resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseGetMindmaps> (www.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_mindmapsLoaded = resp.mindmaps;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	#endregion
 }
 

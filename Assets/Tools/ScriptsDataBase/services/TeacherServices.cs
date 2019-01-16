@@ -1,6 +1,7 @@
 ﻿using SQLite4Unity3d;
 using UnityEngine;
 using System;
+using System.Collections;
 #if !UNITY_EDITOR
 using System.Collections;
 using System.IO;
@@ -24,7 +25,11 @@ public class TeacherServices  {
 				headquartersId = 0,
 		};
 	
+	private bool isQueryOk = false;
 
+	private Teacher _teacherGetToDB = new Teacher();
+
+	private int resultToDB = 0;
 
 	/// <summary>
 	/// Description to method Get Teacher with the specified email and password
@@ -82,24 +87,56 @@ public class TeacherServices  {
 		}
 	}
 
-	/// <summary>
-	/// Description to method Get teacher that contain in the DataBaseParametersCtrl.!-- _teacherLoggedIn
-	/// </summary>
-	/// <returns>
-	/// An object of type teacher with all the data of the teacher that was searched and if doesnt exist so return an empty teacher.
-	/// </returns>
-	public Teacher GetTeacherNamed(){
+	#region METHODS to get data to DB
+	public IEnumerator GetToDB (string methodToCall, string parameterToGet, int valueToResponse) {
 
-		string teacherEmail = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.email;
-		string password = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.password;
-		
-		var t = _connection.Table<Teacher>().Where(x => x.email == teacherEmail).Where(x => x.password == password).FirstOrDefault();
+            WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
+           
+			yield return (waitDB_ToGetTeacher (postRequest));
 
-		if (t == null)
-			return _nullTeacher;	
-		else 
-			return t;
-	}
+        }
+
+	IEnumerator waitDB_ToGetTeacher (WWW www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseGetTeacher resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseGetTeacher> (www.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_teacherGetToDB = resp.teacher;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	#endregion
 
 
 }

@@ -1,13 +1,15 @@
 ﻿using SQLite4Unity3d;
 using UnityEngine;
 using System;
+using UnityEngine.Networking;
+using System.Collections;
 #if !UNITY_EDITOR
 using System.Collections;
 using System.IO;
 #endif
 using System.Collections.Generic;
 
-public class EmpathymapServices  {
+public class EmpathymapServices:MonoBehaviour {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
@@ -23,7 +25,11 @@ public class EmpathymapServices  {
 				projectId = 0
 		};
 	
+	private bool isQueryOk = false;
 
+	private Empathymap _empathymapGetToDB = new Empathymap();
+
+	private int resultToDB = 0;
 
 	/// <summary>
 	/// Description to method to create a empathyMap
@@ -34,6 +40,8 @@ public class EmpathymapServices  {
 	/// </returns>
 
 	public Empathymap CreateEmpathymap(){
+
+		//valueToResponse = 1
 
 		//The identifier of the project is obtained to be able to pass 
 		//it as an attribute in the new empathymap that will be created
@@ -71,31 +79,6 @@ public class EmpathymapServices  {
 		
 	}
 
-	/// <summary>
-	/// Description to method Get EmpathyMap with the specified projectId
-	/// </summary>
-	/// <param name="projectId">
-	/// project identifier to find the correct empathyMap that will be searched
-	/// </param>
-	/// <returns>
-	/// An object of type empathyMap with all the data of the empathyMap that was searched and if doesnt exist so return an empty empathyMap.
-	/// </returns>
-	public Empathymap GetEmpathymapNamed( int projectId){
-		
-		var e = _connection.Table<Empathymap>().Where(x => x.projectId == projectId).FirstOrDefault();
-
-		if (e == null)
-			return _nullEmpathymap;	
-		else 
-			return e;
-	}
-
-	/// <summary>
-	/// Description of the method to obtain the average percentage of all the storytellings with specified project identifier
-	/// </summary>}
-	/// <returns>
-	/// An integer with the average of all storytellings with specified project identifier
-	/// </returns>
 	public int GetEmpathymapAverage(){
 		
 		int counter = _sectorServices.GetSectorWithDescription();
@@ -103,23 +86,6 @@ public class EmpathymapServices  {
 		return result;
 	}
 
-	/// <summary>
-	/// Description to method Get EmpathyMap that contain in the DataBaseParametersCtrl.!-- _empathyMapLoaded
-	/// </summary>
-	/// <returns>
-	/// An object of type empathyMap with all the data of the empathyMap that was searched and if doesnt exist so return an empty empathyMap.
-	/// </returns>
-	public Empathymap GetEmpathymapNamed(){
-
-		int projectId = DataBaseParametersCtrl.Ctrl._empathyMapLoaded.projectId;
-		
-		var e = _connection.Table<Empathymap>().Where(x => x.projectId == projectId).FirstOrDefault();
-
-		if (e == null)
-			return _nullEmpathymap;	
-		else 
-			return e;
-	}
 
 	/// <summary>
 	/// Description of the method to obtain all the empathyMaps of a specific project
@@ -130,17 +96,10 @@ public class EmpathymapServices  {
 	/// An object of type Empathymap found from the identifier of the project that was passed as a parameter
 	/// </returns>
 	public Empathymap GetEmpathyMap(int projectId){
-		return _connection.Table<Empathymap>().Where(x => x.projectId == projectId).FirstOrDefault();
-	}
 
-	/// <summary>
-	/// (This is a test method) Description of the method to obtain all the Empathymaps
-	/// </summary>
-	/// <returns>
-	/// A IEnumerable list of all the empathymaps found
-	/// </returns>
-	public IEnumerable<Empathymap> GetEmpathyMaps(){
-		return _connection.Table<Empathymap>();
+		//valueToResponse = 2
+
+		return _connection.Table<Empathymap>().Where(x => x.projectId == projectId).FirstOrDefault();
 	}
 
 	/// <summary>
@@ -152,6 +111,8 @@ public class EmpathymapServices  {
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
 	public int DeleteEmpathymap(Empathymap empathymapToDelete){
+
+		//valueToResponse = 3
 
 		int empathymapid = empathymapToDelete.id;
 
@@ -207,5 +168,177 @@ public class EmpathymapServices  {
 
 		return result;
 	}
+
+	
+	#region METHODS to get data to DB
+
+	public void setDBToWeb(string methodToCall, int valueToResponse, Empathymap empathymap){
+
+		//UserData tempUser = new UserData (player.id, player.cycle, game);
+		string json = JsonUtility.ToJson (empathymap, true);
+		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
+		if (postRequest != null){
+			switch(valueToResponse){
+				case 1:
+
+				StartCoroutine (waitDB_ToCreateEmpathymap (postRequest));
+
+				break;
+
+				case 3:
+
+				StartCoroutine (waitDB_ToDeleteEmpathymap (postRequest));
+				
+				break;
+
+			}
+		}
+			
+	
+	}
+
+	private UnityWebRequest SetJsonForm (string json, string method) {
+		try {
+			UnityWebRequest web = UnityWebRequest.Put (DataBaseParametersCtrl.Ctrl._ipServer + method + "/put", json);
+			web.SetRequestHeader ("Content-Type", "application/json");
+			return web;
+		} catch {
+			return null;
+		}
+	}
+
+	IEnumerator waitDB_ToCreateEmpathymap (UnityWebRequest www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseCreateEmpathymap resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseCreateEmpathymap> (www.downloadHandler.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_empathymapGetToDB = resp.empathymapCreated;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	IEnumerator waitDB_ToDeleteEmpathymap (UnityWebRequest www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseDeleteEmpathymap resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseDeleteEmpathymap> (www.downloadHandler.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					resultToDB = resp.result;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	#endregion
+
+	#region METHODS to get data to DB
+	public IEnumerator GetToDB (string methodToCall, string parameterToGet, int valueToResponse) {
+
+            WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
+           
+			yield return (waitDB_ToGetEmpathymap (postRequest));
+		
+        }
+
+
+	IEnumerator waitDB_ToGetEmpathymap (WWW www) {
+        using (www) {
+            while (!www.isDone) {
+                yield return null;
+            }
+            // Transformar la informacion obtenida (json) a Object (Response Class)
+			ResponseGetEmpathymap resp = null;
+			
+            try {
+                resp = JsonUtility.FromJson<ResponseGetEmpathymap> (www.text);
+            } catch { }
+
+            //Validacion de la informacion obtenida
+            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+                Debug.Log (www.error);
+                try {
+
+                } catch (System.Exception e) { Debug.Log (e); }
+                yield return null;
+            } else
+
+            if (resp != null) { // Informacion obtenida exitosamente
+                if (!resp.error) { // sin error en el servidor
+					_empathymapGetToDB = resp.empathymap;
+					isQueryOk = true;
+                    } else { // no existen usuarios
+                    }
+
+                } else { //Error en el servidor de base de datos
+                    // Debug.Log ("user error: " + resp.error);
+                    try {
+
+                    } catch { }
+                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
+                }
+            }
+        
+        yield return null;
+    }
+
+	#endregion
 }
 
