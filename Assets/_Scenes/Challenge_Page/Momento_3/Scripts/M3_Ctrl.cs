@@ -38,7 +38,6 @@ public class M3_Ctrl : MonoBehaviour
 
     #region SYSTEM_METHODS
     private void Start() { Initializate(); }
-
     private void OnEnable() { MainTab.OnTabChange += MainTabChanged; }
     private void OnDisable() { MainTab.OnTabChange -= MainTabChanged; }
     #endregion
@@ -81,11 +80,10 @@ public class M3_Ctrl : MonoBehaviour
         //_mainTab.onClick.AddListener(ShowHideTabs);
         _addIdea.onClick.AddListener(CreateNewIdea);
         _detIdea.onClick.AddListener(DeleteCurrentIdea);
+        //DB validation here
         _detIdea.gameObject.SetActive(false);
         _showTabs = false;
-        // HideTabs();
         _arrayPostit = new List<GameObject>();
-        //      counterstorytelling = 1; //Delete this line
 
         ChargeNotesToStoryTelling();
         ChangeStoryTellingVersion(1);
@@ -95,7 +93,7 @@ public class M3_Ctrl : MonoBehaviour
     {
 
         counterstorytelling = _storytellingServices.GetStoryTellingsCounters();
-
+        print(counterstorytelling); //We need to set _storytellingServices.setStoryTellingsCounter(counterStoryTelling);
         _arraystorytellings = new StoryTelling[counterstorytelling];
 
         setArrayStoryTellings();
@@ -107,8 +105,11 @@ public class M3_Ctrl : MonoBehaviour
     public void ChangeStoryTellingVersion(int version)
     {
 
+        ChargeNotesToStoryTelling();
+
         deleteNotesPrefab();
 
+        print(_arraystorytellings.Length);
         DataBaseParametersCtrl.Ctrl._storyTellingLoaded = _arraystorytellings[version - 1];
 
         int counternotes = _noteServices.GetNotesCounter();
@@ -276,12 +277,12 @@ public class M3_Ctrl : MonoBehaviour
             _addIdea.gameObject.SetActive(false);
         }
         //  HideTabs();
-        if (!_mainTab)
+        if (_mainTab == null)
         {
+            print("searching maintab");
             _mainTab = GameObject.FindObjectOfType<MainTab>();
         }
         _mainTab.SetTabsToShowCouner(counterstorytelling);
-        _mainTab.HideTabs();
         _showTabs = false;
     }
 
@@ -298,11 +299,6 @@ public class M3_Ctrl : MonoBehaviour
             _detIdea.gameObject.SetActive(false);
         }
         _actualTab = 1;
-        /*         for (int i = 0; i < _tabsArray.Length; i++)
-                {
-                    _tabsArray[i].SetInernalID(i + 1);
-                } */
-        // HideTabs();
         _mainTab.SetTabsToShowCouner(counterstorytelling);
         _mainTab.HideTabs();
         _mainTab.SetSelectedTab(1);
@@ -311,15 +307,6 @@ public class M3_Ctrl : MonoBehaviour
         ChargeNotesToStoryTelling();
         ChangeStoryTellingVersion(1);
     }
-
-    /*     public void HideTabs()
-        {
-            _showTabs = false;
-            for (int i = 1; i < 3; i++)
-            {
-                _mainTab.transform.GetChild(i).gameObject.SetActive(false);
-            }
-        } */
 
     private void MainTabChanged()
     {
