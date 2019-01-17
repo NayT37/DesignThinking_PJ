@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine;
+using System;
 
 public class MainTab : MonoBehaviour, IPointerClickHandler
 {
@@ -21,6 +22,7 @@ public class MainTab : MonoBehaviour, IPointerClickHandler
 
 
     #region SYSTEM_METHODS
+    private void Awake() { _childsArray = new SubTab[3]; }
     private void Start() { Initializate(); }
     private void OnEnable() { SubTab.OnStateChange += SetChildStateTofalse; }
     private void OnDisable() { SubTab.OnStateChange -= SetChildStateTofalse; }
@@ -31,12 +33,11 @@ public class MainTab : MonoBehaviour, IPointerClickHandler
     private void Initializate()
     {
         _selectedTab = 1;
-        _childsArray = new SubTab[3];
         _internalTxt = GetComponentInChildren<Text>();
         _showTabs = true;
-        _tabsToShowCounter = 3; // Delete this line
-        ShowHideTabs();
-        _tabsToShowCounter = 1; //Change this line to show all childs
+        _tabsToShowCounter = 1;
+        HideTabs();
+        print("Starting");
     }
 
     private void SetChildStateTofalse()
@@ -67,6 +68,7 @@ public class MainTab : MonoBehaviour, IPointerClickHandler
 
     public void HideTabs()
     {
+        SearchChilds();
         _showTabs = false;
         for (int i = 0; i < 3; i++)
         {
@@ -76,12 +78,19 @@ public class MainTab : MonoBehaviour, IPointerClickHandler
 
     private void SearchChilds()
     {
-        if (!_childsArray[0])
+        try
         {
-            for (int i = 0; i < _childsArray.Length; i++)
+            if (_childsArray[0] == null)
             {
-                _childsArray[i] = transform.GetChild(i + 1).GetComponent<SubTab>();
+                for (int i = 0; i < _childsArray.Length; i++)
+                {
+                    _childsArray[i] = transform.GetChild(i + 1).GetComponent<SubTab>();
+                }
             }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("There was an error " + e);
         }
     }
     #endregion
@@ -104,7 +113,8 @@ public class MainTab : MonoBehaviour, IPointerClickHandler
     {
         SearchChilds();
         _selectedTab = value;
-        _internalTxt.text = "IDEA " + _selectedTab;
+        _internalTxt.text = ("IDEA " + _selectedTab);
+        print(_internalTxt.text);
         foreach (SubTab child in _childsArray)
         {
             child.SetStateTo(false);

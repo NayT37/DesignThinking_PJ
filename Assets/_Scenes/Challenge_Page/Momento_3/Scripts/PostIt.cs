@@ -23,7 +23,6 @@ public class PostIt : MonoBehaviour
     private void Initializate()
     {
         _internalInput = GetComponentInChildren<InputField>();
-        print(_internalInput);
     }
     #endregion
 
