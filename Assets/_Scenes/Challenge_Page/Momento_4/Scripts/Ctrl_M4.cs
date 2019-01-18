@@ -29,6 +29,10 @@ public class Ctrl_M4 : CtrlInternalText
     private MainTab _mainTab;
     private Button _addIdea, _detIdea;
     private bool _showTabs;
+
+    //Panel image variables
+    private PanelImage _panelImg;
+    private Button _imgPanelBtn;
     #endregion
 
 
@@ -70,6 +74,13 @@ public class Ctrl_M4 : CtrlInternalText
         _detIdea.onClick.AddListener(deleteMindmap);
         //DB Validation here
         _detIdea.gameObject.SetActive(false);
+
+        //Panel Image Stuff
+        _panelImg = GameObject.FindObjectOfType<PanelImage>();
+        _imgPanelBtn = GameObject.Find("OpenImgPanel_Btn").GetComponent<Button>();
+        _imgPanelBtn.onClick.AddListener(OpenImgPanel);
+        _panelImg.SetInternalImg(null); //DB here to get the image
+        _panelImg.gameObject.SetActive(false);
 
         ChargeNodesMindmap();
         ChangeMindmapVersion(1);
@@ -322,6 +333,21 @@ public class Ctrl_M4 : CtrlInternalText
         _mainTab.HideTabs();
         _mainTab.SetSelectedTab(1);
         _showTabs = false;
+    }
+
+    public void OpenImgPanel()
+    {
+        _panelImg.gameObject.SetActive(true);
+    }
+
+    public void DeleteImgFromDB()
+    {
+        //DB changes here
+    }
+
+    public void UpdateImgFromDB()
+    {
+        //DB changes here
     }
     #endregion
 
