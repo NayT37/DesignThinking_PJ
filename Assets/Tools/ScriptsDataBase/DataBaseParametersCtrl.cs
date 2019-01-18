@@ -85,6 +85,11 @@ public class DataBaseParametersCtrl : MonoBehaviour {
     void Awake () {
         if (Ctrl == null) {
             Ctrl = this;
+			_ipServer = "http://emprendimientovalle.com/designBack/services/";
+			isWaitingToDB = true;
+			Salt = "EHS-dpa";
+			_dataServices = new DataService ("dtdbtemplate.db");
+			_sqliteConnection = _dataServices._connection;
         } else if (Ctrl != null)
             Destroy (gameObject);
     }
@@ -92,11 +97,7 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		_ipServer = "0.0.0.0/";
-		isWaitingToDB = true;
-		Salt = "EHS-dpa";
-		_dataServices = new DataService ("dtdbtemplate.db");
-		_sqliteConnection = _dataServices._connection;
+		
 
 	}
 	
@@ -140,37 +141,6 @@ public class DataBaseParametersCtrl : MonoBehaviour {
         HMACSHA512 hmacsha512 = new HMACSHA512 (Encoding.ASCII.GetBytes (Salt));
         hmacsha512.ComputeHash (Encoding.ASCII.GetBytes (inputString));
         return BitConverter.ToString (hmacsha512.Hash).Replace ("-", "").ToLower();
-    }
-
-
-	public Evaluation createEvaluation(){
-
-		StartCoroutine(CreateEvaluation());
-		return null;
-	}
-	private IEnumerator CreateEvaluation()
-    {	
-		while (isWaitingToDB)
-		{	
-			Debug.Log("...");	
-		} 
-
-		yield return null;
-    }
-
-	public void WriteResult(string[] paths) {
-        if (paths.Length == 0) {
-            return;
-        }
-
-        _path = "";
-        foreach (var p in paths) {
-            _path += p + "\n";
-        }
-    }
-
-    public void WriteResult(string path) {
-        _path = path;
     }
 
 

@@ -8,7 +8,7 @@ using System.IO;
 #endif
 using System.Collections.Generic;
 
-public class TeacherServices  {
+public class TeacherServices:MonoBehaviour  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
