@@ -9,11 +9,11 @@ using System.IO;
 #endif
 using System.Collections.Generic;
 
-public class CourseServices:MonoBehaviour  {
+public class CourseServices : MonoBehaviour  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
-	private GroupServices _groupServices = new GroupServices();
+	// private GroupServices _groupServices = new GroupServices();
 	private Course _nullCourse = new Course{
 				id = 0,
 				name = "null",
@@ -70,17 +70,21 @@ public class CourseServices:MonoBehaviour  {
 	private Course _courseGetToDB = new Course();
 
 	private int resultToDB = 0;
-	
 
-	/// <summary>
-	/// Description to method to create many courses
-	/// </summary>
-	/// <returns>
-	/// A IEnumerable list of all the courses created
-	/// </returns>
+    public CourseServices()
+    {
+    }
 
 
-	public IEnumerable<Course> CreateCourses(){
+    /// <summary>
+    /// Description to method to create many courses
+    /// </summary>
+    /// <returns>
+    /// A IEnumerable list of all the courses created
+    /// </returns>
+
+
+    public IEnumerable<Course> CreateCourses(){
 		
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
 		var courses = new Course[]{};
@@ -203,19 +207,21 @@ public class CourseServices:MonoBehaviour  {
 	/// </returns>
 	public IEnumerable<Course> GetCourses(){
 
-		string teacherId = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
-		return _connection.Table<Course>().Where(x => x.teacherIdentityCard == teacherId);
+		Debug.Log("metodo");
+
+		string teacherId = "EHS2";//DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
+		// return _connection.Table<Course>().Where(x => x.teacherIdentityCard == teacherId);
 
 		//valueToResponse = 3
 
 		// string teacherId = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
-
-		// //Conexión con base de datos en web 
-		// GetToDB("getCourses", teacherId, 3);
+	
+		//Conexión con base de datos en web 
+		StartCoroutine(GetToDB("getTeacherCourses/", teacherId, 3));
 
 		// while (!isQueryOk){}
 		// isQueryOk = false;
-		// return _coursesLoaded;
+		return _coursesLoaded;
 	}
 
 	/// <summary>
@@ -255,17 +261,17 @@ public class CourseServices:MonoBehaviour  {
 		int result = _connection.Delete(courseToDelete);
 
 		//All the groups belonging to the course that will be deleted are obtained.
-		var groups = _groupServices.GetGroups(courseid);
+		//var groups = _groupServices.GetGroups(courseid);
 
 		int valueToReturn = 0;
 
 		//If the elimination of the course is correct, then the groups corresponding to that course are eliminated.
 		if (result!=0)
 		{
-			foreach (var group in groups)
-			{
-				valueToReturn += _groupServices.DeleteGroup(group);
-			}
+			// foreach (var group in groups)
+			// {
+			// 	valueToReturn += _groupServices.DeleteGroup(group);
+			// }
 			Debug.Log("Se borró el curso correctamente");
 		} else {
 			valueToReturn = 0;
@@ -524,7 +530,9 @@ public class CourseServices:MonoBehaviour  {
 	#region METHODS to get data to DB
 	public IEnumerator GetToDB (string methodToCall, string parameterToGet, int valueToResponse) {
 
-            WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
+            string url = DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet;
+			Debug.Log(url);
+			WWW postRequest = new WWW (url); // buscar en el servidor al usuario
             switch(valueToResponse){
 				case 2:
 
@@ -609,7 +617,13 @@ public class CourseServices:MonoBehaviour  {
 
             if (resp != null) { // Informacion obtenida exitosamente
                 if (!resp.error) { // sin error en el servidor
-					_coursesLoaded = resp.courses;
+					//_coursesLoaded = resp.courses;
+					Debug.Log(www.text);
+					Debug.Log(JsonUtility.ToJson(resp.courses));
+					// foreach (var item in _coursesLoaded)
+					// {
+					// 	Debug.Log(item.ToString());
+					// }
 					isQueryOk = true;
                     } else { // no existen usuarios
                     }

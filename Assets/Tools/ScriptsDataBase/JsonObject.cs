@@ -16,7 +16,7 @@ public class ResponseGetTeacher {
 public class ResponseGetCourses {
 	public bool error;
 	public string msg;
-	public IEnumerable<Course> courses;
+	public Course[] courses;
 }
 
 [Serializable]

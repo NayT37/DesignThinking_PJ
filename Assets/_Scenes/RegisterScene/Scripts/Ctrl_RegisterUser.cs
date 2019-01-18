@@ -35,7 +35,11 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 	}
 	public void GoUser(){
 
-		_teacherServices = new TeacherServices();
+		var goTeacher = gameObject.AddComponent<TeacherServices>();
+		_teacherServices =  goTeacher.GetComponent<TeacherServices>(); 
+
+		var goCourses = gameObject.AddComponent<CourseServices>();
+		var courseS = goCourses.GetComponent<CourseServices>(); 
 
 		string name = userName.text;
 		string password = DataBaseParametersCtrl.Ctrl.GenerateSHA512String(passName.text);
@@ -89,6 +93,8 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 //			userName.GetComponent<InputField> ();
 //			userName.placeholder.transform.localScale = new Vector3 (1.5f,1.5f,1);
 			//DOTween.Play ("7");
+			Debug.Log("inicio");
+			courseS.GetCourses();
 		}
 	}
 
