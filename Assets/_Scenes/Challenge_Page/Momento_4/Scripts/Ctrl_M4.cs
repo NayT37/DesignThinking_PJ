@@ -47,9 +47,13 @@ public class Ctrl_M4 : CtrlInternalText
     private void Initializate()
     {
         counterMindmaps = 0;
-        _mindmapServices = new MindmapServices();
-        _sectionServices = new SectionServices();
-        _nodeServices = new NodeServices();
+
+        var goServiceM = gameObject.AddComponent<MindmapServices>();
+        _mindmapServices = goServiceM.GetComponent<MindmapServices>();
+        var goServiceS = gameObject.AddComponent<SectionServices>();
+        _sectionServices = goServiceS.GetComponent<SectionServices>();
+         var goServiceN = gameObject.AddComponent<NodeServices>();
+        _nodeServices = goServiceN.GetComponent<NodeServices>();
 
         _arraySections = new Section[6] { null, null, null, null, null, null };
 
@@ -343,11 +347,12 @@ public class Ctrl_M4 : CtrlInternalText
     public void DeleteImgFromDB()
     {
         //DB changes here
+        _mindmapServices.UpdateMindmap("");
     }
 
-    public void UpdateImgFromDB()
+    public void UpdateImgFromDB(string imageToUpdate)
     {
-        //DB changes here
+        _mindmapServices.UpdateMindmap(imageToUpdate);
     }
     #endregion
 

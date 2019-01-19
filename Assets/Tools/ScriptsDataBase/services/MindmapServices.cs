@@ -9,6 +9,7 @@ using System.IO;
 #endif
 using System.Collections.Generic;
 
+[Serializable]
 public class MindmapServices:MonoBehaviour  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
@@ -280,10 +281,27 @@ public class MindmapServices:MonoBehaviour  {
 	/// </returns>
 	public int UpdateMindmap(Mindmap mindmapToUpdate, int newversion){
 
-		var _storytellingServices = new StorytellingServices();
-		
 		mindmapToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
 		mindmapToUpdate.version = newversion;
+		int result = _connection.Update(mindmapToUpdate, mindmapToUpdate.GetType());
+
+		return result;
+	}
+
+	/// <summary>
+	/// Description of the method to update a moment
+	/// </summary>
+	/// <param name="mindmapid">
+	/// An integer that contain the identifier section that will be updated.
+	/// <returns>
+	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
+	/// </returns>
+	public int UpdateMindmap(string imageToBase64){
+		
+		var mindmapToUpdate = DataBaseParametersCtrl.Ctrl._mindMapLoaded;
+
+		mindmapToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
+		mindmapToUpdate.image = imageToBase64;
 		int result = _connection.Update(mindmapToUpdate, mindmapToUpdate.GetType());
 
 		return result;
