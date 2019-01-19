@@ -1,16 +1,24 @@
 ﻿using SQLite4Unity3d;
 using System;
 
+[Serializable]
 public class Moment  {
 
-	[PrimaryKey, AutoIncrement]
-	public int id { get; set; }
-	public string name { get; set; }
-	public int percentage { get; set; }
-	public string creationDate { get; set; }
+	// [PrimaryKey, AutoIncrement]
+	// public int id { get; set; }
+	// public string name { get; set; }
+	// public int percentage { get; set; }
+	// public string creationDate { get; set; }
 
-	public int caseId { get; set; }
-	public string lastUpdate { get; set; }
+	// public int caseId { get; set; }
+	// public string lastUpdate { get; set; }
+	public int id;
+	public string name;
+	public int percentage;
+	public string creationDate;
+
+	public int caseId;
+	public string lastUpdate;
 
 	public override string ToString ()
 	{

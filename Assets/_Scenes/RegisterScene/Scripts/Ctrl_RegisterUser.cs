@@ -20,11 +20,15 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 	private DOTweenAnimation animationGame;
 	
 	private TeacherServices _teacherServices;
+
+	private CourseServices courseS; 
 	#endregion
 
 	public void Start(){	
-		
 
+		var goCourses = gameObject.AddComponent<CourseServices>();
+		courseS = goCourses.GetComponent<CourseServices>();
+		
 		var teacher = DataBaseParametersCtrl.Ctrl._teacherLoggedIn;
 
 		if (teacher != null)
@@ -36,10 +40,7 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 	public void GoUser(){
 
 		var goTeacher = gameObject.AddComponent<TeacherServices>();
-		_teacherServices =  goTeacher.GetComponent<TeacherServices>(); 
-
-		var goCourses = gameObject.AddComponent<CourseServices>();
-		var courseS = goCourses.GetComponent<CourseServices>(); 
+		_teacherServices =  goTeacher.GetComponent<TeacherServices>();  
 
 		string name = userName.text;
 		string password = DataBaseParametersCtrl.Ctrl.GenerateSHA512String(passName.text);
@@ -82,7 +83,7 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 					StartCoroutine(DeletePrefab(obj));
 
 				} else {
-					
+					Debug.Log(teacher.ToString());
 					DOTween.Play("bg_transition");
 					userName.text = "";
 					passName.text = "";		
@@ -95,7 +96,21 @@ public class Ctrl_RegisterUser : MonoBehaviour {
 			//DOTween.Play ("7");
 			Debug.Log("inicio");
 			courseS.GetCourses();
+			StartCoroutine(getIsQueryOk());
+			
 		}
+	}
+
+	private IEnumerator getIsQueryOk(){
+
+		Debug.Log("Waiting to get Courses...");
+		yield return new WaitUntil(() => DataBaseParametersCtrl.Ctrl.isQueryOk == true);
+		DataBaseParametersCtrl.Ctrl.isQueryOk = false;
+		foreach (var item in courseS._coursesLoaded)
+		{
+			Debug.Log(item.ToString());
+		}
+		Debug.Log("Finish to get Courses...");
 	}
 
 	IEnumerator ResgisterUser(){

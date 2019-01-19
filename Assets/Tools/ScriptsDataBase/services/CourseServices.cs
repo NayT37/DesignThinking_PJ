@@ -12,8 +12,7 @@ using System.Collections.Generic;
 public class CourseServices : MonoBehaviour  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
-
-	// private GroupServices _groupServices = new GroupServices();
+	private GroupServices _groupServices = new GroupServices();
 	private Course _nullCourse = new Course{
 				id = 0,
 				name = "null",
@@ -23,7 +22,7 @@ public class CourseServices : MonoBehaviour  {
 				lastUpdate = "null"
 		};
 	
-	private IEnumerable<Course> _coursesLoaded = new List<Course>{
+	public Course[] _coursesLoaded = new Course[]{
 		new Course{
 				id = 0,
 				name = "null",
@@ -219,9 +218,19 @@ public class CourseServices : MonoBehaviour  {
 		//Conexión con base de datos en web 
 		StartCoroutine(GetToDB("getTeacherCourses/", teacherId, 3));
 
-		// while (!isQueryOk){}
-		// isQueryOk = false;
 		return _coursesLoaded;
+	}
+
+	
+	private IEnumerator getIsQueryOk(){
+
+		Debug.Log("Waiting to get Courses...");
+		yield return new WaitUntil(() => isQueryOk == true);
+		// foreach (var item in _coursesLoaded)
+		// {
+		// 	Debug.Log(item.ToString());
+		// }
+		// Debug.Log("Finish to get Courses...");
 	}
 
 	/// <summary>
@@ -594,7 +603,7 @@ public class CourseServices : MonoBehaviour  {
         yield return null;
     }
 
-	IEnumerator waitDB_ToGetCourses (WWW www) {
+	private IEnumerator waitDB_ToGetCourses (WWW www) {
         using (www) {
             while (!www.isDone) {
                 yield return null;
@@ -604,7 +613,7 @@ public class CourseServices : MonoBehaviour  {
 			
             try {
                 resp = JsonUtility.FromJson<ResponseGetCourses> (www.text);
-            } catch { }
+			 } catch { }
 
             //Validacion de la informacion obtenida
             if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
@@ -618,8 +627,8 @@ public class CourseServices : MonoBehaviour  {
             if (resp != null) { // Informacion obtenida exitosamente
                 if (!resp.error) { // sin error en el servidor
 					//_coursesLoaded = resp.courses;
-					Debug.Log(www.text);
-					Debug.Log(JsonUtility.ToJson(resp.courses));
+					_coursesLoaded = resp.courses; 
+					DataBaseParametersCtrl.Ctrl.isQueryOk = true;         
 					// foreach (var item in _coursesLoaded)
 					// {
 					// 	Debug.Log(item.ToString());
