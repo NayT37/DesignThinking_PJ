@@ -16,6 +16,8 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
 
     private Texture2D _texture2DRaw;
 
+    private Ctrl_M4 ctrl;
+
 #if UNITY_WEBGL && !UNITY_EDITOR
     //
     // WebGL
@@ -41,6 +43,7 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
     public void OnPointerDown(PointerEventData eventData) { }
 
     void Start() {
+        ctrl = GameObject.Find("Ctrl_M4").GetComponent<Ctrl_M4>();
         _texture2DRaw = new Texture2D(1,1);
         var button = GetComponent<Button>();
         button.onClick.AddListener(OnClick);
@@ -64,13 +67,15 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
         output.SetNativeSize();
         output.transform.localScale = new Vector3(0.3f,0.3f,0.3f);
         _texture2DRaw = (Texture2D)output.texture;
-        convertToBase64(_texture2DRaw);
+        string imageConvert = convertToBase64(_texture2DRaw);
+        ctrl.UpdateImgFromDB(imageConvert);
     }
 
-    private void convertToBase64(Texture2D _Texture){
+    private string convertToBase64(Texture2D _Texture){
 
         byte[] imageData = _Texture.EncodeToPNG();
 		string data = Convert.ToBase64String(imageData);
         Debug.Log(data);
+        return data;
     }
 }

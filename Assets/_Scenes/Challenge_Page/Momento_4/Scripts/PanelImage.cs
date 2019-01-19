@@ -36,7 +36,7 @@ public class PanelImage : MonoBehaviour
         {
             _ctrl = GameObject.FindObjectOfType<Ctrl_M4>();
         }
-        _ctrl.UpdateImgFromDB();
+        //_ctrl.UpdateImgFromDB();
         //Local changes here
     }
 
