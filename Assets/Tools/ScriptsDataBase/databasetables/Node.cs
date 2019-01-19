@@ -1,16 +1,24 @@
 ﻿using SQLite4Unity3d;
 using System;
 
+[Serializable]
 public class Node  {
 
-	[PrimaryKey, AutoIncrement]
-	public int id { get; set; }
-	public string creationDate { get; set; }
+	// [PrimaryKey, AutoIncrement]
+	// public int id { get; set; }
+	// public string creationDate { get; set; }
 
-	public string description { get; set; }
+	// public string description { get; set; }
 
-	public int sectionId { get; set; }
-	public string lastUpdate { get; set; }
+	// public int sectionId { get; set; }
+	// public string lastUpdate { get; set; }
+	public int id;
+	public string creationDate;
+
+	public string description;
+
+	public int sectionId;
+	public string lastUpdate;
 
 	public override string ToString ()
 	{

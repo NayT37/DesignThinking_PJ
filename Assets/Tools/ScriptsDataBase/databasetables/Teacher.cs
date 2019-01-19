@@ -1,6 +1,7 @@
 ﻿using SQLite4Unity3d;
 using System;
 
+[Serializable]
 public class Teacher  {
 
 	[PrimaryKey]
@@ -19,6 +20,21 @@ public class Teacher  {
 	public string password { get; set; }
 	public string creationDate { get; set; }
 	public int headquartersId { get; set; }
+	// public string identityCard;
+	// public int documentTypeId;
+
+	// public string names;
+
+	// public string surnames;
+
+	// public string phone;
+
+	// public string address;
+
+	// public string email;
+	// public string password;
+	// public string creationDate;
+	// public int headquartersId;
 
 	public override string ToString ()
 	{

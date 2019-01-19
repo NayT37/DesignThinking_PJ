@@ -9,7 +9,7 @@ using System.IO;
 #endif
 using System.Collections.Generic;
 
-public class AnswerServices:MonoBehaviour  {
+public class AnswerServices : MonoBehaviour  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
 
@@ -29,7 +29,7 @@ public class AnswerServices:MonoBehaviour  {
 
 	private int resultToDB = 0;
 
-	private IEnumerable<Answer> _answersLoaded = new Answer[]{
+	private Answer[] _answersLoaded = new Answer[]{
 		new Answer{
 				id = 0,
 				counter = 0,

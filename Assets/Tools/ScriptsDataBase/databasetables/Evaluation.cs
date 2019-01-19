@@ -1,17 +1,26 @@
 ﻿using SQLite4Unity3d;
 using System;
 
+[Serializable]
 public class Evaluation  {
 
-	[PrimaryKey, AutoIncrement]
-	public int id { get; set; }
+	// [PrimaryKey, AutoIncrement]
+	// public int id { get; set; }
+
+	// public string category {get; set; }
+	// public int percentage { get; set; }
+	// public string creationDate { get; set; }
+
+	// public int mindMapId { get; set; }
+	// public string lastUpdate { get; set; }
+	public int id;
 
 	public string category {get; set; }
-	public int percentage { get; set; }
-	public string creationDate { get; set; }
+	public int percentage;
+	public string creationDate;
 
-	public int mindMapId { get; set; }
-	public string lastUpdate { get; set; }
+	public int mindMapId;
+	public string lastUpdate;
 
 	public override string ToString ()
 	{

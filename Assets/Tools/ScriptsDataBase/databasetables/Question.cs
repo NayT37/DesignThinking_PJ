@@ -1,16 +1,26 @@
 ﻿using SQLite4Unity3d;
 using System;
 
+[Serializable]
 public class Question  {
 
-	[PrimaryKey, AutoIncrement]
-	public int id { get; set; }
-	public string creationDate { get; set; }
+	// [PrimaryKey, AutoIncrement]
+	// public int id { get; set; }
+	// public string creationDate { get; set; }
 
-	public string description { get; set; }
+	// public string description { get; set; }
 
-	public int evaluationId { get; set; }
-	public string lastUpdate { get; set; }
+	// public int evaluationId { get; set; }
+	// public string lastUpdate { get; set; }
+
+	// public string category {get; set; }
+	public int id;
+	public string creationDate;
+
+	public string description;
+
+	public int evaluationId;
+	public string lastUpdate;
 
 	public string category {get; set; }
 

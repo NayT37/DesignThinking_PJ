@@ -61,7 +61,7 @@ public class ResponseDeleteCourse {
 public class ResponseGetGroups {
 	public bool error;
 	public string msg;
-	public IEnumerable<Group> groups;
+	public Group[] groups;
 }
 
 [Serializable]
@@ -148,7 +148,7 @@ public class ResponseGetCaseId {
 public class ResponseGetCases {
 	public bool error;
 	public string msg;
-	public IEnumerable<Case> cases;
+	public Case[] cases;
 }
 
 [Serializable]
@@ -174,7 +174,7 @@ public class ResponseCreateMoment {
 public class ResponseGetMoments {
 	public bool error;
 	public string msg;
-	public IEnumerable<Moment> moments;
+	public Moment[] moments;
 }
 
 [Serializable]
@@ -197,7 +197,7 @@ public class ResponseUpdateMoment {
 public class ResponseGetProjects {
 	public bool error;
 	public string msg;
-	public IEnumerable<Project> projects;
+	public Project[] projects;
 }
 
 [Serializable]
@@ -338,7 +338,7 @@ public class ResponseCreateSector {
 public class ResponseGetSectors {
 	public bool error;
 	public string msg;
-	public IEnumerable<Sector> sectors;
+	public Sector[] sectors;
 }
 
 [Serializable]
@@ -361,7 +361,7 @@ public class ResponseUpdateSector {
 public class ResponseGetStoryTellings {
 	public bool error;
 	public string msg;
-	public IEnumerable<StoryTelling> storytellings;
+	public StoryTelling[] storytellings;
 }
 
 [Serializable]
@@ -406,7 +406,7 @@ public class ResponseCreateMindmap {
 public class ResponseGetMindmaps {
 	public bool error;
 	public string msg;
-	public IEnumerable<Mindmap> mindmaps;
+	public Mindmap[] mindmaps;
 }
 
 [Serializable]
@@ -475,7 +475,7 @@ public class ResponseGetQuestion {
 public class ResponseGetQuestions {
 	public bool error;
 	public string msg;
-	public IEnumerable<Question> questions;
+	public Question[] questions;
 }
 
 [Serializable]
@@ -499,7 +499,7 @@ public class ResponseCreateAnswer {
 public class ResponseGetAnswers {
 	public bool error;
 	public string msg;
-	public IEnumerable<Answer> answers;
+	public Answer[] answers;
 }
 
 [Serializable]
@@ -530,7 +530,7 @@ public class ResponseCreateSection {
 public class ResponseGetSections {
 	public bool error;
 	public string msg;
-	public IEnumerable<Section> sections;
+	public Section[] sections;
 }
 
 [Serializable]
@@ -555,7 +555,7 @@ public class ResponseCreateNode {
 public class ResponseGetNodes {
 	public bool error;
 	public string msg;
-	public IEnumerable<Node> nodes;
+	public Node[] nodes;
 }
 
 [Serializable]
@@ -587,7 +587,7 @@ public class ResponseCreateNote {
 public class ResponseGetNotes {
 	public bool error;
 	public string msg;
-	public IEnumerable<Note> notes;
+	public Note[] notes;
 }
 
 [Serializable]

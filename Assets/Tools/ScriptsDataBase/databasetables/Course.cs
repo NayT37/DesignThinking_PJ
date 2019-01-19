@@ -1,16 +1,24 @@
 ﻿using SQLite4Unity3d;
 using System;
 
+[Serializable]
 public class Course  {
+	// Solo funciona en móvil
+	// [PrimaryKey, AutoIncrement]
+	// public int id { get; set; }
+	// public string name { get; set; }
+	// public object percentage { get; set; }
+	// public string creationDate { get; set; }
 
-	[PrimaryKey, AutoIncrement]
-	public int id { get; set; }
-	public string name { get; set; }
-	public int percentage { get; set; }
-	public string creationDate { get; set; }
+	// public string teacherIdentityCard { get; set; }
+	// public string lastUpdate { get; set; }
+	public int id;
+	public string name;
+	public int percentage;
+	public string creationDate;
 
-	public string teacherIdentityCard { get; set; }
-	public string lastUpdate { get; set; }
+	public string teacherIdentityCard;
+	public string lastUpdate;
 
 	public override string ToString ()
 	{

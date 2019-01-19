@@ -18,6 +18,8 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 	[Header ("Course loaded")]
 	public Course _courseLoaded;
 
+	public Course[] _coursesLoaded;
+
 	[Header ("Group loaded")]
 	public Group _groupLoaded;
 
@@ -81,6 +83,8 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 	private string Salt;
     public string _ipServer;
 
+	public bool isQueryOk;
+
 
     void Awake () {
         if (Ctrl == null) {
@@ -90,6 +94,7 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 			Salt = "EHS-dpa";
 			_dataServices = new DataService ("dtdbtemplate.db");
 			_sqliteConnection = _dataServices._connection;
+			isQueryOk = false;
         } else if (Ctrl != null)
             Destroy (gameObject);
     }

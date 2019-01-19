@@ -3,14 +3,21 @@ using System;
 
 public class Training  {
 
-	[PrimaryKey, AutoIncrement]
-	public int id { get; set; }
-	public string name { get; set; }
-	public int percentage { get; set; }
-	public string creationDate { get; set; }
+	// [PrimaryKey, AutoIncrement]
+	// public int id;
+	// public string name;
+	// public int percentage;
+	// public string creationDate;
 
-	public int groupId { get; set; }
-	public string lastUpdate { get; set; }
+	// public int groupId;
+	// public string lastUpdate;
+	public int id;
+	public string name;
+	public int percentage;
+	public string creationDate;
+
+	public int groupId;
+	public string lastUpdate;
 
 	public override string ToString ()
 	{
