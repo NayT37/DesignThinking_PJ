@@ -63,6 +63,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
     public int _actualCase;
     private string _actualScn;
     private Button _btnRA;
+    private Text _btnRATxt;
     private GameObject _loadObj;
 
     private CaseServices _caseServices;
@@ -89,13 +90,13 @@ public class CasesHUD_Ctrl : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate()
     {
-        
+
         InitializeServices();
 
         XRSettings.enabled = false;
         _actualMoment = 1;
 
-        
+
         _actualCase = 1;
         _actualScn = "";
         _loadObj = GameObject.Find("Loading_Bg");
@@ -119,12 +120,14 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
         _btnRA = GameObject.Find("RA_Btn").GetComponent<Button>();
         _btnRA.onClick.AddListener(ChangeRA);
+        _btnRA.gameObject.SetActive(false);
+        _btnRATxt = _btnRA.GetComponentInChildren<Text>();
 
-        
         Btn_momento1.sprite = Moment1_Selected;
     }
 
-    public void InitializeServices(){
+    public void InitializeServices()
+    {
 
         _caseServices = new CaseServices();
 
@@ -246,6 +249,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
     public void MomentBtnClick(int momentValue)
     {
+        _btnRA.gameObject.SetActive(false);
         if (_actualMoment != momentValue)
         {
             switch (momentValue)
@@ -351,6 +355,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
                     //				DOTween.Play ("3");
                     //Texto que indica el nombre de la fase
+                    _btnRA.gameObject.SetActive(true);
                     Text_Changed.text = "EVALUAR";
                     break;
             }
@@ -369,6 +374,10 @@ public class CasesHUD_Ctrl : MonoBehaviour
     private void ChangeRA()
     {
         VuforiaControl.instance.ChangeRAStatus();
+        if (VuforiaControl.instance.GetActiveStatus())
+            _btnRATxt.text = "Desactivar RA";
+        else
+            _btnRATxt.text = "Activar RA";
     }
     #endregion
 

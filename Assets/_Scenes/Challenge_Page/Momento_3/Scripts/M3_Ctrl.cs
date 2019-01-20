@@ -67,14 +67,6 @@ public class M3_Ctrl : MonoBehaviour
         _addPostItPanel.SetActive(false);
         _postItQntt = 0;
 
-        /*         _tabsArray = new TabBehaviour[3];
-                for (int i = 0; i < _tabsArray.Length; i++)
-                {
-                    _tabsArray[i] = GameObject.Find("Btn_" + (i + 1)).GetComponent<TabBehaviour>();
-
-                } */
-        //_mainTab = _tabsArray[0].GetComponent<Button>();
-
         _addIdea = GameObject.Find("AddIdea_Btn").GetComponent<Button>();
         _detIdea = GameObject.Find("DetIdea_Btn").GetComponent<Button>();
         //_mainTab.onClick.AddListener(ShowHideTabs);
@@ -84,7 +76,7 @@ public class M3_Ctrl : MonoBehaviour
         _detIdea.gameObject.SetActive(false);
         _showTabs = false;
         _arrayPostit = new List<GameObject>();
-
+        ChMainHUD.instance.SetLimitCtrl(4); //If there is a StoryTelling available
         ChargeNotesToStoryTelling();
         ChangeStoryTellingVersion(1);
     }

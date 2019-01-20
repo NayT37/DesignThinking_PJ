@@ -100,6 +100,11 @@ public class VuforiaControl : MonoBehaviour
         _mainCam.transform.localPosition = new Vector3(-800, -15, 0);
     }
 
+    public bool GetActiveStatus()
+    {
+        return _isActiveRA;
+    }
+
     private IEnumerator WaitTime()
     {
         yield return new WaitForSeconds(2);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR;
+using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
 using System;
@@ -26,6 +27,8 @@ public class ChMainHUD : MonoBehaviour
     private EmpathymapServices _empathymapServices;
 
     public RectTransform _transformShowHideBtn;
+    private Image[] _btnsImgs;
+    private Color32 _deactiveClr, _activeClr;
     #endregion
 
 
@@ -55,7 +58,7 @@ public class ChMainHUD : MonoBehaviour
         _actualMoment = 0;
 
         _publicServices = new PublicServices();
-        
+
         _empathymapServices = new EmpathymapServices();
 
         int projectId = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
@@ -67,7 +70,6 @@ public class ChMainHUD : MonoBehaviour
             var empathymap = _empathymapServices.GetEmpathyMap(projectId);
             _actualMoment = 1;
             DataBaseParametersCtrl.Ctrl._empathyMapLoaded = empathymap;
-
         }
 
         XRSettings.enabled = false;
@@ -78,7 +80,19 @@ public class ChMainHUD : MonoBehaviour
         _actualScn = "";
         _menuHolder = GameObject.Find("Menu_Holder").transform;
         _showPosition = new Vector3(0, 0, 0);
-        _hidePosition = new Vector3(0, -155, 0); 
+        _hidePosition = new Vector3(0, -155, 0);
+
+        _deactiveClr = new Color(255, 255, 255, 150);
+        _activeClr = new Color(255, 255, 255, 255);
+        _btnsImgs = new Image[5];
+        for (int i = 0; i < _btnsImgs.Length; i++)
+        {
+            _btnsImgs[i] = _menuHolder.Find("Btns_Holder").GetChild(i).GetComponent<Image>();
+            _btnsImgs[i].color = _deactiveClr;
+        }
+
+        _btnsImgs[0].color = _activeClr;
+
         ShowHideMenu();
         StartCoroutine(ChangeScene("M_" + _actualMoment, _actualScn));
     }
@@ -99,12 +113,12 @@ public class ChMainHUD : MonoBehaviour
         if (_isHide)
         {
             _menuHolder.localPosition = _showPosition;
-            _transformShowHideBtn.Rotate( new Vector3( 0, 0, -180 ) );
+            _transformShowHideBtn.Rotate(new Vector3(0, 0, -180));
         }
         else
         {
             _menuHolder.localPosition = _hidePosition;
-            _transformShowHideBtn.Rotate( new Vector3( 0, 0, 180 ) );
+            _transformShowHideBtn.Rotate(new Vector3(0, 0, 180));
         }
         _isHide = !_isHide;
     }
@@ -118,7 +132,11 @@ public class ChMainHUD : MonoBehaviour
     #region GETTERS_AND_SETTERS
     public void SetLimitCtrl(int value)
     {
-        _limitCtrl = value;
+        if (_limitCtrl < value)
+        {
+            _limitCtrl = value;
+        }
+        _btnsImgs[value - 1].color = _activeClr;
     }
     #endregion
 
