@@ -52,7 +52,7 @@ public class Ctrl_M4 : CtrlInternalText
         _mindmapServices = goServiceM.GetComponent<MindmapServices>();
         var goServiceS = gameObject.AddComponent<SectionServices>();
         _sectionServices = goServiceS.GetComponent<SectionServices>();
-         var goServiceN = gameObject.AddComponent<NodeServices>();
+        var goServiceN = gameObject.AddComponent<NodeServices>();
         _nodeServices = goServiceN.GetComponent<NodeServices>();
 
         _arraySections = new Section[6] { null, null, null, null, null, null };
@@ -85,6 +85,8 @@ public class Ctrl_M4 : CtrlInternalText
         _imgPanelBtn.onClick.AddListener(OpenImgPanel);
         _panelImg.SetInternalImg(null); //DB here to get the image
         _panelImg.gameObject.SetActive(false);
+
+        ChMainHUD.instance.SetLimitCtrl(5); //If there is a Mindmap available
 
         ChargeNodesMindmap();
         ChangeMindmapVersion(1);

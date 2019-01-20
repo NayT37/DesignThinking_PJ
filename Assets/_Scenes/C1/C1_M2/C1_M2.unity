@@ -222,7 +222,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1941494769514666, guid: 073ac5881fbad0d4499277140b2d9601, type: 2}
       propertyPath: m_Name
-      value: Canvas_Tinder (2)
+      value: CanvasTinder_3
       objectReference: {fileID: 0}
     - target: {fileID: 114327630271491680, guid: 073ac5881fbad0d4499277140b2d9601,
         type: 2}
@@ -616,7 +616,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1941494769514666, guid: 073ac5881fbad0d4499277140b2d9601, type: 2}
       propertyPath: m_Name
-      value: Canvas_Tinder (1)
+      value: CanvasTinder_2
       objectReference: {fileID: 0}
     - target: {fileID: 114327630271491680, guid: 073ac5881fbad0d4499277140b2d9601,
         type: 2}
@@ -738,6 +738,113 @@ Prefab:
       objectReference: {fileID: 22044249}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c7d5696b18dcd9f49b61f6751c0d2ac7, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &1507985607
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2028397173}
+    m_Modifications:
+    - target: {fileID: 224113524295254504, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224113524295254504, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224113524295254504, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224113524295254504, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224113524295254504, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224113524295254504, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224113524295254504, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224113524295254504, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 224113524295254504, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224113524295254504, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224113524295254504, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224113524295254504, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224113524295254504, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224113524295254504, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224113524295254504, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224113524295254504, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224113524295254504, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224113524295254504, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114720211399273204, guid: f5930d5f068cea144b9fbd298a02d901,
+        type: 2}
+      propertyPath: m_Text
+      value: "A partir de la informaci\xF3n recopilada durante la fase Empatizar,
+        debemos quedarnos con lo que realmente aporta valor y nos lleva al alcance
+        de nuevas perspectivas interesantes."
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: f5930d5f068cea144b9fbd298a02d901, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1997342479
 GameObject:
@@ -977,11 +1084,20 @@ Prefab:
       propertyPath: m_Text
       value: "Dise\xF1o"
       objectReference: {fileID: 0}
+    - target: {fileID: 1941494769514666, guid: 073ac5881fbad0d4499277140b2d9601, type: 2}
+      propertyPath: m_Name
+      value: CanvasTinder_1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 073ac5881fbad0d4499277140b2d9601, type: 2}
   m_IsPrefabParent: 0
 --- !u!223 &2028397172 stripped
 Canvas:
   m_PrefabParentObject: {fileID: 223823878388819494, guid: 073ac5881fbad0d4499277140b2d9601,
+    type: 2}
+  m_PrefabInternal: {fileID: 2028397171}
+--- !u!224 &2028397173 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224224033799833058, guid: 073ac5881fbad0d4499277140b2d9601,
     type: 2}
   m_PrefabInternal: {fileID: 2028397171}
