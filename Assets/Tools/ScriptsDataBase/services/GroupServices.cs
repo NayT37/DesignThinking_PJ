@@ -292,9 +292,11 @@ public class GroupServices:MonoBehaviour  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
 	/// </returns>
-	public int DeleteGroup(Group groupToDelete){
+	public int DeleteGroup(){
 
 		//valueToResponse = 5
+
+		var groupToDelete = DataBaseParametersCtrl.Ctrl._groupLoaded;
 
 		int groupid = groupToDelete.id;
 		//All the trainings belonging to the group that will be deleted are obtained.
