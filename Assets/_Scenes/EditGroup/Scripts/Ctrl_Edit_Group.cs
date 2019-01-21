@@ -109,10 +109,10 @@ public class Ctrl_Edit_Group : MonoBehaviour {
         {
             GameObject obj = Instantiate(_msgDelete, _textParent);
             StartCoroutine(DeletePrefab(obj));
-			// var result = _groupServices.DeleteGroup ();
-			// if (result != 0) {
-			// 	SceneManager.LoadScene ("Edit_Curse");
-			// }
+			var result = _groupServices.DeleteGroup ();
+			if (result != 0) {
+				SceneManager.LoadScene ("Edit_Curse");
+			}
         }
     }
 
