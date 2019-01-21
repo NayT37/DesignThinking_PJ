@@ -2,35 +2,38 @@
 using System;
 
 [Serializable]
-public class Field  {
+public class Field
+{
 
-	// [PrimaryKey, AutoIncrement]
-	// public int id { get; set; }
-	// public string name { get; set; }
-	// public int percentage { get; set; }
+    [PrimaryKey, AutoIncrement]
+    public int id { get; set; }
+    public string name { get; set; }
+    public int percentage { get; set; }
 
-	// public string description { get; set; }
-	// public string creationDate { get; set; }
+    public string description { get; set; }
+    public string creationDate { get; set; }
 
-	// public string lastUpdate { get; set; }
+    public string lastUpdate { get; set; }
 
-	// public int problemId { get; set; }
-	public int id;
-	public string name;
-	public int percentage;
+    public int problemId { get; set; }
 
-	public string description;
-	public string creationDate;
+    public override string ToString()
+    {
+        return string.Format("[Field: Id={0}, Name={1},  description={2}, percentage={3}, creationDate={4}, lastUpdate={5}, problemId={6}]",
+                                id, name, description, percentage, creationDate, lastUpdate, problemId);
+    }
+    /* 	public int id;
+        public string name;
+        public int percentage;
 
-	public string lastUpdate;
+        public string description;
+        public string creationDate;
 
-	public int problemId;
+        public string lastUpdate;
 
-	public override string ToString ()
-	{
-		return string.Format ("[Field: Id={0}, Name={1},  description={2}, percentage={3}, creationDate={4}, lastUpdate={5}, problemId={6}]", 
-								id, name, description, percentage, creationDate, lastUpdate, problemId);
-	}
+        public int problemId;
 
-	
+ */
+
+
 }

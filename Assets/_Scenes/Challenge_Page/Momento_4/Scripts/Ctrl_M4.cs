@@ -48,6 +48,7 @@ public class Ctrl_M4 : CtrlInternalText
     {
         counterMindmaps = 0;
 
+        int versionStoryTellingVersion = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.version;
         var goServiceM = gameObject.AddComponent<MindmapServices>();
         _mindmapServices = goServiceM.GetComponent<MindmapServices>();
         var goServiceS = gameObject.AddComponent<SectionServices>();

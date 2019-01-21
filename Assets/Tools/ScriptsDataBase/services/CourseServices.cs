@@ -208,15 +208,15 @@ public class CourseServices : MonoBehaviour  {
 
 		Debug.Log("metodo");
 
-		string teacherId = "EHS2";//DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
-		// return _connection.Table<Course>().Where(x => x.teacherIdentityCard == teacherId);
+		string teacherId = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
+		return _connection.Table<Course>().Where(x => x.teacherIdentityCard == teacherId);
 
 		//valueToResponse = 3
 
 		// string teacherId = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
 	
 		//Conexión con base de datos en web 
-		StartCoroutine(GetToDB("getTeacherCourses/", teacherId, 3));
+		//StartCoroutine(GetToDB("getTeacherCourses/", teacherId, 3));
 
 		return _coursesLoaded;
 	}
