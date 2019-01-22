@@ -86,7 +86,7 @@ public class SelectGame : MonoBehaviour
     public void LoadGameBtnBhvr() { 
 
         string name = "LoadGame";
-        int count = 1;//_courseServices.GetCoursesCount();
+        int count = _courseServices.GetCoursesCount();
 
         if (count!=0)
         {
