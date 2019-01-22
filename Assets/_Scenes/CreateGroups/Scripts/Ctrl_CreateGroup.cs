@@ -75,6 +75,7 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 		} else {
 			//Enviar a base de datos el nuevo grupo creado con dos parametros, el nombre y el número de estudiantes por grupo
 			var group = _groupServices.CreateGroup (groupName.text.ToUpper(),Convert.ToInt32(numberPerson.text.ToString()));
+			//StartCoroutine(getIsQueryCreateGroup());
 			contador += 1;
 			Debug.Log (contador + " contador");
 			//Se devuelve el Id del grupo desde la base de datos, cuando sea 1 se guardara y cuando sea 0 es porque ese grupo
@@ -158,4 +159,5 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 		numberPerson.text = "0";
 		tmp = 0;
 	}
+
 }

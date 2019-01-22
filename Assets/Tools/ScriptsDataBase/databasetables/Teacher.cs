@@ -1,7 +1,7 @@
 ﻿using SQLite4Unity3d;
 using System;
 
-[Serializable]
+// [Serializable]
 public class Teacher  {
 
 	[PrimaryKey]

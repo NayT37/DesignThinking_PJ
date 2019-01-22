@@ -21,27 +21,17 @@ public class Ctrl_LoadGame : MonoBehaviour {
 
 	private Course[] _courses;
 
+	private IEnumerable<Course> courses;
+
 
 	// Use this for initialization
 	void Start () {
+		
+		var goCourses = gameObject.AddComponent<CourseServices>();
+        _courseServices = goCourses.GetComponent<CourseServices>();
 
-		_courseServices = new CourseServices ();
-
-		var courses = _courseServices.GetCourses();
-
-		int countercourses = _courseServices.GetCoursesCount();
-		_courses = new Course[countercourses];
-
-		int counter = 0;
-		foreach (var item in courses) {
-			var SetName = Instantiate (prefab_Curse, parent_group.transform);
-			SetName.name = counter.ToString();
-			_courses [counter] = item;
-			counter++;
-			SetName.GetComponentInChildren<Text> ().text = item.name;
-			SetName.GetComponentInChildren<Button> ().onClick.AddListener (delegate{GetCoursePressed (SetName.name, item.name);});
-			Debug.Log ("name" + item.name);
-		}
+		courses = _courseServices.GetCourses();
+		StartCoroutine(getIsQueryGetCourses());
 	}
 
 	void GetCoursePressed(string positionInToArray, string nameCourse) {
@@ -80,5 +70,35 @@ public class Ctrl_LoadGame : MonoBehaviour {
 		DOTween.Play("bg_transition");
 		yield return new WaitForSeconds(1.0f);
 		SceneManager.LoadScene ("SelectGame");
+	}
+
+	private IEnumerator getIsQueryGetCourses()
+    {
+
+        Debug.Log("Waiting to get Courses...");
+        yield return new WaitUntil(() => DataBaseParametersCtrl.Ctrl.isQueryOk == true);
+		DataBaseParametersCtrl.Ctrl.isQueryOk = false;
+		courses = new Course[0];
+		courses = DataBaseParametersCtrl.Ctrl._coursesLoaded;
+        //int countercourses = _courseServices.GetCoursesCount();
+		_courses = new Course[5];
+		CreatePrefabs();
+		
+    }
+
+	void CreatePrefabs(){
+		int counter = 0;
+
+		foreach (var item in courses) {
+			Debug.Log(item.name);
+			var SetName = Instantiate (prefab_Curse, parent_group.transform);
+			SetName.name = counter.ToString();
+			_courses [counter] = item;
+			counter++;
+			SetName.GetComponentInChildren<Text> ().text = item.name;
+			SetName.GetComponentInChildren<Button> ().onClick.AddListener (delegate{GetCoursePressed (SetName.name, item.name);});
+			Debug.Log ("name" + item.name);
+		}
+		Debug.Log("Waiting to get Courses...2");
 	}
 }

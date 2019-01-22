@@ -224,9 +224,19 @@ public class GroupServices:MonoBehaviour  {
 	/// </returns>
 	public IEnumerable<Group> GetGroups(int courseId){
 
+		// return _connection.Table<Course>().Where(x => x.teacherIdentityCard == teacherId);
+
 		//valueToResponse = 3
 
-		return _connection.Table<Group>().Where(x => x.courseId == courseId);
+		// string teacherId = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
+	
+		//Conexión con base de datos en web 
+		StartCoroutine(GetToDB("getCourseGroups/", courseId.ToString(), 3));
+
+		return _groupsLoaded;
+		//valueToResponse = 3
+
+		//return _connection.Table<Group>().Where(x => x.courseId == courseId);
 	}
 
 	/// <summary>
@@ -651,7 +661,8 @@ public class GroupServices:MonoBehaviour  {
             if (resp != null) { // Informacion obtenida exitosamente
                 if (!resp.error) { // sin error en el servidor
 					_groupsLoaded = resp.groups;
-					isQueryOk = true;
+					DataBaseParametersCtrl.Ctrl.isQueryOk = true; 
+					DataBaseParametersCtrl.Ctrl._groupsLoaded = _groupsLoaded;        
                     } else { // no existen usuarios
                     }
 

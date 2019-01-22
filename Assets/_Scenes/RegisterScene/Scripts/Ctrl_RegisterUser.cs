@@ -101,9 +101,6 @@ public class Ctrl_RegisterUser : MonoBehaviour
         }
         else
         {
-            //			userName.GetComponent<InputField> ();
-            //			userName.placeholder.transform.localScale = new Vector3 (1.5f,1.5f,1);
-			
             DOTween.Play("7");
             userName.text = "";
             passName.text = "";
