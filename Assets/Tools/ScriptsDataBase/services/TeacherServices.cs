@@ -60,7 +60,7 @@ public class TeacherServices:MonoBehaviour  {
 
 
 			var teacher = new Teacher{
-					identityCard = teacherEmail + "-" + password,
+					identityCard = teacherEmail,
 					documentTypeId = 1,
 					names = "test",
 					surnames = "sapare",
@@ -86,58 +86,6 @@ public class TeacherServices:MonoBehaviour  {
 			}
 		}
 	}
-
-	#region METHODS to get data to DB
-	public IEnumerator GetToDB (string methodToCall, string parameterToGet, int valueToResponse) {
-
-            WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
-           
-			yield return (waitDB_ToGetTeacher (postRequest));
-
-        }
-
-	IEnumerator waitDB_ToGetTeacher (WWW www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseGetTeacher resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseGetTeacher> (www.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					_teacherGetToDB = resp.teacher;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	#endregion
-
 
 }
 

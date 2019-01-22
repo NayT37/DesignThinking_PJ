@@ -26,12 +26,6 @@ public class SectionServices:MonoBehaviour  {
 		};
 	
 
-	private bool isQueryOk = false;
-
-	private Section _sectionGetToDB = new Section();
-
-	private int resultToDB = 0;
-
 	private IEnumerable<Section> _sectionsLoaded = new Section[]{
 		new Section{
 				id = 0,
@@ -116,7 +110,6 @@ public class SectionServices:MonoBehaviour  {
 				}
 
 				if (count == 3){
-					Debug.Log(new_s);
 					return new_s;
 				}else
 					return _nullSection;
@@ -230,10 +223,8 @@ public class SectionServices:MonoBehaviour  {
 			{
 				valueToReturn += _nodeServices.DeleteNode(node);
 			}
-			Debug.Log("Se borró la sección correctamente");
 		} else {
 			valueToReturn = 0;
-			Debug.Log("No se borró la sección");
 		}
 
 		return valueToReturn;
@@ -264,177 +255,5 @@ public class SectionServices:MonoBehaviour  {
 
 		return result;
 	}
-
-	#region METHODS to get data to DB
-
-	public void setDBToWeb(string methodToCall, int valueToResponse, Section section){
-
-		//UserData tempUser = new UserData (player.id, player.cycle, game);
-		string json = JsonUtility.ToJson (section, true);
-		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
-		if (postRequest != null){
-			switch(valueToResponse){
-				case 1:
-
-				StartCoroutine (waitDB_ToCreateSection (postRequest));
-
-				break;
-
-				case 3:
-
-				StartCoroutine (waitDB_ToDeleteSection (postRequest));
-				
-				break;
-
-			}
-		}
-			
-	
-	}
-
-	private UnityWebRequest SetJsonForm (string json, string method) {
-		try {
-			UnityWebRequest web = UnityWebRequest.Put (DataBaseParametersCtrl.Ctrl._ipServer + method + "/put", json);
-			web.SetRequestHeader ("Content-Type", "application/json");
-			return web;
-		} catch {
-			return null;
-		}
-	}
-
-	IEnumerator waitDB_ToCreateSection (UnityWebRequest www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseCreateSection resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseCreateSection> (www.downloadHandler.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					_sectionGetToDB = resp.sectionCreated;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	IEnumerator waitDB_ToDeleteSection (UnityWebRequest www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseDeleteSection resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseDeleteSection> (www.downloadHandler.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					resultToDB = resp.result;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	#endregion
-
-	#region METHODS to get data to DB
-	public IEnumerator GetToDB (string methodToCall, string parameterToGet, int valueToResponse) {
-
-            WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
-           
-			yield return (waitDB_ToGetSections (postRequest));
-		
-        }
-
-
-	IEnumerator waitDB_ToGetSections (WWW www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseGetSections resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseGetSections> (www.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					_sectionsLoaded = resp.sections;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	#endregion
-
 }
 

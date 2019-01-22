@@ -22,12 +22,6 @@ public class PublicServices:MonoBehaviour  {
 				lastUpdate = "null",
 				projectId = 0
 		};
-	
-	private bool isQueryOk = false;
-
-	private Public _publicGetToDB = new Public();
-
-	private int resultToDB = 0;
 
 	/// <summary>
 	/// Description to method to create a _public
@@ -69,7 +63,6 @@ public class PublicServices:MonoBehaviour  {
 
 		if (result != 0)
 		{
-			Debug.Log(new_p);
 			DataBaseParametersCtrl.Ctrl._publicLoaded = new_p;
 			return new_p;
 		}else {
@@ -126,125 +119,5 @@ public class PublicServices:MonoBehaviour  {
 	public int UpdatePublic(Public publicToUpdate){
 		return _connection.Update(publicToUpdate, publicToUpdate.GetType());
 	}
-
-	#region METHODS to get data to DB
-
-	public void setDBToWeb(string methodToCall, int valueToResponse, Public _public){
-
-		//UserData tempUser = new UserData (player.id, player.cycle, game);
-		string json = JsonUtility.ToJson (_public, true);
-		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
-
-		StartCoroutine (waitDB_ToCreatePublic (postRequest));
-		
-	
-	}
-
-	private UnityWebRequest SetJsonForm (string json, string method) {
-		try {
-			UnityWebRequest web = UnityWebRequest.Put (DataBaseParametersCtrl.Ctrl._ipServer + method + "/put", json);
-			web.SetRequestHeader ("Content-Type", "application/json");
-			return web;
-		} catch {
-			return null;
-		}
-	}
-
-	IEnumerator waitDB_ToCreatePublic (UnityWebRequest www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseCreatePublic resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseCreatePublic> (www.downloadHandler.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					_publicGetToDB = resp.publicCreated;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-
-	#endregion
-
-	#region METHODS to get data to DB
-	public IEnumerator GetToDB (string methodToCall, string parameterToGet, int valueToResponse) {
-
-            WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
-
-			
-			yield return  (waitDB_ToGetPublic (postRequest));
-
-		
-        }
-
-
-	IEnumerator waitDB_ToGetPublic (WWW www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseGetPublic resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseGetPublic> (www.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					_publicGetToDB = resp._public;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	#endregion
 }
 

@@ -24,12 +24,6 @@ public class ProblemServices:MonoBehaviour  {
 	
 	private FieldServices _fieldServices = new FieldServices();
 
-	private bool isQueryOk = false;
-
-	private Problem _problemGetToDB = new Problem();
-
-	private int resultToDB = 0;
-
 
 	/// <summary>
 	/// Description to method to create a problem
@@ -72,7 +66,6 @@ public class ProblemServices:MonoBehaviour  {
 				//Creation of the fields
 				_fieldServices.CreateField("Field_"+(i+1), arrayfieldsname[i]);
 			}
-			Debug.Log(new_p);
 			return new_p;
 		}else {
 			return _nullProblem;
@@ -137,10 +130,8 @@ public class ProblemServices:MonoBehaviour  {
 			{
 				valueToReturn += _fieldServices.DeleteField(field);
 			}
-			Debug.Log("Se borró el problema campo correctamente");
 		} else {
 			valueToReturn = 0;
-			Debug.Log("No se borró el problema");
 		}
 
 		return valueToReturn;
@@ -167,226 +158,5 @@ public class ProblemServices:MonoBehaviour  {
 		}
 		return result;
 	}
-
-	
-		#region METHODS to get data to DB
-
-	public void setDBToWeb(string methodToCall, int valueToResponse, Problem problem){
-
-		//UserData tempUser = new UserData (player.id, player.cycle, game);
-		string json = JsonUtility.ToJson (problem, true);
-		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
-		if (postRequest != null){
-			switch(valueToResponse){
-				case 1:
-
-				StartCoroutine (waitDB_ToCreateProblem (postRequest));
-
-				break;
-
-				case 4:
-
-				StartCoroutine (waitDB_ToDeleteProblem (postRequest));
-				
-				break;
-			}
-		}
-			
-	
-	}
-
-	private UnityWebRequest SetJsonForm (string json, string method) {
-		try {
-			UnityWebRequest web = UnityWebRequest.Put (DataBaseParametersCtrl.Ctrl._ipServer + method + "/put", json);
-			web.SetRequestHeader ("Content-Type", "application/json");
-			return web;
-		} catch {
-			return null;
-		}
-	}
-
-	IEnumerator waitDB_ToCreateProblem (UnityWebRequest www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseCreateProblem resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseCreateProblem> (www.downloadHandler.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					_problemGetToDB = resp.problemCreated;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	IEnumerator waitDB_ToDeleteProblem (UnityWebRequest www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseDeleteProblem resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseDeleteProblem> (www.downloadHandler.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					resultToDB = resp.result;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	#endregion
-
-	#region METHODS to get data to DB
-	public IEnumerator GetToDB (string methodToCall, string parameterToGet, int valueToResponse) {
-
-            WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
-            switch(valueToResponse){
-				case 2:
-
-				yield return (waitDB_ToGetProblem (postRequest));
-
-				break;
-
-				case 3:
-
-				yield return (waitDB_ToGetProblemsCounter (postRequest));
-				
-				break;
-
-			}
-        }
-
-	IEnumerator waitDB_ToGetProblem (WWW www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseGetProblem resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseGetProblem> (www.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					_problemGetToDB = resp.problem;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	IEnumerator waitDB_ToGetProblemsCounter (WWW www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseGetProblemCounter resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseGetProblemCounter> (www.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					resultToDB = resp.counter;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	#endregion
 }
 

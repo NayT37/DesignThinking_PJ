@@ -37,11 +37,6 @@ public class EvaluationServices:MonoBehaviour  {
 				lastUpdate = "null"			
 		};
 	
-	private bool isQueryOk = false;
-
-	private Evaluation _evaluationGetToDB = new Evaluation();
-
-	private int resultToDB = 0;
 
 	/// <summary>
 	/// Description to method to create a evaluation
@@ -173,10 +168,8 @@ public class EvaluationServices:MonoBehaviour  {
 			{
 				valueToReturn += _questionServices.DeleteQuestion(question);
 			}
-			Debug.Log("Se borró la evaluación correctamente");
 		} else {
 			valueToReturn = 0;
-			Debug.Log("No se borró la evaluación");
 		}
 
 		return valueToReturn;
@@ -204,176 +197,5 @@ public class EvaluationServices:MonoBehaviour  {
 		}
 		return result;
 	}
-
-	#region METHODS to get data to DB
-
-	public void setDBToWeb(string methodToCall, int valueToResponse, Evaluation evaluation){
-
-		//UserData tempUser = new UserData (player.id, player.cycle, game);
-		string json = JsonUtility.ToJson (evaluation, true);
-		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
-		if (postRequest != null){
-			switch(valueToResponse){
-				case 1:
-
-				StartCoroutine (waitDB_ToCreateEvaluation (postRequest));
-
-				break;
-
-				case 3:
-
-				StartCoroutine (waitDB_ToDeleteEvaluation (postRequest));
-				
-				break;
-
-			}
-		}
-			
-	
-	}
-
-	private UnityWebRequest SetJsonForm (string json, string method) {
-		try {
-			UnityWebRequest web = UnityWebRequest.Put (DataBaseParametersCtrl.Ctrl._ipServer + method + "/put", json);
-			web.SetRequestHeader ("Content-Type", "application/json");
-			return web;
-		} catch {
-			return null;
-		}
-	}
-
-	IEnumerator waitDB_ToCreateEvaluation (UnityWebRequest www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseCreateEvaluation resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseCreateEvaluation> (www.downloadHandler.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					_evaluationGetToDB = resp.evaluationCreated;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	IEnumerator waitDB_ToDeleteEvaluation (UnityWebRequest www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseDeleteEvaluation resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseDeleteEvaluation> (www.downloadHandler.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					resultToDB = resp.result;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	#endregion
-
-	#region METHODS to get data to DB
-	public IEnumerator GetToDB (string methodToCall, string parameterToGet, int valueToResponse) {
-
-            WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
-           
-			yield return (waitDB_ToGetEvaluation (postRequest));
-		
-        }
-
-
-	IEnumerator waitDB_ToGetEvaluation (WWW www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseGetEvaluation resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseGetEvaluation> (www.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					_evaluationGetToDB = resp.evaluation;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	#endregion
 }
 

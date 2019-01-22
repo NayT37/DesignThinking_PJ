@@ -61,12 +61,6 @@ public class GroupServices:MonoBehaviour  {
 			}
 			
 	};
-	
-	private bool isQueryOk = false;
-
-	private Group _groupGetToDB = new Group();
-
-	private int resultToDB = 0;
 
 	/// <summary>
 	/// Description to method to create many groups
@@ -106,8 +100,6 @@ public class GroupServices:MonoBehaviour  {
 		});
 
 		return groups;
-
-		//Debug.Log(_exception);
 	}
 
 	/// <summary>
@@ -156,11 +148,9 @@ public class GroupServices:MonoBehaviour  {
 			if (result!=0){
 				int value =_trainingServices.CreateTraining(new_g.id);
 				valueToReturn = result;
-				Debug.Log(new_g);
 			}
 		} else{
 			valueToReturn = 0;
-			Debug.Log("El grupo ya existe");
 		}
 		//End-Validation that the group that will be created does not exist
 
@@ -224,19 +214,8 @@ public class GroupServices:MonoBehaviour  {
 	/// </returns>
 	public IEnumerable<Group> GetGroups(int courseId){
 
-		// return _connection.Table<Course>().Where(x => x.teacherIdentityCard == teacherId);
+		return _connection.Table<Group>().Where(x => x.courseId == courseId);
 
-		//valueToResponse = 3
-
-		// string teacherId = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
-	
-		//Conexión con base de datos en web 
-		StartCoroutine(GetToDB("getCourseGroups/", courseId.ToString(), 3));
-
-		return _groupsLoaded;
-		//valueToResponse = 3
-
-		//return _connection.Table<Group>().Where(x => x.courseId == courseId);
 	}
 
 	/// <summary>
@@ -253,46 +232,6 @@ public class GroupServices:MonoBehaviour  {
 
 		return _connection.Table<Group>().Where(x => x.courseId == courseId).Count();
 	}
-
-	// /// <summary>
-	// /// Description of the method to delete a group
-	// /// </summary>
-	// /// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
-	// /// </returns>
-	// public int DeleteGroup(){
-
-	// 	//valueToResponse = 5
-
-	// 	var groupToDelete = DataBaseParametersCtrl.Ctrl._groupLoaded;
-
-	// 	int groupid = groupToDelete.id;
-	// 	//All the trainings belonging to the group that will be deleted are obtained.
-	// 	var training = _trainingServices.GetTraining(groupid);
-
-	// 	int result = _connection.Delete(groupToDelete);
-	// 	int valueToReturn = 0;
-
-	// 	//All the trainings belonging to the group that will be deleted are obtained.
-	// 	var projects = _projectServices.GetProjects();
-
-	// 	//If the elimination of the group is correct, then the trainings and projects corresponding to that group are eliminated.
-	// 	if (result!=0)
-	// 	{
-	// 		valueToReturn += _trainingServices.DeleteTraining(training);
-
-	// 		foreach (var p in projects)
-	// 		{
-	// 			valueToReturn += _projectServices.DeleteProject(p);
-	// 		}
-
-	// 		Debug.Log("Se borró el grupo correctamente");
-	// 	} else {
-	// 		valueToReturn = 0;
-	// 		Debug.Log("No se borró el grupo");
-	// 	}
-
-	// 	return valueToReturn;
-	// }
 
 	/// <summary>
 	/// Description of the method to delete a group
@@ -328,10 +267,8 @@ public class GroupServices:MonoBehaviour  {
 				valueToReturn += _projectServices.DeleteProject(p);
 			}
 			
-			Debug.Log("Se borró el grupo correctamente");
 		} else {
 			valueToReturn = 0;
-			Debug.Log("No se borró el grupo");
 		}
 
 		return valueToReturn;
@@ -353,7 +290,6 @@ public class GroupServices:MonoBehaviour  {
 
 		var gU = DataBaseParametersCtrl.Ctrl._groupLoaded;
 		
-		Debug.Log ("sssss    " + gU );
 		gU.name = newnamegroup;
 		gU.studentsCounter = newstudenscount;
 		gU.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -396,7 +332,6 @@ public class GroupServices:MonoBehaviour  {
 
 			if (result!=0)
 			{
-				Debug.Log(groupToUpdate);
 				result = _courseServices.UpdateCourse();
 			}
 			
@@ -407,316 +342,4 @@ public class GroupServices:MonoBehaviour  {
 
 		return result;
 	}
-
-	#region METHODS to get data to DB
-
-	public void setDBToWeb(string methodToCall, int valueToResponse, Group group){
-
-		//UserData tempUser = new UserData (player.id, player.cycle, game);
-		string json = JsonUtility.ToJson (group, true);
-		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
-		if (postRequest != null){
-			switch(valueToResponse){
-				case 1:
-
-				StartCoroutine (waitDB_ToCreateGroup (postRequest));
-
-				break;
-
-				case 5:
-
-				StartCoroutine (waitDB_ToDeleteGroup (postRequest));
-				
-				break;
-
-				case 6:
-
-				StartCoroutine (waitDB_ToUpdateGroup (postRequest));
-				
-				break;
-			}
-		}
-			
-	
-	}
-
-	private UnityWebRequest SetJsonForm (string json, string method) {
-		try {
-			UnityWebRequest web = UnityWebRequest.Put (DataBaseParametersCtrl.Ctrl._ipServer + method + "/put", json);
-			web.SetRequestHeader ("Content-Type", "application/json");
-			return web;
-		} catch {
-			return null;
-		}
-	}
-
-	IEnumerator waitDB_ToCreateGroup (UnityWebRequest www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseCreateGroup resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseCreateGroup> (www.downloadHandler.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					_groupGetToDB = resp.groupCreated;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	IEnumerator waitDB_ToDeleteGroup (UnityWebRequest www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseDeleteGroup resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseDeleteGroup> (www.downloadHandler.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					resultToDB = resp.result;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	IEnumerator waitDB_ToUpdateGroup (UnityWebRequest www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseUpdateGroup resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseUpdateGroup> (www.downloadHandler.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					resultToDB = resp.result;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	#endregion
-
-	#region METHODS to get data to DB
-	public IEnumerator GetToDB (string methodToCall, string parameterToGet, int valueToResponse) {
-
-            WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
-            switch(valueToResponse){
-				case 2:
-
-				yield return (waitDB_ToGetGroupNamed (postRequest));
-
-				break;
-
-				case 3:
-
-				yield return (waitDB_ToGetGroups (postRequest));
-				
-				break;
-
-				case 4:
-
-				yield return (waitDB_ToGetGroupsCounter (postRequest));
-				
-				break;
-			}
-        }
-
-	IEnumerator waitDB_ToGetGroupNamed (WWW www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseGetNamedGroup resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseGetNamedGroup> (www.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					_groupGetToDB = resp.groupNamed;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	IEnumerator waitDB_ToGetGroups (WWW www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseGetGroups resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseGetGroups> (www.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					_groupsLoaded = resp.groups;
-					DataBaseParametersCtrl.Ctrl.isQueryOk = true; 
-					DataBaseParametersCtrl.Ctrl._groupsLoaded = _groupsLoaded;        
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	IEnumerator waitDB_ToGetGroupsCounter (WWW www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseGetGroupsCounter resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseGetGroupsCounter> (www.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					resultToDB = resp.counter;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	#endregion
 }
