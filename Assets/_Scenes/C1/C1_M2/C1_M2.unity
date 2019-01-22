@@ -843,6 +843,10 @@ Prefab:
         debemos quedarnos con lo que realmente aporta valor y nos lleva al alcance
         de nuevas perspectivas interesantes."
       objectReference: {fileID: 0}
+    - target: {fileID: 1375753185328006, guid: f5930d5f068cea144b9fbd298a02d901, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f5930d5f068cea144b9fbd298a02d901, type: 2}
   m_IsPrefabParent: 0
