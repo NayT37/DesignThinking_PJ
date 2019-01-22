@@ -27,11 +27,6 @@ public class StorytellingServices:MonoBehaviour  {
 				version = 0
 		};
 	
-	private bool isQueryOk = false;
-
-	private StoryTelling _storytellingGetToDB = new StoryTelling();
-
-	private int resultToDB = 0;
 	private int[] arrayversions = new int[]{1,2,3};
 
 	private IEnumerable<StoryTelling> _storytellingsLoaded = new StoryTelling[]{
@@ -102,16 +97,13 @@ public class StorytellingServices:MonoBehaviour  {
 			var m = _mindmapServices.CreateMindMap(1);
 		
 			if (m.id != 0){
-				Debug.Log(new_s);
 				return new_s;
 			}else{
-				Debug.Log("+++");
 				return _nullStorytelling;
 			}
 			
 			
 		}else {
-			Debug.Log("...");
 			return _nullStorytelling;
 		}
 		
@@ -212,10 +204,8 @@ public class StorytellingServices:MonoBehaviour  {
 			{
 				valueToReturn += _mindmapServices.DeleteMindmap(mindmap);
 			}
-			Debug.Log("Se borró el storytelling campo correctamente");
 		} else {
 			valueToReturn = 0;
-			Debug.Log("No se borró el storytelling");
 		}
 
 		return valueToReturn;
@@ -259,10 +249,8 @@ public class StorytellingServices:MonoBehaviour  {
 			{
 				valueToReturn += _mindmapServices.DeleteMindmap(mindmap);
 			}
-			Debug.Log("Se borró el storytelling campo correctamente");
 		} else {
 			valueToReturn = 0;
-			Debug.Log("No se borró el storytelling");
 		}
 
 		return valueToReturn;
@@ -289,11 +277,6 @@ public class StorytellingServices:MonoBehaviour  {
 		storyTellingUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
 		int result = _connection.Update(storyTellingUpdate, storyTellingUpdate.GetType());
-
-		if (result!=0)
-		{
-			Debug.Log(storyTellingUpdate);
-		}
 
 		return result;
 	}
@@ -330,277 +313,10 @@ public class StorytellingServices:MonoBehaviour  {
 
 		if (result!=0)
 		{
-			Debug.Log(storyTellingUpdate);
 			_projectServices.UpdateProject(true);
 		}
 
 		return result;
 	}
-
-	#region METHODS to get data to DB
-
-	public void setDBToWeb(string methodToCall, int valueToResponse, StoryTelling storytelling){
-
-		//UserData tempUser = new UserData (player.id, player.cycle, game);
-		string json = JsonUtility.ToJson (storytelling, true);
-		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
-		if (postRequest != null){
-			switch(valueToResponse){
-				case 1:
-
-				StartCoroutine (waitDB_ToCreateStoryTelling (postRequest));
-
-				break;
-
-				case 4:
-
-				StartCoroutine (waitDB_ToDeleteStoryTelling (postRequest));
-				
-				break;
-
-				case 5:
-
-				StartCoroutine (waitDB_ToUpdateStoryTelling (postRequest));
-				
-				break;
-			}
-		}
-			
-	
-	}
-
-	private UnityWebRequest SetJsonForm (string json, string method) {
-		try {
-			UnityWebRequest web = UnityWebRequest.Put (DataBaseParametersCtrl.Ctrl._ipServer + method + "/put", json);
-			web.SetRequestHeader ("Content-Type", "application/json");
-			return web;
-		} catch {
-			return null;
-		}
-	}
-
-	IEnumerator waitDB_ToCreateStoryTelling (UnityWebRequest www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseCreateStoryTelling resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseCreateStoryTelling> (www.downloadHandler.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					_storytellingGetToDB = resp.storytellingCreated;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	IEnumerator waitDB_ToDeleteStoryTelling (UnityWebRequest www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseDeleteStorytelling resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseDeleteStorytelling> (www.downloadHandler.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					resultToDB = resp.result;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	IEnumerator waitDB_ToUpdateStoryTelling (UnityWebRequest www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseUpdateStorytelling resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseUpdateStorytelling> (www.downloadHandler.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					resultToDB = resp.result;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	#endregion
-
-	#region METHODS to get data to DB
-	public IEnumerator GetToDB (string methodToCall, string parameterToGet, int valueToResponse) {
-
-            WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
-            switch(valueToResponse){
-
-				case 2:
-
-				yield return (waitDB_ToGetStoryTellings (postRequest));
-				
-				break;
-
-				case 3:
-
-				yield return (waitDB_ToGetStoryTellingsCounter (postRequest));
-				
-				break;
-			}
-        }
-
-	IEnumerator waitDB_ToGetStoryTellings (WWW www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseGetStoryTellings resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseGetStoryTellings> (www.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					_storytellingsLoaded = resp.storytellings;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	IEnumerator waitDB_ToGetStoryTellingsCounter (WWW www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseGetStoryTellingsCounter resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseGetStoryTellingsCounter> (www.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					resultToDB = resp.counter;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	#endregion
 }
 

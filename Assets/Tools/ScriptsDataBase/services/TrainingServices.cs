@@ -23,14 +23,6 @@ public class TrainingServices:MonoBehaviour  {
 		};
 	
 	private CaseServices _caseServices = new CaseServices();
-
-	private bool isQueryOk = false;
-
-	private Training _trainingGetToDB = new Training();
-
-	private int resultToDB = 0;
-
-
 	private string[] _arraycasesname = new string[]{"case_1","case_2","case_3"};
 
 
@@ -74,7 +66,6 @@ public class TrainingServices:MonoBehaviour  {
 				//Creation of the cases
 				counter+=_caseServices.Createcase(_arraycasesname[i], new_t.id);
 			}
-			Debug.Log(new_t);
 			valueToReturn = counter;
 
 		}else{
@@ -149,10 +140,8 @@ public class TrainingServices:MonoBehaviour  {
 			{
 				valueToReturn += _caseServices.DeleteCase(_case);
 			}
-			Debug.Log("Se borró el entrenamiento correctamente");
 		} else {
 			valueToReturn = 0;
-			Debug.Log("No se borró el entrenamiento");
 		}
 
 		return valueToReturn;
@@ -197,173 +186,5 @@ public class TrainingServices:MonoBehaviour  {
 		}
 		return _connection.Update(trainingToUpdate, trainingToUpdate.GetType());
 	}
-
-	#region METHODS to get data to DB
-
-	public void setDBToWeb(string methodToCall, int valueToResponse, Training training){
-
-		//UserData tempUser = new UserData (player.id, player.cycle, game);
-		string json = JsonUtility.ToJson (training, true);
-		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
-		if (postRequest != null){
-			
-				StartCoroutine (waitDB_ToCreateTraining (postRequest));
-
-			}	
-	
-	}
-
-	private UnityWebRequest SetJsonForm (string json, string method) {
-		try {
-			UnityWebRequest web = UnityWebRequest.Put (DataBaseParametersCtrl.Ctrl._ipServer + method + "/put", json);
-			web.SetRequestHeader ("Content-Type", "application/json");
-			return web;
-		} catch {
-			return null;
-		}
-	}
-
-	IEnumerator waitDB_ToCreateTraining (UnityWebRequest www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseCreateTraining resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseCreateTraining> (www.downloadHandler.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					_trainingGetToDB = resp.trainingCreated;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	#endregion
-
-	#region METHODS to get data to DB
-	public IEnumerator GetToDB (string methodToCall, string parameterToGet, int valueToResponse) {
-
-            WWW postRequest = new WWW (DataBaseParametersCtrl.Ctrl._ipServer + methodToCall + parameterToGet); // buscar en el servidor al usuario
-            switch(valueToResponse){
-				case 2:
-
-				yield return (waitDB_ToGetTrainingId (postRequest));
-
-				break;
-
-				case 3:
-
-				yield return (waitDB_ToGetTraining (postRequest));
-				
-				break;
-			}
-        }
-
-	IEnumerator waitDB_ToGetTrainingId (WWW www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseGetTrainingId resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseGetTrainingId> (www.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					_trainingGetToDB = resp.training;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	IEnumerator waitDB_ToGetTraining (WWW www) {
-        using (www) {
-            while (!www.isDone) {
-                yield return null;
-            }
-            // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseGetTrainingGroupId resp = null;
-			
-            try {
-                resp = JsonUtility.FromJson<ResponseGetTrainingGroupId> (www.text);
-            } catch { }
-
-            //Validacion de la informacion obtenida
-            if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
-                Debug.Log (www.error);
-                try {
-
-                } catch (System.Exception e) { Debug.Log (e); }
-                yield return null;
-            } else
-
-            if (resp != null) { // Informacion obtenida exitosamente
-                if (!resp.error) { // sin error en el servidor
-					_trainingGetToDB = resp.training;
-					isQueryOk = true;
-                    } else { // no existen usuarios
-                    }
-
-                } else { //Error en el servidor de base de datos
-                    // Debug.Log ("user error: " + resp.error);
-                    try {
-
-                    } catch { }
-                    // HUDController.HUDCtrl.MessagePanel (resp.msg);
-                }
-            }
-        
-        yield return null;
-    }
-
-	#endregion
 }
 
