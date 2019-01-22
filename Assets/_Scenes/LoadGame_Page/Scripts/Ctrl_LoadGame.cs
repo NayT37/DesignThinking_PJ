@@ -31,14 +31,21 @@ public class Ctrl_LoadGame : MonoBehaviour {
         _courseServices = goCourses.GetComponent<CourseServices>();
 
 		courses = _courseServices.GetCourses();
-
-		DataBaseParametersCtrl.Ctrl.isQueryOk = false;
-		courses = new Course[0];
-		courses = DataBaseParametersCtrl.Ctrl._coursesLoaded;
         int countercourses = _courseServices.GetCoursesCount();
+		Debug.Log(countercourses);
 		_courses = new Course[countercourses];
-		CreatePrefabs();
-		//StartCoroutine(getIsQueryGetCourses());
+		int counter = 0;
+
+		foreach (var item in courses) {
+			Debug.Log(item.name);
+			var SetName = Instantiate (prefab_Curse, parent_group.transform);
+			SetName.name = counter.ToString();
+			_courses [counter] = item;
+			counter++;
+			SetName.GetComponentInChildren<Text> ().text = item.name;
+			SetName.GetComponentInChildren<Button> ().onClick.AddListener (delegate{GetCoursePressed (SetName.name, item.name);});
+			Debug.Log ("name" + item.name);
+		}
 	}
 
 	void GetCoursePressed(string positionInToArray, string nameCourse) {
@@ -79,28 +86,8 @@ public class Ctrl_LoadGame : MonoBehaviour {
 		SceneManager.LoadScene ("SelectGame");
 	}
 
-	private IEnumerator getIsQueryGetCourses()
-    {
-
-        Debug.Log("Waiting to get Courses...");
-        yield return new WaitUntil(() => DataBaseParametersCtrl.Ctrl.isQueryOk == true);
-		
-		
-    }
 
 	void CreatePrefabs(){
-		int counter = 0;
-
-		foreach (var item in courses) {
-			Debug.Log(item.name);
-			var SetName = Instantiate (prefab_Curse, parent_group.transform);
-			SetName.name = counter.ToString();
-			_courses [counter] = item;
-			counter++;
-			SetName.GetComponentInChildren<Text> ().text = item.name;
-			SetName.GetComponentInChildren<Button> ().onClick.AddListener (delegate{GetCoursePressed (SetName.name, item.name);});
-			Debug.Log ("name" + item.name);
-		}
-		Debug.Log("Waiting to get Courses...2");
+		
 	}
 }

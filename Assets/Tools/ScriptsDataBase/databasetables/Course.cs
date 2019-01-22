@@ -8,7 +8,7 @@ public class Course
     [PrimaryKey, AutoIncrement]
     public int id { get; set; }
     public string name { get; set; }
-    public object percentage { get; set; }
+    public int percentage { get; set; }
     public string creationDate { get; set; }
 
     public string teacherIdentityCard { get; set; }
