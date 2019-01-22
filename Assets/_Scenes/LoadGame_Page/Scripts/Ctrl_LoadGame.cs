@@ -31,7 +31,14 @@ public class Ctrl_LoadGame : MonoBehaviour {
         _courseServices = goCourses.GetComponent<CourseServices>();
 
 		courses = _courseServices.GetCourses();
-		StartCoroutine(getIsQueryGetCourses());
+
+		DataBaseParametersCtrl.Ctrl.isQueryOk = false;
+		courses = new Course[0];
+		courses = DataBaseParametersCtrl.Ctrl._coursesLoaded;
+        int countercourses = _courseServices.GetCoursesCount();
+		_courses = new Course[countercourses];
+		CreatePrefabs();
+		//StartCoroutine(getIsQueryGetCourses());
 	}
 
 	void GetCoursePressed(string positionInToArray, string nameCourse) {
@@ -77,12 +84,7 @@ public class Ctrl_LoadGame : MonoBehaviour {
 
         Debug.Log("Waiting to get Courses...");
         yield return new WaitUntil(() => DataBaseParametersCtrl.Ctrl.isQueryOk == true);
-		DataBaseParametersCtrl.Ctrl.isQueryOk = false;
-		courses = new Course[0];
-		courses = DataBaseParametersCtrl.Ctrl._coursesLoaded;
-        //int countercourses = _courseServices.GetCoursesCount();
-		_courses = new Course[5];
-		CreatePrefabs();
+		
 		
     }
 
