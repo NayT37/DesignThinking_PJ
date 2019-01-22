@@ -33,6 +33,8 @@ public class Ctrl_M4 : CtrlInternalText
     //Panel image variables
     private PanelImage _panelImg;
     private Button _imgPanelBtn;
+    private int _storyTellingVersion;
+    private VersionTab _versionTab;
     #endregion
 
 
@@ -48,7 +50,6 @@ public class Ctrl_M4 : CtrlInternalText
     {
         counterMindmaps = 0;
 
-        int versionStoryTellingVersion = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.version;
         var goServiceM = gameObject.AddComponent<MindmapServices>();
         _mindmapServices = goServiceM.GetComponent<MindmapServices>();
         var goServiceS = gameObject.AddComponent<SectionServices>();
@@ -89,6 +90,9 @@ public class Ctrl_M4 : CtrlInternalText
 
         ChMainHUD.instance.SetLimitCtrl(5); //If there is a Mindmap available
 
+        _storyTellingVersion = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.version;
+        _versionTab = FindObjectOfType<VersionTab>();
+        _versionTab.SetInternalText(_storyTellingVersion);
         ChargeNodesMindmap();
         ChangeMindmapVersion(1);
     }
