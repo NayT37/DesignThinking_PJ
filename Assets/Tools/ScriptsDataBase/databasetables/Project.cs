@@ -1,28 +1,28 @@
 ﻿using SQLite4Unity3d;
 using System;
 
-[Serializable]
+// [Serializable]
 public class Project  {
 
-	// [PrimaryKey, AutoIncrement]
-	// public int id { get; set; }
-	// public string name { get; set; }
-	// public int percentage { get; set; }
-	// public string creationDate { get; set; }
+	[PrimaryKey, AutoIncrement]
+	public int id { get; set; }
+	public string name { get; set; }
+	public int percentage { get; set; }
+	public string creationDate { get; set; }
 
-	// public string sectorName { get; set; }
+	public string sectorName { get; set; }
 
-	// public int groupId { get; set; }
-	// public string lastUpdate { get; set; }
-	public int id;
-	public string name;
-	public int percentage;
-	public string creationDate;
+	public int groupId { get; set; }
+	public string lastUpdate { get; set; }
+	// public int id;
+	// public string name;
+	// public int percentage;
+	// public string creationDate;
 
-	public string sectorName;
+	// public string sectorName;
 
-	public int groupId;
-	public string lastUpdate;
+	// public int groupId;
+	// public string lastUpdate;
 
 	public override string ToString ()
 	{

@@ -128,8 +128,8 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
     public void InitializeServices()
     {
-
-        _caseServices = new CaseServices();
+        var goCases = gameObject.AddComponent<CaseServices>();
+        _caseServices = goCases.GetComponent<CaseServices>();
 
         _casesArray = new Case[3];
 
@@ -147,7 +147,8 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
         DataBaseParametersCtrl.Ctrl._caseLoaded = _casesArray[0];
 
-        _momentServices = new MomentServices();
+        var goMoments = gameObject.AddComponent<MomentServices>();
+        _momentServices = goMoments.GetComponent<MomentServices>();
 
         _momentsArray = new Moment[5];
 

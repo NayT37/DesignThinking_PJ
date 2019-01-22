@@ -12,7 +12,7 @@ using System.Collections.Generic;
 public class CourseServices : MonoBehaviour  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
-	private GroupServices _groupServices = new GroupServices();
+	//private GroupServices _groupServices = new GroupServices();
 	private Course _nullCourse = new Course{
 				id = 0,
 				name = "null",
@@ -22,7 +22,7 @@ public class CourseServices : MonoBehaviour  {
 				lastUpdate = "null"
 		};
 	
-	public Course[] _coursesLoaded = new Course[]{
+	public IEnumerable<Course> _coursesLoaded = new Course[]{
 		new Course{
 				id = 0,
 				name = "null",
@@ -67,22 +67,14 @@ public class CourseServices : MonoBehaviour  {
 	private bool isQueryOk = false;
 
 	private Course _courseGetToDB = new Course();
-
 	private int resultToDB = 0;
-
-    public CourseServices()
-    {
-    }
-
-
-    /// <summary>
+	
+	/// <summary>
     /// Description to method to create many courses
     /// </summary>
     /// <returns>
     /// A IEnumerable list of all the courses created
     /// </returns>
-
-
     public IEnumerable<Course> CreateCourses(){
 		
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -206,8 +198,6 @@ public class CourseServices : MonoBehaviour  {
 	/// </returns>
 	public IEnumerable<Course> GetCourses(){
 
-		Debug.Log("metodo");
-
 		string teacherId = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
 		return _connection.Table<Course>().Where(x => x.teacherIdentityCard == teacherId);
 
@@ -218,7 +208,7 @@ public class CourseServices : MonoBehaviour  {
 		//Conexión con base de datos en web 
 		//StartCoroutine(GetToDB("getTeacherCourses/", teacherId, 3));
 
-		return _coursesLoaded;
+		//return _coursesLoaded;
 	}
 
 	
@@ -628,12 +618,12 @@ public class CourseServices : MonoBehaviour  {
                 if (!resp.error) { // sin error en el servidor
 					//_coursesLoaded = resp.courses;
 					_coursesLoaded = resp.courses; 
-					DataBaseParametersCtrl.Ctrl.isQueryOk = true;         
+					DataBaseParametersCtrl.Ctrl.isQueryOk = true; 
+					DataBaseParametersCtrl.Ctrl._coursesLoaded = _coursesLoaded;        
 					// foreach (var item in _coursesLoaded)
 					// {
 					// 	Debug.Log(item.ToString());
 					// }
-					isQueryOk = true;
                     } else { // no existen usuarios
                     }
 

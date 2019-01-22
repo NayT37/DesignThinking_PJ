@@ -18,8 +18,6 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 	[Header ("Course loaded")]
 	public Course _courseLoaded;
 
-	public Course[] _coursesLoaded;
-
 	[Header ("Group loaded")]
 	public Group _groupLoaded;
 
@@ -84,6 +82,10 @@ public class DataBaseParametersCtrl : MonoBehaviour {
     public string _ipServer;
 
 	public bool isQueryOk;
+
+	public IEnumerable<Course> _coursesLoaded;
+
+	public IEnumerable<Group> _groupsLoaded;
 
 
     void Awake () {

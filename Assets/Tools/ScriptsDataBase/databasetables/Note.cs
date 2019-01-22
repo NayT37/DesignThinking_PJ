@@ -1,27 +1,27 @@
 ﻿using SQLite4Unity3d;
 using System;
 
-[Serializable]
+// [Serializable]
 public class Note  {
 
 	
-	// [PrimaryKey, AutoIncrement]
-	// public int id { get; set; }
-	// public int position { get; set; }
-	// public string creationDate { get; set; }
+	[PrimaryKey, AutoIncrement]
+	public int id { get; set; }
+	public int position { get; set; }
+	public string creationDate { get; set; }
 
-	// public string description { get; set; }
+	public string description { get; set; }
 
-	// public int storytellingId { get; set; }
-	// public string lastUpdate { get; set; }
-	public int id;
-	public int position;
-	public string creationDate;
+	public int storytellingId { get; set; }
+	public string lastUpdate { get; set; }
+	// public int id;
+	// public int position;
+	// public string creationDate;
 
-	public string description;
+	// public string description;
 
-	public int storytellingId;
-	public string lastUpdate;
+	// public int storytellingId;
+	// public string lastUpdate;
 
 	public override string ToString ()
 	{

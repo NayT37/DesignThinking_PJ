@@ -23,9 +23,11 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 	private Group[] _arrayGroup;
 
 	void Start () {
-
-		_GroupServices = new GroupServices ();
-		_trainingServices = new TrainingServices();
+		var goGroup = gameObject.AddComponent<GroupServices>();
+		_GroupServices = goGroup.GetComponent<GroupServices>();
+		var goTraining = gameObject.AddComponent<TrainingServices>();
+		_trainingServices = goTraining.GetComponent<TrainingServices>();
+		
 		texCourse = GameObject.Find ("titleCourse").GetComponent<Text> ();
 		texCourse.text = "CURSO: " + Main_Ctrl.instance.NameCourse;
 
