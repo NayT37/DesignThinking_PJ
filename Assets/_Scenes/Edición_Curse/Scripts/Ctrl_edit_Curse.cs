@@ -28,8 +28,8 @@ public class Ctrl_edit_Curse : MonoBehaviour {
 		var goTraining = gameObject.AddComponent<TrainingServices>();
 		_trainingServices = goTraining.GetComponent<TrainingServices>();
 		
-		texCourse = GameObject.Find ("titleCourse").GetComponent<Text> ();
-		texCourse.text = "CURSO: " + Main_Ctrl.instance.NameCourse;
+		// texCourse = GameObject.Find ("titleCourse").GetComponent<Text> ();
+		// texCourse.text = "CURSO: " + Main_Ctrl.instance.NameCourse;
 
 		var courseId = DataBaseParametersCtrl.Ctrl._courseLoaded.id;
 
