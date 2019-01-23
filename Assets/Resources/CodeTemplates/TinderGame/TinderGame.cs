@@ -34,14 +34,7 @@ public class TinderGame : MonoBehaviour
     private void Awake() { Initializate(); }
     private void Start()
     {
-        tinderCtrl = GameObject.FindObjectOfType<MainTinderCtrl>();
-        _trueImg = transform.Find("TrueFalse_Holder/TrueImage").GetComponent<Image>();
-        _falseImg = transform.Find("TrueFalse_Holder/FalseImage").GetComponent<Image>();
-        _trueImgSize = _trueImg.transform;
-        _falseImgSize = _falseImg.transform;
-        _normalClr = new Color32(255, 255, 255, 255);
-        _correctClr = new Color32(0, 255, 0, 255);
-        _incorrectClr = new Color32(255, 0, 0, 255);
+
     }
     private void Update()
     {
@@ -125,6 +118,14 @@ public class TinderGame : MonoBehaviour
         // GameObject.Find("TextToDisplay").GetComponent<Text>();
         _displayedTxt.transform.SetParent(NewObj.transform);
         _displayedTxt.transform.localPosition = new Vector3(0, 62, 0);
+        tinderCtrl = null;
+        _trueImg = transform.Find("TrueFalse_Holder/TrueImage").GetComponent<Image>();
+        _falseImg = transform.Find("TrueFalse_Holder/FalseImage").GetComponent<Image>();
+        _trueImgSize = _trueImg.transform;
+        _falseImgSize = _falseImg.transform;
+        _normalClr = new Color32(255, 255, 255, 255);
+        _correctClr = new Color32(0, 255, 0, 255);
+        _incorrectClr = new Color32(255, 0, 0, 255);
     }
 
     public void UpdateDisplayedImage()
@@ -204,7 +205,16 @@ public class TinderGame : MonoBehaviour
     {
         //Override this method for different behavior
         print("Game was finished");
+        if (tinderCtrl == null)
+        {
+            tinderCtrl = GameObject.FindObjectOfType<MainTinderCtrl>();
+        }
         tinderCtrl.FinishGame();
+    }
+
+    public void SetViewTo(bool value)
+    {
+        this.gameObject.SetActive(value);
     }
     #endregion
 
