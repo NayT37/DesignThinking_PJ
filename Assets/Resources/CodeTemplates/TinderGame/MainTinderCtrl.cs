@@ -9,8 +9,7 @@ public class MainTinderCtrl : MiniGame_Ctrl
     #region VARIABLES
     //Public Variables
     //Private Variables
-    [SerializeField]
-    private Canvas[] _canvasByRound;
+    private TinderGame[] _canvasByRound;
     private int _roundsNumber;
     private int _finishedCanvasQuantity;
     private Text _finalCanvasTxt;
@@ -31,32 +30,40 @@ public class MainTinderCtrl : MiniGame_Ctrl
     {
         _momentServices = new MomentServices();
 
-        _roundsNumber = _canvasByRound.Length;
         _finishedCanvasQuantity = 0;
         _finalCanvasTxt = GameObject.Find("FinalCanvas_Txt").GetComponent<Text>();
         _finalCanvasTxt.gameObject.SetActive(false);
-        foreach (Canvas canvas in _canvasByRound)
+        _canvasByRound = new TinderGame[3];
+
+        _canvasByRound[0] = GameObject.Find("Canvas_Tinder").GetComponent<TinderGame>();
+        _canvasByRound[1] = GameObject.Find("Canvas_Tinder (1)").GetComponent<TinderGame>();
+        _canvasByRound[2] = GameObject.Find("Canvas_Tinder (2)").GetComponent<TinderGame>();
+        for (int i = 0; i < _canvasByRound.Length; i++)
         {
-            canvas.gameObject.SetActive(false);
+            print("Canvas is " + _canvasByRound[i]);
+            _canvasByRound[i].SetViewTo(false);
         }
-        _canvasByRound[0].gameObject.SetActive(true);
+        _roundsNumber = _canvasByRound.Length;
+        _canvasByRound[0].SetViewTo(false);
     }
 
     public void FinishGame()
     {
-        _canvasByRound[_finishedCanvasQuantity].gameObject.SetActive(false);
+        _canvasByRound[_finishedCanvasQuantity].SetViewTo(false);
         _finishedCanvasQuantity++;
         UpdateProgressBar();
         if (_finishedCanvasQuantity < completeProgressValue)
         {
-            _canvasByRound[_finishedCanvasQuantity].gameObject.SetActive(true);
+            _canvasByRound[_finishedCanvasQuantity].SetViewTo(true);
             TinderGame temp;
-            temp = _canvasByRound[_finishedCanvasQuantity].GetComponent<TinderGame>();
+            temp = _canvasByRound[_finishedCanvasQuantity];
             _trueImg = temp.GetTrueImg();
             _falseImg = temp.GetFalseImg();
+            print("Tinder: Working in " + _finishedCanvasQuantity);
         }
         else
         {
+            print("Tinder: Its all over");
             isGameFinished = true;
             _finalCanvasTxt.gameObject.SetActive(true);
             _momentServices.UpdateMoment(100);
