@@ -77,19 +77,19 @@ public class TinderImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         if (answerAxis > 250)
         {
             //true
-            print("True is bigger");
+            //            print("True is bigger");
             _gameCtrl.TrueFeedback();
         }
         else if (answerAxis < -250)
         {
             //false
-            print("False is bigger");
+            //   print("False is bigger");
             _gameCtrl.FalseFeedback();
         }
         else
         {
             //return to normal
-            print("Return to normal");
+            //  print("Return to normal");
             _gameCtrl.ReturnToNormal();
         }
     }
