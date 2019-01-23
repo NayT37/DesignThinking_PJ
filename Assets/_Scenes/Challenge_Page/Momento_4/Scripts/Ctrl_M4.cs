@@ -90,7 +90,7 @@ public class Ctrl_M4 : CtrlInternalText
 
         ChMainHUD.instance.SetLimitCtrl(5); //If there is a Mindmap available
 
-        _storyTellingVersion = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.version;
+        _storyTellingVersion = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.version; //This is giving an error
         _versionTab = FindObjectOfType<VersionTab>();
         _versionTab.SetInternalText(_storyTellingVersion);
         ChargeNodesMindmap();
