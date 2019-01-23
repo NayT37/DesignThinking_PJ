@@ -179,9 +179,10 @@ public class M3_Ctrl : MonoBehaviour
         {
             for (int i = 0; i < _arrayPostit.Count; i++)
             {
+                _arrayPostit.Remove(_arrayPostit[i]);
                 DestroyImmediate(_arrayPostit[i]);
             }
-            _arrayPostit.Clear();
+            
         }
     }
 
@@ -306,6 +307,7 @@ public class M3_Ctrl : MonoBehaviour
         {
             _mainTab = GameObject.FindObjectOfType<MainTab>();
         }
+        ChargeNotesToStoryTelling();
         ChangeStoryTellingVersion(_mainTab.GetSelectedTab());
     }
     #endregion
