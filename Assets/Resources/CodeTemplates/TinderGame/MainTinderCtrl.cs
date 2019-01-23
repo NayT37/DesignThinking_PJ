@@ -44,7 +44,7 @@ public class MainTinderCtrl : MiniGame_Ctrl
             _canvasByRound[i].SetViewTo(false);
         }
         _roundsNumber = _canvasByRound.Length;
-        _canvasByRound[0].SetViewTo(false);
+        _canvasByRound[0].SetViewTo(true);
     }
 
     public void FinishGame()
