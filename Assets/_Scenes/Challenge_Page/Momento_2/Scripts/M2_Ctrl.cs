@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.XR;
+using Vuforia;
 
 public class M2_Ctrl : MonoBehaviour
 {
@@ -29,6 +31,9 @@ public class M2_Ctrl : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate()
     {
+        XRSettings.enabled = false;
+        VuforiaBehaviour.Instance.enabled = false;
+
         _problemServices = new ProblemServices();
 
         _fieldServices = new FieldServices();
@@ -50,7 +55,9 @@ public class M2_Ctrl : MonoBehaviour
         if (counterProblem == 0)
         {
             var problem = _problemServices.CreateProblem(_arrayResults);
-        } else {
+        }
+        else
+        {
             int projectId = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
             var problem = _problemServices.GetProblem(projectId);
             DataBaseParametersCtrl.Ctrl._problemLoaded = problem;
@@ -66,7 +73,7 @@ public class M2_Ctrl : MonoBehaviour
             ChMainHUD.instance.SetLimitCtrl(3);
         }
 
-        
+
     }
 
     public void SendText()

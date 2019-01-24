@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.XR;
+using Vuforia;
 public class M1_Ctrl : MonoBehaviour
 {
     #region VARIABLES
@@ -29,6 +30,9 @@ public class M1_Ctrl : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate()
     {
+        XRSettings.enabled = false;
+        VuforiaBehaviour.Instance.enabled = false;
+
         _sectorServices = new SectorServices();
 
         _arraySectors = new Sector[6];
@@ -49,7 +53,7 @@ public class M1_Ctrl : MonoBehaviour
             Debug.Log(_arraySectors[counter].ToString());
             _checkByPanel[counter] = GameObject.Find("Zones").transform.GetChild(counter).Find("CheckObj").gameObject;
             if (item.description.Equals(""))
-            {   
+            {
                 if (isCheck)
                 {
                     ChMainHUD.instance.SetLimitCtrl(2);
@@ -57,7 +61,7 @@ public class M1_Ctrl : MonoBehaviour
                 }
                 _checkByPanel[counter].SetActive(false);
             }
-            counter++;      
+            counter++;
         }
 
         // DataBaseParametersCtrl.Ctrl._sectorLoaded = _arraySectors[0];
@@ -81,34 +85,35 @@ public class M1_Ctrl : MonoBehaviour
 
     }
 
-    public void activePanel(int panelNumber){
+    public void activePanel(int panelNumber)
+    {
         ActivePanelByNumber(panelNumber, true);
     }
 
     public void ActivePanelByNumber(int panelNumber, bool isActive)
     {
         print("Active is: " + panelNumber);
-       
-            if (panelNumber != 0)
-            {
-                if (isActive)
-                {
-                  DataBaseParametersCtrl.Ctrl._sectorLoaded = _arraySectors[panelNumber - 1];
-                  _panelsArray[panelNumber].UpdateText(_arraySectors[panelNumber - 1].description);  
-                }
-                
-            }
-            // else
-            // {
-            //     DataBaseParametersCtrl.Ctrl._sectorLoaded = _arraySectors[_activePanel - 1];
-            //     if (isActive)
-            //     {
-            //       _panelsArray[_activePanel - 1].UpdateText(_arraySectors[_activePanel - 1].description);  
-            //     } 
-            // }
-        
 
-        
+        if (panelNumber != 0)
+        {
+            if (isActive)
+            {
+                DataBaseParametersCtrl.Ctrl._sectorLoaded = _arraySectors[panelNumber - 1];
+                _panelsArray[panelNumber].UpdateText(_arraySectors[panelNumber - 1].description);
+            }
+
+        }
+        // else
+        // {
+        //     DataBaseParametersCtrl.Ctrl._sectorLoaded = _arraySectors[_activePanel - 1];
+        //     if (isActive)
+        //     {
+        //       _panelsArray[_activePanel - 1].UpdateText(_arraySectors[_activePanel - 1].description);  
+        //     } 
+        // }
+
+
+
         if (panelNumber != _activePanel)
         {
             _panelsArray[_activePanel].SetActivePanel(false);

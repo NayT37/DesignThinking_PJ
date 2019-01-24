@@ -47,6 +47,7 @@ public class VuforiaControl : MonoBehaviour
         if (_isActiveRA)
         {
             XRSettings.enabled = true;
+            VuforiaBehaviour.Instance.enabled = true;
             tempPos = _evaluateHolder.transform.localPosition;
             tempSize = _evaluateHolder.transform.localScale;
             _evaluateHolder.transform.localPosition = new Vector3(0, 0, 0);
@@ -64,12 +65,13 @@ public class VuforiaControl : MonoBehaviour
         }
         else
         {
+            XRSettings.enabled = false;
+            VuforiaBehaviour.Instance.enabled = false;
             _mainCamAudio.enabled = false;
             _defaultCam.gameObject.SetActive(true);
             _evaluateHolder.SetNewParent(null);
             _evaluateHolder.transform.localPosition = tempPos;
             _evaluateHolder.transform.localScale = tempSize;
-            XRSettings.enabled = false;
             var rendererComponents = _evaluateHolder.GetComponentsInChildren<Renderer>(true);
             foreach (var component in rendererComponents)
             {
@@ -99,6 +101,7 @@ public class VuforiaControl : MonoBehaviour
         _defaultCam.gameObject.SetActive(true);
         _mainCam.transform.localPosition = new Vector3(-800, -15, 0);
     }
+
 
     public bool GetActiveStatus()
     {

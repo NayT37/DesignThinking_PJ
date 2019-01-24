@@ -254,6 +254,11 @@ Prefab:
       propertyPath: incorrectTxts.Array.data[1]
       value: "R\xE1pido"
       objectReference: {fileID: 0}
+    - target: {fileID: 223823878388819494, guid: 073ac5881fbad0d4499277140b2d9601,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 073ac5881fbad0d4499277140b2d9601, type: 2}
   m_IsPrefabParent: 0
@@ -886,6 +891,11 @@ Prefab:
         type: 2}
       propertyPath: incorrectTxts.Array.data[1]
       value: "Automatizaci\xF3n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 223823878388819494, guid: 073ac5881fbad0d4499277140b2d9601,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 073ac5881fbad0d4499277140b2d9601, type: 2}

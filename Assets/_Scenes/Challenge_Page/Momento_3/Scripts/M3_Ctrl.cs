@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using System;
+using UnityEngine.XR;
+using Vuforia;
 
 public class M3_Ctrl : MonoBehaviour
 {
@@ -46,6 +48,9 @@ public class M3_Ctrl : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate()
     {
+        XRSettings.enabled = false;
+        VuforiaBehaviour.Instance.enabled = false;
+
         _noteServices = new NoteServices();
 
         _storytellingServices = new StorytellingServices();
@@ -182,7 +187,7 @@ public class M3_Ctrl : MonoBehaviour
                 _arrayPostit.Remove(_arrayPostit[i]);
                 DestroyImmediate(_arrayPostit[i]);
             }
-            
+
         }
     }
 

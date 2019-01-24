@@ -47,14 +47,14 @@ public class TinderGame : MonoBehaviour
     //Suscribe to event to validate answer
     void OnEnable()
     {
-        TinderImage.ValidateImage += ValidateAnswer;
+        // TinderImage.ValidateImage += ValidateAnswer;
     }
 
 
     //Unsuscribe to event to validate answer
     void OnDisable()
     {
-        TinderImage.ValidateImage -= ValidateAnswer;
+        // TinderImage.ValidateImage -= ValidateAnswer;
     }
     #endregion
 
@@ -156,17 +156,6 @@ public class TinderGame : MonoBehaviour
                 _tinderImagesList.RemoveAt(0);
                 UpdateDisplayedImage();
             }
-            else
-            {
-                //Incorrect case
-                /*                 
-                Use this to add the image at the bottom
-                                TinderImage temp = _tinderImagesList[0];
-                                _tinderImagesList.RemoveAt(0);
-                                _tinderImagesList.Insert(_tinderImagesList.Count, temp);
-                                UpdateDisplayedImage();
-                 */
-            }
         }
     }
 
@@ -185,11 +174,13 @@ public class TinderGame : MonoBehaviour
 
     public void TrueFeedback()
     {
+        ValidateAnswer();
         _trueImgSize.localScale = new Vector3(2.5f, 2.5f, 1);
         _trueImg.color = _correctClr;
     }
     public void FalseFeedback()
     {
+        ValidateAnswer();
         _falseImgSize.localScale = new Vector3(2.5f, 2.5f, 1);
         _falseImg.color = _incorrectClr;
     }

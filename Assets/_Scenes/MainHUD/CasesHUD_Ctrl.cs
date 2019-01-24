@@ -368,7 +368,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
     {
         GameObject temp = GameObject.FindObjectOfType<VuforiaControl>().gameObject;
         Destroy(temp);
-        SceneManager.LoadScene("SelectGame");
+        SceneManager.LoadScene("ChoiseUser");
         //    StartCoroutine(Home());
     }
 
