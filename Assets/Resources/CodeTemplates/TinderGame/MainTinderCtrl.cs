@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.XR;
+using Vuforia;
+using Image = UnityEngine.UI.Image;
 
 public class MainTinderCtrl : MiniGame_Ctrl
 {
@@ -28,6 +31,9 @@ public class MainTinderCtrl : MiniGame_Ctrl
     #region CREATED_METHODS
     private void Initializate()
     {
+        XRSettings.enabled = false;
+        VuforiaBehaviour.Instance.enabled = false;
+
         _momentServices = new MomentServices();
 
         _finishedCanvasQuantity = 0;
@@ -38,27 +44,20 @@ public class MainTinderCtrl : MiniGame_Ctrl
         _canvasByRound[0] = GameObject.Find("Canvas_Tinder").GetComponent<TinderGame>();
         _canvasByRound[1] = GameObject.Find("Canvas_Tinder (1)").GetComponent<TinderGame>();
         _canvasByRound[2] = GameObject.Find("Canvas_Tinder (2)").GetComponent<TinderGame>();
-        for (int i = 0; i < _canvasByRound.Length; i++)
-        {
-            print("Canvas is " + _canvasByRound[i]);
-            _canvasByRound[i].SetViewTo(false);
-        }
+
         _roundsNumber = _canvasByRound.Length;
-        _canvasByRound[0].SetViewTo(true);
     }
 
     public void FinishGame()
     {
         _canvasByRound[_finishedCanvasQuantity].SetViewTo(false);
         _finishedCanvasQuantity++;
+        print("Unity says: " + _finishedCanvasQuantity);
         UpdateProgressBar();
         if (_finishedCanvasQuantity < completeProgressValue)
         {
-            _canvasByRound[_finishedCanvasQuantity].SetViewTo(true);
-            TinderGame temp;
-            temp = _canvasByRound[_finishedCanvasQuantity];
-            _trueImg = temp.GetTrueImg();
-            _falseImg = temp.GetFalseImg();
+            _trueImg = _canvasByRound[_finishedCanvasQuantity].GetTrueImg();
+            _falseImg = _canvasByRound[_finishedCanvasQuantity].GetFalseImg();
             print("Tinder: Working in " + _finishedCanvasQuantity);
         }
         else

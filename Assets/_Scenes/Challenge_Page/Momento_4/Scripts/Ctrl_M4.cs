@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.XR;
+using Vuforia;
 
 public class Ctrl_M4 : CtrlInternalText
 {
@@ -48,6 +50,9 @@ public class Ctrl_M4 : CtrlInternalText
     #region CREATED_METHODS
     private void Initializate()
     {
+        XRSettings.enabled = false;
+        VuforiaBehaviour.Instance.enabled = false;
+
         counterMindmaps = 0;
 
         var goServiceM = gameObject.AddComponent<MindmapServices>();

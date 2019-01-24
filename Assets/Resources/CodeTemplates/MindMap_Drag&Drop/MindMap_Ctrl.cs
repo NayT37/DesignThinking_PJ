@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
-
+using UnityEngine.XR;
+using Vuforia;
 public class MindMap_Ctrl : MonoBehaviour
 {
 
@@ -47,6 +48,9 @@ public class MindMap_Ctrl : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate()
     {
+        XRSettings.enabled = false;
+        VuforiaBehaviour.Instance.enabled = false;
+
         _momentServices = new MomentServices();
 
         _arrowLeft = GameObject.Find("mm_ArrowL").GetComponent<Button>();

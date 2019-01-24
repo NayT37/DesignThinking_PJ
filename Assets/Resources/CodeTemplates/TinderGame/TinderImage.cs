@@ -25,12 +25,6 @@ public class TinderImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private float _yAxis;
     private Vector3 _originalPos;
     private TinderGame _gameCtrl;
-
-
-
-    //Event Variables
-    public delegate void ValidateAction();
-    public static event ValidateAction ValidateImage;
     #endregion
 
 
@@ -47,8 +41,7 @@ public class TinderImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         _yAxis = _originalPos.y;
         internalImage = GetComponent<Image>();
         answerAxis = 0;
-        //        internalImage.sprite = spriteToShow;
-        _gameCtrl = GameObject.FindObjectOfType<TinderGame>();
+        _gameCtrl = transform.parent.parent.GetComponent<TinderGame>();
     }
 
     public void UpdateSprite(Sprite newSprite)
@@ -102,12 +95,14 @@ public class TinderImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         if (answerAxis > 250)
         {
             _gameCtrl.selectedAnswer = true;
-            ValidateImage();
+            //ValidateImage();
+            _gameCtrl.TrueFeedback();
         }
         else if (answerAxis < -250)
         {
             _gameCtrl.selectedAnswer = false;
-            ValidateImage();
+            //ValidateImage();
+            _gameCtrl.FalseFeedback();
         }
         else
         {

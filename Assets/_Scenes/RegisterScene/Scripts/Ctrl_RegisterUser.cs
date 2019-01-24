@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.XR;
+using Vuforia;
 
 
 public class Ctrl_RegisterUser : MonoBehaviour
@@ -26,7 +28,8 @@ public class Ctrl_RegisterUser : MonoBehaviour
 
     public void Start()
     {
-
+        XRSettings.enabled = false;
+        VuforiaBehaviour.Instance.enabled = false;
         var goCourses = gameObject.AddComponent<CourseServices>();
         courseS = goCourses.GetComponent<CourseServices>();
 
