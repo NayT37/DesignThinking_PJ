@@ -738,6 +738,11 @@ Prefab:
       propertyPath: incorrectTxts.Array.data[1]
       value: Calcular Datos
       objectReference: {fileID: 0}
+    - target: {fileID: 223823878388819494, guid: 073ac5881fbad0d4499277140b2d9601,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 073ac5881fbad0d4499277140b2d9601, type: 2}
   m_IsPrefabParent: 0
@@ -895,8 +900,14 @@ Prefab:
     - target: {fileID: 223823878388819494, guid: 073ac5881fbad0d4499277140b2d9601,
         type: 2}
       propertyPath: m_SortingOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114327630271491680, guid: 073ac5881fbad0d4499277140b2d9601,
+        type: 2}
+      propertyPath: _draggableImg
+      value: 
+      objectReference: {fileID: 21300000, guid: b962dedb155a5d341935d319047f73e6,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 073ac5881fbad0d4499277140b2d9601, type: 2}
   m_IsPrefabParent: 0
