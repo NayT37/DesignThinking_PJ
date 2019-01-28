@@ -1407,10 +1407,13 @@ Prefab:
     - target: {fileID: 114720211399273204, guid: f5930d5f068cea144b9fbd298a02d901,
         type: 2}
       propertyPath: m_Text
-      value: A partir de la planteado en  la fase de idear, construimos prototipos
-        que nos permitan hacer las ideas palpables y  visualizar las posibles soluciones,
+      value: 'Prototipar
+
+
+        A partir de la planteado en  la fase de idear, construimos prototipos que
+        nos permitan hacer las ideas palpables y  visualizar las posibles soluciones,
         poniendo de manifiesto elementos que debemos mejorar o refinar antes de llegar
-        al resultado final.
+        al resultado final.'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f5930d5f068cea144b9fbd298a02d901, type: 2}
@@ -1692,7 +1695,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1744474468
 MonoBehaviour:
   m_ObjectHideFlags: 0

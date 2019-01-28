@@ -394,7 +394,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1066545857821996, guid: e7d13c1dfc5e012498acd48f99d6e3cc, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114941012803400480, guid: e7d13c1dfc5e012498acd48f99d6e3cc,
+        type: 2}
+      propertyPath: m_Text
+      value: "Empatizar\n\nRecuerda debemos ser capaces de ponernos en los zapatos
+        de nuestro p\xFAblico objetivo para ser capaces de generar soluciones consecuentes
+        con sus realidades."
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e7d13c1dfc5e012498acd48f99d6e3cc, type: 2}

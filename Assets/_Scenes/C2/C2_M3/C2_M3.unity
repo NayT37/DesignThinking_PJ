@@ -581,7 +581,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1894262850573866, guid: dc30d5faf98055a4994948b1047e856c, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224843888788846954, guid: dc30d5faf98055a4994948b1047e856c,
         type: 2}
@@ -617,6 +617,13 @@ Prefab:
         type: 2}
       propertyPath: m_SizeDelta.x
       value: 172
+      objectReference: {fileID: 0}
+    - target: {fileID: 114372292691437762, guid: dc30d5faf98055a4994948b1047e856c,
+        type: 2}
+      propertyPath: m_Text
+      value: "Idear\n\nA partir de la delimitaci\xF3n de nuestro inter\xE9s, en esta
+        fase  generaremos un sinf\xEDn de opciones. No debemos quedarnos con la primera
+        idea que se nos ocurra."
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dc30d5faf98055a4994948b1047e856c, type: 2}
