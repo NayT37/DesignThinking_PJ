@@ -17,6 +17,7 @@ public class MainTab : MonoBehaviour, IPointerClickHandler
     private SubTab[] _childsArray;
     private Text _internalTxt;
     private bool _showTabs;
+    [SerializeField]
     private int _tabsToShowCounter;
     #endregion
 
@@ -33,7 +34,8 @@ public class MainTab : MonoBehaviour, IPointerClickHandler
     private void Initializate()
     {
         _selectedTab = 1;
-        _internalTxt = GetComponentInChildren<Text>();
+        _internalTxt = transform.GetChild(0).GetComponent<Text>();
+        print("Internal text is: " + _internalTxt);
         _showTabs = true;
         _tabsToShowCounter = 1;
         HideTabs();
@@ -113,8 +115,12 @@ public class MainTab : MonoBehaviour, IPointerClickHandler
     {
         SearchChilds();
         _selectedTab = value;
-        _internalTxt.text = ("IDEA " + _selectedTab);
-        print(_internalTxt.text);
+        if (!_internalTxt)
+        {
+            _internalTxt = transform.GetChild(0).GetComponent<Text>();
+        }
+        print("SECOND Internal text is: " + _internalTxt);
+        _internalTxt.text = ("IDEA " + value);
         foreach (SubTab child in _childsArray)
         {
             child.SetStateTo(false);

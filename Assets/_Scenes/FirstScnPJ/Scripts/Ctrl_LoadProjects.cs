@@ -36,7 +36,7 @@ public class Ctrl_LoadProjects : MonoBehaviour
         // 	Instantiate (prefab_project, parent_project.transform);
         // }
 
-        //_projectServices = new ProjectServices();
+        _projectServices = new ProjectServices();
         groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
 
         _prefabsProjects = new GameObject[0];

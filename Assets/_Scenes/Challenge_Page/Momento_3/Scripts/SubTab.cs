@@ -55,6 +55,7 @@ public class SubTab : MonoBehaviour, IPointerClickHandler
 
     public void SetStateTo(bool value)
     {
+        _internalImg = GetComponent<Image>();
         _isActiveState = value;
         if (_isActiveState)
         { _internalImg.color = _activeClr; }
