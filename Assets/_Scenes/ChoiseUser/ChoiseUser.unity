@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -3451,42 +3451,42 @@ Prefab:
     - target: {fileID: 224161688660895166, guid: 48e1d7852c48ce845b0e1c89a0e70f58,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -552
+      value: 88
       objectReference: {fileID: 0}
     - target: {fileID: 224161688660895166, guid: 48e1d7852c48ce845b0e1c89a0e70f58,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 302
+      value: -58
       objectReference: {fileID: 0}
     - target: {fileID: 224161688660895166, guid: 48e1d7852c48ce845b0e1c89a0e70f58,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 22.96
+      value: 22.960022
       objectReference: {fileID: 0}
     - target: {fileID: 224161688660895166, guid: 48e1d7852c48ce845b0e1c89a0e70f58,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 22.11
+      value: 22.109985
       objectReference: {fileID: 0}
     - target: {fileID: 224161688660895166, guid: 48e1d7852c48ce845b0e1c89a0e70f58,
         type: 2}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224161688660895166, guid: 48e1d7852c48ce845b0e1c89a0e70f58,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224161688660895166, guid: 48e1d7852c48ce845b0e1c89a0e70f58,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224161688660895166, guid: 48e1d7852c48ce845b0e1c89a0e70f58,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224161688660895166, guid: 48e1d7852c48ce845b0e1c89a0e70f58,
         type: 2}
@@ -3498,36 +3498,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114024234665080338, guid: 48e1d7852c48ce845b0e1c89a0e70f58,
-        type: 2}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224161688660895166, guid: 48e1d7852c48ce845b0e1c89a0e70f58,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 4.8634543
-      objectReference: {fileID: 0}
-    - target: {fileID: 224161688660895166, guid: 48e1d7852c48ce845b0e1c89a0e70f58,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 4.8619895
-      objectReference: {fileID: 0}
-    - target: {fileID: 224161688660895166, guid: 48e1d7852c48ce845b0e1c89a0e70f58,
-        type: 2}
-      propertyPath: m_LocalScale.z
-      value: 4.686262
-      objectReference: {fileID: 0}
     - target: {fileID: 114702554145469134, guid: 48e1d7852c48ce845b0e1c89a0e70f58,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 146505974}
-    - target: {fileID: 114702554145469134, guid: 48e1d7852c48ce845b0e1c89a0e70f58,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: backToScene
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 48e1d7852c48ce845b0e1c89a0e70f58, type: 2}
   m_IsPrefabParent: 0

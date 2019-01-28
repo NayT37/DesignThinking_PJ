@@ -327,10 +327,10 @@ Prefab:
     - target: {fileID: 114720211399273204, guid: f5930d5f068cea144b9fbd298a02d901,
         type: 2}
       propertyPath: m_Text
-      value: "En esta fase analizamos el prototipo construido con los usuarios implicados
-        en la soluci\xF3n que estemos desarrollando, para identificar mejoras significativas,
-        fallos a resolver, posibles carencias. Durante esta fase evolucionaremos nuestra
-        idea hasta convertirla en la soluci\xF3n que est\xE1bamos buscando."
+      value: "Validar\n\nEn esta fase analizamos el prototipo construido con los usuarios
+        implicados en la soluci\xF3n que estemos desarrollando, para identificar mejoras
+        significativas, fallos a resolver, posibles carencias. Durante esta fase evolucionaremos
+        nuestra idea hasta convertirla en la soluci\xF3n que est\xE1bamos buscando."
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f5930d5f068cea144b9fbd298a02d901, type: 2}
@@ -357,7 +357,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &470587157
 MonoBehaviour:
   m_ObjectHideFlags: 0

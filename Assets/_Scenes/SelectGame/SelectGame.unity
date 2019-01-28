@@ -7072,17 +7072,17 @@ Prefab:
     - target: {fileID: 224650259842428632, guid: da68ec401807fb043a5f0e2eeef14edd,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -147.5
+      value: 28.5
       objectReference: {fileID: 0}
     - target: {fileID: 224650259842428632, guid: da68ec401807fb043a5f0e2eeef14edd,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 81.95
+      value: -17.050003
       objectReference: {fileID: 0}
     - target: {fileID: 224650259842428632, guid: da68ec401807fb043a5f0e2eeef14edd,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 22.96
+      value: 22.959991
       objectReference: {fileID: 0}
     - target: {fileID: 224650259842428632, guid: da68ec401807fb043a5f0e2eeef14edd,
         type: 2}
@@ -7092,22 +7092,22 @@ Prefab:
     - target: {fileID: 224650259842428632, guid: da68ec401807fb043a5f0e2eeef14edd,
         type: 2}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224650259842428632, guid: da68ec401807fb043a5f0e2eeef14edd,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224650259842428632, guid: da68ec401807fb043a5f0e2eeef14edd,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224650259842428632, guid: da68ec401807fb043a5f0e2eeef14edd,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224650259842428632, guid: da68ec401807fb043a5f0e2eeef14edd,
         type: 2}
@@ -7124,10 +7124,10 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1752788913}
-    - target: {fileID: 114536276181627106, guid: da68ec401807fb043a5f0e2eeef14edd,
+    - target: {fileID: 114066546161703424, guid: da68ec401807fb043a5f0e2eeef14edd,
         type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: backToScene
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da68ec401807fb043a5f0e2eeef14edd, type: 2}

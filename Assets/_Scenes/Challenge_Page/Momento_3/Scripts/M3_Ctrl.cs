@@ -106,7 +106,7 @@ public class M3_Ctrl : MonoBehaviour
 
         deleteNotesPrefab();
 
-        print(_arraystorytellings.Length);
+        print("Array size is: " + _arraystorytellings.Length);
         DataBaseParametersCtrl.Ctrl._storyTellingLoaded = _arraystorytellings[version - 1];
 
         int counternotes = _noteServices.GetNotesCounter();
