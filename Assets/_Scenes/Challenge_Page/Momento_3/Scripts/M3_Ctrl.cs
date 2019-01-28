@@ -35,6 +35,7 @@ public class M3_Ctrl : MonoBehaviour
     private List<GameObject> _arrayPostit;
     //TabBehaviour[] _tabsArray;
     private MainTab _mainTab;
+    private int _changeTo;
     #endregion
 
 
@@ -42,6 +43,14 @@ public class M3_Ctrl : MonoBehaviour
     private void Start() { Initializate(); }
     private void OnEnable() { MainTab.OnTabChange += MainTabChanged; }
     private void OnDisable() { MainTab.OnTabChange -= MainTabChanged; }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            deleteNotesPrefab();
+        }
+    }
     #endregion
 
 
@@ -50,7 +59,7 @@ public class M3_Ctrl : MonoBehaviour
     {
         XRSettings.enabled = false;
         VuforiaBehaviour.Instance.enabled = false;
-
+        _changeTo = 0;
         _noteServices = new NoteServices();
 
         _storytellingServices = new StorytellingServices();
@@ -78,19 +87,38 @@ public class M3_Ctrl : MonoBehaviour
         _addIdea.onClick.AddListener(CreateNewIdea);
         _detIdea.onClick.AddListener(DeleteCurrentIdea);
         //DB validation here
-        _detIdea.gameObject.SetActive(false);
+        switch (_storytellingServices.GetStoryTellingsCounters())
+        {
+            case 0:
+                _addIdea.gameObject.SetActive(true);
+                _detIdea.gameObject.SetActive(false);
+                break;
+            case 1:
+                _addIdea.gameObject.SetActive(true);
+                _detIdea.gameObject.SetActive(false);
+                break;
+            case 2:
+                _addIdea.gameObject.SetActive(true);
+                _detIdea.gameObject.SetActive(true);
+                break;
+            case 3:
+                _addIdea.gameObject.SetActive(false);
+                _detIdea.gameObject.SetActive(true);
+                break;
+        }
         _showTabs = false;
         _arrayPostit = new List<GameObject>();
         ChMainHUD.instance.SetLimitCtrl(4); //If there is a StoryTelling available
-        ChargeNotesToStoryTelling();
+        counterstorytelling = 1;
+        // ChargeNotesToStoryTelling();
         ChangeStoryTellingVersion(1);
     }
 
     public void ChargeNotesToStoryTelling()
     {
 
+        print("The counter is: " + counterstorytelling + "  and the services is: " + _storytellingServices.GetStoryTellingsCounters()); //We need to set _storytellingServices.setStoryTellingsCounter(counterStoryTelling);
         counterstorytelling = _storytellingServices.GetStoryTellingsCounters();
-        print(counterstorytelling); //We need to set _storytellingServices.setStoryTellingsCounter(counterStoryTelling);
         _arraystorytellings = new StoryTelling[counterstorytelling];
 
         setArrayStoryTellings();
@@ -101,12 +129,9 @@ public class M3_Ctrl : MonoBehaviour
 
     public void ChangeStoryTellingVersion(int version)
     {
-
-        ChargeNotesToStoryTelling();
-
         deleteNotesPrefab();
-
-        print("Array size is: " + _arraystorytellings.Length);
+        ChargeNotesToStoryTelling();
+        print("Array size is: " + _arraystorytellings.Length + " and we are trying to go to version: " + version);
         DataBaseParametersCtrl.Ctrl._storyTellingLoaded = _arraystorytellings[version - 1];
 
         int counternotes = _noteServices.GetNotesCounter();
@@ -134,7 +159,7 @@ public class M3_Ctrl : MonoBehaviour
     public void createStoryTelling()
     {
         int version = 0;
-        if (counterstorytelling == 1)
+        if (counterstorytelling == 2)
         {
             version = 2;
         }
@@ -145,7 +170,8 @@ public class M3_Ctrl : MonoBehaviour
 
         _storytellingServices.CreateStoryTelling(version);
 
-        ChargeNotesToStoryTelling();
+        // ChargeNotesToStoryTelling();
+        ChangeStoryTellingVersion(version);
     }
 
     public void deleteStorytelling()
@@ -173,7 +199,7 @@ public class M3_Ctrl : MonoBehaviour
 
         _storytellingServices.DeleteStoryTelling();
 
-        ChargeNotesToStoryTelling();
+        //ChargeNotesToStoryTelling();
 
         ChangeStoryTellingVersion(1);
     }
@@ -184,10 +210,11 @@ public class M3_Ctrl : MonoBehaviour
         {
             for (int i = 0; i < _arrayPostit.Count; i++)
             {
-                _arrayPostit.Remove(_arrayPostit[i]);
+                //_arrayPostit.Remove(_arrayPostit[i]);
+                print("Destroying " + _arrayPostit[i]);
                 DestroyImmediate(_arrayPostit[i]);
             }
-
+            _arrayPostit.Clear();
         }
     }
 
@@ -264,28 +291,40 @@ public class M3_Ctrl : MonoBehaviour
 
     public void CreateNewIdea()
     {
-        if (counterstorytelling < 2)
-        {
-            counterstorytelling++;
-            _detIdea.gameObject.SetActive(true);
-        }
-        else if (_addIdea.gameObject.activeInHierarchy)
-        {
-            counterstorytelling++;
-            _addIdea.gameObject.SetActive(false);
-        }
-        //  HideTabs();
         if (_mainTab == null)
         {
             print("searching maintab");
             _mainTab = GameObject.FindObjectOfType<MainTab>();
         }
+        if (counterstorytelling < 2)
+        {
+            counterstorytelling++;
+            _detIdea.gameObject.SetActive(true);
+            _changeTo = 2;
+            // _mainTab.SetSelectedTab(2);
+        }
+        else if (_addIdea.gameObject.activeInHierarchy)
+        {
+            counterstorytelling++;
+            _addIdea.gameObject.SetActive(false);
+            _changeTo = 3;
+            // _mainTab.SetSelectedTab(3);
+        }
+        //  HideTabs();
+        createStoryTelling();
+        print("Adding story telling now counter is " + counterstorytelling);
         _mainTab.SetTabsToShowCouner(counterstorytelling);
+        _mainTab.SetSelectedTab(_changeTo);
         _showTabs = false;
+        _mainTab.HideTabs();
     }
 
     public void DeleteCurrentIdea()
     {
+        if (!_mainTab)
+        {
+            _mainTab = GameObject.FindObjectOfType<MainTab>();
+        }
         if (counterstorytelling > 2)
         {
             counterstorytelling--;
@@ -296,12 +335,15 @@ public class M3_Ctrl : MonoBehaviour
             counterstorytelling--;
             _detIdea.gameObject.SetActive(false);
         }
+        print("Deleting story telling now counter is " + counterstorytelling);
+        print("Main tab is " + _mainTab);
         _actualTab = 1;
         _mainTab.SetTabsToShowCouner(counterstorytelling);
         _mainTab.HideTabs();
         _mainTab.SetSelectedTab(1);
         _showTabs = false;
         deleteNotesPrefab();
+        deleteStorytelling();
         ChargeNotesToStoryTelling();
         ChangeStoryTellingVersion(1);
     }
@@ -312,7 +354,8 @@ public class M3_Ctrl : MonoBehaviour
         {
             _mainTab = GameObject.FindObjectOfType<MainTab>();
         }
-        ChargeNotesToStoryTelling();
+        //  ChargeNotesToStoryTelling();
+        print("Trying to change to : " + _mainTab.GetSelectedTab());
         ChangeStoryTellingVersion(_mainTab.GetSelectedTab());
     }
     #endregion

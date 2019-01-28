@@ -3203,6 +3203,36 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114313471027697406, guid: f75c385629f15f14480ef263c90b347f,
+        type: 2}
+      propertyPath: m_Text
+      value: Agregar Mapa
+      objectReference: {fileID: 0}
+    - target: {fileID: 224978086857485216, guid: f75c385629f15f14480ef263c90b347f,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 21.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 224978086857485216, guid: f75c385629f15f14480ef263c90b347f,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: -28.700003
+      objectReference: {fileID: 0}
+    - target: {fileID: 114688537651006402, guid: f75c385629f15f14480ef263c90b347f,
+        type: 2}
+      propertyPath: m_Text
+      value: Borrar Mapa
+      objectReference: {fileID: 0}
+    - target: {fileID: 224761752668299846, guid: f75c385629f15f14480ef263c90b347f,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 18.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 224761752668299846, guid: f75c385629f15f14480ef263c90b347f,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: -35.2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114551710740376976, guid: f75c385629f15f14480ef263c90b347f, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: f75c385629f15f14480ef263c90b347f, type: 2}
