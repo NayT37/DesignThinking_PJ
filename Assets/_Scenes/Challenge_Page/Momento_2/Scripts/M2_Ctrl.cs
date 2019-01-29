@@ -72,8 +72,6 @@ public class M2_Ctrl : MonoBehaviour
             }
             ChMainHUD.instance.SetLimitCtrl(3);
         }
-
-
     }
 
     public void SendText()
@@ -82,8 +80,8 @@ public class M2_Ctrl : MonoBehaviour
         if (_txtField2.text != "") { _arrayResults[1] = _txtField2.text; }
         if (_txtField3.text != "") { _arrayResults[2] = _txtField3.text; }
         UpdateProblem();
-        ChMainHUD.instance.MomentBtnClick(3);
         ChMainHUD.instance.SetLimitCtrl(3);
+        ChMainHUD.instance.MomentBtnClick(3);
     }
 
     public void UpdateProblem()

@@ -36,6 +36,9 @@ public class M3_Ctrl : MonoBehaviour
     //TabBehaviour[] _tabsArray;
     private MainTab _mainTab;
     private int _changeTo;
+
+    //Feedback text to show
+    private Text _feedbackTxt;
     #endregion
 
 
@@ -106,6 +109,7 @@ public class M3_Ctrl : MonoBehaviour
                 _detIdea.gameObject.SetActive(true);
                 break;
         }
+        _feedbackTxt = GameObject.Find("FeedbackText").GetComponent<Text>();
         _showTabs = false;
         _arrayPostit = new List<GameObject>();
         ChMainHUD.instance.SetLimitCtrl(4); //If there is a StoryTelling available
@@ -116,15 +120,13 @@ public class M3_Ctrl : MonoBehaviour
 
     public void ChargeNotesToStoryTelling()
     {
-
-        print("The counter is: " + counterstorytelling + "  and the services is: " + _storytellingServices.GetStoryTellingsCounters()); //We need to set _storytellingServices.setStoryTellingsCounter(counterStoryTelling);
         counterstorytelling = _storytellingServices.GetStoryTellingsCounters();
+        print("The counter is: " + counterstorytelling + "  and the services is: " + _storytellingServices.GetStoryTellingsCounters()); //We need to set _storytellingServices.setStoryTellingsCounter(counterStoryTelling);
         _arraystorytellings = new StoryTelling[counterstorytelling];
 
         setArrayStoryTellings();
 
         _arrayPostit = new List<GameObject>();
-
     }
 
     public void ChangeStoryTellingVersion(int version)
@@ -168,17 +170,22 @@ public class M3_Ctrl : MonoBehaviour
             version = 3;
         }
 
-        _storytellingServices.CreateStoryTelling(version);
+        var s = _storytellingServices.CreateStoryTelling(version);
 
+        print(s.ToString());
+
+        StartCoroutine(waitToStorytelling(version));
         // ChargeNotesToStoryTelling();
-        ChangeStoryTellingVersion(version);
+        
     }
 
     public void deleteStorytelling()
     {
 
         int versionToDelete = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.version;
+        Debug.Log("version To delete ..." + versionToDelete);
         int lengthStorys = _arraystorytellings.Length;
+        Debug.Log("versions counter ..." + lengthStorys);
 
         if (versionToDelete == 1)
         {
@@ -198,10 +205,17 @@ public class M3_Ctrl : MonoBehaviour
         }
 
         _storytellingServices.DeleteStoryTelling();
+    }
 
-        //ChargeNotesToStoryTelling();
 
-        ChangeStoryTellingVersion(1);
+    IEnumerator waitToStorytelling(int version){
+        //active panel
+        Debug.Log("waitToStory start...");
+        yield return new WaitUntil(() => DataBaseParametersCtrl.Ctrl.isQueryOk == true);
+        DataBaseParametersCtrl.Ctrl.isQueryOk = false;
+        //deactive
+        Debug.Log("waitToStory finish...");
+        ChangeStoryTellingVersion(version);
     }
 
     public void deleteNotesPrefab()
@@ -239,6 +253,7 @@ public class M3_Ctrl : MonoBehaviour
             drag._note = note;
             _arrayPostit.Add(temp);
         }
+        _feedbackTxt.gameObject.SetActive(false);
         _mainPanel.SetActive(true);
         _addPostItPanel.SetActive(false);
         _editableItem.GetInternalInput().text = "";
@@ -337,15 +352,15 @@ public class M3_Ctrl : MonoBehaviour
         }
         print("Deleting story telling now counter is " + counterstorytelling);
         print("Main tab is " + _mainTab);
+        deleteStorytelling();
         _actualTab = 1;
         _mainTab.SetTabsToShowCouner(counterstorytelling);
         _mainTab.HideTabs();
         _mainTab.SetSelectedTab(1);
         _showTabs = false;
-        deleteNotesPrefab();
-        deleteStorytelling();
-        ChargeNotesToStoryTelling();
-        ChangeStoryTellingVersion(1);
+        //deleteNotesPrefab();
+        //ChargeNotesToStoryTelling();
+        //ChangeStoryTellingVersion(1);
     }
 
     private void MainTabChanged()
@@ -369,8 +384,8 @@ public class M3_Ctrl : MonoBehaviour
     public void SetActualTab(int value)
     {
         _actualTab = value;
-        deleteNotesPrefab();
-        ChargeNotesToStoryTelling();
+        //deleteNotesPrefab();
+        //ChargeNotesToStoryTelling();
         ChangeStoryTellingVersion(value);
     }
     #endregion

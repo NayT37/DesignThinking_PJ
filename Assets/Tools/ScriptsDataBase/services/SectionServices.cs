@@ -105,9 +105,13 @@ public class SectionServices:MonoBehaviour  {
 				{
 					var e = _nodeServices.CreateNode();
 
-					if (e.id != 0)
+					if (e.id != 0){
 						count++;
+					 	
+					 }
 				}
+
+				DataBaseParametersCtrl.Ctrl.isQueryOk = true;
 
 				if (count == 3){
 					return new_s;
@@ -223,6 +227,8 @@ public class SectionServices:MonoBehaviour  {
 			{
 				valueToReturn += _nodeServices.DeleteNode(node);
 			}
+
+			DataBaseParametersCtrl.Ctrl.isQueryOk = true;
 		} else {
 			valueToReturn = 0;
 		}

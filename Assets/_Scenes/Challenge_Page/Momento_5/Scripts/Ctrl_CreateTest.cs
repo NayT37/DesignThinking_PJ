@@ -29,11 +29,16 @@ public class Ctrl_CreateTest : MonoBehaviour {
     private void eventClick(string name)
     {
 		bool isChange = false;
-		if (Ctrl_Moment5.Ctrl._answersValue[0] != 0)
+		Ctrl_Moment5.Ctrl.getAnswersValue();
+		for (int i = 0; i < Ctrl_Moment5.Ctrl._answersValue.Length; i++)
 		{
-			_doDataToLoad = true;
+			if (Ctrl_Moment5.Ctrl._answersValue[i] != 0)
+			{
+				_doDataToLoad = true;
+				break;
+			}
 		}
-
+		
 		string newSceneToLoad = "";
 
 		if (name.Equals("NewTestBtn")){

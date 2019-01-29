@@ -98,7 +98,7 @@ public class Ctrl_M4 : CtrlInternalText
         _storyTellingVersion = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.version; //This is giving an error
         _versionTab = FindObjectOfType<VersionTab>();
         _versionTab.SetInternalText(_storyTellingVersion);
-        ChargeNodesMindmap();
+        //ChargeNodesMindmap();
         ChangeMindmapVersion(1);
     }
 
@@ -144,8 +144,8 @@ public class Ctrl_M4 : CtrlInternalText
 
     public void setArraySections()
     {
-
-        var sections = _sectionServices.GetSections();
+        int mindmapid = DataBaseParametersCtrl.Ctrl._mindMapLoaded.id;
+        var sections = _sectionServices.GetSections(mindmapid);
 
         int counter = 0;
 
@@ -166,7 +166,7 @@ public class Ctrl_M4 : CtrlInternalText
 
             foreach (var item in nodes)
             {
-                _arrayNodes[i + count] = item;
+                _arrayNodes[count] = item;
                 count++;
             }
 
@@ -176,7 +176,7 @@ public class Ctrl_M4 : CtrlInternalText
     public void createMindmap()
     {
         int version = 0;
-        if (counterMindmaps == 1)
+        if (counterMindmaps == 2)
         {
             version = 2;
         }
@@ -187,7 +187,7 @@ public class Ctrl_M4 : CtrlInternalText
 
         _mindmapServices.CreateMindMap(version);
 
-        ChargeNodesMindmap();
+        //ChargeNodesMindmap();
         ChangeMindmapVersion(version);
     }
 
@@ -227,7 +227,7 @@ public class Ctrl_M4 : CtrlInternalText
             _detIdea.gameObject.SetActive(false);
         }
         UpdateDetBtn();
-        ChargeNodesMindmap();
+        //ChargeNodesMindmap();
         ChangeMindmapVersion(1);
     }
 
@@ -236,7 +236,7 @@ public class Ctrl_M4 : CtrlInternalText
 
         for (int i = 0; i < _arraySections.Length; i++)
         {
-            _subMainIdeasArray[6 + i].SetInternalTxt(_arrayNodes[6 + i].description);
+            _subMainIdeasArray[i].SetInternalTxt(_arrayNodes[6 + i].description);
             _subMainIdeasArray[i].SetChildsOportunityTxt(_arrayNodes[i].description);
             _subMainIdeasArray[i].SetChildsRiskTxt(_arrayNodes[12 + i].description);
         }
@@ -327,6 +327,7 @@ public class Ctrl_M4 : CtrlInternalText
         {
             _mainTab = GameObject.FindObjectOfType<MainTab>();
         }
+        createMindmap();
         _mainTab.SetTabsToShowCouner(counterMindmaps);
         _mainTab.HideTabs();
         _showTabs = false;
@@ -360,6 +361,7 @@ public class Ctrl_M4 : CtrlInternalText
     {
         //DB changes here
         _mindmapServices.UpdateMindmap("");
+        _panelImg.SetInternalImg(null);
     }
 
     public void UpdateImgFromDB(string imageToUpdate)

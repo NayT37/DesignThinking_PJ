@@ -48,11 +48,6 @@ public class Ctrl_Moment5 : MonoBehaviour {
 
 		_answerServices = new AnswerServices();
 
-		evaluationid = DataBaseParametersCtrl.Ctrl._evaluationLoaded.id;
-
-		questions = _questionServices.GetQuestions(evaluationid);
-		
-
 	}
 
 	public Evaluation createEvaluation(){
@@ -62,11 +57,13 @@ public class Ctrl_Moment5 : MonoBehaviour {
 		return evaluation;
 	}
 
-	public int setAnswersValue(){
+	public int setAnswersValue(bool isUpdate){
 		
 		int result = 0;
 
 		int counter = 0;
+
+		questions = _questionServices.GetQuestions(DataBaseParametersCtrl.Ctrl._evaluationLoaded.id);
 
 		foreach (var q in questions)
 		{
@@ -79,14 +76,20 @@ public class Ctrl_Moment5 : MonoBehaviour {
 				count++;
 			}
 
-			result += _answerServices.UpdateAnswer(arrayanswers[_answersValue[counter]-1]);
-			counter++;
+			if (isUpdate)
+			{
+				result += _answerServices.UpdateAnswer(arrayanswers[_answersValue[counter]-1]);	
+				print(arrayanswers[_answersValue[counter]-1]);
+				counter++;
+			}
 		}
 
 		return result;
 	}
 
 	public void getAnswersValue(){
+
+		setAnswersValue(false);
 
 		int[] answersarray = new int[50];
 
@@ -107,6 +110,7 @@ public class Ctrl_Moment5 : MonoBehaviour {
 			counterArrayOut++;
 			if ((i+1)%5==0)
 			{
+				print(_answersValue[counterArrayIn]);
 				counterArrayIn++;
 				counterArrayOut = 0;
 			}

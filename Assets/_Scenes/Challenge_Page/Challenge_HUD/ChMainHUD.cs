@@ -26,6 +26,8 @@ public class ChMainHUD : MonoBehaviour
 
     private EmpathymapServices _empathymapServices;
 
+    private EvaluationServices _evaluationServices;
+
     public RectTransform _transformShowHideBtn;
     private Image[] _btnsImgs;
     private Color32 _deactiveClr, _activeClr;
@@ -60,6 +62,8 @@ public class ChMainHUD : MonoBehaviour
         _publicServices = new PublicServices();
 
         _empathymapServices = new EmpathymapServices();
+
+        _evaluationServices = new EvaluationServices();
 
         int projectId = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 
@@ -104,7 +108,25 @@ public class ChMainHUD : MonoBehaviour
         {
             _actualMoment = clickMomentValue;
             ShowHideMenu();
-            StartCoroutine(ChangeScene("M_" + _actualMoment, _actualScn));
+            if (clickMomentValue == 5)
+            {
+                var evaluation = _evaluationServices.GetEvaluationNamed(DataBaseParametersCtrl.Ctrl._mindMapLoaded.id);
+
+                DataBaseParametersCtrl.Ctrl._evaluationLoaded = evaluation;
+
+                if (evaluation.id != 0)
+                {
+                    StartCoroutine(ChangeScene("M_5A", _actualScn));
+                }
+                else
+                {
+                    StartCoroutine(ChangeScene("M_5", _actualScn));
+                }
+            }
+            else
+            {
+                StartCoroutine(ChangeScene("M_" + _actualMoment, _actualScn));
+            }
         }
     }
 
@@ -144,6 +166,7 @@ public class ChMainHUD : MonoBehaviour
     #region COROUTINES
     private IEnumerator ChangeScene(string sceneToLoad, string sceneToUnload)
     {
+        print(sceneToUnload);
         if (sceneToUnload != "")
         {
             SceneManager.UnloadSceneAsync(sceneToUnload);

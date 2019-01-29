@@ -70,7 +70,7 @@ public class Ctrl_CreateViewPJ : MonoBehaviour
 
         if (isChange)
         {
-            DOTween.Play(name);
+            //DOTween.Play(name);
             DOTween.Play("bg_transition");
             StartCoroutine(ChangeScene(newSceneToLoad));
         }
@@ -108,8 +108,9 @@ public class Ctrl_CreateViewPJ : MonoBehaviour
         if (createProject)
         {
             var project = _projectServices.CreateProject("");
+            DOTween.Play("bg_transition_end");
         }
-        DOTween.Play("bg_transition_end");
+        
         SceneManager.LoadScene(newSceneToLoad);
     }
     #endregion
