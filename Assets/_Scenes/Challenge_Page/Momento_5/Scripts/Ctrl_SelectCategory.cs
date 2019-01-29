@@ -32,7 +32,7 @@ public class Ctrl_SelectCategory : MonoBehaviour {
 			nameCategory = "Producto";
 		
 		Ctrl_Moment5.Ctrl._evaluationCategory = nameCategory;
-		DOTween.Play(name);
+		//DOTween.Play(name);
 		DOTween.Play("bg_transition");
 		StartCoroutine(ChangeScene());
         

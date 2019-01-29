@@ -150,7 +150,7 @@ public class Ctrl_Test : MonoBehaviour {
             } else {
                 _evaluationPosition=10;
                 Ctrl_Moment5.Ctrl._answersValue = _answersValue;
-                int result = Ctrl_Moment5.Ctrl.setAnswersValue();
+                int result = Ctrl_Moment5.Ctrl.setAnswersValue(true);
 
                 if (result==10){
                     DOTween.Play("bg_transition_suc");

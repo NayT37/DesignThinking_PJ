@@ -24,7 +24,7 @@ public class PopUp_Panel : MonoBehaviour, IPointerClickHandler
     private void Initializate()
     {
         _canClose = false;
-        _closeBtn = transform.Find("CloseBtn").gameObject;
+        _closeBtn = transform.GetChild(0).Find("CloseBtn").gameObject;
         _closeBtn.SetActive(false);
         StartCoroutine(WaitUntilLoad());
     }
