@@ -4154,7 +4154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06b49035d06a151498b67bf9bbb94329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultTexture: {fileID: 0}
+  _defaultTexture: {fileID: 2800000, guid: 56667c1c034957e4785269e74bbe6b62, type: 3}
 --- !u!1 &1680240320
 GameObject:
   m_ObjectHideFlags: 0
@@ -4832,6 +4832,8 @@ MonoBehaviour:
   databaseID: 0
   _titleTxt: 
   _internalTxt: 
+  counterMindmaps: 0
+  _actualTab: 0
 --- !u!4 &1908532973
 Transform:
   m_ObjectHideFlags: 0
