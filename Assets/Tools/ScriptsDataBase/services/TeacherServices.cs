@@ -2,6 +2,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using UnityEngine.Networking;
 #if !UNITY_EDITOR
 using System.Collections;
 using System.IO;
@@ -43,49 +44,202 @@ public class TeacherServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type teacher with all the data of the teacher that was searched and if doesnt exist so return an empty teacher.
 	/// </returns>
+
 	public Teacher GetTeacherNamed(string teacherEmail, string password, bool isFirstTime){
 
-		if (isFirstTime)
-		{
-			Debug.Log("Validar en Web y luego crear el usuario local");
-			return _nullTeacher;
-		} else {
-			Debug.Log("Validar en base de datos local");
-			var t = _connection.Table<Teacher>().Where(x => x.email == teacherEmail).Where(x => x.password == password).FirstOrDefault();
+		//Get the current date to create the new empathymap
+		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
-			if (t == null){
-			
-			//Get the current date to create the new empathymap
-			string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
+		string p = DataBaseParametersCtrl.Ctrl.GenerateSHA512String(password);
 
+		var teacher = new Teacher{
+				identityCard = "1112",
+				documentTypeId = 0,
+				names = "null",
+				surnames = "null",
+				phone = "null",
+				address = "null",
+				email = teacherEmail,
+				password = password,
+				creationDate = date,
+				headquartersId = 1
+			};
 
-			var teacher = new Teacher{
-					identityCard = teacherEmail,
-					documentTypeId = 1,
-					names = "test",
-					surnames = "sapare",
-					phone = "",
-					address = "",
+		var teacherweb = new TeacherWeb{
+					identityCard = "1112",
+					documentTypeId = 0,
+					names = "null",
+					surnames = "null",
+					phone = "null",
+					address = "null",
 					email = teacherEmail,
 					password = password,
 					creationDate = date,
-					headquartersId = 1,
-			};
+					headquartersId = 1
+					};
 
-			int result = _connection.Insert(teacher);
-
-			if (result!=0){
-				DataBaseParametersCtrl.Ctrl._teacherLoggedIn = teacher;
-				return teacher;
-			}else
-				return _nullTeacher;
-			}	
-			else{
-				DataBaseParametersCtrl.Ctrl._teacherLoggedIn = t;
-				return t;
-			}
+		var t = new Teacher();
+		try
+		{
+			t = _connection.Table<Teacher>().Where(x => x.email == teacherEmail).Where(x => x.password == p).FirstOrDefault();
 		}
+		catch (System.Exception)
+		{
+			
+			Debug.Log(t);
+		}
+		
+
+		if (isFirstTime)
+		{
+			Debug.Log("Validar en base de datos local antes de web primero...");
+
+			if (t == null){
+				
+				Debug.Log("Validar en web...");
+				setDBToWeb("loginTeacher", teacherweb);
+
+				return _nullTeacher;
+			} else {
+				Debug.Log("Validar en base de datos local");
+				
+						DataBaseParametersCtrl.Ctrl._teacherLoggedIn = t;
+						DataBaseParametersCtrl.Ctrl.isQueryOk = true;
+						return t;
+			}
+		} else {
+				Debug.Log("Validar en base de datos local....");
+				
+				Debug.Log(t);
+				if (t == null){
+					Debug.Log("El profesor no existe en base de datos local");
+					DataBaseParametersCtrl.Ctrl.isQueryOk = true;
+					return _nullTeacher;
+					
+				}else{
+					DataBaseParametersCtrl.Ctrl._teacherLoggedIn = t;
+					DataBaseParametersCtrl.Ctrl.isQueryOk = true;
+					return t;
+				}
+		}
+		
+	 }
+	
+	#region METHODS to get data to DB
+
+	public void setDBToWeb(string methodToCall, TeacherWeb teacher){
+
+		//UserData tempUser = new UserData (player.id, player.cycle, game);
+		string json = JsonUtility.ToJson (teacher, true);
+		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
+		if (postRequest != null){	
+			Debug.Log("in postNotNull");
+			StartCoroutine(waitDB_ToGetTeacher (postRequest, methodToCall));
+		}
+			
+	
 	}
+
+	private UnityWebRequest SetJsonForm (string json, string method) {
+		try {
+			// Hashtable headers = new Hashtable();
+			// headers.Add("Content-Type", "application/json");
+			// json = json.Replace("'", "\"");
+			// //Encode the JSON string into a bytes
+			// byte[] postData = System.Text.Encoding.UTF8.GetBytes (json);
+
+			// WWW www = new WWW(DataBaseParametersCtrl.Ctrl._ipServer + method, postData, headers);
+			UnityWebRequest web = UnityWebRequest.Put (DataBaseParametersCtrl.Ctrl._ipServer + method, json);
+			Debug.Log(DataBaseParametersCtrl.Ctrl._ipServer + method);
+			Debug.Log(json);
+			web.SetRequestHeader("Access-Control-Allow-Credentials", "true");
+			web.SetRequestHeader("Access-Control-Allow-Origin", "*");
+			web.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time,Authorization");
+			web.SetRequestHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+			web.SetRequestHeader ("Content-Type", "application/json");
+			web.SetRequestHeader("X-Requested-With", "XMLHttpRequest");
+	
+			
+			return web;
+		} catch {
+			return null;
+		}
+			
+	}
+
+	IEnumerator waitDB_ToGetTeacher (UnityWebRequest www, string method) {
+
+				yield return www.SendWebRequest ();
+				while (!www.isDone) {
+					yield return null;
+				}
+				// Transformar la informacion obtenida (json) a Object (Response Class)
+				ResponseGetTeacher resp = null;
+				
+				try {
+					resp = JsonUtility.FromJson<ResponseGetTeacher> (www.downloadHandler.text);
+					Debug.Log(www.downloadHandler.text);
+				} catch { }
+
+				 //Validacion de la informacion obtenida
+				if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
+					Debug.Log (www.error);
+					try {
+
+					} catch (System.Exception e) { Debug.Log (e); }
+					yield return null;
+				} else
+
+				if (resp != null) { // Informacion obtenida exitosamente
+					if (!resp.error) { // sin error en el servidor
+						var tw = resp.teacher;
+
+						Teacher newT = new Teacher(){
+						identityCard = tw.identityCard,
+						documentTypeId = tw.documentTypeId,
+						names = tw.names,
+						surnames = tw.surnames,
+						phone = tw.phone,
+						address = tw.address,
+						email = tw.email,
+						password = tw.password,
+						creationDate = tw.creationDate,
+						headquartersId = tw.headquartersId,
+						};
+						int result = _connection.Insert(newT);
+						if (result!=0){
+							DataBaseParametersCtrl.Ctrl._teacherLoggedIn = newT;
+						}else{
+							DataBaseParametersCtrl.Ctrl._teacherLoggedIn = _nullTeacher;
+						}	
+						DataBaseParametersCtrl.Ctrl.isQueryOk = true;
+						
+						//Debug.Log(resp.teacher.ToString());
+						} else { // no existen usuarios
+
+							DataBaseParametersCtrl.Ctrl._teacherLoggedIn = _nullTeacher;
+							DataBaseParametersCtrl.Ctrl.isQueryOk = true;
+							DataBaseParametersCtrl.Ctrl.isNotTeacherExist = true;
+						}
+
+					} else { //Error en el servidor de base de datos
+						Debug.Log ("user error: " + resp.error);
+						try {
+
+						} catch { }
+						//HUDController.HUDCtrl.MessagePanel (resp.msg);
+					}
+			
+			// yield return new WaitUntil(()=> www.isDone == true);
+
+			
+           
+           
+        
+        yield return null;
+    }
+
+	#endregion
 
 }
 

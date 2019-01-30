@@ -87,12 +87,15 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 
 	public IEnumerable<Group> _groupsLoaded;
 
+	public bool isNotTeacherExist;
+
 
     void Awake () {
         if (Ctrl == null) {
             Ctrl = this;
 			_ipServer = "http://emprendimientovalle.com/designBack/services/";
 			isWaitingToDB = true;
+			isNotTeacherExist = false;
 			Salt = "EHS-dpa";
 			_dataServices = new DataService ("dtdbtemplate.db");
 			_sqliteConnection = _dataServices._connection;
