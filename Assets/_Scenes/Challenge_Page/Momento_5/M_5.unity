@@ -1107,7 +1107,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1163830340429220, guid: 72802236c1c756e4a92aab88b954b315, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 72802236c1c756e4a92aab88b954b315, type: 2}
@@ -1744,7 +1744,7 @@ Prefab:
     - target: {fileID: 114955863909875082, guid: f450987a882dd5f458191ed470401c11,
         type: 2}
       propertyPath: id
-      value: bg_transition_end
+      value: bg_transition
       objectReference: {fileID: 0}
     - target: {fileID: 114637477923956484, guid: f450987a882dd5f458191ed470401c11,
         type: 2}
@@ -1754,7 +1754,7 @@ Prefab:
     - target: {fileID: 114637477923956484, guid: f450987a882dd5f458191ed470401c11,
         type: 2}
       propertyPath: m_Text
-      value: "CREANDO EVALUACI\xD3N... POR FAVOR ESPERE!"
+      value: CREANDO ENCUESTAF... POR FAVOR ESPERE!
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f450987a882dd5f458191ed470401c11, type: 2}

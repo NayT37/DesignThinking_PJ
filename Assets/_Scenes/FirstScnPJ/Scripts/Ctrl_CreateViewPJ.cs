@@ -70,8 +70,12 @@ public class Ctrl_CreateViewPJ : MonoBehaviour
 
         if (isChange)
         {
-            //DOTween.Play(name);
+            if (createProject)
+            {
+                DOTween.Play("bg_transition_ini");
+            }
             DOTween.Play("bg_transition");
+            //DOTween.Play(name);
             StartCoroutine(ChangeScene(newSceneToLoad));
         }
 

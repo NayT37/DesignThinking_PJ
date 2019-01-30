@@ -29,14 +29,12 @@ public class Ctrl_CreateTest : MonoBehaviour {
     private void eventClick(string name)
     {
 		bool isChange = false;
-		Ctrl_Moment5.Ctrl.getAnswersValue();
-		for (int i = 0; i < Ctrl_Moment5.Ctrl._answersValue.Length; i++)
+		int result = Ctrl_Moment5.Ctrl.getAnswersValue();
+		Debug.Log(result);
+
+		if (result != 0)
 		{
-			if (Ctrl_Moment5.Ctrl._answersValue[i] != 0)
-			{
-				_doDataToLoad = true;
-				break;
-			}
+			_doDataToLoad = true;
 		}
 		
 		string newSceneToLoad = "";
@@ -58,7 +56,7 @@ public class Ctrl_CreateTest : MonoBehaviour {
 		
 		if (isChange)
 		{
-        	DOTween.Play(name);
+        	//DOTween.Play(name);
 			DOTween.Play("bg_transition");
 			StartCoroutine(ChangeScene(newSceneToLoad));
 		}
@@ -81,7 +79,7 @@ public class Ctrl_CreateTest : MonoBehaviour {
     private IEnumerator ChangeScene(string newSceneToLoad)
     {
 		
-        yield return new WaitForSeconds(2.0f);	
+        yield return new WaitForSeconds(1.0f);	
 		SceneManager.LoadScene(newSceneToLoad, LoadSceneMode.Additive);
         SceneManager.UnloadSceneAsync("M_5A");
     }

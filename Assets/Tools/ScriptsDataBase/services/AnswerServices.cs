@@ -152,7 +152,7 @@ public class AnswerServices : MonoBehaviour  {
 		var _questionServices = new QuestionServices();
 
 		int counter = AnswerToUpdate.counter;
-		AnswerToUpdate.counter = counter++;
+		AnswerToUpdate.counter = counter+1;
 		AnswerToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
 		int result = _connection.Update(AnswerToUpdate, AnswerToUpdate.GetType());

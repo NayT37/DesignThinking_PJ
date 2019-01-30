@@ -1741,7 +1741,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.0000305, y: -66.5}
+  m_AnchoredPosition: {x: 5.0000305, y: -45}
   m_SizeDelta: {x: 271.5, y: 26.05}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &505037434
@@ -1799,7 +1799,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  delay: 0
+  delay: 1
   duration: 1
   easeType: 6
   easeCurve:
@@ -1874,7 +1874,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 2c530bdb22a2fba4883677715d20a589, type: 3}
-    m_FontSize: 12
+    m_FontSize: 11
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -2505,7 +2505,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.0000153, y: -66.499985}
+  m_AnchoredPosition: {x: 5.0000153, y: -44.000004}
   m_SizeDelta: {x: 271.5, y: 26.05}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &661737977
@@ -2563,7 +2563,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  delay: 0
+  delay: 1
   duration: 1
   easeType: 6
   easeCurve:
@@ -2638,7 +2638,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 2c530bdb22a2fba4883677715d20a589, type: 3}
-    m_FontSize: 12
+    m_FontSize: 11
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0

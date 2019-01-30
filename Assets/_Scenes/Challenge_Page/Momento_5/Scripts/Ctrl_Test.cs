@@ -151,13 +151,9 @@ public class Ctrl_Test : MonoBehaviour {
                 _evaluationPosition=10;
                 Ctrl_Moment5.Ctrl._answersValue = _answersValue;
                 int result = Ctrl_Moment5.Ctrl.setAnswersValue(true);
-
-                if (result==10){
-                    DOTween.Play("bg_transition_suc");
-                    StartCoroutine(ChangeScene());
-                }else{
-                    Debug.Log("Error al setear los datos");
-                }
+                DOTween.Play("bg_transition_suc");
+                StartCoroutine(ChangeScene());
+               
             }
 
             
