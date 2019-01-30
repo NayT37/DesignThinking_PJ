@@ -42,16 +42,23 @@ public class SubMainIdea : CtrlInternalText, IPointerClickHandler
     public override void SetInternalTxt(string value)
     {
         base.SetInternalTxt(value);
+        if (_childsArray[0] == null)
+        {
+            _childsArray[0] = transform.GetChild(0).GetComponent<ChildSubMainIdea>();
+            _childsArray[1] = transform.GetChild(1).GetComponent<ChildSubMainIdea>();
+        }
         if (value != "")
         {
             _feedbackObj.SetActive(true);
-            if (_childsArray[0] == null)
-            {
-                _childsArray[0] = transform.GetChild(0).GetComponent<ChildSubMainIdea>();
-                _childsArray[1] = transform.GetChild(1).GetComponent<ChildSubMainIdea>();
-            }
+
             _childsArray[0].SetCanWrite(true);
             _childsArray[1].SetCanWrite(true);
+        }
+        else
+        {
+            _feedbackObj.SetActive(false);
+            _childsArray[0].SetCanWrite(false);
+            _childsArray[1].SetCanWrite(false);
         }
     }
 
@@ -75,7 +82,6 @@ public class SubMainIdea : CtrlInternalText, IPointerClickHandler
             _childsArray[0] = transform.GetChild(0).GetComponent<ChildSubMainIdea>();
         }
         _childsArray[0].SetInternalTxt(oportunityTxt);
-        _childsArray[0].SetCanWrite(true);
     }
 
     public void SetChildsRiskTxt(string riskTxt)
@@ -85,7 +91,7 @@ public class SubMainIdea : CtrlInternalText, IPointerClickHandler
             _childsArray[1] = transform.GetChild(1).GetComponent<ChildSubMainIdea>();
         }
         _childsArray[1].SetInternalTxt(riskTxt);
-        _childsArray[1].SetCanWrite(true);
+        //_childsArray[1].SetCanWrite(true);
     }
 
 

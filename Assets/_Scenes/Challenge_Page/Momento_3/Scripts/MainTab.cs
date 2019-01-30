@@ -11,6 +11,7 @@ public class MainTab : MonoBehaviour, IPointerClickHandler
     //Public Variables
     public delegate void TabChangeAction();
     public static event TabChangeAction OnTabChange;
+    public static MainTab instance = null;
     //Private Variables
     [SerializeField]
     private int _selectedTab;
@@ -25,7 +26,22 @@ public class MainTab : MonoBehaviour, IPointerClickHandler
 
 
     #region SYSTEM_METHODS
-    private void Awake() { _childsArray = new SubTab[3]; }
+    private void Awake()
+    {
+        //Check if instance already exists
+        if (instance == null)
+
+            //if not, set instance to this
+            instance = this;
+
+        //If instance already exists and it's not this:
+        else if (instance != this)
+
+            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
+            Destroy(gameObject);
+
+        _childsArray = new SubTab[3];
+    }
     private void Start() { Initializate(); }
     private void OnEnable() { SubTab.OnStateChange += SetChildStateTofalse; }
     private void OnDisable() { SubTab.OnStateChange -= SetChildStateTofalse; }
@@ -38,7 +54,7 @@ public class MainTab : MonoBehaviour, IPointerClickHandler
         _selectedTab = 1;
         _internalTxt = transform.GetChild(0).GetComponent<Text>();
         _showTabs = true;
-        _tabsToShowCounter = 1;
+        // _tabsToShowCounter = 1;
         HideTabs();
     }
 
