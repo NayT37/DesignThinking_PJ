@@ -86,7 +86,6 @@ public class M3_Ctrl : MonoBehaviour
 
         _addIdea = GameObject.Find("AddIdea_Btn").GetComponent<Button>();
         _detIdea = GameObject.Find("DetIdea_Btn").GetComponent<Button>();
-        //_mainTab.onClick.AddListener(ShowHideTabs);
         _addIdea.onClick.AddListener(CreateNewIdea);
         _detIdea.onClick.AddListener(DeleteCurrentIdea);
         //DB validation here
@@ -109,6 +108,7 @@ public class M3_Ctrl : MonoBehaviour
                 _detIdea.gameObject.SetActive(true);
                 break;
         }
+        // _mainTab.SetTabsToShowCouner(counterstorytelling);
         _feedbackTxt = GameObject.Find("FeedbackText").GetComponent<Text>();
         _showTabs = false;
         _arrayPostit = new List<GameObject>();
@@ -176,7 +176,7 @@ public class M3_Ctrl : MonoBehaviour
 
         StartCoroutine(waitToStorytelling(version));
         // ChargeNotesToStoryTelling();
-        
+
     }
 
     public void deleteStorytelling()
@@ -208,7 +208,8 @@ public class M3_Ctrl : MonoBehaviour
     }
 
 
-    IEnumerator waitToStorytelling(int version){
+    IEnumerator waitToStorytelling(int version)
+    {
         //active panel
         Debug.Log("waitToStory start...");
         yield return new WaitUntil(() => DataBaseParametersCtrl.Ctrl.isQueryOk == true);
@@ -259,17 +260,17 @@ public class M3_Ctrl : MonoBehaviour
         _editableItem.GetInternalInput().text = "";
     }
 
-    public void ShowHideTabs()
-    {
-        if (counterstorytelling != 1)
+    /*     public void ShowHideTabs()
         {
-            _showTabs = !_showTabs;
-            for (int i = 1; i < counterstorytelling; i++)
+            if (counterstorytelling != 1)
             {
-                _mainTab.transform.GetChild(i).gameObject.SetActive(_showTabs);
+                _showTabs = !_showTabs;
+                for (int i = 1; i < counterstorytelling; i++)
+                {
+                    _mainTab.transform.GetChild(i).gameObject.SetActive(_showTabs);
+                }
             }
-        }
-    }
+        } */
 
     private void GeneratePostIts(int number, IEnumerable<Note> notes)
     {
@@ -316,16 +317,13 @@ public class M3_Ctrl : MonoBehaviour
             counterstorytelling++;
             _detIdea.gameObject.SetActive(true);
             _changeTo = 2;
-            // _mainTab.SetSelectedTab(2);
         }
         else if (_addIdea.gameObject.activeInHierarchy)
         {
             counterstorytelling++;
             _addIdea.gameObject.SetActive(false);
             _changeTo = 3;
-            // _mainTab.SetSelectedTab(3);
         }
-        //  HideTabs();
         createStoryTelling();
         print("Adding story telling now counter is " + counterstorytelling);
         _mainTab.SetTabsToShowCouner(counterstorytelling);
@@ -358,9 +356,6 @@ public class M3_Ctrl : MonoBehaviour
         _mainTab.HideTabs();
         _mainTab.SetSelectedTab(1);
         _showTabs = false;
-        //deleteNotesPrefab();
-        //ChargeNotesToStoryTelling();
-        //ChangeStoryTellingVersion(1);
     }
 
     private void MainTabChanged()
@@ -369,7 +364,6 @@ public class M3_Ctrl : MonoBehaviour
         {
             _mainTab = GameObject.FindObjectOfType<MainTab>();
         }
-        //  ChargeNotesToStoryTelling();
         print("Trying to change to : " + _mainTab.GetSelectedTab());
         ChangeStoryTellingVersion(_mainTab.GetSelectedTab());
     }
@@ -384,8 +378,6 @@ public class M3_Ctrl : MonoBehaviour
     public void SetActualTab(int value)
     {
         _actualTab = value;
-        //deleteNotesPrefab();
-        //ChargeNotesToStoryTelling();
         ChangeStoryTellingVersion(value);
     }
     #endregion

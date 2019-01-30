@@ -23,7 +23,6 @@ public class SubTab : MonoBehaviour, IPointerClickHandler
 
     #region SYSTEM_METHODS
     private void Awake() { Initializate(); }
-    private void Update() { }
     #endregion
 
 
