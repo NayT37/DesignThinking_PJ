@@ -30,6 +30,8 @@ public class Ctrl_Moment5 : MonoBehaviour {
 	IEnumerable<Question> questions;
 
 	IEnumerable<Answer> answers;
+
+	private int[] answersarray;
     void Awake () {
         if (Ctrl == null) {
             Ctrl = this;
@@ -48,6 +50,8 @@ public class Ctrl_Moment5 : MonoBehaviour {
 
 		_answerServices = new AnswerServices();
 
+		answersarray = new int[50];
+
 	}
 
 	public Evaluation createEvaluation(){
@@ -63,8 +67,11 @@ public class Ctrl_Moment5 : MonoBehaviour {
 
 		int counter = 0;
 
-		questions = _questionServices.GetQuestions(DataBaseParametersCtrl.Ctrl._evaluationLoaded.id);
+		int counterArray = 0;
 
+		questions = _questionServices.GetQuestions(DataBaseParametersCtrl.Ctrl._evaluationLoaded.id);
+		
+		Debug.Log("Entrando set Answers...");
 		foreach (var q in questions)
 		{
 			answers = _answerServices.GetAnswers(q.id);
@@ -72,8 +79,12 @@ public class Ctrl_Moment5 : MonoBehaviour {
 			int count = 0;
 			foreach (var a in answers)
 			{
+				Debug.Log(a.ToString());
+				answersarray[counterArray] = a.counter;
+				result+=a.counter;
 				arrayanswers[count] = a;
 				count++;
+				counterArray++;
 			}
 
 			if (isUpdate)
@@ -87,34 +98,40 @@ public class Ctrl_Moment5 : MonoBehaviour {
 		return result;
 	}
 
-	public void getAnswersValue(){
+	public int getAnswersValue(){
+		
+		_answersValue = new int[10]{0,0,0,0,0,0,0,0,0,0};
+		
+		int result = setAnswersValue(false);
+		
+		Debug.Log(result);
 
-		setAnswersValue(false);
+		int questionsQuantity = 0;
 
-		int[] answersarray = new int[50];
-
-		int result = 0;
-
-		foreach (var a in answers)
+		for (int i = 0; i < 5; i++)
 		{
-			result+= a.counter;
+			questionsQuantity += answersarray[i];
 		}
 
-		int counterQuestions = (result%10);
-
-		int counterArrayIn = 0;
-		int counterArrayOut = 0;
-		for (int i = 0; i < answersarray.Length; i++)
+		if (result!=0)
 		{
-			_answersValue[counterArrayIn] += ((answersarray[i]*(counterArrayOut+1))*counterQuestions);
-			counterArrayOut++;
-			if ((i+1)%5==0)
+
+			int counterArrayIn = 0;
+			int counterArrayOut = 0;
+			for (int i = 0; i < answersarray.Length; i++)
 			{
-				print(_answersValue[counterArrayIn]);
-				counterArrayIn++;
-				counterArrayOut = 0;
+				_answersValue[counterArrayIn] += ((answersarray[i]*(counterArrayOut+1)));
+				
+				counterArrayOut++;
+				if ((i+1)%5==0)
+				{
+					counterArrayIn++;
+					counterArrayOut = 0;
+				}
 			}
-		}
+		} 
+
+		return questionsQuantity;
 
 	}
 	
