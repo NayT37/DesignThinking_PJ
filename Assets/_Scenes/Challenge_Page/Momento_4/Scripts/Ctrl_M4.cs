@@ -26,9 +26,9 @@ public class Ctrl_M4 : CtrlInternalText
     private Section[] _arraySections;
 
     private Node[] _arrayNodes;
-
+    [SerializeField]
     private int counterMindmaps, _actualTab;
-    private MainTab _mainTab;
+    //private MainTab _mainTab;
     private Button _addIdea, _detIdea;
     private bool _showTabs;
 
@@ -37,6 +37,7 @@ public class Ctrl_M4 : CtrlInternalText
     private Button _imgPanelBtn;
     private int _storyTellingVersion;
     private VersionTab _versionTab;
+    private int _changeTo;
     #endregion
 
 
@@ -73,31 +74,49 @@ public class Ctrl_M4 : CtrlInternalText
         {
             _subMainIdeasArray[i] = GameObject.Find("SubIdea_" + (i + 1)).GetComponent<SubMainIdea>();
         }
-        //DB stuff
-        _internalTxt = "";
         _panelFeedback = GameObject.FindObjectOfType<PanelSaveFeedback>();
         _panelFeedback.gameObject.SetActive(false);
 
-        _actualTab = 1;
         _addIdea = GameObject.Find("AddIdea_Btn").GetComponent<Button>();
         _detIdea = GameObject.Find("DetIdea_Btn").GetComponent<Button>();
         _addIdea.onClick.AddListener(CreateNewIdea);
-        _detIdea.onClick.AddListener(deleteMindmap);
-        //DB Validation here
-        _detIdea.gameObject.SetActive(false);
+        _detIdea.onClick.AddListener(DeleteCurrentIdea);
 
         //Panel Image Stuff
         _panelImg = GameObject.FindObjectOfType<PanelImage>();
         _imgPanelBtn = GameObject.Find("OpenImgPanel_Btn").GetComponent<Button>();
         _imgPanelBtn.onClick.AddListener(OpenImgPanel);
-        _panelImg.SetInternalImg(null); //DB here to get the image
         _panelImg.gameObject.SetActive(false);
 
+        //DB Validation stuff
+        var mmCounter = _mindmapServices.GetMindmapsCounter();
+        switch (mmCounter)
+        {
+            case 1:
+                _addIdea.gameObject.SetActive(true);
+                _detIdea.gameObject.SetActive(false);
+                break;
+            case 2:
+                _addIdea.gameObject.SetActive(true);
+                _detIdea.gameObject.SetActive(true);
+                break;
+            case 3:
+                _addIdea.gameObject.SetActive(false);
+                _detIdea.gameObject.SetActive(true);
+                break;
+        }
+        MainTab.instance.SetTabsToShowCouner(mmCounter);
+
+        _internalTxt = "";
+        _panelImg.SetInternalImg(null); //DB here to get the image
         ChMainHUD.instance.SetLimitCtrl(5); //If there is a Mindmap available
 
-        _storyTellingVersion = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.version; //This is giving an error
+        _storyTellingVersion = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.version;
         _versionTab = FindObjectOfType<VersionTab>();
         _versionTab.SetInternalText(_storyTellingVersion);
+
+        _actualTab = 1;
+        _changeTo = 0;
         //ChargeNodesMindmap();
         ChangeMindmapVersion(1);
     }
@@ -134,12 +153,10 @@ public class Ctrl_M4 : CtrlInternalText
         ChargeNodesMindmap();
 
         DataBaseParametersCtrl.Ctrl._mindMapLoaded = _arrayMindmaps[version - 1];
-
+        _actualTab = version; //is this necesary?
         setArraySections();
         setArrayNodes();
         setTextNodes();
-
-
     }
 
     public void setArraySections()
@@ -211,24 +228,9 @@ public class Ctrl_M4 : CtrlInternalText
             {
                 _mindmapServices.UpdateMindmap(_arrayMindmaps[2], 2);
             }
-
         }
 
         _mindmapServices.DeleteMindmap(mindmaptodelete);
-
-        if (counterMindmaps > 2)
-        {
-            counterMindmaps--;
-            _addIdea.gameObject.SetActive(true);
-        }
-        else if (_detIdea.gameObject.activeInHierarchy)
-        {
-            counterMindmaps--;
-            _detIdea.gameObject.SetActive(false);
-        }
-        UpdateDetBtn();
-        //ChargeNodesMindmap();
-        ChangeMindmapVersion(1);
     }
 
     private void setTextNodes()
@@ -302,12 +304,13 @@ public class Ctrl_M4 : CtrlInternalText
 
     private void MainTabChanged()
     {
-        if (!_mainTab)
-        {
-            _mainTab = GameObject.FindObjectOfType<MainTab>();
-        }
+        /*         if (!_mainTab)
+                {
+                    _mainTab = GameObject.FindObjectOfType<MainTab>();
+                }
 
-        ChangeMindmapVersion(_mainTab.GetSelectedTab());
+                ChangeMindmapVersion(_mainTab.GetSelectedTab()); */
+        ChangeMindmapVersion(MainTab.instance.GetSelectedTab());
     }
 
     public void CreateNewIdea()
@@ -316,24 +319,22 @@ public class Ctrl_M4 : CtrlInternalText
         {
             counterMindmaps++;
             _detIdea.gameObject.SetActive(true);
+            _changeTo = 2;
         }
         else if (_addIdea.gameObject.activeInHierarchy)
         {
             counterMindmaps++;
             _addIdea.gameObject.SetActive(false);
-        }
-        //  HideTabs();
-        if (!_mainTab)
-        {
-            _mainTab = GameObject.FindObjectOfType<MainTab>();
+            _changeTo = 3;
         }
         createMindmap();
-        _mainTab.SetTabsToShowCouner(counterMindmaps);
-        _mainTab.HideTabs();
+        MainTab.instance.SetTabsToShowCouner(counterMindmaps);
+        MainTab.instance.SetSelectedTab(_changeTo);
         _showTabs = false;
+        MainTab.instance.HideTabs();
     }
 
-    public void UpdateDetBtn()
+    public void DeleteCurrentIdea()
     {
         if (counterMindmaps > 2)
         {
@@ -345,10 +346,11 @@ public class Ctrl_M4 : CtrlInternalText
             counterMindmaps--;
             _detIdea.gameObject.SetActive(false);
         }
+        deleteMindmap();
         _actualTab = 1;
-        _mainTab.SetTabsToShowCouner(counterMindmaps);
-        _mainTab.HideTabs();
-        _mainTab.SetSelectedTab(1);
+        MainTab.instance.SetTabsToShowCouner(counterMindmaps);
+        MainTab.instance.HideTabs();
+        MainTab.instance.SetSelectedTab(1);
         _showTabs = false;
     }
 

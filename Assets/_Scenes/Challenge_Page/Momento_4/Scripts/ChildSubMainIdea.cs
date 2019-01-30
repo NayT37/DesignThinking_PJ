@@ -65,12 +65,20 @@ public class ChildSubMainIdea : CtrlInternalText, IPointerClickHandler
 
 
     #region GETTERS_AND_SETTERS
+    public override void SetInternalTxt(string value)
+    {
+        base.SetInternalTxt(value);
+    }
     public void SetCanWrite(bool value)
     {
         _canWrite = value;
         if (value)
         {
             _internalImg.color = _activeClr;
+        }
+        else
+        {
+            _internalImg.color = _deactiveClr;
         }
     }
     #endregion

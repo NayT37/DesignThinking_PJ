@@ -11,6 +11,8 @@ public class PanelImage : MonoBehaviour
     private Button _updateBtn, _detBtn, _closeBtn;
     private RawImage _internalImg;
     private Ctrl_M4 _ctrl;
+    [SerializeField]
+    private Texture _defaultTexture;
     #endregion
 
 
@@ -28,6 +30,7 @@ public class PanelImage : MonoBehaviour
         _internalImg = transform.Find("RawImage").GetComponent<RawImage>();
         _closeBtn = transform.Find("CloseBtn").GetComponent<Button>();
         _closeBtn.onClick.AddListener(ClosePanel);
+        _internalImg.texture = _defaultTexture;
     }
 
     public void UpdateInternalImg()
@@ -68,6 +71,7 @@ public class PanelImage : MonoBehaviour
         if (img == null)
         {
             _detBtn.gameObject.SetActive(false);
+            _internalImg.texture = _defaultTexture;
         }
         else
         {
