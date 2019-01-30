@@ -32,7 +32,7 @@ public class VersionTab : MonoBehaviour
     #region GETTERS_AND_SETTERS
     public void SetInternalText(int ideaNumber)
     {
-        _internalTxt.text = "IDEA " + ideaNumber;
+        _internalTxt.text = "STORY T. " + ideaNumber;
     }
     #endregion
 

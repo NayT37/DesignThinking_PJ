@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -3348,6 +3348,36 @@ Prefab:
       propertyPath: m_SizeDelta.x
       value: -35.2
       objectReference: {fileID: 0}
+    - target: {fileID: 114534345757303240, guid: f75c385629f15f14480ef263c90b347f,
+        type: 2}
+      propertyPath: m_Text
+      value: STORY T. 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114984334086886718, guid: f75c385629f15f14480ef263c90b347f,
+        type: 2}
+      propertyPath: m_Text
+      value: MAPA 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114739229794520048, guid: f75c385629f15f14480ef263c90b347f,
+        type: 2}
+      propertyPath: m_Text
+      value: MAPA 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114989080841436194, guid: f75c385629f15f14480ef263c90b347f,
+        type: 2}
+      propertyPath: m_Text
+      value: MAPA 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114275341954323762, guid: f75c385629f15f14480ef263c90b347f,
+        type: 2}
+      propertyPath: m_Text
+      value: MAPA 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114387212264903844, guid: f75c385629f15f14480ef263c90b347f,
+        type: 2}
+      propertyPath: _textToShow
+      value: MAPA
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114551710740376976, guid: f75c385629f15f14480ef263c90b347f, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: f75c385629f15f14480ef263c90b347f, type: 2}
@@ -3373,6 +3403,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1792aa207d5adf4a9e1aa9d14608346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &1404576661 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224907960224062186, guid: f75c385629f15f14480ef263c90b347f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1404576657}
 --- !u!1 &1414126691
 GameObject:
   m_ObjectHideFlags: 0
@@ -3908,6 +3943,74 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!1 &1603714201
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1603714202}
+  - component: {fileID: 1603714204}
+  - component: {fileID: 1603714203}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1603714202
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1603714201}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.99999624, y: 0.99999624, z: 0.99999624}
+  m_Children: []
+  m_Father: {fileID: 1404576661}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 65, y: 0.13116455}
+  m_SizeDelta: {x: 20, y: 15}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1603714203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1603714201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300054, guid: a811acfa87fbc4d4d8df1bee3b264676, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &1603714204
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1603714201}
 --- !u!1 &1640634328
 GameObject:
   m_ObjectHideFlags: 0
