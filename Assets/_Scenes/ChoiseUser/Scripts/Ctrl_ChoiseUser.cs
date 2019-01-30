@@ -35,7 +35,7 @@ public class Ctrl_ChoiseUser : MonoBehaviour
 
     public void backToScene()
     {
-        DestroyImmediate(DataBaseParametersCtrl.Ctrl.gameObject);
+        //DestroyImmediate(DataBaseParametersCtrl.Ctrl.gameObject);
         StartCoroutine(BackOne());
     }
 

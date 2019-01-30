@@ -118,6 +118,7 @@ public class SelectGame : MonoBehaviour
     
 	IEnumerator BackOne(){
 		DOTween.Play("bg_transition");
+        //DestroyImmediate(DataBaseParametersCtrl.Ctrl.transform.gameObject);
 		yield return new WaitForSeconds(1.0f);
 		SceneManager.LoadScene ("RegisterUser");
 	}
