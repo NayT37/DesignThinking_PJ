@@ -50,10 +50,6 @@ public class M3_Ctrl : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            deleteNotesPrefab();
-        }
     }
     #endregion
 
@@ -237,14 +233,14 @@ public class M3_Ctrl : MonoBehaviour
         if (text != "")
         {
             _postItQntt++;
-            GameObject temp = Instantiate(_postIt, new Vector3(0, 0, 0), Quaternion.identity);
+            GameObject temp = Instantiate(_postIt, new Vector2(0, 0), Quaternion.identity, _contentHolder);
             Drag_M3_Item drag = temp.GetComponent<Drag_M3_Item>();
-            temp.transform.SetParent(_contentHolder);
             temp.transform.localScale = new Vector3(1, 1, 1);
             drag.ChangeText(text);
             var note = _noteServices.CreateNote(text);
             drag._note = note;
             _arrayPostit.Add(temp);
+            drag.internalID = 0;
         }
         _feedbackTxt.gameObject.SetActive(false);
         _mainPanel.SetActive(true);
@@ -271,28 +267,22 @@ public class M3_Ctrl : MonoBehaviour
         foreach (var item in notes)
         {
             //  var temp = _arrayPostit[counter];
-            var temp = Instantiate(_postIt, new Vector2(0, 0), Quaternion.identity);
+            // var temp = Instantiate(_postIt, new Vector2(0, 0), Quaternion.identity);
+            GameObject temp = null;
+            if (item.position != 0)
+            {
+                temp = Instantiate(_postIt, new Vector2(0, 0), Quaternion.identity, _dropZonesArray[item.position - 1]);
+            }
+            else
+            {
+                temp = Instantiate(_postIt, new Vector2(0, 0), Quaternion.identity, _contentHolder);
+            }
             Drag_M3_Item drag = temp.GetComponent<Drag_M3_Item>();
             drag._note = item;
             _arrayPostit.Add(temp);
             //DB
             drag.ChangeText(item.description);
             drag.internalID = item.position;
-            try
-            {
-                drag.internalID = 1;
-                //temp.transform.SetParent(_dropZonesArray[drag.internalID - 1]);
-                temp.transform.SetParent(_contentHolder);
-                drag.rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
-                drag.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
-                temp.transform.localScale = new Vector3(1, 1, 1);
-                //_dropZonesArray[drag.internalID - 1].GetComponent<Drop_M3_Zone>().CheckForChild();
-            }
-            catch (IndexOutOfRangeException e)
-            {
-                temp.transform.SetParent(_contentHolder);
-                temp.transform.localScale = new Vector3(1, 1, 1);
-            }
             counter++;
         }
     }
