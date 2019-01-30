@@ -7,7 +7,7 @@ using UnityEngine;
 public class ResponseGetTeacher {
 	public bool error;
 	public string msg;
-	public Teacher teacher;
+	public TeacherWeb teacher;
 }
 #endregion
 
