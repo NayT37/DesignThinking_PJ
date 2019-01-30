@@ -70,7 +70,7 @@ public class Drop_M3_Zone : MonoBehaviour, IDropHandler
             Drag_M3_Item.getItemDragged().transform.SetParent(transform);
             //Set to 0,0 position and...
             Drag_M3_Item.getItemDragged().transform.localPosition = new Vector2(0, 0);
-            Drag_M3_Item.getItemDragged().transform.localScale = new Vector2(0.85f, 0.9f);
+            // Drag_M3_Item.getItemDragged().transform.localScale = new Vector2(0.85f, 0.9f);
             Drag_M3_Item.getItemDragged().GetComponent<Drag_M3_Item>().internalID = _internalID;
         }
     }

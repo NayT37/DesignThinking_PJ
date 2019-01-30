@@ -28,6 +28,8 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     //A variable to store the initial position
     private Vector3 _initPosition;
     private Text _internalText;
+
+    private NoteServices _noteServices;
     #endregion
 
 
@@ -41,12 +43,13 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     #region CREATED_METHODS
     private void Initializate()
     {
+        _noteServices = new NoteServices();
         _mainPanel = GameObject.Find("TemporalParent").transform;
         _contentParent = GameObject.Find("Content").transform;
         __viewPort = GameObject.Find("VW").GetComponent<Image>();
         itemDragged = null;
         _initPosition = transform.position;
-        _originalParent = transform.parent;
+        _originalParent = _contentParent;
         _temporalParent = _mainPanel;
         _raycastImg = GetComponent<Image>();
         _parentGL = GameObject.Find("Content").GetComponent<VerticalLayoutGroup>();
@@ -59,6 +62,7 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     {
         transform.position = _initPosition;
         transform.SetParent(_originalParent);
+        _noteServices.UpdateNote(0,"");
         transform.SetAsFirstSibling();
     }
 
@@ -82,11 +86,13 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     {
         DataBaseParametersCtrl.Ctrl._noteLoaded = _note;
         //Set the dragged item to this gameobject
-        transform.SetParent(_mainPanel);
+        //transform.SetParent(_mainPanel);
         itemDragged = gameObject;
         //_parentGL.enabled = false;
         _raycastImg.raycastTarget = false;
         __viewPort.raycastTarget = false;
+        __viewPort.GetComponent<Image>().color = new Color32(255,255,255,0);
+        __viewPort.GetComponent<Mask>().enabled = false;
         //  _originalParent = _mainPanel;
 
         if (transform.parent != _originalParent)
@@ -110,6 +116,8 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         //_parentGL.enabled = true;
         itemDragged = null;
         __viewPort.raycastTarget = true;
+        __viewPort.GetComponent<Image>().color = new Color32(255,255,255,255);
+        __viewPort.GetComponent<Mask>().enabled = true;
     }
     #endregion
 
