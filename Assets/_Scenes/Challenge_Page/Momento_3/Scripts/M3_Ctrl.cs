@@ -39,6 +39,7 @@ public class M3_Ctrl : MonoBehaviour
 
     //Feedback text to show
     private Text _feedbackTxt;
+    private GameObject _blockPanel;
     #endregion
 
 
@@ -83,6 +84,9 @@ public class M3_Ctrl : MonoBehaviour
 
         _addPostItPanel.SetActive(false);
         _postItQntt = 0;
+
+        _blockPanel = GameObject.Find("BlockPanel");
+        _blockPanel.SetActive(false);
 
         _addIdea = GameObject.Find("AddIdea_Btn").GetComponent<Button>();
         _detIdea = GameObject.Find("DetIdea_Btn").GetComponent<Button>();
@@ -171,7 +175,6 @@ public class M3_Ctrl : MonoBehaviour
         var s = _storytellingServices.CreateStoryTelling(version);
 
         print(s.ToString());
-
         StartCoroutine(waitToStorytelling(version));
         // ChargeNotesToStoryTelling();
 
@@ -377,10 +380,12 @@ public class M3_Ctrl : MonoBehaviour
     IEnumerator waitToStorytelling(int version)
     {
         //active panel
+        _blockPanel.SetActive(true);
         Debug.Log("waitToStory start...");
         yield return new WaitUntil(() => DataBaseParametersCtrl.Ctrl.isQueryOk == true);
         DataBaseParametersCtrl.Ctrl.isQueryOk = false;
         //deactive
+        _blockPanel.SetActive(false);
         Debug.Log("waitToStory finish...");
         ChangeStoryTellingVersion(version);
     }
