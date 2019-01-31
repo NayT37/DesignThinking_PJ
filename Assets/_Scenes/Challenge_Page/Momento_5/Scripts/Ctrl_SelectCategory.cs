@@ -6,54 +6,58 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Ctrl_SelectCategory : MonoBehaviour {
+public class Ctrl_SelectCategory : MonoBehaviour
+{
 
-	public Button _btnProduct;
-	public Button _btnService;
+    public Button _btnProduct;
+    public Button _btnService;
 
-	public GameObject _serviceFolder;
+    public GameObject _serviceFolder;
 
-	public GameObject _productFolder;
+    public GameObject _productFolder;
 
-	// Use this for initialization
-	void Start () {
-		
-		_btnProduct.onClick.AddListener(delegate{ eventClick(_btnProduct.name);});
-		_btnService.onClick.AddListener(delegate{ eventClick(_btnService.name);});
+    // Use this for initialization
+    void Start()
+    {
 
-	}
+        _btnProduct.onClick.AddListener(delegate { eventClick(_btnProduct.name); });
+        _btnService.onClick.AddListener(delegate { eventClick(_btnService.name); });
+
+    }
 
     private void eventClick(string name)
     {
-		string nameCategory = "";
-		if (name.Equals("ServiceBtn"))
-			nameCategory = "Servicio";
-		else 
-			nameCategory = "Producto";
-		
-		Ctrl_Moment5.Ctrl._evaluationCategory = nameCategory;
-		//DOTween.Play(name);
-		DOTween.Play("bg_transition");
-		StartCoroutine(ChangeScene());
-        
+        string nameCategory = "";
+        if (name.Equals("ServiceBtn"))
+            nameCategory = "Servicio";
+        else
+            nameCategory = "Producto";
+
+        Ctrl_Moment5.Ctrl._evaluationCategory = nameCategory;
+        //DOTween.Play(name);
+        DOTween.Play("bg_transition");
+        StartCoroutine(ChangeScene());
+
 
     }
 
     // Update is called once per frame
-    void Update () {
-		
-	}
+    void Update()
+    {
 
-	#region COROUTINES
+    }
+
+    #region COROUTINES
     private IEnumerator ChangeScene()
     {
         yield return new WaitForSeconds(2.0f);
-		var result = Ctrl_Moment5.Ctrl.createEvaluation();
-		DataBaseParametersCtrl.Ctrl._evaluationLoaded = result;
-		SceneManager.LoadScene("M_5A", LoadSceneMode.Additive);
-		DOTween.Play("bg_transition_end");
+        var result = Ctrl_Moment5.Ctrl.createEvaluation();
+        DataBaseParametersCtrl.Ctrl._evaluationLoaded = result;
+        SceneManager.LoadScene("M_5A", LoadSceneMode.Additive);
+        ChMainHUD.instance.SetActualScn("M_5A");
+        DOTween.Play("bg_transition_end");
         SceneManager.UnloadSceneAsync("M_5");
-		
+
     }
     #endregion
 }

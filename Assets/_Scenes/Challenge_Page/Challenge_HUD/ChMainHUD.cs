@@ -31,6 +31,7 @@ public class ChMainHUD : MonoBehaviour
     public RectTransform _transformShowHideBtn;
     private Image[] _btnsImgs;
     private Color32 _deactiveClr, _activeClr;
+    private string _auxiliarScn;
     #endregion
 
 
@@ -116,6 +117,7 @@ public class ChMainHUD : MonoBehaviour
 
                 if (evaluation.id != 0)
                 {
+                    ChMainHUD.instance.SetActualScn("M_5A");
                     StartCoroutine(ChangeScene("M_5A", _actualScn));
                 }
                 else
@@ -160,18 +162,31 @@ public class ChMainHUD : MonoBehaviour
         }
         _btnsImgs[value - 1].color = _activeClr;
     }
+
+    public void SetActualScn(string value)
+    {
+        _auxiliarScn = value;
+    }
     #endregion
 
 
     #region COROUTINES
     private IEnumerator ChangeScene(string sceneToLoad, string sceneToUnload)
     {
-        print(sceneToUnload);
         if (sceneToUnload != "")
         {
-            SceneManager.UnloadSceneAsync(sceneToUnload);
-            _loadObj.SetActive(true);
-            DOTween.Play("1");
+            try
+            {
+                SceneManager.UnloadSceneAsync(sceneToUnload);
+                _loadObj.SetActive(true);
+                DOTween.Play("1");
+            }
+            catch (System.Exception e)
+            {
+                print("Error " + e + ". Trying to unload " + _auxiliarScn);
+                SceneManager.UnloadSceneAsync(_auxiliarScn);
+                _auxiliarScn = "";
+            }
         }
         SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Additive);
         yield return null;
