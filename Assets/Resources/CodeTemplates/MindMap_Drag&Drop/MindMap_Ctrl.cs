@@ -159,9 +159,8 @@ public class MindMap_Ctrl : MonoBehaviour
     {
         if (_mmItemsList.Count > 0)
         {
-            Drag_MindMap dmm = (Drag_MindMap)Instantiate(_dragItem);
-            dmm.transform.SetParent(_prefabParent);
-            dmm.transform.localPosition = new Vector3(0, 0, 0);
+            Drag_MindMap dmm = (Drag_MindMap)Instantiate(_dragItem, new Vector2(0, 0), Quaternion.identity, _prefabParent);
+            dmm.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             dmm.UpdateContent(_mmItemsList[0].internalText, _mmItemsList[0].ideaType, _mmItemsList[0].mainIdeaNumber);
             _mmItemsList.Remove(_mmItemsList[0]);
         }
