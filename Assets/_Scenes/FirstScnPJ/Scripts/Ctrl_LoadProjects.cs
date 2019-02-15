@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
 public class Ctrl_LoadProjects : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class Ctrl_LoadProjects : MonoBehaviour
     public GameObject prefab_project;
     public GameObject parent_project;
 
-    public GameObject _validationDelete, _msgDelete;
+    public GameObject _validationDelete, _msgDelete,  _loadProjects, cloneLoadProjects;
 
     public Transform _parentValidation, _textParent;
 
@@ -24,6 +25,8 @@ public class Ctrl_LoadProjects : MonoBehaviour
     private GameObject[] _prefabsProjects;
 
     private int groupid;
+
+    private IEnumerable<Project> projects = new Project[0];
 
 
     // Use this for initialization
@@ -39,6 +42,7 @@ public class Ctrl_LoadProjects : MonoBehaviour
         _projectServices = new ProjectServices();
         groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
 
+        cloneLoadProjects = new GameObject();    
         _prefabsProjects = new GameObject[0];
 
         LoadAllPrefabs();
@@ -67,14 +71,19 @@ public class Ctrl_LoadProjects : MonoBehaviour
 
         _prefabsProjects = new GameObject[counterProjects];
 
-        var projects = _projectServices.GetProjects();
+        callToGetProjects();
 
         int counter = 0;
+
+        DOTween.Play("bgLoadProjects");
+		StartCoroutine(waitToDeleteLoadProject());
+
         foreach (var item in projects)
         {
             var SetName = Instantiate(prefab_project, parent_project.transform);
             SetName.name = counter.ToString();
             _projects[counter] = item;
+            _prefabsProjects[counter] = SetName;
             counter++;
             SetName.GetComponentInChildren<Text>().text = item.name;
             SetName.transform.GetChild(0).GetComponentInChildren<Button>().onClick.AddListener(delegate { GetProjectPressed(SetName.name, item.name); });
@@ -82,6 +91,12 @@ public class Ctrl_LoadProjects : MonoBehaviour
 
             Debug.Log("name" + item.name);
         }
+    }
+
+    private IEnumerator waitToDeleteLoadProject()
+    {
+        yield return new WaitForSeconds(1.0f);
+		DestroyImmediate(cloneLoadProjects);
     }
 
     void DeletePrefabs(int count)
@@ -154,7 +169,14 @@ public class Ctrl_LoadProjects : MonoBehaviour
             GameObject obj = Instantiate(_msgDelete, _textParent);
             StartCoroutine(DeletePrefab(obj));
             var result = _projectServices.DeleteProject(_projects[value]);
+            callToGetProjects();
         }
+    }
+
+    private void callToGetProjects()
+    {
+        cloneLoadProjects = Instantiate(_loadProjects, _textParent);
+		projects = _projectServices.GetProjects();
     }
 
     public void backToScene()
