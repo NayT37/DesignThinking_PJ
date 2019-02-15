@@ -41,6 +41,8 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 		addBtn = GameObject.Find ("AddBtn").GetComponent<Button> ();
 		subBtn = GameObject.Find ("RestBtn").GetComponent<Button> ();
 
+		subBtn.GetComponent<Button> ().interactable = false;
+
 		_groupServices = new GroupServices ();
 
 
