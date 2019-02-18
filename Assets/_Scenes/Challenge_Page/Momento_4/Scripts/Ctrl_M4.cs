@@ -369,6 +369,7 @@ public class Ctrl_M4 : CtrlInternalText
     public void UpdateImgFromDB(string imageToUpdate)
     {
         _mindmapServices.UpdateMindmap(imageToUpdate);
+        _panelImg.SetDetBtn(true);
     }
     #endregion
 

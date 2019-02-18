@@ -30,6 +30,7 @@ public class PanelImage : MonoBehaviour
         _internalImg = transform.Find("RawImage").GetComponent<RawImage>();
         _closeBtn = transform.Find("CloseBtn").GetComponent<Button>();
         _closeBtn.onClick.AddListener(ClosePanel);
+        _detBtn.onClick.AddListener(DeleteInternalImg);
         _internalImg.texture = _defaultTexture;
     }
 
@@ -51,7 +52,7 @@ public class PanelImage : MonoBehaviour
         }
         _ctrl.DeleteImgFromDB();
         //Local changes here
-        _internalImg.texture = null;
+        _internalImg.texture = _defaultTexture;
     }
 
     public void ClosePanel()
@@ -75,8 +76,14 @@ public class PanelImage : MonoBehaviour
         }
         else
         {
+            _detBtn.gameObject.SetActive(true);
             _internalImg.texture = img;
         }
+    }
+
+    public void SetDetBtn(bool value)
+    {
+        _detBtn.gameObject.SetActive(value);
     }
     #endregion
 
