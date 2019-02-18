@@ -26,7 +26,8 @@ public class PanelSaveFeedback : MonoBehaviour
 
     public void OpenPanel(int ideateVersion, int prototypeVersion)
     {
-        _internalTxt.text = "PROTOTIPAR " + ideateVersion + "." + prototypeVersion + " GUARDADO.";
+        // _internalTxt.text = "PROTOTIPAR " + ideateVersion + "." + prototypeVersion + " GUARDADO.";
+        _internalTxt.text = "Imagen del Prototipo.";
         this.gameObject.SetActive(true);
         StartCoroutine(WaitTimeToClose());
     }

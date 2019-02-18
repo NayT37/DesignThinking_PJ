@@ -90,7 +90,7 @@ public class CanvasSampleOpenFileImage : MonoBehaviour {
 			//output.transform.localScale = new Vector3(0.3f,0.3f,0.3f);
 			_texture2DRaw = (Texture2D)output.texture;
 			string imageConvert = convertToBase64(_texture2DRaw);
-			//ctrl.UpdateImgFromDB(imageConvert);
+			ctrl.UpdateImgFromDB(imageConvert);
 		}
         
     }
