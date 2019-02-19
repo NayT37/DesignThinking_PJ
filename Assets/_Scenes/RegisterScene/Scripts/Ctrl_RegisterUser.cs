@@ -46,7 +46,6 @@ public class Ctrl_RegisterUser : MonoBehaviour
     }
     public void GoUser()
     {
-        _panelBlock.SetActive(true);
         var goTeacher = gameObject.AddComponent<TeacherServices>();
         _teacherServices = goTeacher.GetComponent<TeacherServices>();
 
@@ -58,7 +57,7 @@ public class Ctrl_RegisterUser : MonoBehaviour
         Debug.Log(isFirstTime);
         if (!name.Equals("") && !passName.Equals(""))
         {
-
+            _panelBlock.SetActive(true);
             bool isConn = DataBaseParametersCtrl.Ctrl.doConnection();
             bool doOtherMethod = false;
             var teacher = new Teacher();
