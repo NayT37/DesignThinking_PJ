@@ -119,6 +119,8 @@ public class Ctrl_M4 : CtrlInternalText
         _changeTo = 0;
         //ChargeNodesMindmap();
         ChangeMindmapVersion(1);
+
+
     }
 
     public void ChargeNodesMindmap()
@@ -157,6 +159,7 @@ public class Ctrl_M4 : CtrlInternalText
         setArraySections();
         setArrayNodes();
         setTextNodes();
+        loadImage();
     }
 
     public void setArraySections()
@@ -187,6 +190,23 @@ public class Ctrl_M4 : CtrlInternalText
                 count++;
             }
 
+        }
+    }
+
+    private void loadImage(){
+
+        var imageToBase64 = DataBaseParametersCtrl.Ctrl._mindMapLoaded.image;
+
+        if (imageToBase64.Length>10)
+        {
+            Debug.Log("Si tiene imagen este mapa");
+            var b64_bytes = System.Convert.FromBase64String(imageToBase64);
+ 
+            Texture2D tex = new Texture2D(1,1);
+            tex.LoadImage(b64_bytes);
+            _panelImg.SetInternalImg(tex);
+        } else{
+            Debug.Log("No tiene imagen este mapa");
         }
     }
 
