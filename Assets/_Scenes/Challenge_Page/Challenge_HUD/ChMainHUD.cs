@@ -15,6 +15,8 @@ public class ChMainHUD : MonoBehaviour
     //Private Variables
     private int _actualMoment;
     private string _actualScn;
+    private Button _returnHomeBtn;
+    private GameObject _hideFeedbackPanel;
     [SerializeField]
     private int _limitCtrl;
     private GameObject _loadObj;
@@ -51,7 +53,6 @@ public class ChMainHUD : MonoBehaviour
             Destroy(gameObject);
     }
     private void Start() { Initializate(); }
-    private void Update() { }
     #endregion
 
 
@@ -80,6 +81,10 @@ public class ChMainHUD : MonoBehaviour
         XRSettings.enabled = false;
         _isHide = false;
         _loadObj = GameObject.Find("Loading_Bg");
+
+        _returnHomeBtn = GameObject.Find("ReturnToHomeBtn").GetComponent<Button>();
+        _hideFeedbackPanel = GameObject.Find("BG_Home");
+        _returnHomeBtn.onClick.AddListener(ReturnToHome);
 
         _limitCtrl = 0;
         _actualScn = "";
@@ -144,7 +149,13 @@ public class ChMainHUD : MonoBehaviour
             _menuHolder.localPosition = _hidePosition;
             _transformShowHideBtn.Rotate(new Vector3(0, 0, 180));
         }
+        _hideFeedbackPanel.SetActive(_isHide);
         _isHide = !_isHide;
+    }
+
+    public void ReturnToHome()
+    {
+        SceneManager.LoadScene("ChoiseUser");
     }
     #endregion
 
