@@ -27,7 +27,8 @@ public class MindmapServices:MonoBehaviour  {
 				storytellingId = 0,
 				image = "null",
 				lastUpdate = "null",
-				version = 0		
+				version = 0,
+				ideaDescription = "null"	
 		};
 
 	private IEnumerable<Mindmap> _mindmapsLoaded = new Mindmap[]{
@@ -38,7 +39,8 @@ public class MindmapServices:MonoBehaviour  {
 				storytellingId = 0,
 				image = "null",
 				lastUpdate = "null",
-				version = 0		
+				version = 0,
+				ideaDescription = "null"	
 		},
 		new Mindmap{
 				id = 0,
@@ -47,7 +49,8 @@ public class MindmapServices:MonoBehaviour  {
 				storytellingId = 0,
 				image = "null",
 				lastUpdate = "null",
-				version = 0		
+				version = 0,
+				ideaDescription = "null"	
 		},
 		new Mindmap{
 				id = 0,
@@ -56,7 +59,8 @@ public class MindmapServices:MonoBehaviour  {
 				storytellingId = 0,
 				image = "null",
 				lastUpdate = "null",
-				version = 0		
+				version = 0,
+				ideaDescription = "null"	
 		}
 	};
 
@@ -88,7 +92,8 @@ public class MindmapServices:MonoBehaviour  {
 				storytellingId = storytellingid,
 				image = "",
 				lastUpdate = date,
-				version = versionmindmap
+				version = versionmindmap,
+				ideaDescription = ""
 		};
 
 		//Start-Validation that the query is right
