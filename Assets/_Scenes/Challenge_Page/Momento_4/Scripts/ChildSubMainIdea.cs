@@ -18,6 +18,8 @@ public class ChildSubMainIdea : CtrlInternalText, IPointerClickHandler
     private Image _internalImg;
     private Color _activeClr, _deactiveClr;
     private SubMainIdea _parentIdea;
+    private GameObject _feedbackObj;
+    private GameObject _seeMoreObj;
     private int _internalID;
     private bool _canWrite;
     #endregion
@@ -36,6 +38,10 @@ public class ChildSubMainIdea : CtrlInternalText, IPointerClickHandler
         _activeClr = new Color32(255, 255, 255, 255);
         _deactiveClr = new Color32(255, 255, 255, 100);
         _internalImg = GetComponent<Image>();
+        _feedbackObj = transform.Find("FeedbackImg").gameObject;
+        _seeMoreObj = transform.Find("SeeMoreImg").gameObject;
+        _feedbackObj.SetActive(false);
+        _seeMoreObj.SetActive(false);
         if (_canWrite)
         {
             _internalImg.color = _activeClr;
@@ -68,6 +74,8 @@ public class ChildSubMainIdea : CtrlInternalText, IPointerClickHandler
     public override void SetInternalTxt(string value)
     {
         base.SetInternalTxt(value);
+        if (value.Equals("")) _feedbackObj.SetActive(false);
+        else _feedbackObj.SetActive(true);
     }
     public void SetCanWrite(bool value)
     {
@@ -75,10 +83,12 @@ public class ChildSubMainIdea : CtrlInternalText, IPointerClickHandler
         if (value)
         {
             _internalImg.color = _activeClr;
+            _seeMoreObj.SetActive(true);
         }
         else
         {
             _internalImg.color = _deactiveClr;
+            _seeMoreObj.SetActive(false);
         }
     }
     #endregion
