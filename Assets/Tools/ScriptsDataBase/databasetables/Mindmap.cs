@@ -5,7 +5,7 @@ using System;
 public class Mindmap
 {
 
-    [PrimaryKey, AutoIncrement]
+    [PrimaryKey]
     public int id { get; set; }
 
     public int percentage { get; set; }

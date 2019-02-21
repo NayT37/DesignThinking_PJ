@@ -5,7 +5,7 @@ using System;
 public class Case
 {
 
-    [PrimaryKey, AutoIncrement]
+    [PrimaryKey]
     //Added { get; set; } to every variable so it can work
     public int id { get; set; }
     public string name { get; set; }

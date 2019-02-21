@@ -5,7 +5,7 @@ using System;
 public class Note  {
 
 	
-	[PrimaryKey, AutoIncrement]
+	[PrimaryKey]
 	public int id { get; set; }
 	public int position { get; set; }
 	public string creationDate { get; set; }

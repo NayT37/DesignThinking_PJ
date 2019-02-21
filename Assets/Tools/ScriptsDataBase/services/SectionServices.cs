@@ -84,6 +84,7 @@ public class SectionServices:MonoBehaviour  {
 
 		//Creation of the new section
 		var new_s = new Section{
+				id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
 				name = sectionname,
 				creationDate = date,
 				mindmapId = mindmapid,

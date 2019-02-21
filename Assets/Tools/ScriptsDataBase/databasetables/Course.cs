@@ -5,7 +5,7 @@ using System;
 public class Course
 {
     // Solo funciona en móvil
-    [PrimaryKey, AutoIncrement]
+    [PrimaryKey]
     public int id { get; set; }
     public string name { get; set; }
     public int percentage { get; set; }

@@ -63,6 +63,7 @@ public class EvaluationServices:MonoBehaviour  {
 
 		//Creation of the new evaluation
 		var new_e = new Evaluation{
+				id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
 				category = categoryname,
 				percentage = 100,
 				creationDate = date,

@@ -81,6 +81,7 @@ public class FieldServices:MonoBehaviour  {
 
 		//Creation of the new problem
 		var new_f = new Field{
+				id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
 				name = fieldname,
 				description = fielddescription,
 				percentage = 100,

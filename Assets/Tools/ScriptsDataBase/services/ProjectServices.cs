@@ -97,6 +97,7 @@ public class ProjectServices:MonoBehaviour  {
 
 		//Creation of the new project
 		var new_p  = new Project{
+				id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
 				name = "Proyecto_"+(counter+1),
 				percentage = 0,
 				creationDate = date,
@@ -210,7 +211,7 @@ public class ProjectServices:MonoBehaviour  {
 		
 		//valueToResponse = 2
 		
-		return _connection.Table<Project>().Where(x => x.id == projectid);
+		return _connection.Table<Project>().Where(x => x.id == projectid).OrderBy(x => x.creationDate);;
 	}
 	
 	/// <summary>
@@ -269,9 +270,14 @@ public class ProjectServices:MonoBehaviour  {
 
 			int resultPublicDeleted = _publicServices.DeletePublic(publicToDelete);
 
-			var problemToDelete = _problemServices.GetProblem(projectid);
+			Problem problemToDelete = _problemServices.GetProblem(projectid);
+			
+			Debug.Log(problemToDelete);
 
-			int resultProblemDeleted = _problemServices.DeleteProblem(problemToDelete);
+			if (problemToDelete != null)
+			{
+				int resultProblemDeleted = _problemServices.DeleteProblem(problemToDelete);	
+			}
 
 			var storyTellingsToDelete = _storytellingServices.GetStoryTellings();
 
@@ -284,6 +290,7 @@ public class ProjectServices:MonoBehaviour  {
 
 			int resultEmpathyMapToDeleted = _empathyMapServices.DeleteEmpathymap(empathymapToDelete);
 			
+			DataBaseParametersCtrl.Ctrl.isQueryOk = true;
 		} else {
 			valueToReturn = 0;
 		}
@@ -299,13 +306,14 @@ public class ProjectServices:MonoBehaviour  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateProject(string newsector){
+	public int UpdateProject(string newsector, string nameproject){
 
 		//valueToResponse = 6
 
 		var projectToUpdate = DataBaseParametersCtrl.Ctrl._projectLoaded;
 
 		projectToUpdate.sectorName = newsector;
+		projectToUpdate.name = nameproject;
 		projectToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
 

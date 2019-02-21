@@ -48,6 +48,7 @@ public class ProblemServices:MonoBehaviour  {
 
 		//Creation of the new problem
 		var new_p = new Problem{
+				id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
 				percentage = 100,
 				creationDate = date,
 				lastUpdate = date,

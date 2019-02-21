@@ -79,6 +79,7 @@ public class StorytellingServices:MonoBehaviour  {
 
 		//Creation of the new storyTelling
 		var new_s = new StoryTelling{
+				id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
 				percentage = 0,
 				creationDate = date,	
 				projectId = projectid,

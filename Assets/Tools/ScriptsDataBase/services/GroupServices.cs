@@ -135,6 +135,7 @@ public class GroupServices : MonoBehaviour
         //Creation of the new group
         var new_g = new Group
         {
+			id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
             name = groupname,
             creationDate = date,
             studentsCounter = studentscounter,
@@ -226,7 +227,7 @@ public class GroupServices : MonoBehaviour
     public IEnumerable<Group> GetGroups(int courseId)
     {
 
-        return _connection.Table<Group>().Where(x => x.courseId == courseId);
+        return _connection.Table<Group>().Where(x => x.courseId == courseId).OrderBy(x => x.creationDate);;
 
     }
 
@@ -289,6 +290,51 @@ public class GroupServices : MonoBehaviour
 
         return valueToReturn;
     }
+
+    /// <summary>
+    /// Description of the method to delete a group
+    /// </summary>
+    /// <param name="groupToDelete">
+    /// An object of type group that contain the group that will be deleted.
+    /// <returns>
+    /// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
+    /// </returns>
+    public int DeleteGroup(Group groupToDelete)
+    {
+
+        //valueToResponse = 5
+
+
+        int groupid = groupToDelete.id;
+        //All the trainings belonging to the group that will be deleted are obtained.
+        var training = _trainingServices.GetTraining(groupid);
+
+        int result = _connection.Delete(groupToDelete);
+        int valueToReturn = 0;
+
+        //All the trainings belonging to the group that will be deleted are obtained.
+        var projects = _projectServices.GetProjects(groupid);
+
+        //If the elimination of the group is correct, then the trainings and projects corresponding to that group are eliminated.
+        if (result != 0)
+        {
+            valueToReturn += _trainingServices.DeleteTraining(training);
+
+            foreach (var p in projects)
+            {
+                valueToReturn += _projectServices.DeleteProject(p);
+            }
+
+        }
+        else
+        {
+            valueToReturn = 0;
+        }
+
+        return valueToReturn;
+    }
+
+    
 
     /// <summary>
     /// Description of the method to update a group

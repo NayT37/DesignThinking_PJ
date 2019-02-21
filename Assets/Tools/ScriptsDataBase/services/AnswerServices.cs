@@ -82,6 +82,7 @@ public class AnswerServices : MonoBehaviour  {
 
 		//Creation of the new Answer
 		var new_a = new Answer{
+				id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
 				counter = 0,
 				value = valueToAnswer,
 				creationDate = date,

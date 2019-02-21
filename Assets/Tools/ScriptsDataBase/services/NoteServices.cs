@@ -75,6 +75,7 @@ public class NoteServices:MonoBehaviour  {
 
 		//Creation of the new storyTelling
 		var new_n = new Note{
+				id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
 				position = 0,
 				creationDate = date,
 				description = notedescription,

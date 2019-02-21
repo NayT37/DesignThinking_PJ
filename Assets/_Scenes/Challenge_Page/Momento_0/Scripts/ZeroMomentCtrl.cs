@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine;
+using System;
+using DG.Tweening;
 
 public class ZeroMomentCtrl : MonoBehaviour
 {
     #region VARIABLES
     //Public Variables
     //Private Variables
-    private GameObject _sectorObj, _publicObj;
+    private GameObject _sectorObj, _publicObj, _canvasProjectName;
     private GameObject _btnProductivo, _btnEducativo, _btnSalud;
     private Image _imgProductivo, _imgEducativo, _imgSalud;
     private Color32 _neutralClr, _selectedClr;
@@ -25,6 +27,10 @@ public class ZeroMomentCtrl : MonoBehaviour
     private ProjectServices _projectServices;
 
     private PublicServices _publicServices;
+
+    public InputField NameProject;
+
+    private string fullnameProject;
     #endregion
 
 
@@ -37,7 +43,7 @@ public class ZeroMomentCtrl : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate()
     {
-
+        fullnameProject = "";
         //Initialize services
         _projectServices = new ProjectServices();
         _publicServices = new PublicServices();
@@ -49,6 +55,7 @@ public class ZeroMomentCtrl : MonoBehaviour
 
         _sectorObj = GameObject.Find("SectoresObj");
         _publicObj = GameObject.Find("PublicoObj");
+        _canvasProjectName = GameObject.Find("CanvasProjectName");
         //Get Buttons
         _btnProductivo = GameObject.Find("Productivo_Holder");
         _btnEducativo = GameObject.Find("Educativo_Holder");
@@ -140,7 +147,7 @@ public class ZeroMomentCtrl : MonoBehaviour
         if (_isGenderSelected && _isAgeSelected)
         {
             //Load scene M_1
-            var project = _projectServices.UpdateProject(_sectorResult);
+            var project = _projectServices.UpdateProject(_sectorResult, fullnameProject);
             var _public = _publicServices.CreatePublic(_ageResult, _genderResult);
 
             if (project != 0 && _public.id != 0)
@@ -157,6 +164,27 @@ public class ZeroMomentCtrl : MonoBehaviour
         }
 
         _pageCtrl++;
+    }
+
+    public void getProjectName(){
+        var text = NameProject.text;
+        if (!text.Equals(""))
+        {
+            fullnameProject = text;
+            StartCoroutine(SaveNameProject());
+            
+            
+        } else{
+            DOTween.Play("7");
+        }
+    }
+
+    private IEnumerator SaveNameProject()
+    {
+        DOTween.Play("bg_transition_Canvas");
+        yield return new WaitForSeconds(1.0f);
+        _canvasProjectName.SetActive(false);
+
     }
 
     public void GenderSelection(string value)

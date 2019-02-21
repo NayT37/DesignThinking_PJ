@@ -4,7 +4,7 @@ using System;
 // [Serializable]
 public class Project  {
 
-	[PrimaryKey, AutoIncrement]
+	[PrimaryKey]
 	public int id { get; set; }
 	public string name { get; set; }
 	public int percentage { get; set; }

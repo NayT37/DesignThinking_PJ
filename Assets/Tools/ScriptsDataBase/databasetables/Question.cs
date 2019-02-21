@@ -4,7 +4,7 @@ using System;
 // [Serializable]
 public class Question  {
 
-	[PrimaryKey, AutoIncrement]
+	[PrimaryKey]
 	public int id { get; set; }
 	public string creationDate { get; set; }
 

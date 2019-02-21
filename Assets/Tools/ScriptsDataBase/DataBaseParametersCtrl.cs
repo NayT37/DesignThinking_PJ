@@ -153,5 +153,24 @@ public class DataBaseParametersCtrl : MonoBehaviour {
         return BitConverter.ToString (hmacsha512.Hash).Replace ("-", "").ToLower();
     }
 
+	public int GenerateCodeToId(){
+		string teacherid = _teacherLoggedIn.identityCard;
+        System.Random generator = new System.Random();
+    	String r = teacherid + generator.Next(000000, 999999).ToString("D6");;
+		return Convert.ToInt32(r);
+	}
+
+	public void sychMethod(){
+
+		// var query = db.Table<Stock>().Where(s => s.Symbol.StartsWith("A"));
+
+		// public static IEnumerable<Val> QueryVals (SQLiteConnection db, Stock stock) {
+		// 	return db.Query<Val> ("select \"Price\" as \"Money\", \"Time\" as \"Date\" from Valuation where StockId = ?", stock.Id);
+		// }
+
+		//return db.Query<Val> ("select 'Price' as 'Money', 'Time' as 'Date' from Valuation where StockId = ?", stock.Id);​
+	}
+
+
 
 }

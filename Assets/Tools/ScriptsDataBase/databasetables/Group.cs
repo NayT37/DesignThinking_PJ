@@ -5,7 +5,7 @@ using System;
 public class Group
 {
 
-    [PrimaryKey, AutoIncrement]
+    [PrimaryKey]
     public int id { get; set; }
     public string name { get; set; }
     public int percentage { get; set; }

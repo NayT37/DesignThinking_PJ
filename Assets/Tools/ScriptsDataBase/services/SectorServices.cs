@@ -74,6 +74,7 @@ public class SectorServices:MonoBehaviour  {
 
 		//Creation of the new empathymap
 		var new_s = new Sector{
+				id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
 				name = sectorname,
 				description = "",
 				creationDate = date,

@@ -47,6 +47,7 @@ public class TrainingServices:MonoBehaviour  {
 
 		int counter = 0;
 		var new_t = new Training{
+				id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
 				name = "Training",
 				percentage = 0,
 				creationDate = date,
