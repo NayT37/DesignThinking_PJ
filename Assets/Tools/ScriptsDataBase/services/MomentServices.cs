@@ -82,6 +82,7 @@ public class MomentServices:MonoBehaviour  {
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
 		 var new_m = new Moment{
+				id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
 				name = momentname,
 				percentage = 0,
 				creationDate = date,

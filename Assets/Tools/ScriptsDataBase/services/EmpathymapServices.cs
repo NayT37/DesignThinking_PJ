@@ -47,6 +47,7 @@ public class EmpathymapServices:MonoBehaviour {
 
 		//Creation of the new empathymap
 		var new_e = new Empathymap{
+				id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
 				percentage = 0,
 				creationDate = date,
 				lastUpdate = date,

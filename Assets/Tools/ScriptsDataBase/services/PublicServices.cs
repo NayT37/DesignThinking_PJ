@@ -49,6 +49,7 @@ public class PublicServices:MonoBehaviour  {
 
 		//Creation of the new public
 		var new_p = new Public{
+				id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
 				ageRange = _agerange,
 				gender = _gender,
 				percentage = 100,

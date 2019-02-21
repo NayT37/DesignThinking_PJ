@@ -4,7 +4,7 @@ using System;
 // [Serializable]
 public class StoryTelling  {
 
-	[PrimaryKey, AutoIncrement]
+	[PrimaryKey]
 	public int id { get; set; }
 	public int percentage { get; set; }
 	public string creationDate { get; set; }

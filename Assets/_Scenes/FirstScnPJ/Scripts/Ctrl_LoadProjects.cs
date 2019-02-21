@@ -45,7 +45,7 @@ public class Ctrl_LoadProjects : MonoBehaviour
         cloneLoadProjects = new GameObject();    
         _prefabsProjects = new GameObject[0];
 
-        LoadAllPrefabs();
+        callToGetProjects();
     }
 
 
@@ -58,20 +58,13 @@ public class Ctrl_LoadProjects : MonoBehaviour
     void LoadAllPrefabs()
     {
 
-        int lengthProjects = _prefabsProjects.Length;
-
-        if (lengthProjects != 0)
-        {
-            DeletePrefabs(lengthProjects);
-        }
-
         int counterProjects = _projectServices.GetProjectsCounter(groupid);
 
         _projects = new Project[counterProjects];
 
         _prefabsProjects = new GameObject[counterProjects];
 
-        callToGetProjects();
+        projects = _projectServices.GetProjects();
 
         int counter = 0;
 
@@ -80,6 +73,7 @@ public class Ctrl_LoadProjects : MonoBehaviour
 
         foreach (var item in projects)
         {
+            Debug.Log(item);
             var SetName = Instantiate(prefab_project, parent_project.transform);
             SetName.name = counter.ToString();
             _projects[counter] = item;
@@ -125,7 +119,7 @@ public class Ctrl_LoadProjects : MonoBehaviour
 
         int value = int.Parse(positionInToArray);
         //DataBaseParametersCtrl.Ctrl._projectLoaded = _projects[value];
-
+        Debug.Log(value);
         Button[] _btns = new Button[2];
         GameObject obj = Instantiate(_validationDelete, _parentValidation);
         _btns = obj.GetComponentsInChildren<Button>();
@@ -141,7 +135,6 @@ public class Ctrl_LoadProjects : MonoBehaviour
         if (r != 1)
         {
             DOTween.Play("bg_outSyncYes");
-            LoadAllPrefabs();
             StartCoroutine(waitForExitValidation(obj, true, value));
             Debug.Log("Yes validation");
 
@@ -166,17 +159,28 @@ public class Ctrl_LoadProjects : MonoBehaviour
         DestroyImmediate(go);
         if (isDelete)
         {
+            int lengthPjs = _prefabsProjects.Length;
+            DeletePrefabs(lengthPjs);
             GameObject obj = Instantiate(_msgDelete, _textParent);
             StartCoroutine(DeletePrefab(obj));
-            var result = _projectServices.DeleteProject(_projects[value]);
-            callToGetProjects();
+            _projectServices.DeleteProject(_projects[value]);
+            StartCoroutine(waitToDeleteProject());
         }
+    }
+
+    private IEnumerator waitToDeleteProject()
+    {
+        yield return new WaitUntil(()=> DataBaseParametersCtrl.Ctrl.isQueryOk == true);
+        DataBaseParametersCtrl.Ctrl.isQueryOk = false;  
+        Debug.Log("Proyecto eliminado");
+		LoadAllPrefabs();
     }
 
     private void callToGetProjects()
     {
         cloneLoadProjects = Instantiate(_loadProjects, _textParent);
-		projects = _projectServices.GetProjects();
+        LoadAllPrefabs();
+		
     }
 
     public void backToScene()

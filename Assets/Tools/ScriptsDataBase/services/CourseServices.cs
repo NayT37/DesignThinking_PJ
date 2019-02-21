@@ -12,7 +12,7 @@ using System.Collections.Generic;
 public class CourseServices : MonoBehaviour  {
 
 	private SQLiteConnection _connection = DataBaseParametersCtrl.Ctrl._sqliteConnection;
-	//private GroupServices _groupServices = new GroupServices();
+	private GroupServices _groupServices = new GroupServices();
 	private Course _nullCourse = new Course{
 				id = 0,
 				name = "null",
@@ -127,6 +127,7 @@ public class CourseServices : MonoBehaviour  {
 
 		//Creation of the new course
 		var new_c = new Course{
+				id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
 				name = coursename,
 				percentage = 0,
 				creationDate = date,
@@ -147,6 +148,7 @@ public class CourseServices : MonoBehaviour  {
 
 			_connection.Insert (new_c);
 			DataBaseParametersCtrl.Ctrl._courseLoaded = new_c;
+			Debug.Log(new_c);
 			return new_c;
 		} else {
 			return _nullCourse;
@@ -194,7 +196,7 @@ public class CourseServices : MonoBehaviour  {
 	public IEnumerable<Course> GetCourses(){
 
 		string teacherId = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
-		return _connection.Table<Course>().Where(x => x.teacherIdentityCard == teacherId);
+		return _connection.Table<Course>().Where(x => x.teacherIdentityCard == teacherId).OrderBy(x => x.creationDate);
 
 		//valueToResponse = 3
 
@@ -244,17 +246,23 @@ public class CourseServices : MonoBehaviour  {
 		int result = _connection.Delete(courseToDelete);
 
 		//All the groups belonging to the course that will be deleted are obtained.
-		//var groups = _groupServices.GetGroups(courseid);
+		var groups = _groupServices.GetGroups(courseid);
+
+		Debug.Log(groups);
 
 		int valueToReturn = 0;
 
 		//If the elimination of the course is correct, then the groups corresponding to that course are eliminated.
 		if (result!=0)
 		{
-			// foreach (var group in groups)
-			// {
-			// 	valueToReturn += _groupServices.DeleteGroup(group);
-			// }
+			DataBaseParametersCtrl.Ctrl.isQueryOk = true;
+			Debug.Log("antes del for");
+			foreach (var group in groups)
+			{
+				Debug.Log(group);
+				valueToReturn += _groupServices.DeleteGroup(group);
+			}
+			Debug.Log("después del for");
 		} else {
 			valueToReturn = 0;
 		}

@@ -87,6 +87,7 @@ public class MindmapServices:MonoBehaviour  {
 
 		//Creation of the new empathymap
 		var new_m = new Mindmap{
+				id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
 				percentage = 0,
 				creationDate = date,
 				storytellingId = storytellingid,

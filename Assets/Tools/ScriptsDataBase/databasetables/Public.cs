@@ -4,7 +4,7 @@ using System;
 // [Serializable]
 public class Public  {
 
-	[PrimaryKey, AutoIncrement]
+	[PrimaryKey]
 	public int id { get; set; }
 	public string ageRange { get; set; }
 

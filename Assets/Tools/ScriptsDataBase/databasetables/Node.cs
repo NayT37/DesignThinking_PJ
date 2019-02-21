@@ -5,7 +5,7 @@ using System;
 public class Node
 {
 
-    [PrimaryKey, AutoIncrement]
+    [PrimaryKey]
     public int id { get; set; }
     public string creationDate { get; set; }
 

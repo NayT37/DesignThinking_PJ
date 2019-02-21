@@ -5,7 +5,7 @@ using System;
 public class Answer
 {
 
-    [PrimaryKey, AutoIncrement]
+    [PrimaryKey]
     public int id { get; set; }
 
     public int counter { get; set; }

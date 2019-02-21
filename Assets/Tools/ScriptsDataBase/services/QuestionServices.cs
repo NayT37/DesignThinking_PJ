@@ -78,6 +78,7 @@ public class QuestionServices:MonoBehaviour  {
 
 		//Creation of the new question
 		var new_q = new Question{
+				id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
 				creationDate = date,
 				description = descriptionOfQuestion,
 				evaluationId = evaluationid,

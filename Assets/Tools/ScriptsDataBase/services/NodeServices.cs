@@ -66,6 +66,7 @@ public class NodeServices:MonoBehaviour  {
 
 
 		 var new_n = new Node{
+				id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
 				creationDate = date,
 				description = "",
 				sectionId = sectionid,

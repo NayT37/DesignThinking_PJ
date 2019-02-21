@@ -100,6 +100,7 @@ public class CaseServices : MonoBehaviour
 
         var new_c = new Case
         {
+			id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
             name = casename,
             percentage = 0,
             creationDate = date,
