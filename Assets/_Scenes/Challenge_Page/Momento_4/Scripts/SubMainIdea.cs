@@ -13,6 +13,9 @@ public class SubMainIdea : CtrlInternalText, IPointerClickHandler
     private int _internalID;
     private GameObject _feedbackObj;
     private ChildSubMainIdea[] _childsArray;
+    private Image _internalImg;
+    private Color _activeClr, _deactiveClr;
+    private bool _canWrite;
     #endregion
 
 
@@ -35,8 +38,20 @@ public class SubMainIdea : CtrlInternalText, IPointerClickHandler
             _titleTxt = "Cómo";
         }
         _internalTxt = "";
+        _internalImg = GetComponent<Image>();
         _feedbackObj = transform.Find("FeedbackImg").gameObject;
         _feedbackObj.SetActive(false);
+        _activeClr = new Color32(255, 255, 255, 255);
+        _deactiveClr = new Color32(255, 255, 255, 100);
+        _canWrite = false;
+        if (_canWrite)
+        {
+            _internalImg.color = _activeClr;
+        }
+        else
+        {
+            _internalImg.color = _deactiveClr;
+        }
     }
 
     public override void SetInternalTxt(string value)
@@ -101,7 +116,8 @@ public class SubMainIdea : CtrlInternalText, IPointerClickHandler
     #region INTERFACE_METHODS
     public void OnPointerClick(PointerEventData eventData)
     {
-        PanelSaveIdea.instance.OpenPanel(this);
+        if (_canWrite)
+            PanelSaveIdea.instance.OpenPanel(this);
     }
     #endregion
 
@@ -110,6 +126,19 @@ public class SubMainIdea : CtrlInternalText, IPointerClickHandler
     public int GetInternalID()
     {
         return _internalID;
+    }
+
+    public void SetCanWrite(bool value)
+    {
+        _canWrite = value;
+        if (value)
+        {
+            _internalImg.color = _activeClr;
+        }
+        else
+        {
+            _internalImg.color = _deactiveClr;
+        }
     }
     #endregion
 

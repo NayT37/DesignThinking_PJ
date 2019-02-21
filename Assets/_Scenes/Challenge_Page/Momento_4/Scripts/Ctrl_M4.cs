@@ -38,6 +38,10 @@ public class Ctrl_M4 : CtrlInternalText
     private int _storyTellingVersion;
     private VersionTab _versionTab;
     private int _changeTo;
+    [SerializeField]
+    private Text _mainIdeaTxt;
+    [SerializeField]
+    private GameObject _feedbackImg;
     #endregion
 
 
@@ -77,7 +81,7 @@ public class Ctrl_M4 : CtrlInternalText
         _panelFeedback = GameObject.FindObjectOfType<PanelSaveFeedback>();
         _panelFeedback.gameObject.SetActive(false);
 
-       
+
         _addIdea = GameObject.Find("AddIdea_Btn").GetComponent<Button>();
         _detIdea = GameObject.Find("DetIdea_Btn").GetComponent<Button>();
         _addIdea.onClick.AddListener(CreateNewIdea);
@@ -121,11 +125,11 @@ public class Ctrl_M4 : CtrlInternalText
         //ChargeNodesMindmap();
         ChangeMindmapVersion(1);
 
-         //Habilitar o no los hijos
+        //Habilitar o no los hijos
         var textIdea = DataBaseParametersCtrl.Ctrl._mindMapLoaded.ideaDescription;
         _internalTxt = textIdea;
-
-
+        _feedbackImg.SetActive(false);
+        ValidateInternalTxt();
     }
 
     public void ChargeNodesMindmap()
@@ -165,6 +169,7 @@ public class Ctrl_M4 : CtrlInternalText
         setArrayNodes();
         setTextNodes();
         loadImage();
+        ValidateInternalTxt();
     }
 
     public void setArraySections()
@@ -198,19 +203,22 @@ public class Ctrl_M4 : CtrlInternalText
         }
     }
 
-    private void loadImage(){
+    private void loadImage()
+    {
 
         var imageToBase64 = DataBaseParametersCtrl.Ctrl._mindMapLoaded.image;
 
-        if (imageToBase64.Length>10)
+        if (imageToBase64.Length > 10)
         {
             Debug.Log("Si tiene imagen este mapa");
             var b64_bytes = System.Convert.FromBase64String(imageToBase64);
- 
-            Texture2D tex = new Texture2D(1,1);
+
+            Texture2D tex = new Texture2D(1, 1);
             tex.LoadImage(b64_bytes);
             _panelImg.SetInternalImg(tex);
-        } else{
+        }
+        else
+        {
             Debug.Log("No tiene imagen este mapa");
         }
     }
@@ -267,6 +275,11 @@ public class Ctrl_M4 : CtrlInternalText
             _subMainIdeasArray[i].SetChildsOportunityTxt(_arrayNodes[i].description);
             _subMainIdeasArray[i].SetChildsRiskTxt(_arrayNodes[12 + i].description);
         }
+
+        //Habilitar o no los hijos
+        var textIdea = DataBaseParametersCtrl.Ctrl._mindMapLoaded.ideaDescription;
+        _internalTxt = textIdea;
+        ValidateInternalTxt();
     }
     public void OpenSavePanel()
     {
@@ -284,17 +297,21 @@ public class Ctrl_M4 : CtrlInternalText
         if (text != "")
         {
             int position = PanelSaveIdea.instance.ctrlTxtObj.databaseID;
-            if (position!=18)
+            PanelSaveIdea.instance.ctrlTxtObj.SetInternalTxt(text);
+            //If is NOT the main idea
+            if (position != 18)
             {
                 _nodeServices.UpdateNode(_arrayNodes[position], text);
-            }else{
+            }
+            else
+            {
                 var mindmaptem = DataBaseParametersCtrl.Ctrl._mindMapLoaded;
                 mindmaptem.ideaDescription = text;
-                _mindmapServices.UpdateMindmap(mindmaptem,0);
+                _mindmapServices.UpdateMindmap(mindmaptem, 0);
+                ValidateInternalTxt();
             }
-            
+
             //DB stuff
-            PanelSaveIdea.instance.ctrlTxtObj.SetInternalTxt(text);
             PanelSaveIdea.instance.ClosePanel();
         }
     }
@@ -318,7 +335,6 @@ public class Ctrl_M4 : CtrlInternalText
     public void ChangeActiveVersion()
     {
         EraseInfoAtPanel();
-        //DBStuff
     }
 
     public void EraseInfoAtPanel()
@@ -328,6 +344,7 @@ public class Ctrl_M4 : CtrlInternalText
             _subMainIdeasArray[i].SetInternalTxt("");
             _subMainIdeasArray[i].SetChildsText("", "");
         }
+        this.SetInternalTxt("");
     }
 
     public void AddVersion()
@@ -337,12 +354,6 @@ public class Ctrl_M4 : CtrlInternalText
 
     private void MainTabChanged()
     {
-        /*         if (!_mainTab)
-                {
-                    _mainTab = GameObject.FindObjectOfType<MainTab>();
-                }
-
-                ChangeMindmapVersion(_mainTab.GetSelectedTab()); */
         ChangeMindmapVersion(MainTab.instance.GetSelectedTab());
     }
 
@@ -403,6 +414,28 @@ public class Ctrl_M4 : CtrlInternalText
     {
         _mindmapServices.UpdateMindmap(imageToUpdate);
         _panelImg.SetDetBtn(true);
+    }
+
+    private void ValidateInternalTxt()
+    {
+        if (!_internalTxt.Equals(""))
+        {
+            foreach (SubMainIdea smi in _subMainIdeasArray)
+            {
+                smi.SetCanWrite(true);
+            }
+            _feedbackImg.SetActive(true);
+            _mainIdeaTxt.gameObject.SetActive(false);
+        }
+        else
+        {
+            foreach (SubMainIdea smi in _subMainIdeasArray)
+            {
+                smi.SetCanWrite(false);
+            }
+            _feedbackImg.SetActive(false);
+            _mainIdeaTxt.gameObject.SetActive(true);
+        }
     }
     #endregion
 
