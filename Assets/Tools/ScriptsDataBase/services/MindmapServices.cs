@@ -277,7 +277,10 @@ public class MindmapServices:MonoBehaviour  {
 	public int UpdateMindmap(Mindmap mindmapToUpdate, int newversion){
 
 		mindmapToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
-		mindmapToUpdate.version = newversion;
+		if (newversion != 0)
+		{
+			mindmapToUpdate.version = newversion;
+		}
 		int result = _connection.Update(mindmapToUpdate, mindmapToUpdate.GetType());
 
 		return result;

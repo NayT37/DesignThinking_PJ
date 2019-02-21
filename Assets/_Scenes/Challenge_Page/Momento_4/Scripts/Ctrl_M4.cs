@@ -77,6 +77,7 @@ public class Ctrl_M4 : CtrlInternalText
         _panelFeedback = GameObject.FindObjectOfType<PanelSaveFeedback>();
         _panelFeedback.gameObject.SetActive(false);
 
+       
         _addIdea = GameObject.Find("AddIdea_Btn").GetComponent<Button>();
         _detIdea = GameObject.Find("DetIdea_Btn").GetComponent<Button>();
         _addIdea.onClick.AddListener(CreateNewIdea);
@@ -119,6 +120,10 @@ public class Ctrl_M4 : CtrlInternalText
         _changeTo = 0;
         //ChargeNodesMindmap();
         ChangeMindmapVersion(1);
+
+         //Habilitar o no los hijos
+        var textIdea = DataBaseParametersCtrl.Ctrl._mindMapLoaded.ideaDescription;
+        _internalTxt = textIdea;
 
 
     }
@@ -279,9 +284,17 @@ public class Ctrl_M4 : CtrlInternalText
         if (text != "")
         {
             int position = PanelSaveIdea.instance.ctrlTxtObj.databaseID;
-            _nodeServices.UpdateNode(_arrayNodes[position], text);
-            PanelSaveIdea.instance.ctrlTxtObj.SetInternalTxt(text);
+            if (position!=18)
+            {
+                _nodeServices.UpdateNode(_arrayNodes[position], text);
+            }else{
+                var mindmaptem = DataBaseParametersCtrl.Ctrl._mindMapLoaded;
+                mindmaptem.ideaDescription = text;
+                _mindmapServices.UpdateMindmap(mindmaptem,0);
+            }
+            
             //DB stuff
+            PanelSaveIdea.instance.ctrlTxtObj.SetInternalTxt(text);
             PanelSaveIdea.instance.ClosePanel();
         }
     }
