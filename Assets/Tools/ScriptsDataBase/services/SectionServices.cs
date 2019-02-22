@@ -77,7 +77,7 @@ public class SectionServices:MonoBehaviour  {
 
 		//The identifier of the mindmap is obtained to be able to pass 
 		//it as an attribute in the new section that will be created
-		int mindmapid = DataBaseParametersCtrl.Ctrl._mindMapLoaded.id;
+		Int64 mindmapid = DataBaseParametersCtrl.Ctrl._mindMapLoaded.id;
 
 		//Get the current date to create the new section
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -135,7 +135,7 @@ public class SectionServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type section with all the data of the section that was searched and if doesnt exist so return an empty section.
 	/// </returns>
-	public Section GetSectionId( int sectionid){
+	public Section GetSectionId( Int64 sectionid){
 		
 		var s = _connection.Table<Section>().Where(x => x.id == sectionid).FirstOrDefault();
 
@@ -154,7 +154,7 @@ public class SectionServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type section with all the data of the section that was searched and if doesnt exist so return an empty section.
 	/// </returns>
-	public int GetSectionByAverage(int mindmapid){
+	public int GetSectionByAverage(Int64 mindmapid){
 		
 		var sections = _connection.Table<Section>().Where(x => x.mindmapId == mindmapid).Where(x => x.name.StartsWith("-"));
 		int counter = 0;
@@ -183,7 +183,7 @@ public class SectionServices:MonoBehaviour  {
 	/// <returns>
 	/// A IEnumerable list of all the Sections found from the identifier of the mindMap that was passed as a parameter
 	/// </returns>
-	public IEnumerable<Section> GetSections(int mindmapId){
+	public IEnumerable<Section> GetSections(Int64 mindmapId){
 		return _connection.Table<Section>().Where(x => x.mindmapId == mindmapId);
 	}
 
@@ -212,7 +212,7 @@ public class SectionServices:MonoBehaviour  {
 
 		//valueToResponse = 3
 
-		int sectionid = sectionToDelete.id;
+		Int64 sectionid = sectionToDelete.id;
 
 		int result = _connection.Delete(sectionToDelete);
 
@@ -245,7 +245,7 @@ public class SectionServices:MonoBehaviour  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateSection(int sectionid){
+	public int UpdateSection(Int64 sectionid){
 
 		var sectionToUpdate = GetSectionId(sectionid);
 

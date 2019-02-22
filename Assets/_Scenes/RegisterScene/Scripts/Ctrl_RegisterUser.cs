@@ -61,7 +61,7 @@ public class Ctrl_RegisterUser : MonoBehaviour
             bool isConn = DataBaseParametersCtrl.Ctrl.doConnection();
             bool doOtherMethod = false;
             var teacher = new Teacher();
-
+            GameObject objLoad = Instantiate(_loadUser, _parentText);
             if (isFirstTime)
             {
                 if (isConn)
@@ -92,8 +92,15 @@ public class Ctrl_RegisterUser : MonoBehaviour
                     //DOTween.Play("7");
                     userName.text = "";
                     passName.text = "";
-                    GameObject obj = Instantiate(_noUserPrefab, _parentText);
-                    StartCoroutine(DeletePrefab(obj));
+
+                    if (DataBaseParametersCtrl.Ctrl.isNotTeacherExist)
+                    {
+                       GameObject obj = Instantiate(_userNoExistPrefab, _parentText);
+                       StartCoroutine(DeletePrefab(obj)); 
+                    } else{
+                        GameObject obj = Instantiate(_noUserPrefab, _parentText);
+                       StartCoroutine(DeletePrefab(obj));
+                    }
 
                 }
                 else

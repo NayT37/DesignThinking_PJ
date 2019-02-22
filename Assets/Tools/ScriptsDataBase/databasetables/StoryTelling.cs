@@ -5,11 +5,11 @@ using System;
 public class StoryTelling  {
 
 	[PrimaryKey]
-	public int id { get; set; }
+	public Int64 id { get; set; }
 	public int percentage { get; set; }
 	public string creationDate { get; set; }
 
-	public int projectId { get; set; }
+	public Int64 projectId { get; set; }
 	public string lastUpdate { get; set; }
 
 	public int version { get; set; }

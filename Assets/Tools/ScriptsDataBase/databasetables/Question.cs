@@ -5,12 +5,12 @@ using System;
 public class Question  {
 
 	[PrimaryKey]
-	public int id { get; set; }
+	public Int64 id { get; set; }
 	public string creationDate { get; set; }
 
 	public string description { get; set; }
 
-	public int evaluationId { get; set; }
+	public Int64 evaluationId { get; set; }
 	public string lastUpdate { get; set; }
 
 	public string category {get; set; }

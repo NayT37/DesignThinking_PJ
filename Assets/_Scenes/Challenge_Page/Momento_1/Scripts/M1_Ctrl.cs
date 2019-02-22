@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
@@ -37,7 +38,7 @@ public class M1_Ctrl : MonoBehaviour
 
         _arraySectors = new Sector[6];
 
-        int empathymapid = DataBaseParametersCtrl.Ctrl._empathyMapLoaded.id;
+        Int64 empathymapid = DataBaseParametersCtrl.Ctrl._empathyMapLoaded.id;
 
         var sectors = _sectorServices.GetSectors(empathymapid);
 

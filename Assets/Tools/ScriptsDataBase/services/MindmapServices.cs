@@ -80,7 +80,7 @@ public class MindmapServices:MonoBehaviour  {
 
 		//The identifier of the storytelling is obtained to be able to pass 
 		//it as an attribute in the new mindmap that will be created
-		int storytellingid = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
+		Int64 storytellingid = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
 
 		//Get the current date to create the new empathymap
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -139,7 +139,7 @@ public class MindmapServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type mindmap with all the data of the mindmap that was searched and if doesnt exist so return an empty mindmap.
 	/// </returns>
-	public Mindmap GetMindmapId( int mindmapid){
+	public Mindmap GetMindmapId( Int64 mindmapid){
 		
 		var m = _connection.Table<Mindmap>().Where(x => x.id == mindmapid).FirstOrDefault();
 
@@ -161,7 +161,7 @@ public class MindmapServices:MonoBehaviour  {
 	/// </returns>
 	public IEnumerable<Mindmap> GetMindmaps(){
 
-		int storytellingid = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
+		Int64 storytellingid = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
 
 		//valueToResponse = 2
 		
@@ -176,7 +176,7 @@ public class MindmapServices:MonoBehaviour  {
 	/// <returns>
 	/// A IEnumerable list of all the Notes found from the identifier of the project that was passed as a parameter
 	/// </returns>
-	public IEnumerable<Mindmap> GetMindmaps(int storytellingid){
+	public IEnumerable<Mindmap> GetMindmaps(Int64 storytellingid){
 
 
 		//valueToResponse = 2
@@ -193,7 +193,7 @@ public class MindmapServices:MonoBehaviour  {
 	/// </returns>
 	public int GetMindmapsCounter(){
 
-		int storytellingid = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
+		Int64 storytellingid = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
 
 		//valueToResponse = 3
 		
@@ -210,7 +210,7 @@ public class MindmapServices:MonoBehaviour  {
 	/// <returns>
 	/// An integer with the average of all mindmaps with specified storytelling identifier
 	/// </returns>
-	public int GetMindmapsAverage(int storyTellingId){
+	public int GetMindmapsAverage(Int64 storyTellingId){
 		
 		var mindmaps = _connection.Table<Mindmap>().Where(x => x.storytellingId == storyTellingId);
 		int counter = 0;
@@ -239,7 +239,7 @@ public class MindmapServices:MonoBehaviour  {
 
 		//valueToResponse = 4
 		
-		int mindmapid = mindmapToDelete.id;
+		Int64 mindmapid = mindmapToDelete.id;
 
 		int result = _connection.Delete(mindmapToDelete);
 
@@ -314,7 +314,7 @@ public class MindmapServices:MonoBehaviour  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateMindmap(int mindmapid){
+	public int UpdateMindmap(Int64 mindmapid){
 
 		var _storytellingServices = new StorytellingServices();
 

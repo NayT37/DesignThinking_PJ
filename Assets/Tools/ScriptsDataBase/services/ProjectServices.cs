@@ -88,7 +88,7 @@ public class ProjectServices:MonoBehaviour  {
 
 		//The identifier of the group is obtained to be able to pass 
 		//it as an attribute in the new project that will be created
-		int groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
+		Int64 groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
 
 		int counter = GetProjectsCounter(groupid);
 
@@ -164,7 +164,7 @@ public class ProjectServices:MonoBehaviour  {
 	public Project GetProjectNamed(){
 
 		string projectName = DataBaseParametersCtrl.Ctrl._projectLoaded.name;
-		int projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
+		Int64 projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 		
 		var p = _connection.Table<Project>().Where(x => x.name == projectName).Where(x => x.id == projectid).FirstOrDefault();
 
@@ -182,7 +182,7 @@ public class ProjectServices:MonoBehaviour  {
 	/// </returns>
 	public int GetProjectsAverage(){
 
-		int groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
+		Int64 groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
 		
 		var projects = _connection.Table<Project>().Where(x => x.groupId == groupid);
 		int counter = 0;
@@ -207,7 +207,7 @@ public class ProjectServices:MonoBehaviour  {
 	/// <returns>
 	/// A IEnumerable list of all the Trainings found from the identifier of the group that was passed as a parameter
 	/// </returns>
-	public IEnumerable<Project> GetProjects(int projectid){
+	public IEnumerable<Project> GetProjects(Int64 projectid){
 		
 		//valueToResponse = 2
 		
@@ -222,7 +222,7 @@ public class ProjectServices:MonoBehaviour  {
 	/// <returns>
 	/// Counter projects related with an specified group
 	/// </returns>
-	public int GetProjectsCounter(int groupId){
+	public int GetProjectsCounter(Int64 groupId){
 		
 		//valueToResponse = 3
 
@@ -239,7 +239,7 @@ public class ProjectServices:MonoBehaviour  {
 	public IEnumerable<Project> GetProjects(){
 
 		//valueToResponse = 4
-		int groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
+		Int64 groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
 		return _connection.Table<Project>().Where(x => x.groupId == groupid);
 	}
 
@@ -255,7 +255,7 @@ public class ProjectServices:MonoBehaviour  {
 
 		//valueToResponse = 5
 
-		int projectid = projectToDelete.id;
+		Int64 projectid = projectToDelete.id;
 
 		int result = _connection.Delete(projectToDelete);
 
@@ -338,7 +338,7 @@ public class ProjectServices:MonoBehaviour  {
 
 		var projectToUpdate = DataBaseParametersCtrl.Ctrl._projectLoaded;
 
-		int projectid = projectToUpdate.id;
+		Int64 projectid = projectToUpdate.id;
 
 		projectToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
 

@@ -24,7 +24,7 @@ public class Ctrl_LoadProjects : MonoBehaviour
 
     private GameObject[] _prefabsProjects;
 
-    private int groupid;
+    private Int64 groupid;
 
     private IEnumerable<Project> projects = new Project[0];
 
@@ -66,24 +66,30 @@ public class Ctrl_LoadProjects : MonoBehaviour
 
         projects = _projectServices.GetProjects();
 
-        int counter = 0;
-
-        DOTween.Play("bgLoadProjects");
-		StartCoroutine(waitToDeleteLoadProject());
-
-        foreach (var item in projects)
+        if (_prefabsProjects.Length == 0)
         {
-            Debug.Log(item);
-            var SetName = Instantiate(prefab_project, parent_project.transform);
-            SetName.name = counter.ToString();
-            _projects[counter] = item;
-            _prefabsProjects[counter] = SetName;
-            counter++;
-            SetName.GetComponentInChildren<Text>().text = item.name;
-            SetName.transform.GetChild(0).GetComponentInChildren<Button>().onClick.AddListener(delegate { GetProjectPressed(SetName.name, item.name); });
-            SetName.transform.GetChild(1).GetComponentInChildren<Button>().onClick.AddListener(delegate { DeleteProjectPressed(SetName.name); });
+            StartCoroutine(BackOne());
+        } else{
 
-            Debug.Log("name" + item.name);
+            int counter = 0;
+
+            DOTween.Play("bgLoadProjects");
+            StartCoroutine(waitToDeleteLoadProject());
+
+            foreach (var item in projects)
+            {
+                Debug.Log(item);
+                var SetName = Instantiate(prefab_project, parent_project.transform);
+                SetName.name = counter.ToString();
+                _projects[counter] = item;
+                _prefabsProjects[counter] = SetName;
+                counter++;
+                SetName.GetComponentInChildren<Text>().text = item.name;
+                SetName.transform.GetChild(0).GetComponentInChildren<Button>().onClick.AddListener(delegate { GetProjectPressed(SetName.name, item.name); });
+                SetName.transform.GetChild(1).GetComponentInChildren<Button>().onClick.AddListener(delegate { DeleteProjectPressed(SetName.name); });
+
+                Debug.Log("name" + item.name);
+            }
         }
     }
 
@@ -135,6 +141,7 @@ public class Ctrl_LoadProjects : MonoBehaviour
         if (r != 1)
         {
             DOTween.Play("bg_outSyncYes");
+            DOTween.Play("bg_outSyncYes2");
             StartCoroutine(waitForExitValidation(obj, true, value));
             Debug.Log("Yes validation");
 
@@ -156,7 +163,7 @@ public class Ctrl_LoadProjects : MonoBehaviour
     private IEnumerator waitForExitValidation(GameObject go, bool isDelete, int value)
     {
         yield return new WaitForSeconds(0.5f);
-        DestroyImmediate(go);
+       
         if (isDelete)
         {
             int lengthPjs = _prefabsProjects.Length;
@@ -164,14 +171,24 @@ public class Ctrl_LoadProjects : MonoBehaviour
             GameObject obj = Instantiate(_msgDelete, _textParent);
             StartCoroutine(DeletePrefab(obj));
             _projectServices.DeleteProject(_projects[value]);
-            StartCoroutine(waitToDeleteProject());
-        }
+            StartCoroutine(waitToDeleteProject(go));
+        }else{
+			DestroyImmediate(go);
+		}
     }
 
-    private IEnumerator waitToDeleteProject()
+    private IEnumerator DeleteMsg(GameObject go)
+    {
+		DOTween.Play("bg_syncExit");
+        yield return new WaitForSeconds(0.5f);	
+        DestroyImmediate(go);
+    }
+
+    private IEnumerator waitToDeleteProject(GameObject go)
     {
         yield return new WaitUntil(()=> DataBaseParametersCtrl.Ctrl.isQueryOk == true);
         DataBaseParametersCtrl.Ctrl.isQueryOk = false;  
+        StartCoroutine(DeleteMsg(go)); 	
         Debug.Log("Proyecto eliminado");
 		LoadAllPrefabs();
     }

@@ -67,7 +67,7 @@ public class ChMainHUD : MonoBehaviour
 
         _evaluationServices = new EvaluationServices();
 
-        int projectId = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
+        Int64 projectId = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 
         var _public = _publicServices.GetPublicNamed(projectId);
 

@@ -241,7 +241,7 @@ public class CourseServices : MonoBehaviour  {
 
 		var courseToDelete = DataBaseParametersCtrl.Ctrl._courseLoaded;
 
-		int courseid = courseToDelete.id;
+		Int64 courseid = courseToDelete.id;
 		
 		int result = _connection.Delete(courseToDelete);
 
@@ -255,13 +255,13 @@ public class CourseServices : MonoBehaviour  {
 		//If the elimination of the course is correct, then the groups corresponding to that course are eliminated.
 		if (result!=0)
 		{
-			DataBaseParametersCtrl.Ctrl.isQueryOk = true;
 			Debug.Log("antes del for");
 			foreach (var group in groups)
 			{
 				Debug.Log(group);
 				valueToReturn += _groupServices.DeleteGroup(group);
 			}
+			DataBaseParametersCtrl.Ctrl.isQueryOk = true;
 			Debug.Log("después del for");
 		} else {
 			valueToReturn = 0;

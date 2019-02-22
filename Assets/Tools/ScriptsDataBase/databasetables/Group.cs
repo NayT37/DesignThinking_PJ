@@ -6,13 +6,13 @@ public class Group
 {
 
     [PrimaryKey]
-    public int id { get; set; }
+    public Int64 id { get; set; }
     public string name { get; set; }
     public int percentage { get; set; }
     public string creationDate { get; set; }
     public int studentsCounter { get; set; }
 
-    public int courseId { get; set; }
+    public Int64 courseId { get; set; }
     public string lastUpdate { get; set; }
 
     public override string ToString()

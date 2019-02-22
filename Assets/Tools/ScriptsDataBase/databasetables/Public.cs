@@ -5,7 +5,7 @@ using System;
 public class Public  {
 
 	[PrimaryKey]
-	public int id { get; set; }
+	public Int64 id { get; set; }
 	public string ageRange { get; set; }
 
 	public string gender { get; set; }
@@ -14,7 +14,7 @@ public class Public  {
 
 	public string lastUpdate { get; set; }
 
-	public int projectId { get; set; }
+	public Int64 projectId { get; set; }
 	// public int id;
 	// public string ageRange;
 

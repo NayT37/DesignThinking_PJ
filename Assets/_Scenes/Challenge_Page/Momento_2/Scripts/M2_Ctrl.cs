@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.XR;
 using Vuforia;
+using System;
 
 public class M2_Ctrl : MonoBehaviour
 {
@@ -58,7 +59,7 @@ public class M2_Ctrl : MonoBehaviour
         }
         else
         {
-            int projectId = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
+            Int64 projectId = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
             var problem = _problemServices.GetProblem(projectId);
             DataBaseParametersCtrl.Ctrl._problemLoaded = problem;
             var fields = _fieldServices.GetFields(problem.id);

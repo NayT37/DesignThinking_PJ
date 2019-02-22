@@ -153,11 +153,11 @@ public class DataBaseParametersCtrl : MonoBehaviour {
         return BitConverter.ToString (hmacsha512.Hash).Replace ("-", "").ToLower();
     }
 
-	public int GenerateCodeToId(){
+	public Int64 GenerateCodeToId(){
 		string teacherid = _teacherLoggedIn.identityCard;
         System.Random generator = new System.Random();
     	String r = teacherid + generator.Next(000000, 999999).ToString("D6");;
-		return Convert.ToInt32(r);
+		return Convert.ToInt64(r);
 	}
 
 	public void sychMethod(){

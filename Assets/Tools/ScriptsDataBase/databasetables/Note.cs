@@ -6,13 +6,13 @@ public class Note  {
 
 	
 	[PrimaryKey]
-	public int id { get; set; }
+	public Int64 id { get; set; }
 	public int position { get; set; }
 	public string creationDate { get; set; }
 
 	public string description { get; set; }
 
-	public int storytellingId { get; set; }
+	public Int64 storytellingId { get; set; }
 	public string lastUpdate { get; set; }
 	// public int id;
 	// public int position;

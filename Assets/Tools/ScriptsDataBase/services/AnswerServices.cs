@@ -75,7 +75,7 @@ public class AnswerServices : MonoBehaviour  {
 
 		//The identifier of the question is obtained to be able to pass 
 		//it as an attribute in the new Answer that will be created
-		int questionid = DataBaseParametersCtrl.Ctrl._questionLoaded.id;
+		Int64 questionid = DataBaseParametersCtrl.Ctrl._questionLoaded.id;
 
 		//Get the current date to create the new Answer
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -114,7 +114,7 @@ public class AnswerServices : MonoBehaviour  {
 	/// <returns>
 	/// A IEnumerable list of all the Answers found from the identifier of the project that was passed as a parameter
 	/// </returns>
-	public IEnumerable<Answer> GetAnswers(int questionId){
+	public IEnumerable<Answer> GetAnswers(Int64 questionId){
 
 		//valueToResponse = 2
 

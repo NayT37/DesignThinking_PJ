@@ -72,7 +72,7 @@ public class StorytellingServices:MonoBehaviour  {
 
 		//The identifier of the project is obtained to be able to pass 
 		//it as an attribute in the new empathymap that will be created
-		int projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
+		Int64 projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 
 		//Get the current date to create the new storytelling
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -120,7 +120,7 @@ public class StorytellingServices:MonoBehaviour  {
 	/// <returns>
 	/// An integer with the average of all storytellings with specified project identifier
 	/// </returns>
-	public int GetStorytellingAverage(int projectid){
+	public int GetStorytellingAverage(Int64 projectid){
 		
 		var storytellings = _connection.Table<StoryTelling>().Where(x => x.projectId == projectid);
 		int counter = 0;
@@ -149,7 +149,7 @@ public class StorytellingServices:MonoBehaviour  {
 
 		//valueToResponse = 2
 
-		int projectId = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
+		Int64 projectId = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 		return _connection.Table<StoryTelling>().Where(x => x.projectId == projectId);
 	}
 
@@ -165,7 +165,7 @@ public class StorytellingServices:MonoBehaviour  {
 
 		//valueToResponse = 3
 
-		int projectId = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
+		Int64 projectId = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 		return _connection.Table<StoryTelling>().Where(x => x.projectId == projectId).Count();
 	}
 
@@ -181,7 +181,7 @@ public class StorytellingServices:MonoBehaviour  {
 
 		//valueToResponse = 4
 		
-		int storytellingid = storytellingToDelete.id;
+		Int64 storytellingid = storytellingToDelete.id;
 
 		// All the notes belonging to the storytelling that will be deleted are obtained.
 		var notes = _noteServices.GetNotes();
@@ -226,7 +226,7 @@ public class StorytellingServices:MonoBehaviour  {
 
 		var storytellingToDelete = DataBaseParametersCtrl.Ctrl._storyTellingLoaded;
 
-		int storytellingid = storytellingToDelete.id;
+		Int64 storytellingid = storytellingToDelete.id;
 
 		// All the notes belonging to the storytelling that will be deleted are obtained.
 		var notes = _noteServices.GetNotes();
@@ -269,7 +269,7 @@ public class StorytellingServices:MonoBehaviour  {
 
 		//valueToResponse = 5
 
-		int storytellingid = storyTellingUpdate.id;
+		Int64 storytellingid = storyTellingUpdate.id;
 		
 		int counterNotes = _noteServices.GetNotesToPosition(storytellingid);
 
@@ -298,7 +298,7 @@ public class StorytellingServices:MonoBehaviour  {
 
 		var storyTellingUpdate = DataBaseParametersCtrl.Ctrl._storyTellingLoaded;
 
-		int storytellingid = storyTellingUpdate.id;
+		Int64 storytellingid = storyTellingUpdate.id;
 		
 		int counterNotes = _noteServices.GetNotesToPosition(storytellingid);
 

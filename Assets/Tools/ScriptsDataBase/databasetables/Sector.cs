@@ -5,14 +5,14 @@ using System;
 public class Sector  {
 
 	[PrimaryKey]
-	public int id { get; set; }
+	public Int64 id { get; set; }
 	public string name { get; set; }
 
 	public string description {get; set; }
 	public string creationDate { get; set; }
 
 	
-	public int empathymapId { get; set; }
+	public Int64 empathymapId { get; set; }
 
 	public string lastUpdate { get; set; }
 	// public int id;

@@ -42,7 +42,7 @@ public class PublicServices:MonoBehaviour  {
 
 		//The identifier of the project is obtained to be able to pass 
 		//it as an attribute in the new public that will be created
-		int projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
+		Int64 projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 
 		//Get the current date to create the new public
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -84,7 +84,7 @@ public class PublicServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type _public with all the data of the _public that was searched and if doesnt exist so return an empty _public.
 	/// </returns>
-	public Public GetPublicNamed(int projectId){
+	public Public GetPublicNamed(Int64 projectId){
 
 		//valueToResponse = 2
 		

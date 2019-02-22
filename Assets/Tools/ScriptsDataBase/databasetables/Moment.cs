@@ -6,12 +6,12 @@ public class Moment
 {
 
     [PrimaryKey]
-    public int id { get; set; }
+    public Int64 id { get; set; }
     public string name { get; set; }
     public int percentage { get; set; }
     public string creationDate { get; set; }
 
-    public int caseId { get; set; }
+    public Int64 caseId { get; set; }
     public string lastUpdate { get; set; }
 
     public override string ToString()

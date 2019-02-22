@@ -59,7 +59,7 @@ public class NodeServices:MonoBehaviour  {
 
 		//The identifier of the storytelling is obtained to be able to pass 
 		//it as an attribute in the new mindmap that will be created
-		int sectionid = DataBaseParametersCtrl.Ctrl._sectionLoaded.id;
+		Int64 sectionid = DataBaseParametersCtrl.Ctrl._sectionLoaded.id;
 
 		//Get the current date to create the new ndoe
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -88,7 +88,7 @@ public class NodeServices:MonoBehaviour  {
 	/// <returns>
 	/// A IEnumerable list of all the Nodes found from the identifier of the section that was passed as a parameter
 	/// </returns>
-	public IEnumerable<Node> GetNodes(int sectionId){
+	public IEnumerable<Node> GetNodes(Int64 sectionId){
 		//valueToResponse = 2
 		return _connection.Table<Node>().Where(x => x.sectionId == sectionId);
 	}

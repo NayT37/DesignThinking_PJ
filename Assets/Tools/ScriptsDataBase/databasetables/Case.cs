@@ -7,12 +7,12 @@ public class Case
 
     [PrimaryKey]
     //Added { get; set; } to every variable so it can work
-    public int id { get; set; }
+    public Int64 id { get; set; }
     public string name { get; set; }
     public int percentage { get; set; }
     public string creationDate { get; set; }
 
-    public int trainingId { get; set; }
+    public Int64 trainingId { get; set; }
     public string lastUpdate { get; set; }
 
     /* 	public int id;

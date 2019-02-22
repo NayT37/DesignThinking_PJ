@@ -72,7 +72,7 @@ public class MomentServices:MonoBehaviour  {
 	/// An integer response of the query (0 = the object was not created correctly. !0 = the object was created correctly)
 	/// </returns>
 
-	public int CreateMoment(string momentname, int caseid){
+	public int CreateMoment(string momentname, Int64 caseid){
 
 		//valueToResponse = 1
 
@@ -104,7 +104,7 @@ public class MomentServices:MonoBehaviour  {
 	/// <returns>
 	/// A IEnumerable list of all the moments found from the identifier of the case that was passed as a parameter
 	/// </returns>
-	public IEnumerable<Moment> GetMoments(int caseId){
+	public IEnumerable<Moment> GetMoments(Int64 caseId){
 		//valueToResponse = 2
 		return _connection.Table<Moment>().Where(x => x.caseId == caseId);
 	}

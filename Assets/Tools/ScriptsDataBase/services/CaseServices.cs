@@ -88,7 +88,7 @@ public class CaseServices : MonoBehaviour
     /// An integer response of the query (0 = the object was not created correctly. !0 = the object was created correctly)
     /// </returns>
 
-    public int Createcase(string casename, int trainingid)
+    public int Createcase(string casename, Int64 trainingid)
     {
 
         //valueToResponse = 1
@@ -137,7 +137,7 @@ public class CaseServices : MonoBehaviour
     /// <returns>
     /// An object of type case with all the data of the case that was searched and if doesnt exist so return an empty case.
     /// </returns>
-    public Case GetCaseId(int caseid)
+    public Case GetCaseId(Int64 caseid)
     {
 
         //valueToResponse = 2
@@ -158,7 +158,7 @@ public class CaseServices : MonoBehaviour
     /// <returns>
     /// A IEnumerable list of all the Cases found from the identifier of the training that was passed as a parameter
     /// </returns>
-    public IEnumerable<Case> GetCases(int trainingId)
+    public IEnumerable<Case> GetCases(Int64 trainingId)
     {
 
         //valueToResponse = 3
@@ -209,7 +209,7 @@ public class CaseServices : MonoBehaviour
     /// <returns>
     /// An integer response of the query (0 = the object was not updated correctly. !0 = the object was updated correctly)
     /// </returns>
-    public int UpdateCase(int caseid)
+    public int UpdateCase(Int64 caseid)
     {
 
         var _trainingServices = new TrainingServices();

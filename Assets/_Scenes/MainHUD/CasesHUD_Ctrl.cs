@@ -133,7 +133,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
         _casesArray = new Case[3];
 
-        int trainingId = DataBaseParametersCtrl.Ctrl._trainingloaded.id;
+        Int64 trainingId = DataBaseParametersCtrl.Ctrl._trainingloaded.id;
 
         _casesIEnumerable = _caseServices.GetCases(trainingId);
 
@@ -152,7 +152,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
         _momentsArray = new Moment[5];
 
-        int caseid = DataBaseParametersCtrl.Ctrl._caseLoaded.id;
+        Int64 caseid = DataBaseParametersCtrl.Ctrl._caseLoaded.id;
 
         _momentsIEnumerable = _momentServices.GetMoments(caseid);
 

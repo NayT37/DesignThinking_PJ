@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.XR;
 using Vuforia;
+using System;
 
 public class Ctrl_M4 : CtrlInternalText
 {
@@ -174,7 +175,7 @@ public class Ctrl_M4 : CtrlInternalText
 
     public void setArraySections()
     {
-        int mindmapid = DataBaseParametersCtrl.Ctrl._mindMapLoaded.id;
+        Int64 mindmapid = DataBaseParametersCtrl.Ctrl._mindMapLoaded.id;
         var sections = _sectionServices.GetSections(mindmapid);
 
         int counter = 0;

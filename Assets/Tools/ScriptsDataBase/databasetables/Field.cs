@@ -6,7 +6,7 @@ public class Field
 {
 
     [PrimaryKey]
-    public int id { get; set; }
+    public Int64 id { get; set; }
     public string name { get; set; }
     public int percentage { get; set; }
 
@@ -15,7 +15,7 @@ public class Field
 
     public string lastUpdate { get; set; }
 
-    public int problemId { get; set; }
+    public Int64 problemId { get; set; }
 
     public override string ToString()
     {

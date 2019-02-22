@@ -125,7 +125,7 @@ public class GroupServices : MonoBehaviour
 
         //The identifier of the course loaded is obtained to be able to pass 
         //it as an attribute in the new group that will be created
-        int courseid = DataBaseParametersCtrl.Ctrl._courseLoaded.id; //studentscounter;
+        Int64 courseid = DataBaseParametersCtrl.Ctrl._courseLoaded.id; //studentscounter;
 
         //Get the current date to create the new group
         string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -178,7 +178,7 @@ public class GroupServices : MonoBehaviour
     /// <returns>
     /// An object of type group with all the data of the group that was searched and if doesnt exist so return an empty group.
     /// </returns>
-    public Group GetGroupNamed(string groupName, int courseId)
+    public Group GetGroupNamed(string groupName, Int64 courseId)
     {
 
         //valueToResponse = 2
@@ -200,7 +200,7 @@ public class GroupServices : MonoBehaviour
     public Group GetGroupNamed(string groupName)
     {
 
-        int courseId = DataBaseParametersCtrl.Ctrl._courseLoaded.id;
+        Int64 courseId = DataBaseParametersCtrl.Ctrl._courseLoaded.id;
 
         var g = _connection.Table<Group>().Where(x => x.name == groupName).Where(x => x.courseId == courseId).FirstOrDefault();
 
@@ -224,7 +224,7 @@ public class GroupServices : MonoBehaviour
     /// <returns>
     /// A IEnumerable list of all the groups found from the identifier of the course that was passed as a parameter
     /// </returns>
-    public IEnumerable<Group> GetGroups(int courseId)
+    public IEnumerable<Group> GetGroups(Int64 courseId)
     {
 
         return _connection.Table<Group>().Where(x => x.courseId == courseId).OrderBy(x => x.creationDate);;
@@ -239,7 +239,7 @@ public class GroupServices : MonoBehaviour
     /// <returns>
     /// Counter groups related with an specified course
     /// </returns>
-    public int GetGroupsCounter(int courseId)
+    public int GetGroupsCounter(Int64 courseId)
     {
 
         //valueToResponse = 4
@@ -262,7 +262,7 @@ public class GroupServices : MonoBehaviour
 
         var groupToDelete = DataBaseParametersCtrl.Ctrl._groupLoaded;
 
-        int groupid = groupToDelete.id;
+        Int64 groupid = groupToDelete.id;
         //All the trainings belonging to the group that will be deleted are obtained.
         var training = _trainingServices.GetTraining(groupid);
 
@@ -281,6 +281,9 @@ public class GroupServices : MonoBehaviour
             {
                 valueToReturn += _projectServices.DeleteProject(p);
             }
+
+            DataBaseParametersCtrl.Ctrl.isQueryOk = true;
+            
 
         }
         else
@@ -305,7 +308,7 @@ public class GroupServices : MonoBehaviour
         //valueToResponse = 5
 
 
-        int groupid = groupToDelete.id;
+        Int64 groupid = groupToDelete.id;
         //All the trainings belonging to the group that will be deleted are obtained.
         var training = _trainingServices.GetTraining(groupid);
 

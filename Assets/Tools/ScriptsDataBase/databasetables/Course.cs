@@ -6,7 +6,7 @@ public class Course
 {
     // Solo funciona en móvil
     [PrimaryKey]
-    public int id { get; set; }
+    public Int64 id { get; set; }
     public string name { get; set; }
     public int percentage { get; set; }
     public string creationDate { get; set; }

@@ -36,7 +36,7 @@ public class Ctrl_CreateViewPJ : MonoBehaviour
     private void eventClick(string name)
     {
         bool isChange = false;
-        int groupId = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
+        Int64 groupId = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
 
         int counterProjects = _projectServices.GetProjectsCounter(groupId);
 
