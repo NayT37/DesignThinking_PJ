@@ -116,7 +116,14 @@ public class FieldServices:MonoBehaviour  {
 		
 		//valueToResponse = 2
 
-		return _connection.Table<Field>().Where(x => x.problemId == problemId);
+		return _connection.Query<Field> ("select * from Field where problemId = " + problemId +" ORDER BY creationDate ASC");
+	}
+
+	public IEnumerable<Field> GetAllFields(){
+
+		//valueToResponse = 2 
+
+		return _connection.Table<Field>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
 	}
 
 	/// <summary>

@@ -163,8 +163,15 @@ public class CaseServices : MonoBehaviour
 
         //valueToResponse = 3
 
-        return _connection.Table<Case>().Where(x => x.trainingId == trainingId);
+        return _connection.Query<Case> ("select * from Case where trainingId = " + trainingId +" ORDER BY creationDate ASC");
     }
+
+    public IEnumerable<Case> GetAllCases(){
+
+		//valueToResponse = 2 
+
+		return _connection.Table<Case>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+	}
 
     /// <summary>
     /// Description of the method to delete a case

@@ -150,8 +150,17 @@ public class StorytellingServices:MonoBehaviour  {
 		//valueToResponse = 2
 
 		Int64 projectId = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
-		return _connection.Table<StoryTelling>().Where(x => x.projectId == projectId);
+		return _connection.Query<StoryTelling> ("select * from StoryTelling where projectId = " + projectId +" ORDER BY creationDate ASC");
 	}
+
+	public IEnumerable<StoryTelling> GetAllStoryTellings(){
+
+		//valueToResponse = 2
+
+		return _connection.Table<StoryTelling>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+
+	}
+
 
 	/// <summary>
 	/// Description of the method to obtain all the storyTellings of a specific project

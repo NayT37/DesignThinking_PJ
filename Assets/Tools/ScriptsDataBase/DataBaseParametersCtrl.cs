@@ -126,8 +126,45 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 	public string GetDateTime(){
 
 		DateTime theTime = System.DateTime.Now;
-		string date = theTime.Year + "-" + theTime.Month + "-" + theTime.Day;
-		string time = theTime.Hour + ":" + theTime.Minute + ":" + theTime.Second;
+
+		string date = theTime.Year + "";
+
+		if (theTime.Month<10)
+		{
+			date += "-0" + theTime.Month;	
+		} else {
+			date += "-" + theTime.Month;
+		}
+
+		if (theTime.Day<10)
+		{
+			date += "-0" + theTime.Day;	
+		} else {
+			date += "-" + theTime.Day;
+		}
+
+		string time = "";
+
+		if (theTime.Hour<10)
+		{
+			time += "" + theTime.Hour;	
+		} else {
+			time += "" + theTime.Month;
+		}
+
+		if (theTime.Minute<10)
+		{
+			time += ":0" + theTime.Minute;	
+		} else {
+			time += ":" + theTime.Minute;
+		}
+
+		if (theTime.Second<10)
+		{
+			time += ":0" + theTime.Second;	
+		} else {
+			time += ":" + theTime.Second;
+		}
 
 		string lastUpdateString = string.Format ("{0} {1}", date, time);
 

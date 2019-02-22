@@ -227,9 +227,16 @@ public class GroupServices : MonoBehaviour
     public IEnumerable<Group> GetGroups(Int64 courseId)
     {
 
-        return _connection.Table<Group>().Where(x => x.courseId == courseId).OrderBy(x => x.creationDate);;
+        return _connection.Query<Group> ("select * from Group where courseId = " + courseId +" ORDER BY creationDate ASC");
 
     }
+
+    public IEnumerable<Group> GetAllGroups(){
+
+		//valueToResponse = 2 
+
+		return _connection.Table<Group>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+	}
 
     /// <summary>
     /// Description of the method to obtain all the groups of a specific course

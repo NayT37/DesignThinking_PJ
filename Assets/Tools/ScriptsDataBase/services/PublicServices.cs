@@ -96,6 +96,11 @@ public class PublicServices:MonoBehaviour  {
 			return p;
 	}
 
+	public IEnumerable<Public> GetAllPublics(){
+
+		return _connection.Table<Public>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+	}
+
 	/// <summary>
 	/// Description of the method to delete a public
 	/// </summary>

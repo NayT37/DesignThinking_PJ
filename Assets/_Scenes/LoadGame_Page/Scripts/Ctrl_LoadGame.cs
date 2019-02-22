@@ -61,7 +61,6 @@ public class Ctrl_LoadGame : MonoBehaviour
         Main_Ctrl.instance.NameCourse = nameCourse;
 
         int value = int.Parse(positionInToArray);
-        Debug.Log("position " + positionInToArray);
 
         DataBaseParametersCtrl.Ctrl._courseLoaded = _courses[value];
 
@@ -206,7 +205,7 @@ public class Ctrl_LoadGame : MonoBehaviour
 
             foreach (var item in courses)
             {
-                Debug.Log(item.name);
+                Debug.Log(item);
                 var SetName = Instantiate(prefab_Curse, parent_group.transform);
                 SetName.name = counter.ToString();
                 _courses[counter] = item; 
@@ -215,7 +214,6 @@ public class Ctrl_LoadGame : MonoBehaviour
                 SetName.GetComponentInChildren<Text>().text = item.name;
                 SetName.GetComponentInChildren<Button>().onClick.AddListener(delegate { GetCoursePressed(SetName.name, item.name); });
                 SetName.transform.GetChild(1).GetComponentInChildren<Button>().onClick.AddListener(delegate { DeleteCoursePressed(SetName.name); });
-                Debug.Log("name" + item.name);
             }
         }
         
