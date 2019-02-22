@@ -111,7 +111,14 @@ public class NoteServices:MonoBehaviour  {
 		//valueToResponse = 2 
 
 		Int64 storytellingId = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
-		return _connection.Table<Note>().Where(x => x.storytellingId == storytellingId);
+		return _connection.Query<Note> ("select * from Note where storytellingId = " + storytellingId +" ORDER BY creationDate ASC");
+	}
+
+	public IEnumerable<Note> GetAllNotes(){
+
+		//valueToResponse = 2 
+
+		return _connection.Table<Note>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
 	}
 
 	/// <summary>

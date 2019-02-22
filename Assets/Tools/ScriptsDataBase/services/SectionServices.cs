@@ -184,7 +184,12 @@ public class SectionServices:MonoBehaviour  {
 	/// A IEnumerable list of all the Sections found from the identifier of the mindMap that was passed as a parameter
 	/// </returns>
 	public IEnumerable<Section> GetSections(Int64 mindmapId){
-		return _connection.Table<Section>().Where(x => x.mindmapId == mindmapId);
+		return _connection.Query<Section> ("select * from Section where mindmapId = " + mindmapId +" ORDER BY creationDate ASC");
+	}
+
+	public IEnumerable<Section> GetAllSections(){
+		return _connection.Table<Section>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+
 	}
 
 	/// <summary>

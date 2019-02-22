@@ -118,9 +118,15 @@ public class AnswerServices : MonoBehaviour  {
 
 		//valueToResponse = 2
 
-		return _connection.Table<Answer>().Where(x => x.questionId == questionId);
+		return _connection.Query<Answer> ("select * from Answer where questionId = " + questionId +" ORDER BY creationDate ASC");
 	}
 
+	public IEnumerable<Answer> GetAllAnswers(){
+
+		//valueToResponse = 2 
+
+		return _connection.Table<Answer>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+	}
 	/// <summary>
 	/// Description of the method to delete a Answer
 	/// </summary>

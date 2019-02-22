@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using System;
 
 public class SelectGame : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class SelectGame : MonoBehaviour
     private DOTweenAnimation newGameCtrl;
 
     private CourseServices _courseServices;
+
+    private SyncServices _syncServices;
     
 	public GameObject _notData, _syncprefab, _syncSucc, _noConn;
 
@@ -32,6 +35,8 @@ public class SelectGame : MonoBehaviour
     {
 
         _courseServices = new CourseServices();
+
+        _syncServices = new SyncServices();
 
         DOTween.Init();
         // EXAMPLE B: initialize with custom settings, and set capacities immediately
@@ -63,6 +68,7 @@ public class SelectGame : MonoBehaviour
             if (isConn)
             {
                 DOTween.Play("bg_outSyncYes");
+                DOTween.Play("bg_outSyncYes2");
                 StartCoroutine(waitForYesValidation(obj));
                 Debug.Log("Yes validation");   
             } else {
@@ -132,28 +138,45 @@ public class SelectGame : MonoBehaviour
     private IEnumerator waitForExitValidation(GameObject go, bool isSync, bool isConn)
     {
         yield return new WaitForSeconds(0.5f);
-        DestroyImmediate(go);
+        
         if (isSync)
         {
             if (isConn)
             {
-                GameObject obj = Instantiate(_syncSucc, _TextTransform);
-                StartCoroutine(DeletePrefab(obj));
+                _syncServices.sendDataToSync();
+                StartCoroutine(waitToSync(go));
             }else {
                 GameObject obj = Instantiate(_noConn, _TextTransform);
                 StartCoroutine(DeletePrefab(obj));
             }
            
+        } else{
+            DestroyImmediate(go);
         }
+    }
+
+    private IEnumerator waitToSync(GameObject go)
+    {
+        yield return new WaitUntil(()=> DataBaseParametersCtrl.Ctrl.isQueryOk == true);
+        DataBaseParametersCtrl.Ctrl.isQueryOk = false; 
+        StartCoroutine(DeleteMsg(go)); 
+    }
+
+    private IEnumerator DeleteMsg(GameObject go)
+    {
+        DOTween.Play("bg_syncExit");
+        yield return new WaitForSeconds(0.5f);	
+        DestroyImmediate(go);
+        GameObject obj = Instantiate(_syncSucc, _TextTransform);
+        StartCoroutine(DeletePrefab(obj));
+        Debug.Log("sync lista");
     }
 
     private IEnumerator waitForYesValidation(GameObject go)
     {
         //aquí debo calcular el tiempo de esperar de la respuesta del servidor 
         //e implementar el método de envio de datos al servicio remoto
-        yield return new WaitForSeconds(2.0f);
-        DOTween.Play("bg_syncExit");
-        Debug.Log("Sync Finished");
+        yield return new WaitForSeconds(0.5f);
         StartCoroutine(waitForExitValidation(go, true, true));
     }
 

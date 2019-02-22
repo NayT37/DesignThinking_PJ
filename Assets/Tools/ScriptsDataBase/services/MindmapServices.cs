@@ -150,6 +150,13 @@ public class MindmapServices:MonoBehaviour  {
 		}
 	}
 
+	public IEnumerable<Mindmap> GetAllMindmaps(){
+
+		//valueToResponse = 2 
+
+		return _connection.Table<Mindmap>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+	}
+
 
 	/// <summary>
 	/// Description of the method to obtain all the notes of a specific project
@@ -181,7 +188,7 @@ public class MindmapServices:MonoBehaviour  {
 
 		//valueToResponse = 2
 		
-		return _connection.Table<Mindmap>().Where(x => x.storytellingId == storytellingid);
+		return _connection.Query<Mindmap> ("select * from Mindmap where storytellingId = " + storytellingid +" ORDER BY creationDate ASC");
 	}
 	/// <summary>
 	/// Description of the method to obtain all the notes of a specific project

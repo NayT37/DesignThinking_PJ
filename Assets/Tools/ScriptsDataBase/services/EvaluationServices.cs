@@ -139,6 +139,13 @@ public class EvaluationServices:MonoBehaviour  {
 			return e;
 	}
 
+	public IEnumerable<Evaluation> GetAllEvaluations(){
+
+		//valueToResponse = 2 
+
+		return _connection.Table<Evaluation>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+	}
+
 
 	/// <summary>
 	/// Description of the method to delete a evaluation

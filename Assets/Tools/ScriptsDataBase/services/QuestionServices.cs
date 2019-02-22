@@ -146,7 +146,14 @@ public class QuestionServices:MonoBehaviour  {
 		
 		//valueToResponse = 3
 
-		return _connection.Table<Question>().Where(x => x.evaluationId == evaluationId);
+		return _connection.Query<Question> ("select * from Question where evaluationId = " + evaluationId +" ORDER BY creationDate ASC");
+	}
+
+	public IEnumerable<Question> GetAllQuestions(){
+		
+		//valueToResponse = 3
+
+		return _connection.Table<Question>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
 	}
 
 	/// <summary>

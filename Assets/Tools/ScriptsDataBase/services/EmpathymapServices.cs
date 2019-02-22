@@ -97,6 +97,13 @@ public class EmpathymapServices:MonoBehaviour {
 		return _connection.Table<Empathymap>().Where(x => x.projectId == projectId).FirstOrDefault();
 	}
 
+	public IEnumerable<Empathymap> GetAllEmpathymaps(){
+
+		//valueToResponse = 2 
+
+		return _connection.Table<Empathymap>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+	}
+
 	/// <summary>
 	/// Description of the method to delete a empathymap
 	/// </summary>

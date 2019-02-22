@@ -126,9 +126,15 @@ public class SectorServices:MonoBehaviour  {
 	public IEnumerable<Sector> GetSectors(Int64 empathymapId){
 
 		//valueToResponse = 2
-		return _connection.Table<Sector>().Where(x => x.empathymapId == empathymapId);
+		return _connection.Query<Sector> ("select * from Sector where empathymapId = " + empathymapId +" ORDER BY creationDate ASC");
 	}
 
+	public IEnumerable<Sector> GetAllSectors(){
+
+		//valueToResponse = 2
+		return _connection.Table<Sector>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+
+	}
 	/// <summary>
 	/// Description of the method to delete a empathymap
 	/// </summary>

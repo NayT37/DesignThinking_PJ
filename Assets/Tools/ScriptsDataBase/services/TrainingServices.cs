@@ -120,6 +120,26 @@ public class TrainingServices:MonoBehaviour  {
 	}
 
 	/// <summary>
+	/// Description of the method to obtain all the trainings of a specific group
+	/// </summary>
+	/// <param name="groupId">
+	/// integer to define the identifier of the group from which all the related courses will be brought.
+	/// <returns>
+	/// A IEnumerable list of all the Trainings found from the identifier of the group that was passed as a parameter
+	/// </returns>
+	public IEnumerable<Training> GetAllTrainings(){
+
+		//valueToResponse = 3
+
+		var result = _connection.Table<Training>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+
+		
+		return result;
+	}
+
+
+
+	/// <summary>
 	/// (This is a test method) Description of the method to obtain all the Training
 	/// </summary>
 	/// <returns>

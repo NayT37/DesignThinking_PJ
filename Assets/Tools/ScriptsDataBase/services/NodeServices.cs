@@ -90,7 +90,14 @@ public class NodeServices:MonoBehaviour  {
 	/// </returns>
 	public IEnumerable<Node> GetNodes(Int64 sectionId){
 		//valueToResponse = 2
-		return _connection.Table<Node>().Where(x => x.sectionId == sectionId);
+		return _connection.Query<Node> ("select * from Node where sectionId = " + sectionId +" ORDER BY creationDate ASC");
+	}
+
+	public IEnumerable<Node> GetAllNodes(){
+
+		//valueToResponse = 2 
+
+		return _connection.Table<Node>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
 	}
 
 	/// <summary>

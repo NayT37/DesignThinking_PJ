@@ -90,6 +90,13 @@ public class ProblemServices:MonoBehaviour  {
 		return _connection.Table<Problem>().Where(x => x.projectId == projectId).FirstOrDefault();
 	}
 
+	public IEnumerable<Problem> GetAllProblems(){
+
+		//valueToResponse = 2
+
+		return _connection.Table<Problem>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+	}
+
 	/// <summary>
 	/// (This is a test method) Description of the method to obtain all the Problem
 	/// </summary>

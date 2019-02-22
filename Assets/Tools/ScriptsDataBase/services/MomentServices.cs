@@ -106,7 +106,14 @@ public class MomentServices:MonoBehaviour  {
 	/// </returns>
 	public IEnumerable<Moment> GetMoments(Int64 caseId){
 		//valueToResponse = 2
-		return _connection.Table<Moment>().Where(x => x.caseId == caseId);
+		return _connection.Query<Moment> ("select * from Moment where caseId = " + caseId +" ORDER BY creationDate ASC");
+	}
+
+	public IEnumerable<Moment> GetAllMoments(){
+
+		//valueToResponse = 2 
+
+		return _connection.Table<Moment>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
 	}
 
 	/// <summary>

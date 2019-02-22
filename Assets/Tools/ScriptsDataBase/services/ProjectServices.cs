@@ -211,7 +211,14 @@ public class ProjectServices:MonoBehaviour  {
 		
 		//valueToResponse = 2
 		
-		return _connection.Table<Project>().Where(x => x.id == projectid).OrderBy(x => x.creationDate);;
+		return _connection.Table<Project>().Where(x => x.id == projectid).OrderBy(x => x.creationDate);
+	}
+
+	public IEnumerable<Project> GetAllProjects(){
+		
+		//valueToResponse = 2
+		
+		return _connection.Table<Project>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
 	}
 	
 	/// <summary>
@@ -240,7 +247,7 @@ public class ProjectServices:MonoBehaviour  {
 
 		//valueToResponse = 4
 		Int64 groupid = DataBaseParametersCtrl.Ctrl._groupLoaded.id;
-		return _connection.Table<Project>().Where(x => x.groupId == groupid);
+		return _connection.Query<Project> ("select * from Project where groupId = " + groupid +" ORDER BY creationDate ASC");
 	}
 
 	/// <summary>

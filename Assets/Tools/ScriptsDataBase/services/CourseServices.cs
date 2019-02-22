@@ -196,7 +196,7 @@ public class CourseServices : MonoBehaviour  {
 	public IEnumerable<Course> GetCourses(){
 
 		string teacherId = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
-		return _connection.Table<Course>().Where(x => x.teacherIdentityCard == teacherId).OrderBy(x => x.creationDate);
+		return _connection.Query<Course> ("select * from Course where teacherIdentityCard = " + teacherId +" ORDER BY creationDate ASC");
 
 		//valueToResponse = 3
 
@@ -206,6 +206,13 @@ public class CourseServices : MonoBehaviour  {
 		//StartCoroutine(GetToDB("getTeacherCourses/", teacherId, 3));
 
 		//return _coursesLoaded;
+	}
+
+	public IEnumerable<Course> GetAllCourses(){
+
+		//valueToResponse = 2 
+
+		return _connection.Query<Course> ("select * from Course where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
 	}
 
 
