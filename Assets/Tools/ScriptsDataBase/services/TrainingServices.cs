@@ -36,7 +36,7 @@ public class TrainingServices:MonoBehaviour  {
 	/// An integer response of the query (0 = the training was not created correctly. 15 = the training was created correctly and its respective cases and moments too.!-- [>=100] = the training was created correctlly but some case was not created and so its moments neither)
 	/// </returns>
 
-	public int CreateTraining(int groupid){
+	public int CreateTraining(Int64 groupid){
 
 		//valueToResponse = 1
 		
@@ -87,7 +87,7 @@ public class TrainingServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type group with all the data of the group that was searched and if doesnt exist so return an empty group.
 	/// </returns>
-	public Training GetTrainingId(int trainingid){
+	public Training GetTrainingId(Int64 trainingid){
 		
 		//valueToResponse = 2
 
@@ -107,7 +107,7 @@ public class TrainingServices:MonoBehaviour  {
 	/// <returns>
 	/// A IEnumerable list of all the Trainings found from the identifier of the group that was passed as a parameter
 	/// </returns>
-	public Training GetTraining(int groupId){
+	public Training GetTraining(Int64 groupId){
 
 		//valueToResponse = 3
 
@@ -156,7 +156,7 @@ public class TrainingServices:MonoBehaviour  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateTraining(int trainingid){
+	public int UpdateTraining(Int64 trainingid){
 
 		var _groupServices = new GroupServices();
 

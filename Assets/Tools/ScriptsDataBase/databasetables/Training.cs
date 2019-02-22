@@ -5,11 +5,11 @@ public class Training
 {
 
     [PrimaryKey]
-    public int id { get; set; }
+    public Int64 id { get; set; }
     public string name { get; set; }
     public int percentage { get; set; }
     public string creationDate { get; set; }
-    public int groupId { get; set; }
+    public Int64 groupId { get; set; }
     public string lastUpdate { get; set; }
 
     /* public int id;

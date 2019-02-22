@@ -41,7 +41,7 @@ public class ProblemServices:MonoBehaviour  {
 
 		//The identifier of the project is obtained to be able to pass 
 		//it as an attribute in the new problem that will be created
-		int projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
+		Int64 projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 
 		//Get the current date to create the new problem
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -83,7 +83,7 @@ public class ProblemServices:MonoBehaviour  {
 	/// <returns>
 	/// A IEnumerable list of all the Problems found from the identifier of the project that was passed as a parameter
 	/// </returns>
-	public Problem GetProblem(int projectId){
+	public Problem GetProblem(Int64 projectId){
 
 		//valueToResponse = 2
 
@@ -100,7 +100,7 @@ public class ProblemServices:MonoBehaviour  {
 
 		//valueToResponse = 3
 
-		int projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
+		Int64 projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 		return _connection.Table<Problem>().Where(x => x.projectId == projectid).Count();
 	}
 
@@ -116,7 +116,7 @@ public class ProblemServices:MonoBehaviour  {
 
 		//valueToResponse = 4
 
-		int problemid = problemToDelete.id;
+		Int64 problemid = problemToDelete.id;
 		// All the fields belonging to the problem that will be deleted are obtained.
 		var fields = _fieldServices.GetFields(problemid);
 

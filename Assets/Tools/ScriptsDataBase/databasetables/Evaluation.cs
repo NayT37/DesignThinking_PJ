@@ -6,13 +6,13 @@ public class Evaluation
 {
 
     [PrimaryKey]
-    public int id { get; set; }
+    public Int64 id { get; set; }
 
     public string category { get; set; }
     public int percentage { get; set; }
     public string creationDate { get; set; }
 
-    public int mindMapId { get; set; }
+    public Int64 mindMapId { get; set; }
     public string lastUpdate { get; set; }
 
     public override string ToString()

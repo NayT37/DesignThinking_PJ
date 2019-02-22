@@ -97,6 +97,7 @@ public class Ctrl_LoadGame : MonoBehaviour
         if (r != 1)
         {
             DOTween.Play("bg_outSyncYes");
+            DOTween.Play("bg_outSyncYes2");
             // courses = _courseServices.GetCourses();
             StartCoroutine(waitForExitValidation(obj, true, value));
             Debug.Log("Yes validation");
@@ -119,23 +120,31 @@ public class Ctrl_LoadGame : MonoBehaviour
     private IEnumerator waitForExitValidation(GameObject go, bool isDelete, int value)
     {
         yield return new WaitForSeconds(0.5f);
-        DestroyImmediate(go);
         if (isDelete)
         {
-			
 			int lengthCourses = _prefabsCourses.Length;
 			DeletePrefabs(lengthCourses);
             GameObject obj = Instantiate(_msgDelete, _textParent);
             StartCoroutine(DeletePrefab(obj));
             _courseServices.DeleteCourse();
-            StartCoroutine(waitToDeleteCourse());
+            StartCoroutine(waitToDeleteCourse(go));
+        } else{
+			DestroyImmediate(go);
         }
     }
 
-    private IEnumerator waitToDeleteCourse()
+    private IEnumerator DeleteMsg(GameObject go)
+    {
+		DOTween.Play("bg_syncExit");
+        yield return new WaitForSeconds(0.5f);	
+        DestroyImmediate(go);
+    }
+
+    private IEnumerator waitToDeleteCourse(GameObject go)
     {
         yield return new WaitUntil(()=> DataBaseParametersCtrl.Ctrl.isQueryOk == true);
-        DataBaseParametersCtrl.Ctrl.isQueryOk = false;  
+        DataBaseParametersCtrl.Ctrl.isQueryOk = false; 
+        StartCoroutine(DeleteMsg(go)); 
         Debug.Log("Curso eliminado");
 		callToGetCourses();
     }
@@ -182,27 +191,34 @@ public class Ctrl_LoadGame : MonoBehaviour
     {
         courses = _courseServices.GetCourses();
         int countercourses = _courseServices.GetCoursesCount();
-
         _prefabsCourses = new GameObject[countercourses];
 		_courses = new Course[countercourses];
-        
-        int counter = 0;
 
-        DOTween.Play("bgLoadCourses");
-		StartCoroutine(waitToDeleteLoadCourse());
-
-        foreach (var item in courses)
+        if (_prefabsCourses.Length == 0)
         {
-            Debug.Log(item.name);
-            var SetName = Instantiate(prefab_Curse, parent_group.transform);
-            SetName.name = counter.ToString();
-            _courses[counter] = item; 
-			_prefabsCourses[counter] = SetName;
-            counter++;
-            SetName.GetComponentInChildren<Text>().text = item.name;
-            SetName.GetComponentInChildren<Button>().onClick.AddListener(delegate { GetCoursePressed(SetName.name, item.name); });
-            SetName.transform.GetChild(1).GetComponentInChildren<Button>().onClick.AddListener(delegate { DeleteCoursePressed(SetName.name); });
-            Debug.Log("name" + item.name);
+            StartCoroutine(BackOne());
+        } else
+        {
+            int counter = 0;
+
+            DOTween.Play("bgLoadCourses");
+            StartCoroutine(waitToDeleteLoadCourse());
+
+            foreach (var item in courses)
+            {
+                Debug.Log(item.name);
+                var SetName = Instantiate(prefab_Curse, parent_group.transform);
+                SetName.name = counter.ToString();
+                _courses[counter] = item; 
+                _prefabsCourses[counter] = SetName;
+                counter++;
+                SetName.GetComponentInChildren<Text>().text = item.name;
+                SetName.GetComponentInChildren<Button>().onClick.AddListener(delegate { GetCoursePressed(SetName.name, item.name); });
+                SetName.transform.GetChild(1).GetComponentInChildren<Button>().onClick.AddListener(delegate { DeleteCoursePressed(SetName.name); });
+                Debug.Log("name" + item.name);
+            }
         }
+        
+        
     }
 }

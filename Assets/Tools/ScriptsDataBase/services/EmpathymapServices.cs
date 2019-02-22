@@ -40,7 +40,7 @@ public class EmpathymapServices:MonoBehaviour {
 
 		//The identifier of the project is obtained to be able to pass 
 		//it as an attribute in the new empathymap that will be created
-		int projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
+		Int64 projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 
 		//Get the current date to create the new empathymap
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -90,7 +90,7 @@ public class EmpathymapServices:MonoBehaviour {
 	/// <returns>
 	/// An object of type Empathymap found from the identifier of the project that was passed as a parameter
 	/// </returns>
-	public Empathymap GetEmpathyMap(int projectId){
+	public Empathymap GetEmpathyMap(Int64 projectId){
 
 		//valueToResponse = 2
 
@@ -109,7 +109,7 @@ public class EmpathymapServices:MonoBehaviour {
 
 		//valueToResponse = 3
 
-		int empathymapid = empathymapToDelete.id;
+		Int64 empathymapid = empathymapToDelete.id;
 
 		// All the sectors belonging to the empathymap that will be deleted are obtained.
 		var sectors = _sectorServices.GetSectors(empathymapid);

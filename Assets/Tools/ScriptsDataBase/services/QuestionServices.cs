@@ -71,7 +71,7 @@ public class QuestionServices:MonoBehaviour  {
 
 		//The identifier of the evaluation is obtained to be able to pass 
 		//it as an attribute in the new question that will be created
-		int evaluationid = DataBaseParametersCtrl.Ctrl._evaluationLoaded.id;
+		Int64 evaluationid = DataBaseParametersCtrl.Ctrl._evaluationLoaded.id;
 
 		//Get the current date to create the new question
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -121,7 +121,7 @@ public class QuestionServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type question with all the data of the question that was searched and if doesnt exist so return an empty question.
 	/// </returns>
-	public Question GetQuestionId(int questionid){
+	public Question GetQuestionId(Int64 questionid){
 
 		//valueToResponse = 2
 		
@@ -142,7 +142,7 @@ public class QuestionServices:MonoBehaviour  {
 	/// <returns>
 	/// A IEnumerable list of all the Questions found from the identifier of the evaluation that was passed as a parameter
 	/// </returns>
-	public IEnumerable<Question> GetQuestions(int evaluationId){
+	public IEnumerable<Question> GetQuestions(Int64 evaluationId){
 		
 		//valueToResponse = 3
 
@@ -161,7 +161,7 @@ public class QuestionServices:MonoBehaviour  {
 
 		//valueToResponse = 4
 
-		int questionid = questionToDelete.id;
+		Int64 questionid = questionToDelete.id;
 
 		int result = _connection.Delete(questionToDelete);
 
@@ -194,7 +194,7 @@ public class QuestionServices:MonoBehaviour  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateQuestion(int questionid){
+	public int UpdateQuestion(Int64 questionid){
 
 		var q = GetQuestionId(questionid);
 		int result = 0;

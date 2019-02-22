@@ -66,7 +66,7 @@ public class NoteServices:MonoBehaviour  {
 
 		//The identifier of the storytellind is obtained to be able to pass 
 		//it as an attribute in the new note that will be created
-		int storytellingid = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
+		Int64 storytellingid = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
 
 		//Get the current date to create the new empathymap
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -110,7 +110,7 @@ public class NoteServices:MonoBehaviour  {
 
 		//valueToResponse = 2 
 
-		int storytellingId = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
+		Int64 storytellingId = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
 		return _connection.Table<Note>().Where(x => x.storytellingId == storytellingId);
 	}
 
@@ -126,7 +126,7 @@ public class NoteServices:MonoBehaviour  {
 
 		//valueToResponse = 3
 
-		int storytellingId = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
+		Int64 storytellingId = DataBaseParametersCtrl.Ctrl._storyTellingLoaded.id;
 		return _connection.Table<Note>().Where(x => x.storytellingId == storytellingId).Count();
 	}
 
@@ -139,7 +139,7 @@ public class NoteServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type section with all the data of the section that was searched and if doesnt exist so return an empty section.
 	/// </returns>
-	public int GetNotesToPosition(int storyTellingid){
+	public int GetNotesToPosition(Int64 storyTellingid){
 		
 		int counter = _connection.Table<Note>().Where(x => x.storytellingId == storyTellingid).Where(x => x.position != 0).Count();
 		return counter;

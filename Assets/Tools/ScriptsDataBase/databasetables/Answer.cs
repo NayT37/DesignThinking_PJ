@@ -6,14 +6,14 @@ public class Answer
 {
 
     [PrimaryKey]
-    public int id { get; set; }
+    public Int64 id { get; set; }
 
     public int counter { get; set; }
     public int value { get; set; }
     public string creationDate { get; set; }
     public string lastUpdate { get; set; }
 
-    public int questionId { get; set; }
+    public Int64 questionId { get; set; }
     /* 	 
         public int id ;
 

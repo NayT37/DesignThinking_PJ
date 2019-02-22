@@ -74,7 +74,7 @@ public class FieldServices:MonoBehaviour  {
 
 		//The identifier of the project is obtained to be able to pass 
 		//it as an attribute in the new problem that will be created
-		int problemid = DataBaseParametersCtrl.Ctrl._problemLoaded.id;
+		Int64 problemid = DataBaseParametersCtrl.Ctrl._problemLoaded.id;
 
 		//Get the current date to create the new field
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -112,7 +112,7 @@ public class FieldServices:MonoBehaviour  {
 	/// <returns>
 	/// A IEnumerable list of all the Problems found from the identifier of the project that was passed as a parameter
 	/// </returns>
-	public IEnumerable<Field> GetFields(int problemId){
+	public IEnumerable<Field> GetFields(Int64 problemId){
 		
 		//valueToResponse = 2
 
@@ -152,7 +152,7 @@ public class FieldServices:MonoBehaviour  {
 
 		var _problemServices = new ProblemServices();
 		
-		int problemid = DataBaseParametersCtrl.Ctrl._problemLoaded.id;
+		Int64 problemid = DataBaseParametersCtrl.Ctrl._problemLoaded.id;
 		
 		var fields = GetFields(problemid);
 

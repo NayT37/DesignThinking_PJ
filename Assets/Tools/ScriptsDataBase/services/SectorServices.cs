@@ -67,7 +67,7 @@ public class SectorServices:MonoBehaviour  {
 
 		//The identifier of the empathymap is obtained to be able to pass 
 		//it as an attribute in the new sector that will be created
-		int empathymapid = DataBaseParametersCtrl.Ctrl._empathyMapLoaded.id;
+		Int64 empathymapid = DataBaseParametersCtrl.Ctrl._empathyMapLoaded.id;
 
 		//Get the current date to create the new empathymap
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
@@ -110,7 +110,7 @@ public class SectorServices:MonoBehaviour  {
 	/// </returns>
 	public int GetSectorWithDescription(){
 
-		int empathymapid = DataBaseParametersCtrl.Ctrl._empathyMapLoaded.id;	
+		Int64 empathymapid = DataBaseParametersCtrl.Ctrl._empathyMapLoaded.id;	
 		int counter = _connection.Table<Sector>().Where(x => x.empathymapId == empathymapid).Where(x => x.description != "").Count();
 		return counter;
 	}
@@ -123,7 +123,7 @@ public class SectorServices:MonoBehaviour  {
 	/// <returns>
 	/// A IEnumerable list of all the sectorsa found from the identifier of the empathyMap that was passed as a parameter
 	/// </returns>
-	public IEnumerable<Sector> GetSectors(int empathymapId){
+	public IEnumerable<Sector> GetSectors(Int64 empathymapId){
 
 		//valueToResponse = 2
 		return _connection.Table<Sector>().Where(x => x.empathymapId == empathymapId);

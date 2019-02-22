@@ -85,6 +85,7 @@ public class Ctrl_Edit_Group : MonoBehaviour {
         int r = int.Parse(res);
         if (r!=1){
             DOTween.Play("bg_outSyncYes");
+			DOTween.Play("bg_outSyncYes2");
             StartCoroutine(waitForExitValidation(obj, true));
             Debug.Log("Yes validation");   
             
@@ -104,18 +105,32 @@ public class Ctrl_Edit_Group : MonoBehaviour {
 	private IEnumerator waitForExitValidation(GameObject go, bool isDelete)
     {
         yield return new WaitForSeconds(0.5f);
-        DestroyImmediate(go);
         if (isDelete)
         {
             GameObject obj = Instantiate(_msgDelete, _textParent);
+			StartCoroutine(DeleteMsg(go));
             StartCoroutine(DeletePrefab(obj));
-			var result = _groupServices.DeleteGroup ();
-			if (result != 0) {
-				SceneManager.LoadScene ("Edit_Curse");
-			}
-        }
+			_groupServices.DeleteGroup ();
+			StartCoroutine(waitToDeleteGroup(go));
+			
+        } else{
+			DestroyImmediate(go);
+		}
     }
 
+	private IEnumerator waitToDeleteGroup(GameObject go)
+    {
+        yield return new WaitUntil(()=> DataBaseParametersCtrl.Ctrl.isQueryOk == true);
+        DataBaseParametersCtrl.Ctrl.isQueryOk = false; 
+        StartCoroutine(DeleteMsg(go)); 
+		SceneManager.LoadScene ("Edit_Curse");
+			
+    }
 
-
+    private IEnumerator DeleteMsg(GameObject go)
+    {
+		DOTween.Play("bg_syncExit");
+        yield return new WaitForSeconds(0.5f);	
+        DestroyImmediate(go);
+    }
 }

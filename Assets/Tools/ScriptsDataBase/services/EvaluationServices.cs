@@ -54,7 +54,7 @@ public class EvaluationServices:MonoBehaviour  {
 
 		//The identifier of the mindmap is obtained to be able to pass 
 		//it as an attribute in the new evaluation that will be created
-		int mindmapid = DataBaseParametersCtrl.Ctrl._mindMapLoaded.id;
+		Int64 mindmapid = DataBaseParametersCtrl.Ctrl._mindMapLoaded.id;
 
 		//DataBaseParametersCtrl.Ctrl.createEvaluation();
 
@@ -108,7 +108,7 @@ public class EvaluationServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type evaluation with all the data of the evaluation that was searched and if doesnt exist so return an empty evaluation.
 	/// </returns>
-	public Evaluation GetEvaluationNamed(int mindmapId){
+	public Evaluation GetEvaluationNamed(Int64 mindmapId){
 
 		//valueToResponse = 2
 		
@@ -129,7 +129,7 @@ public class EvaluationServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type evaluation with all the data of the evaluation that was searched and if doesnt exist so return an empty evaluation.
 	/// </returns>
-	public Evaluation GetEvaluationId( int evaluationid){
+	public Evaluation GetEvaluationId( Int64 evaluationid){
 		
 		var e = _connection.Table<Evaluation>().Where(x => x.id == evaluationid).FirstOrDefault();
 
@@ -152,7 +152,7 @@ public class EvaluationServices:MonoBehaviour  {
 
 		//valueToResponse = 3
 
-		int evaluationid = evaluationToDelete.id;
+		Int64 evaluationid = evaluationToDelete.id;
 
 		int result = _connection.Delete(evaluationToDelete);
 
