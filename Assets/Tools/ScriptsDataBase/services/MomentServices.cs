@@ -113,7 +113,7 @@ public class MomentServices:MonoBehaviour  {
 
 		//valueToResponse = 2 
 
-		return _connection.Table<Moment>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+		return _connection.Query<Moment> ("select * from Moment where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
 	}
 
 	/// <summary>

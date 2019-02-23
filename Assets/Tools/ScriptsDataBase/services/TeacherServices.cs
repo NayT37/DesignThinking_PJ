@@ -104,21 +104,17 @@ public class TeacherServices:MonoBehaviour  {
 				Debug.Log("Validar en base de datos local");
 				
 						DataBaseParametersCtrl.Ctrl._teacherLoggedIn = t;
-						DataBaseParametersCtrl.Ctrl.isQueryOk = true;
 						return t;
 			}
 		} else {
 				Debug.Log("Validar en base de datos local....");
 				
-				Debug.Log(t);
 				if (t == null){
 					Debug.Log("El profesor no existe en base de datos local");
-					DataBaseParametersCtrl.Ctrl.isQueryOk = true;
 					return _nullTeacher;
 					
 				}else{
 					DataBaseParametersCtrl.Ctrl._teacherLoggedIn = t;
-					DataBaseParametersCtrl.Ctrl.isQueryOk = true;
 					return t;
 				}
 		}

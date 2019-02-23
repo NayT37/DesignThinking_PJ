@@ -70,6 +70,7 @@ public class CaseServices : MonoBehaviour
                 lastUpdate = "null"
         }
     };
+    private int counterCases = 0;
 
 
 
@@ -170,8 +171,28 @@ public class CaseServices : MonoBehaviour
 
 		//valueToResponse = 2 
 
-		return _connection.Table<Case>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
-	}
+        var cases = _connection.Table<Case>();
+
+		List<Case> finalCases = new List<Case>();
+
+        foreach (var item in cases)
+        {
+            if (item.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard))
+            {
+                finalCases.Add(item);
+                counterCases++;
+            }
+        }
+
+        return finalCases;
+        
+        }
+
+        public int GetAllCasesCount(){
+
+        return counterCases;
+        
+    }
 
     /// <summary>
     /// Description of the method to delete a case

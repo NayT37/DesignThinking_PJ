@@ -97,7 +97,7 @@ public class NodeServices:MonoBehaviour  {
 
 		//valueToResponse = 2 
 
-		return _connection.Table<Node>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+		return _connection.Query<Node> ("select * from Node where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
 	}
 
 	/// <summary>

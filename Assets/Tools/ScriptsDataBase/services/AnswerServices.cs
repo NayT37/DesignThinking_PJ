@@ -125,7 +125,7 @@ public class AnswerServices : MonoBehaviour  {
 
 		//valueToResponse = 2 
 
-		return _connection.Table<Answer>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+		return _connection.Query<Answer> ("select * from Answer where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
 	}
 	/// <summary>
 	/// Description of the method to delete a Answer

@@ -223,9 +223,8 @@ public class CourseServices : MonoBehaviour  {
 	/// </returns>
 	public int GetCoursesCount(){
 
-		string teacherId = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
-		return _connection.Table<Course>().Where(x => x.teacherIdentityCard == teacherId).Count();
-
+		return _connection.Query<Course> ("select * from Course where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC").Count;
+	
 		//valueToResponse = 4
 
 		// string teacherId = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;

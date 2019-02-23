@@ -218,7 +218,14 @@ public class ProjectServices:MonoBehaviour  {
 		
 		//valueToResponse = 2
 		
-		return _connection.Table<Project>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+		return _connection.Query<Project> ("select * from Course where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
+	}
+
+	public int GetAllProjectsCount(){
+		
+		//valueToResponse = 2
+		
+		return _connection.Query<Project> ("select * from Course where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC").Count;
 	}
 	
 	/// <summary>

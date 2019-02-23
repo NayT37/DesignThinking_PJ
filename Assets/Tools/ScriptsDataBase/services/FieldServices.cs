@@ -123,7 +123,7 @@ public class FieldServices:MonoBehaviour  {
 
 		//valueToResponse = 2 
 
-		return _connection.Table<Field>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+		return _connection.Query<Field> ("select * from Field where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
 	}
 
 	/// <summary>
