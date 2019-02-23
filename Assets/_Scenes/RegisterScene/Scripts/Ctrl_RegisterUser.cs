@@ -52,8 +52,8 @@ public class Ctrl_RegisterUser : MonoBehaviour
         string name = userName.text;
         string password = passName.text;
 
-        userName.text = name = "perri@gmail.com";
-        passName.text = password = "123456";
+        // userName.text = name = "perri@gmail.com";
+        // passName.text = password = "123456";
 
         //Debug.Log(passName.text+ " .... "+ password);
         bool isFirstTime = _checkFirstTime.isOn;
@@ -64,7 +64,7 @@ public class Ctrl_RegisterUser : MonoBehaviour
             bool isConn = DataBaseParametersCtrl.Ctrl.doConnection();
             bool doOtherMethod = false;
             var teacher = new Teacher();
-            GameObject objLoad = Instantiate(_loadUser, _parentText);
+            //GameObject objLoad = Instantiate(_loadUser, _parentText);
             if (isFirstTime)
             {
                 if (isConn)

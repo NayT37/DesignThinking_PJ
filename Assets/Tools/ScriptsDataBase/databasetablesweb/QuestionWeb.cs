@@ -22,7 +22,7 @@ public class QuestionWeb  {
 	public Int64 evaluationId;
 	public string lastUpdate;
 
-	public string category {get; set; }
+	public string category ;
 
 	public override string ToString ()
 	{
