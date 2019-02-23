@@ -17,7 +17,7 @@ public class EvaluationWeb
 
      	public Int64 id;
 
-        public string category {get; set; }
+        public string category;
         public int percentage;
         public string creationDate;
 

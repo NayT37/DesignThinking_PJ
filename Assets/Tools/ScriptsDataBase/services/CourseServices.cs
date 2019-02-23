@@ -215,13 +215,31 @@ public class CourseServices : MonoBehaviour  {
 		return _connection.Query<Course> ("select * from Course where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
 	}
 
+	public int GetCoursesCount(){
+
+		string teacherId = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
+		return _connection.Query<Course> ("select * from Course where teacherIdentityCard = " + teacherId +" ORDER BY creationDate ASC").Count;
+
+		//valueToResponse = 4
+
+		// string teacherId = DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard;
+
+		// //Conexión con base de datos en web 
+		// GetToDB("getCoursesCount", teacherId, 4);
+
+		// while (!isQueryOk){}
+		// isQueryOk = false;
+		// return resultToDB;
+
+	}
+
 
 	/// <summary>
 	/// Description of the method to obtain number the groups of a specific course
 	/// </summary>
 	/// A IEnumerable list of all the courses found from the identifier of the teacher loggedIn
 	/// </returns>
-	public int GetCoursesCount(){
+	public int GetAllCoursesCount(){
 
 		return _connection.Query<Course> ("select * from Course where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC").Count;
 	
