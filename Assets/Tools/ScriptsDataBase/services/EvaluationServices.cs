@@ -143,7 +143,14 @@ public class EvaluationServices:MonoBehaviour  {
 
 		//valueToResponse = 2 
 
-		return _connection.Table<Evaluation>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+		return _connection.Query<Evaluation> ("select * from Evaluation where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
+	}
+
+	public int GetAllEvaluationsCount(){
+
+		//valueToResponse = 2 
+
+		return _connection.Query<Evaluation> ("select * from Evaluation where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC").Count;
 	}
 
 

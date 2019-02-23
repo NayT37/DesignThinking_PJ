@@ -133,10 +133,10 @@ public class Ctrl_RegisterUser : MonoBehaviour
         GameObject objLoad = Instantiate(_loadUser, _parentText);
         Debug.Log("Waiting to get Teacher...");
         yield return new WaitUntil(() => DataBaseParametersCtrl.Ctrl.isQueryOk == true);
+        DataBaseParametersCtrl.Ctrl.isQueryOk = false;
         DestroyImmediate(objLoad);
         _panelBlock.SetActive(false);
         teacher = DataBaseParametersCtrl.Ctrl._teacherLoggedIn;
-        DataBaseParametersCtrl.Ctrl.isQueryOk = false;
          if (teacher.identityCard.Equals("null"))
                 {
                     //DOTween.Play("7");

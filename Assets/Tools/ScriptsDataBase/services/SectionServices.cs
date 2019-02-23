@@ -188,8 +188,8 @@ public class SectionServices:MonoBehaviour  {
 	}
 
 	public IEnumerable<Section> GetAllSections(){
-		return _connection.Table<Section>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
-
+		return _connection.Query<Section> ("select * from Section where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
+	
 	}
 
 	/// <summary>

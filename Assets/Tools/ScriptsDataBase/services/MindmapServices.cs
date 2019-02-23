@@ -154,7 +154,14 @@ public class MindmapServices:MonoBehaviour  {
 
 		//valueToResponse = 2 
 
-		return _connection.Table<Mindmap>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+		return _connection.Query<Mindmap> ("select * from Mindmap where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
+	}
+
+	public int GetAllMindmapsCount(){
+
+		//valueToResponse = 2 
+
+		return _connection.Query<Mindmap> ("select * from Mindmap where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC").Count;
 	}
 
 

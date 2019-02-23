@@ -133,7 +133,10 @@ public class StorytellingServices:MonoBehaviour  {
 			counter++;
 		}
 
-		result = (sum/counter);
+		if (sum != 0)
+		{
+			result = (sum/counter);	
+		}
 		return result;
 	}
 
@@ -157,8 +160,14 @@ public class StorytellingServices:MonoBehaviour  {
 
 		//valueToResponse = 2
 
-		return _connection.Table<StoryTelling>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+		return _connection.Query<StoryTelling> ("select * from Course where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
+	}
 
+	public int GetAllStoryTellingsCount(){
+
+		//valueToResponse = 2
+
+		return _connection.Query<StoryTelling> ("select * from Course where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC").Count;
 	}
 
 

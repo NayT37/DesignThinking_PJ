@@ -153,7 +153,7 @@ public class QuestionServices:MonoBehaviour  {
 		
 		//valueToResponse = 3
 
-		return _connection.Table<Question>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+		return _connection.Query<Question> ("select * from Question where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
 	}
 
 	/// <summary>

@@ -18,6 +18,8 @@ public class GroupServices : MonoBehaviour
 
     private ProjectServices _projectServices = new ProjectServices();
 
+    private int counterGroups = 0;
+
     private Group _nullGroup = new Group
     {
         id = 0,
@@ -226,8 +228,8 @@ public class GroupServices : MonoBehaviour
     /// </returns>
     public IEnumerable<Group> GetGroups(Int64 courseId)
     {
-
-        return _connection.Query<Group> ("select * from Group where courseId = " + courseId +" ORDER BY creationDate ASC");
+        return _connection.Table<Group>().Where(x => x.courseId == courseId).OrderBy(t => t.creationDate);
+        // return _connection.Query<Group> ("select * from Group where courseId = " + courseId.ToString() +" ORDER BY creationDate ASC");
 
     }
 
@@ -235,8 +237,28 @@ public class GroupServices : MonoBehaviour
 
 		//valueToResponse = 2 
 
-		return _connection.Table<Group>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
-	}
+		var groups = _connection.Table<Group>();
+
+        List<Group> finalGroups = new List<Group>();
+
+        foreach (var item in groups)
+        {
+            if (item.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard))
+            {
+                finalGroups.Add(item);
+                counterGroups++;
+            }
+        }
+
+        return finalGroups;
+    
+    }
+
+    public int GetAllGroupsCount(){
+
+        return counterGroups;
+        
+    }
 
     /// <summary>
     /// Description of the method to obtain all the groups of a specific course

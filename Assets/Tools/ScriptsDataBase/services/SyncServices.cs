@@ -57,6 +57,10 @@ public class SyncServices : MonoBehaviour  {
 
 		var courses = _courseServices.GetAllCourses();
 		var groups = _groupServices.GetAllGroups();
+
+		int counterGroups = _groupServices.GetAllGroupsCount();
+
+		Debug.Log(counterGroups);
 		var trainings = _trainingServices.GetAllTrainings();
 		var cases = _caseServices.GetAllCases();
 		var moments = _momentServices.GetAllMoments();
@@ -75,16 +79,16 @@ public class SyncServices : MonoBehaviour  {
 		var questions = _questionServices.GetAllQuestions();
 		var answers = _answerServices.GetAllAnswers();
 
-		foreach (var item in courses)
-		{
-			Debug.Log(item);
-		}
+		// foreach (var item in courses)
+		// {
+		// 	Debug.Log(item);
+		// }
 
-		ObjectToSend objToSend = new ObjectToSend();
+		// ObjectToSend objToSend = new ObjectToSend();
 
-		objToSend.courses = courses;
+		// objToSend.courses = courses;
 
-		Debug.Log(JsonUtility.ToJson(objToSend));
+		// Debug.Log(JsonUtility.ToJson(objToSend));
 	}
 
 	public void setDBToWeb(string methodToCall, int valueToResponse, ObjectToSend group){
