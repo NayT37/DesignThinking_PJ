@@ -109,7 +109,6 @@ public class TeacherServices:MonoBehaviour  {
 		} else {
 				Debug.Log("Validar en base de datos local....");
 				
-				Debug.Log(t);
 				if (t == null){
 					Debug.Log("El profesor no existe en base de datos local");
 					return _nullTeacher;
