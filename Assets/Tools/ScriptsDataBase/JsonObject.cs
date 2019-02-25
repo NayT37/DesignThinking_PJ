@@ -2,6 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#region RESPONSES SYNC
+
+[Serializable]
+public class ResponseSync {
+	public bool error;
+	public string msg;
+}
+#endregion
+
 #region RESPONSE TEACHER
 [Serializable]
 public class ResponseGetTeacher {
