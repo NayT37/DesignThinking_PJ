@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.IO;
 #endif
-using System.Collections.Generic;
+
 
 public class SyncServices : MonoBehaviour  {
 
@@ -485,9 +485,7 @@ public class SyncServices : MonoBehaviour  {
 		objToSend.Question = questionsweb;
 		objToSend.Answer = answersweb;
 
-		Debug.Log(JsonUtility.ToJson(objToSend));
-
-		//setDBToWeb("/sync", 0, objToSend)
+		setDBToWeb("sync", 0, objToSend);
 	}
 
 	public void setDBToWeb(string methodToCall, int valueToResponse, ObjectToSend obj){
@@ -496,7 +494,7 @@ public class SyncServices : MonoBehaviour  {
 		string json = JsonUtility.ToJson (obj, true);
 		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
 		if (postRequest != null){
-			
+			Debug.Log(postRequest.method);
 			StartCoroutine (waitDB_ToSendData (postRequest));
 			
 		}
@@ -506,7 +504,7 @@ public class SyncServices : MonoBehaviour  {
 
 	private UnityWebRequest SetJsonForm (string json, string method) {
 		try {
-			UnityWebRequest web = UnityWebRequest.Put ("url sync method" + method, json);
+			UnityWebRequest web = UnityWebRequest.Put ("https://evening-scrubland-94987.herokuapp.com/" + method, json);
 			web.SetRequestHeader ("Content-Type", "application/json");
 			Debug.Log(json);
 			return web;
@@ -516,6 +514,8 @@ public class SyncServices : MonoBehaviour  {
 	}
 
 	IEnumerator waitDB_ToSendData (UnityWebRequest www) {
+
+		Debug.Log("entranod coroutine");
         using (www) {
             yield return www.SendWebRequest ();
 			while (!www.isDone) {
@@ -528,6 +528,7 @@ public class SyncServices : MonoBehaviour  {
                 resp = JsonUtility.FromJson<ResponseSync> (www.downloadHandler.text);
             } catch { }
 
+				Debug.Log(www.downloadHandler.text);
             //Validacion de la informacion obtenida
             if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
                 Debug.Log (www.error);

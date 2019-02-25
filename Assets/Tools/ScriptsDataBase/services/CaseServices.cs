@@ -164,7 +164,7 @@ public class CaseServices : MonoBehaviour
 
         //valueToResponse = 3
 
-        return _connection.Query<Case> ("select * from Case where trainingId = " + trainingId +" ORDER BY creationDate ASC");
+        return _connection.Table<Case>().Where(x => x.trainingId == trainingId).OrderBy(m => m.creationDate);
     }
 
     public IEnumerable<Case> GetAllCases(){

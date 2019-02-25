@@ -36,7 +36,8 @@ public class SelectGame : MonoBehaviour
 
         _courseServices = new CourseServices();
 
-        _syncServices = new SyncServices();
+        var goSync = gameObject.AddComponent<SyncServices>();
+        _syncServices = goSync.GetComponent<SyncServices>();
 
         DOTween.Init();
         // EXAMPLE B: initialize with custom settings, and set capacities immediately
