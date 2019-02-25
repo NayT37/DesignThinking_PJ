@@ -12,26 +12,26 @@ using System.Collections.Generic;
 [System.Serializable]
 public class ObjectToSend
 {
-    public CourseWeb[] courses;
+    public CourseWeb[] Course;
 
-    public GroupWeb[] groups;
+    public GroupWeb[] Group;
 
-    public TrainingWeb[] trainings;
-    public CaseWeb[] cases;
-    public MomentWeb[] moments;
-    public ProjectWeb[] projects;
-    public PublicWeb[] publics;
-    public EmpathymapWeb[] empathymaps;
-    public SectorWeb[] sectors;
-    public ProblemWeb[] problems;
-    public FieldWeb[] fields;
-    public StoryTellingWeb[] storytellings;
-    public NoteWeb[] notes;
-    public MindmapWeb[] mindmaps;
-    public SectionWeb[] sections;
-    public NodeWeb[] nodes;
-    public EvaluationWeb[] evaluations;
-    public QuestionWeb[] questions;
-    public AnswerWeb[] answers;
+    public TrainingWeb[] Training;
+    public CaseWeb[] Case;
+    public MomentWeb[] Moment;
+    public ProjectWeb[] Project;
+    public PublicWeb[] Public;
+    public EmpathymapWeb[] Empathymap;
+    public SectorWeb[] Sector;
+    public ProblemWeb[] Problem;
+    public FieldWeb[] Field;
+    public StoryTellingWeb[] Storytelling;
+    public NoteWeb[] Note;
+    public MindmapWeb[] Mindmap;
+    public SectionWeb[] Section;
+    public NodeWeb[] Node;
+    public EvaluationWeb[] Evaluation;
+    public QuestionWeb[] Question;
+    public AnswerWeb[] Answer;
         
 }

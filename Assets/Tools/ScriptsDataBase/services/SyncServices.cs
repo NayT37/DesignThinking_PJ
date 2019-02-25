@@ -465,33 +465,35 @@ public class SyncServices : MonoBehaviour  {
 
 		ObjectToSend objToSend = new ObjectToSend();
 
-		objToSend.courses = coursesweb;
-		objToSend.groups = groupsweb;
-		objToSend.trainings = trainingsweb;
-		objToSend.cases = casesweb;
-		objToSend.moments = momentsweb;
-		objToSend.projects = projectsweb;
-		objToSend.publics = publicsweb;
-		objToSend.problems = problemsweb;
-		objToSend.fields = fieldsweb;
-		objToSend.empathymaps = empathymapsweb;
-		objToSend.sectors = sectorsweb;
-		objToSend.storytellings = storytellingsweb;
-		objToSend.notes = notesweb;
-		objToSend.mindmaps = mindmapsweb;
-		objToSend.sections = sectionsweb;
-		objToSend.nodes = nodesweb;
-		objToSend.evaluations = evaluationsweb;
-		objToSend.questions = questionsweb;
-		objToSend.answers = answersweb;
+		objToSend.Course = coursesweb;
+		objToSend.Group = groupsweb;
+		objToSend.Training = trainingsweb;
+		objToSend.Case = casesweb;
+		objToSend.Moment = momentsweb;
+		objToSend.Project = projectsweb;
+		objToSend.Public = publicsweb;
+		objToSend.Problem = problemsweb;
+		objToSend.Field = fieldsweb;
+		objToSend.Empathymap = empathymapsweb;
+		objToSend.Sector = sectorsweb;
+		objToSend.Storytelling = storytellingsweb;
+		objToSend.Note = notesweb;
+		objToSend.Mindmap = mindmapsweb;
+		objToSend.Section = sectionsweb;
+		objToSend.Node = nodesweb;
+		objToSend.Evaluation = evaluationsweb;
+		objToSend.Question = questionsweb;
+		objToSend.Answer = answersweb;
 
 		Debug.Log(JsonUtility.ToJson(objToSend));
+
+		//setDBToWeb("/sync", 0, objToSend)
 	}
 
-	public void setDBToWeb(string methodToCall, int valueToResponse, ObjectToSend group){
+	public void setDBToWeb(string methodToCall, int valueToResponse, ObjectToSend obj){
 
 		//UserData tempUser = new UserData (player.id, player.cycle, game);
-		string json = JsonUtility.ToJson (group, true);
+		string json = JsonUtility.ToJson (obj, true);
 		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
 		if (postRequest != null){
 			
@@ -504,7 +506,7 @@ public class SyncServices : MonoBehaviour  {
 
 	private UnityWebRequest SetJsonForm (string json, string method) {
 		try {
-			UnityWebRequest web = UnityWebRequest.Put (DataBaseParametersCtrl.Ctrl._ipServer + method, json);
+			UnityWebRequest web = UnityWebRequest.Put ("url sync method" + method, json);
 			web.SetRequestHeader ("Content-Type", "application/json");
 			Debug.Log(json);
 			return web;
@@ -520,10 +522,10 @@ public class SyncServices : MonoBehaviour  {
 				yield return null;
 			}
             // Transformar la informacion obtenida (json) a Object (Response Class)
-			ResponseCreateGroup resp = null;
+			ResponseSync resp = null;
 			
             try {
-                resp = JsonUtility.FromJson<ResponseCreateGroup> (www.downloadHandler.text);
+                resp = JsonUtility.FromJson<ResponseSync> (www.downloadHandler.text);
             } catch { }
 
             //Validacion de la informacion obtenida
