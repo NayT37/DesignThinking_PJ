@@ -53,14 +53,14 @@ public class M1_Ctrl : MonoBehaviour
             _arraySectors[counter] = item;
             Debug.Log(_arraySectors[counter].ToString());
             _checkByPanel[counter] = GameObject.Find("Zones").transform.GetChild(counter).Find("CheckObj").gameObject;
-            if (item.description.Equals(""))
+            if (!item.description.Equals(""))
             {
                 if (isCheck)
                 {
                     ChMainHUD.instance.SetLimitCtrl(2);
                     isCheck = false;
                 }
-                _checkByPanel[counter].SetActive(false);
+                _checkByPanel[counter].SetActive(true);
             }
             counter++;
         }
