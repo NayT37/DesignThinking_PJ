@@ -190,6 +190,8 @@ public class Ctrl_LoadGame : MonoBehaviour
     {
         courses = _courseServices.GetCourses();
         int countercourses = _courseServices.GetCoursesCount();
+
+        Debug.Log(countercourses);
         _prefabsCourses = new GameObject[countercourses];
 		_courses = new Course[countercourses];
 

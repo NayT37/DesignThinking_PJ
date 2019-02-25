@@ -98,7 +98,7 @@ public class PublicServices:MonoBehaviour  {
 
 	public IEnumerable<Public> GetAllPublics(){
 
-		return _connection.Table<Public>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+		return _connection.Query<Public> ("select * from Public where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
 	}
 
 	/// <summary>

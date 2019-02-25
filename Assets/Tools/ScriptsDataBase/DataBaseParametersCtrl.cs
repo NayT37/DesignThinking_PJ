@@ -207,7 +207,4 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 
 		//return db.Query<Val> ("select 'Price' as 'Money', 'Time' as 'Date' from Valuation where StockId = ?", stock.Id);​
 	}
-
-
-
 }

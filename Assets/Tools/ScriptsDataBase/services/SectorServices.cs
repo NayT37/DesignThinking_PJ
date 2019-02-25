@@ -132,8 +132,8 @@ public class SectorServices:MonoBehaviour  {
 	public IEnumerable<Sector> GetAllSectors(){
 
 		//valueToResponse = 2
-		return _connection.Table<Sector>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
-
+		return _connection.Query<Sector> ("select * from Sector where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
+	
 	}
 	/// <summary>
 	/// Description of the method to delete a empathymap

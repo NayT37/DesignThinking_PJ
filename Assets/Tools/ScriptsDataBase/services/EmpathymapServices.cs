@@ -101,7 +101,7 @@ public class EmpathymapServices:MonoBehaviour {
 
 		//valueToResponse = 2 
 
-		return _connection.Table<Empathymap>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+		return _connection.Query<Empathymap> ("select * from Empathymap where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
 	}
 
 	/// <summary>

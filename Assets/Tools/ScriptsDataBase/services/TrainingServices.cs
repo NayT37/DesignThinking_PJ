@@ -131,10 +131,8 @@ public class TrainingServices:MonoBehaviour  {
 
 		//valueToResponse = 3
 
-		var result = _connection.Table<Training>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
-
-		
-		return result;
+		return _connection.Query<Training> ("select * from Training where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
+	
 	}
 
 

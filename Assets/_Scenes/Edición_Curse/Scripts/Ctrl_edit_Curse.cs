@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.XR;
 using Vuforia;
+using System;
+
 public class Ctrl_edit_Curse : MonoBehaviour
 {
 
@@ -36,14 +38,17 @@ public class Ctrl_edit_Curse : MonoBehaviour
         // texCourse = GameObject.Find ("titleCourse").GetComponent<Text> ();
         // texCourse.text = "CURSO: " + Main_Ctrl.instance.NameCourse;
 
-        var courseId = DataBaseParametersCtrl.Ctrl._courseLoaded.id;
+        Int64 courseId = DataBaseParametersCtrl.Ctrl._courseLoaded.id;
 
         int countergroups = _GroupServices.GetGroupsCounter(courseId);
+
+        Debug.Log(countergroups);
 
         _arrayGroup = new Group[countergroups];
 
         var counter = 0;
         var groups = _GroupServices.GetGroups(courseId);
+
         foreach (var item in groups)
         {
             var setName = Instantiate(prefab_editCurse, parent_Group.transform);

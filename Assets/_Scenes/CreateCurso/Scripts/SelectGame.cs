@@ -157,8 +157,11 @@ public class SelectGame : MonoBehaviour
 
     private IEnumerator waitToSync(GameObject go)
     {
+        Debug.Log(DataBaseParametersCtrl.Ctrl.isQueryOk);
+        Debug.Log("antes de borrar todo");
         yield return new WaitUntil(()=> DataBaseParametersCtrl.Ctrl.isQueryOk == true);
         DataBaseParametersCtrl.Ctrl.isQueryOk = false; 
+        Debug.Log("después de borrar todo");
         StartCoroutine(DeleteMsg(go)); 
     }
 

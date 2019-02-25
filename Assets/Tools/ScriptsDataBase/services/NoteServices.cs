@@ -118,7 +118,14 @@ public class NoteServices:MonoBehaviour  {
 
 		//valueToResponse = 2 
 
-		return _connection.Table<Note>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+		return _connection.Query<Note> ("select * from Note where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
+	}
+
+	public int GetAllNotesCount(){
+
+		//valueToResponse = 2 
+
+		return _connection.Query<Note> ("select * from Note where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC").Count;
 	}
 
 	/// <summary>

@@ -94,7 +94,7 @@ public class ProblemServices:MonoBehaviour  {
 
 		//valueToResponse = 2
 
-		return _connection.Table<Problem>().Where(x => x.id.ToString().StartsWith(DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard));
+		return _connection.Query<Problem> ("select * from Problem where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
 	}
 
 	/// <summary>
