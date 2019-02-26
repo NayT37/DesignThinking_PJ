@@ -52,17 +52,14 @@ public class MainTinderCtrl : MiniGame_Ctrl
     {
         _canvasByRound[_finishedCanvasQuantity].SetViewTo(false);
         _finishedCanvasQuantity++;
-        print("Unity says: " + _finishedCanvasQuantity);
         UpdateProgressBar();
         if (_finishedCanvasQuantity < completeProgressValue)
         {
             _trueImg = _canvasByRound[_finishedCanvasQuantity].GetTrueImg();
             _falseImg = _canvasByRound[_finishedCanvasQuantity].GetFalseImg();
-            print("Tinder: Working in " + _finishedCanvasQuantity);
         }
         else
         {
-            print("Tinder: Its all over");
             isGameFinished = true;
             _finalCanvasTxt.gameObject.SetActive(true);
             _momentServices.UpdateMoment(100);
