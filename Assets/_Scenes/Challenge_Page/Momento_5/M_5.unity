@@ -1107,7 +1107,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1163830340429220, guid: 72802236c1c756e4a92aab88b954b315, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 72802236c1c756e4a92aab88b954b315, type: 2}
@@ -1396,7 +1396,7 @@ MonoBehaviour:
   animationType: 6
   targetType: 10
   forcedTargetType: 0
-  autoPlay: 0
+  autoPlay: 1
   useTargetAsV3: 0
   endValueFloat: 0
   endValueV3: {x: 0, y: 0, z: 0}
@@ -2230,6 +2230,11 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114454964139771772, guid: 7f9f139aaa8a71548b0ad403bf0fb146,
+        type: 2}
+      propertyPath: autoPlay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114111381946659512, guid: 7f9f139aaa8a71548b0ad403bf0fb146,
         type: 2}
       propertyPath: autoPlay
       value: 1
