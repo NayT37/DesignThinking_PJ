@@ -24,7 +24,6 @@ public class M1_Ctrl : MonoBehaviour
 
     #region SYSTEM_METHODS
     private void Start() { Initializate(); }
-    private void Update() { }
     #endregion
 
 
@@ -51,8 +50,9 @@ public class M1_Ctrl : MonoBehaviour
         foreach (var item in sectors)
         {
             _arraySectors[counter] = item;
-            Debug.Log(_arraySectors[counter].ToString());
+            //            Debug.Log(_arraySectors[counter].ToString());
             _checkByPanel[counter] = GameObject.Find("Zones").transform.GetChild(counter).Find("CheckObj").gameObject;
+            print(item.description);
             if (!item.description.Equals(""))
             {
                 if (isCheck)
@@ -61,6 +61,10 @@ public class M1_Ctrl : MonoBehaviour
                     isCheck = false;
                 }
                 _checkByPanel[counter].SetActive(true);
+            }
+            else
+            {
+                _checkByPanel[counter].SetActive(false);
             }
             counter++;
         }
