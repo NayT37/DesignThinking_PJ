@@ -18,7 +18,7 @@ public class TeacherWeb  {
 	public string email;
 	public string password;
 	public string creationDate;
-	public int headquartersId;
+	public string headquartersId;
 
 	public override string ToString ()
 	{

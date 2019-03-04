@@ -21,7 +21,7 @@ public class EvaluationWeb
         public int percentage;
         public string creationDate;
 
-        public Int64 mindMapId;
+        public Int64 mindmapId;
         public string lastUpdate;
 
  
@@ -29,7 +29,7 @@ public class EvaluationWeb
     public override string ToString()
     {
         return string.Format("[Evaluation: Id={0}, category={1},  percentage={2}, creationDate={3}, mindMapId={4}, lastUpdate={5}]",
-                                id, category, percentage, creationDate, mindMapId, lastUpdate);
+                                id, category, percentage, creationDate, mindmapId, lastUpdate);
     }
     
 

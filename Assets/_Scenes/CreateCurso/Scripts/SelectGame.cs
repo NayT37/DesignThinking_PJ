@@ -34,6 +34,8 @@ public class SelectGame : MonoBehaviour
     private void Initializate()
     {
 
+        DataBaseParametersCtrl.Ctrl.isQueryOk = false;
+
         _courseServices = new CourseServices();
 
         var goSync = gameObject.AddComponent<SyncServices>();
@@ -145,6 +147,7 @@ public class SelectGame : MonoBehaviour
             if (isConn)
             {
                 _syncServices.sendDataToSync();
+                StopAllCoroutines();
                 StartCoroutine(waitToSync(go));
                 StartCoroutine(waitToSyncNot(go));
             }else {
@@ -162,7 +165,6 @@ public class SelectGame : MonoBehaviour
         yield return new WaitUntil(()=> DataBaseParametersCtrl.Ctrl.isSyncNot == true);
         DataBaseParametersCtrl.Ctrl.isSyncNot = false; 
         Debug.Log("No sincronizó");
-        StopCoroutine("waitToSync");
         StartCoroutine(DeleteMsg(go, _syncNoSucc)); 
     }
 
@@ -171,7 +173,6 @@ public class SelectGame : MonoBehaviour
         yield return new WaitUntil(()=> DataBaseParametersCtrl.Ctrl.isQueryOk == true);
         DataBaseParametersCtrl.Ctrl.isQueryOk = false; 
         Debug.Log("Sincronización correcta");
-        StopCoroutine("waitToSyncNot");
         StartCoroutine(DeleteMsg(go, _syncSucc)); 
     }
 

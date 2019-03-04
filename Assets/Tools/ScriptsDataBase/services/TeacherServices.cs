@@ -75,7 +75,7 @@ public class TeacherServices:MonoBehaviour  {
 					email = teacherEmail,
 					password = password,
 					creationDate = date,
-					headquartersId = 1
+					headquartersId = "1"
 					};
 
 		var t = new Teacher();
@@ -97,13 +97,24 @@ public class TeacherServices:MonoBehaviour  {
 			if (t == null){
 				
 				Debug.Log("Validar en web...");
-				setDBToWeb("loginTeacher", teacherweb);
+
+				var tc = _connection.Table<Teacher>().Where(x => x.email == teacherEmail).Where(x => x.password == p).FirstOrDefault();
+
+				if (tc == null)
+				{
+					setDBToWeb("loginTeacher", teacherweb);
+				} else {
+
+					Debug.Log("El usuario ya existe en la base de datos local");
+					return tc;
+				}
 
 				return _nullTeacher;
 			} else {
 				Debug.Log("Validar en base de datos local");
 				
 						DataBaseParametersCtrl.Ctrl._teacherLoggedIn = t;
+						DataBaseParametersCtrl.Ctrl.isQueryOk = true;
 						return t;
 			}
 		} else {
@@ -115,6 +126,7 @@ public class TeacherServices:MonoBehaviour  {
 					
 				}else{
 					DataBaseParametersCtrl.Ctrl._teacherLoggedIn = t;
+					DataBaseParametersCtrl.Ctrl.isQueryOk = true;
 					return t;
 				}
 		}
@@ -197,13 +209,14 @@ public class TeacherServices:MonoBehaviour  {
 						documentTypeId = tw.documentTypeId,
 						names = tw.names,
 						surnames = tw.surnames,
-						phone = tw.phone,
-						address = tw.address,
+						phone = "",
+						address = "",
 						email = tw.email,
 						password = tw.password,
 						creationDate = tw.creationDate,
-						headquartersId = tw.headquartersId,
+						headquartersId = int.Parse(tw.headquartersId),
 						};
+						
 						int result = _connection.Insert(newT);
 						if (result!=0){
 							DataBaseParametersCtrl.Ctrl._teacherLoggedIn = newT;

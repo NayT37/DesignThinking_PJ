@@ -74,6 +74,8 @@ public class StorytellingServices:MonoBehaviour  {
 		//it as an attribute in the new empathymap that will be created
 		Int64 projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 
+		Debug.Log(projectid + "..... projectId");
+
 		//Get the current date to create the new storytelling
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
 

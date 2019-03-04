@@ -98,16 +98,99 @@ public class DataBaseParametersCtrl : MonoBehaviour
         if (Ctrl == null)
         {
             Ctrl = this;
-			_ipServer = "http://emprendimientovalle.com/designBack/services/";
-			isWaitingToDB = true;
-			isNotTeacherExist = false;
+            _ipServer = "http://emprendimientovalle.com/designBack/services/";
+            isWaitingToDB = true;
+            isNotTeacherExist = false;
 			isSyncNot = false;
-			Salt = "EHS-dpa";
-			_dataServices = new DataService ("dtdbtemplate.db");
-			_sqliteConnection = _dataServices._connection;
-			isQueryOk = false;
-        } else if (Ctrl != null)
-            Destroy (gameObject);
+            Salt = "EHS-dpa";
+            _dataServices = new DataService("dtdbtemplate.db");
+            _sqliteConnection = _dataServices._connection;
+            isQueryOk = false;
+            DontDestroyOnLoad(this);
+        }
+        else if (Ctrl != null)
+            Destroy(gameObject);
+    }
+
+    // Use this for initialization
+    void Start()
+    {
+
+
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    /// <summary>
+    /// Method to obtain date and time at moment to update any query
+    /// </summary>
+    /// <returns>
+    /// an string with the time and date with the next format (yyyy-mm-dd hh:mm:ss)
+    /// </returns>
+
+    public string GetDateTime()
+    {
+
+        DateTime theTime = System.DateTime.Now;
+
+        string date = theTime.Year + "";
+
+        if (theTime.Month < 10)
+        {
+            date += "-0" + theTime.Month;
+        }
+        else
+        {
+            date += "-" + theTime.Month;
+        }
+
+        if (theTime.Day < 10)
+        {
+            date += "-0" + theTime.Day;
+        }
+        else
+        {
+            date += "-" + theTime.Day;
+        }
+
+        string time = "";
+
+        if (theTime.Hour < 10)
+        {
+            time += "" + theTime.Hour;
+        }
+        else
+        {
+            time += "" + theTime.Month;
+        }
+
+        if (theTime.Minute < 10)
+        {
+            time += ":0" + theTime.Minute;
+        }
+        else
+        {
+            time += ":" + theTime.Minute;
+        }
+
+        if (theTime.Second < 10)
+        {
+            time += ":0" + theTime.Second;
+        }
+        else
+        {
+            time += ":" + theTime.Second;
+        }
+
+        string lastUpdateString = string.Format("{0} {1}", date, time);
+
+        return lastUpdateString;
+
     }
 
     public bool doConnection()
