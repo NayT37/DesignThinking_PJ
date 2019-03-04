@@ -96,13 +96,17 @@ public class TinderImage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         {
             _gameCtrl.selectedAnswer = true;
             //ValidateImage();
-            _gameCtrl.TrueFeedback();
+            // _gameCtrl.TrueFeedback();
+            _gameCtrl.ValidateAnswer();
+            transform.position = _originalPos;
         }
         else if (answerAxis < -250)
         {
             _gameCtrl.selectedAnswer = false;
             //ValidateImage();
-            _gameCtrl.FalseFeedback();
+            // _gameCtrl.FalseFeedback();
+            _gameCtrl.ValidateAnswer();
+            transform.position = _originalPos;
         }
         else
         {
