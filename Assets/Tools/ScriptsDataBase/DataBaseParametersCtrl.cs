@@ -83,6 +83,8 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 
 	public bool isQueryOk;
 
+	public bool isSyncNot;
+
 	public IEnumerable<Course> _coursesLoaded;
 
 	public IEnumerable<Group> _groupsLoaded;
@@ -96,6 +98,7 @@ public class DataBaseParametersCtrl : MonoBehaviour {
 			_ipServer = "http://emprendimientovalle.com/designBack/services/";
 			isWaitingToDB = true;
 			isNotTeacherExist = false;
+			isSyncNot = false;
 			Salt = "EHS-dpa";
 			_dataServices = new DataService ("dtdbtemplate.db");
 			_sqliteConnection = _dataServices._connection;

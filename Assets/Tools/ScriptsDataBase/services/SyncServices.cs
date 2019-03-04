@@ -454,15 +454,6 @@ public class SyncServices : MonoBehaviour  {
 
 		}
 		
-		
-		
-		
-
-		// foreach (var item in courses)
-		// {
-		// 	Debug.Log(item);
-		// }
-
 		ObjectToSend objToSend = new ObjectToSend();
 
 		objToSend.Course = coursesweb;
@@ -515,7 +506,7 @@ public class SyncServices : MonoBehaviour  {
 
 	IEnumerator waitDB_ToSendData (UnityWebRequest www) {
 
-		Debug.Log("entranod coroutine");
+		Debug.Log("entrando coroutine");
         using (www) {
             yield return www.SendWebRequest ();
 			while (!www.isDone) {
@@ -532,6 +523,7 @@ public class SyncServices : MonoBehaviour  {
             //Validacion de la informacion obtenida
             if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
                 Debug.Log (www.error);
+				DataBaseParametersCtrl.Ctrl.isSyncNot = true;
                 try {
 
                 } catch (System.Exception e) { Debug.Log (e); }
@@ -542,10 +534,12 @@ public class SyncServices : MonoBehaviour  {
                 if (!resp.error) { // sin error en el servidor
 					DataBaseParametersCtrl.Ctrl.isQueryOk = true;
                     } else { // no existen usuarios
+						DataBaseParametersCtrl.Ctrl.isSyncNot = true;
                     }
 
                 } else { //Error en el servidor de base de datos
                     // Debug.Log ("user error: " + resp.error);
+					DataBaseParametersCtrl.Ctrl.isSyncNot = true;
                     try {
 
                     } catch { }

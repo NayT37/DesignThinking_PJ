@@ -188,6 +188,8 @@ public class TeacherServices:MonoBehaviour  {
 
 				if (resp != null) { // Informacion obtenida exitosamente
 					if (!resp.error) { // sin error en el servidor
+
+						Debug.Log(resp.teacher);
 						var tw = resp.teacher;
 
 						Teacher newT = new Teacher(){

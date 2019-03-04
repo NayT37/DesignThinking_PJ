@@ -52,8 +52,8 @@ public class Ctrl_RegisterUser : MonoBehaviour
         string name = userName.text;
         string password = passName.text;
 
-        // userName.text = name = "perri@gmail.com";
-        // passName.text = password = "123456";
+        // userName.text = name = "nengo@gmail.com";
+        // passName.text = password = "ñengo123";
 
         //Debug.Log(passName.text+ " .... "+ password);
         bool isFirstTime = _checkFirstTime.isOn;
