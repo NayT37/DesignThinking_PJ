@@ -58,6 +58,16 @@ public class SyncServices : MonoBehaviour  {
 
 	public void sendDataToSync(){
 
+		// var p = new Project();
+		// p.id = 1143866996193823;
+		// p.name = "item.name";
+		// p.percentage = 0;
+		// p.groupId = 1143866996547930;
+
+		// DataBaseParametersCtrl.Ctrl._projectLoaded = p;
+
+		// _projectServices.DeleteProject(p);
+
 		var courses = _courseServices.GetAllCourses();
 
 		counterCourses = _courseServices.GetAllCoursesCount();
@@ -94,7 +104,7 @@ public class SyncServices : MonoBehaviour  {
 		} else {
 			trainingsweb = new TrainingWeb[counterGroups];
 			casesweb = new CaseWeb[counterGroups*3];
-			momentsweb = new MomentWeb[counterCourses*15];
+			momentsweb = new MomentWeb[counterGroups*15];
 
 			var trainings = _trainingServices.GetAllTrainings();
 			var cases = _caseServices.GetAllCases();
@@ -416,7 +426,7 @@ public class SyncServices : MonoBehaviour  {
 				cw.category = item.category;
 				cw.percentage = item.percentage;
 				cw.creationDate = item.creationDate;
-				cw.mindMapId = item.mindMapId;
+				cw.mindmapId = item.mindmapId;
 				cw.lastUpdate = item.lastUpdate;
 				evaluationsweb[countevaluations] = cw;
 				countevaluations++;
@@ -452,17 +462,9 @@ public class SyncServices : MonoBehaviour  {
 				countaswers++;
 			}
 
+
 		}
 		
-		
-		
-		
-
-		// foreach (var item in courses)
-		// {
-		// 	Debug.Log(item);
-		// }
-
 		ObjectToSend objToSend = new ObjectToSend();
 
 		objToSend.Course = coursesweb;
@@ -491,7 +493,7 @@ public class SyncServices : MonoBehaviour  {
 	public void setDBToWeb(string methodToCall, int valueToResponse, ObjectToSend obj){
 
 		//UserData tempUser = new UserData (player.id, player.cycle, game);
-		string json = JsonUtility.ToJson (obj, true);
+		string json = JsonUtility.ToJson (obj, false);
 		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
 		if (postRequest != null){
 			Debug.Log(postRequest.method);
@@ -515,7 +517,7 @@ public class SyncServices : MonoBehaviour  {
 
 	IEnumerator waitDB_ToSendData (UnityWebRequest www) {
 
-		Debug.Log("entranod coroutine");
+		Debug.Log("entrando coroutine");
         using (www) {
             yield return www.SendWebRequest ();
 			while (!www.isDone) {
@@ -532,6 +534,7 @@ public class SyncServices : MonoBehaviour  {
             //Validacion de la informacion obtenida
             if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
                 Debug.Log (www.error);
+				DataBaseParametersCtrl.Ctrl.isSyncNot = true;
                 try {
 
                 } catch (System.Exception e) { Debug.Log (e); }
@@ -542,10 +545,12 @@ public class SyncServices : MonoBehaviour  {
                 if (!resp.error) { // sin error en el servidor
 					DataBaseParametersCtrl.Ctrl.isQueryOk = true;
                     } else { // no existen usuarios
+						DataBaseParametersCtrl.Ctrl.isSyncNot = true;
                     }
 
                 } else { //Error en el servidor de base de datos
                     // Debug.Log ("user error: " + resp.error);
+					DataBaseParametersCtrl.Ctrl.isSyncNot = true;
                     try {
 
                     } catch { }

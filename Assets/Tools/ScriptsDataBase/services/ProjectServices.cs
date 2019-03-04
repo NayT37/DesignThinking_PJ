@@ -207,25 +207,25 @@ public class ProjectServices:MonoBehaviour  {
 	/// <returns>
 	/// A IEnumerable list of all the Trainings found from the identifier of the group that was passed as a parameter
 	/// </returns>
-	public IEnumerable<Project> GetProjects(Int64 projectid){
+	public IEnumerable<Project> GetProjects(Int64 groupid){
 		
 		//valueToResponse = 2
 		
-		return _connection.Table<Project>().Where(x => x.id == projectid).OrderBy(x => x.creationDate);
+		return _connection.Table<Project>().Where(x => x.groupId == groupid).OrderBy(x => x.creationDate);
 	}
 
 	public IEnumerable<Project> GetAllProjects(){
 		
 		//valueToResponse = 2
 		
-		return _connection.Query<Project> ("select * from Course where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
+		return _connection.Query<Project> ("select * from Project where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
 	}
 
 	public int GetAllProjectsCount(){
 		
 		//valueToResponse = 2
 		
-		return _connection.Query<Project> ("select * from Course where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC").Count;
+		return _connection.Query<Project> ("select * from Project where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC").Count;
 	}
 	
 	/// <summary>

@@ -33,7 +33,7 @@ public class EvaluationServices:MonoBehaviour  {
 				category = "null",
 				percentage = 0,
 				creationDate = "null",
-				mindMapId = 0,
+				mindmapId = 0,
 				lastUpdate = "null"			
 		};
 	
@@ -67,7 +67,7 @@ public class EvaluationServices:MonoBehaviour  {
 				category = categoryname,
 				percentage = 100,
 				creationDate = date,
-				mindMapId = mindmapid,
+				mindmapId = mindmapid,
 				lastUpdate = date			
 		};
 
@@ -112,7 +112,7 @@ public class EvaluationServices:MonoBehaviour  {
 
 		//valueToResponse = 2
 		
-		var e = _connection.Table<Evaluation>().Where(x => x.mindMapId == mindmapId).FirstOrDefault();
+		var e = _connection.Table<Evaluation>().Where(x => x.mindmapId == mindmapId).FirstOrDefault();
 
 		if (e == null)
 			return _nullEvaluation;	

@@ -18,7 +18,7 @@ public class SelectGame : MonoBehaviour
 
     private SyncServices _syncServices;
     
-	public GameObject _notData, _syncprefab, _syncSucc, _noConn;
+	public GameObject _notData, _syncprefab, _syncSucc, _noConn, _syncNoSucc;
 
 	public Transform _TextTransform, _syncTransform;
     #endregion
@@ -33,6 +33,8 @@ public class SelectGame : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate()
     {
+
+        DataBaseParametersCtrl.Ctrl.isQueryOk = false;
 
         _courseServices = new CourseServices();
 
@@ -145,7 +147,9 @@ public class SelectGame : MonoBehaviour
             if (isConn)
             {
                 _syncServices.sendDataToSync();
+                StopAllCoroutines();
                 StartCoroutine(waitToSync(go));
+                StartCoroutine(waitToSyncNot(go));
             }else {
                 GameObject obj = Instantiate(_noConn, _TextTransform);
                 StartCoroutine(DeletePrefab(obj));
@@ -156,24 +160,29 @@ public class SelectGame : MonoBehaviour
         }
     }
 
-    private IEnumerator waitToSync(GameObject go)
+    private IEnumerator waitToSyncNot(GameObject go)
     {
-        Debug.Log(DataBaseParametersCtrl.Ctrl.isQueryOk);
-        Debug.Log("antes de borrar todo");
-        yield return new WaitUntil(()=> DataBaseParametersCtrl.Ctrl.isQueryOk == true);
-        DataBaseParametersCtrl.Ctrl.isQueryOk = false; 
-        Debug.Log("después de borrar todo");
-        StartCoroutine(DeleteMsg(go)); 
+        yield return new WaitUntil(()=> DataBaseParametersCtrl.Ctrl.isSyncNot == true);
+        DataBaseParametersCtrl.Ctrl.isSyncNot = false; 
+        Debug.Log("No sincronizó");
+        StartCoroutine(DeleteMsg(go, _syncNoSucc)); 
     }
 
-    private IEnumerator DeleteMsg(GameObject go)
+    private IEnumerator waitToSync(GameObject go)
+    {
+        yield return new WaitUntil(()=> DataBaseParametersCtrl.Ctrl.isQueryOk == true);
+        DataBaseParametersCtrl.Ctrl.isQueryOk = false; 
+        Debug.Log("Sincronización correcta");
+        StartCoroutine(DeleteMsg(go, _syncSucc)); 
+    }
+
+    private IEnumerator DeleteMsg(GameObject go, GameObject pref)
     {
         DOTween.Play("bg_syncExit");
         yield return new WaitForSeconds(0.5f);	
         DestroyImmediate(go);
-        GameObject obj = Instantiate(_syncSucc, _TextTransform);
+        GameObject obj = Instantiate(pref, _TextTransform);
         StartCoroutine(DeletePrefab(obj));
-        Debug.Log("sync lista");
     }
 
     private IEnumerator waitForYesValidation(GameObject go)
