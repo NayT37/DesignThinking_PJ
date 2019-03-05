@@ -52,7 +52,6 @@ public class M1_Ctrl : MonoBehaviour
             _arraySectors[counter] = item;
             //            Debug.Log(_arraySectors[counter].ToString());
             _checkByPanel[counter] = GameObject.Find("Zones").transform.GetChild(counter).Find("CheckObj").gameObject;
-            print(item.description);
             if (!item.description.Equals(""))
             {
                 if (isCheck)
@@ -97,7 +96,6 @@ public class M1_Ctrl : MonoBehaviour
 
     public void ActivePanelByNumber(int panelNumber, bool isActive)
     {
-        print("Active is: " + panelNumber);
 
         if (panelNumber != 0)
         {

@@ -139,6 +139,7 @@ public class GroupServices : MonoBehaviour
         {
 			id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
             name = groupname,
+            percentage = 0,
             creationDate = date,
             studentsCounter = studentscounter,
             courseId = courseid,

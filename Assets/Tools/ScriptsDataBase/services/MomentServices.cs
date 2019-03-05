@@ -130,6 +130,8 @@ public class MomentServices:MonoBehaviour  {
 
 		int result = _connection.Delete(momentToDelete);
 
+		Debug.Log("MOMENTO BORRADO --- " + result);
+
 		return result;
 	}
 

@@ -159,6 +159,8 @@ public class TrainingServices:MonoBehaviour  {
 			{
 				valueToReturn += _caseServices.DeleteCase(_case);
 			}
+
+			Debug.Log("TRAINING BORRADO --- " + result);
 		} else {
 			valueToReturn = 0;
 		}

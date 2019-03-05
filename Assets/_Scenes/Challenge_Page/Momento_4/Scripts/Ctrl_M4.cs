@@ -211,16 +211,11 @@ public class Ctrl_M4 : CtrlInternalText
 
         if (imageToBase64.Length > 10)
         {
-            Debug.Log("Si tiene imagen este mapa");
             var b64_bytes = System.Convert.FromBase64String(imageToBase64);
 
             Texture2D tex = new Texture2D(1, 1);
             tex.LoadImage(b64_bytes);
             _panelImg.SetInternalImg(tex);
-        }
-        else
-        {
-            Debug.Log("No tiene imagen este mapa");
         }
     }
 

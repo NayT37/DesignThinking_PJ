@@ -220,6 +220,8 @@ public class CaseServices : MonoBehaviour
             {
                 valueToReturn += _momentS.DeleteMoment(moment);
             }
+
+            Debug.Log("CASO BORRADO --- " + result);
         }
         else
         {

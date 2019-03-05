@@ -58,16 +58,6 @@ public class SyncServices : MonoBehaviour  {
 
 	public void sendDataToSync(){
 
-		// var p = new Project();
-		// p.id = 1143866996193823;
-		// p.name = "item.name";
-		// p.percentage = 0;
-		// p.groupId = 1143866996547930;
-
-		// DataBaseParametersCtrl.Ctrl._projectLoaded = p;
-
-		// _projectServices.DeleteProject(p);
-
 		var courses = _courseServices.GetAllCourses();
 
 		counterCourses = _courseServices.GetAllCoursesCount();
@@ -91,6 +81,8 @@ public class SyncServices : MonoBehaviour  {
 		var groups = _groupServices.GetAllGroups();
 
 		counterGroups = _groupServices.GetAllGroupsCount();
+
+		Debug.Log(counterGroups);
 
 		GroupWeb[] groupsweb = new GroupWeb[counterGroups];
 		TrainingWeb[] trainingsweb;
@@ -232,6 +224,8 @@ public class SyncServices : MonoBehaviour  {
 
 			int countstorys = _storytellingServices.GetAllStoryTellingsCount();
 
+			Debug.Log(countstorys);
+
 			storytellingsweb = new StoryTellingWeb[countstorys];
 
 			int countnots = _noteServices.GetAllNotesCount();
@@ -259,6 +253,7 @@ public class SyncServices : MonoBehaviour  {
 				cw.name = item.name;
 				cw.percentage = item.percentage;
 				cw.creationDate = item.creationDate;
+				cw.sectorName = item.sectorName;
 				cw.groupId = item.groupId;
 				cw.lastUpdate = item.lastUpdate;
 				projectsweb[countProjects] = cw;
@@ -496,7 +491,6 @@ public class SyncServices : MonoBehaviour  {
 		string json = JsonUtility.ToJson (obj, false);
 		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
 		if (postRequest != null){
-			Debug.Log(postRequest.method);
 			StartCoroutine (waitDB_ToSendData (postRequest));
 			
 		}
@@ -517,7 +511,6 @@ public class SyncServices : MonoBehaviour  {
 
 	IEnumerator waitDB_ToSendData (UnityWebRequest www) {
 
-		Debug.Log("entrando coroutine");
         using (www) {
             yield return www.SendWebRequest ();
 			while (!www.isDone) {

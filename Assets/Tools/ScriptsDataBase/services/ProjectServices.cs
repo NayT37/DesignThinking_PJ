@@ -116,7 +116,6 @@ public class ProjectServices:MonoBehaviour  {
 			if (r!=0)
 			{
 				DataBaseParametersCtrl.Ctrl._projectLoaded = new_p;
-				
 				var e = _empathyMapServices.CreateEmpathymap();
 				var s =_storytellingServices.CreateStoryTelling(1);
 
@@ -276,38 +275,32 @@ public class ProjectServices:MonoBehaviour  {
 		int valueToReturn = 0;
 
 		
-		//If the elimination of the group is correct, then the trainings and projects corresponding to that group are eliminated.
-		if (result!=0)
+		var publicToDelete = _publicServices.GetPublicNamed(projectid);
+
+		int resultPublicDeleted = _publicServices.DeletePublic(publicToDelete);
+
+		Problem problemToDelete = _problemServices.GetProblem(projectid);
+			
+		Debug.Log(problemToDelete);
+
+		if (problemToDelete != null)
 		{
-
-			var publicToDelete = _publicServices.GetPublicNamed(projectid);
-
-			int resultPublicDeleted = _publicServices.DeletePublic(publicToDelete);
-
-			Problem problemToDelete = _problemServices.GetProblem(projectid);
-			
-			Debug.Log(problemToDelete);
-
-			if (problemToDelete != null)
-			{
-				int resultProblemDeleted = _problemServices.DeleteProblem(problemToDelete);	
-			}
-
-			var storyTellingsToDelete = _storytellingServices.GetStoryTellings();
-
-			foreach (var st in storyTellingsToDelete)
-			{
-				_storytellingServices.DeleteStoryTelling(st);
-			}
-
-			var empathymapToDelete = _empathyMapServices.GetEmpathyMap(projectid);
-
-			int resultEmpathyMapToDeleted = _empathyMapServices.DeleteEmpathymap(empathymapToDelete);
-			
-			DataBaseParametersCtrl.Ctrl.isQueryOk = true;
-		} else {
-			valueToReturn = 0;
+			int resultProblemDeleted = _problemServices.DeleteProblem(problemToDelete);	
 		}
+
+		var storyTellingsToDelete = _storytellingServices.GetStoryTellings();
+
+		foreach (var st in storyTellingsToDelete)
+		{
+			DataBaseParametersCtrl.Ctrl._storyTellingLoaded = st;
+			_storytellingServices.DeleteStoryTelling(st);
+		}
+
+		var empathymapToDelete = _empathyMapServices.GetEmpathyMap(projectid);
+
+		int resultEmpathyMapToDeleted = _empathyMapServices.DeleteEmpathymap(empathymapToDelete);
+			
+		DataBaseParametersCtrl.Ctrl.isQueryOk = true;
 
 		return valueToReturn;
 	}
@@ -330,7 +323,7 @@ public class ProjectServices:MonoBehaviour  {
 		projectToUpdate.name = nameproject;
 		projectToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
-
+		Debug.Log(projectToUpdate);
 		int result = _connection.Update(projectToUpdate, projectToUpdate.GetType());
 
 		DataBaseParametersCtrl.Ctrl._projectLoaded = projectToUpdate;

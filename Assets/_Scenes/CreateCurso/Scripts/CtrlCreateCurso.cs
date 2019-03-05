@@ -54,7 +54,6 @@ public class CtrlCreateCurso : MonoBehaviour
         if (result.id != 0)
         {
             DataBaseParametersCtrl.Ctrl._courseLoaded = result;
-            Debug.Log("result " + result);
             DOTween.Play("bg_transition");
             yield return new WaitForSeconds(1.0f);
             SceneManager.LoadScene("CreateGroup");

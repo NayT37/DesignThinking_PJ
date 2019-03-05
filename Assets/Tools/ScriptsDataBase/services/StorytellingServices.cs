@@ -74,8 +74,6 @@ public class StorytellingServices:MonoBehaviour  {
 		//it as an attribute in the new empathymap that will be created
 		Int64 projectid = DataBaseParametersCtrl.Ctrl._projectLoaded.id;
 
-		Debug.Log(projectid + "..... projectId");
-
 		//Get the current date to create the new storytelling
 		string date = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
@@ -162,14 +160,14 @@ public class StorytellingServices:MonoBehaviour  {
 
 		//valueToResponse = 2
 
-		return _connection.Query<StoryTelling> ("select * from Course where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
+		return _connection.Query<StoryTelling> ("select * from Storytelling where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC");
 	}
 
 	public int GetAllStoryTellingsCount(){
 
 		//valueToResponse = 2
 
-		return _connection.Query<StoryTelling> ("select * from Course where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC").Count;
+		return _connection.Query<StoryTelling> ("select * from Storytelling where id LIKE '%" + DataBaseParametersCtrl.Ctrl._teacherLoggedIn.identityCard +"%' ORDER BY creationDate ASC").Count;
 	}
 
 
