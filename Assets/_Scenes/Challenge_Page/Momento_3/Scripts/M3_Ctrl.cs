@@ -119,7 +119,6 @@ public class M3_Ctrl : MonoBehaviour
     public void ChargeNotesToStoryTelling()
     {
         counterstorytelling = _storytellingServices.GetStoryTellingsCounters();
-        print("The counter is: " + counterstorytelling + "  and the services is: " + _storytellingServices.GetStoryTellingsCounters()); //We need to set _storytellingServices.setStoryTellingsCounter(counterStoryTelling);
         _arraystorytellings = new StoryTelling[counterstorytelling];
 
         setArrayStoryTellings();
@@ -131,7 +130,6 @@ public class M3_Ctrl : MonoBehaviour
     {
         deleteNotesPrefab();
         ChargeNotesToStoryTelling();
-        print("Array size is: " + _arraystorytellings.Length + " and we are trying to go to version: " + version);
         DataBaseParametersCtrl.Ctrl._storyTellingLoaded = _arraystorytellings[version - 1];
 
         int counternotes = _noteServices.GetNotesCounter();

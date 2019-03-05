@@ -71,7 +71,6 @@ public class Ctrl_Moment5 : MonoBehaviour {
 
 		questions = _questionServices.GetQuestions(DataBaseParametersCtrl.Ctrl._evaluationLoaded.id);
 		
-		Debug.Log("Entrando set Answers...");
 		foreach (var q in questions)
 		{
 			answers = _answerServices.GetAnswers(q.id);
@@ -79,7 +78,6 @@ public class Ctrl_Moment5 : MonoBehaviour {
 			int count = 0;
 			foreach (var a in answers)
 			{
-				Debug.Log(a.ToString());
 				answersarray[counterArray] = a.counter;
 				result+=a.counter;
 				arrayanswers[count] = a;

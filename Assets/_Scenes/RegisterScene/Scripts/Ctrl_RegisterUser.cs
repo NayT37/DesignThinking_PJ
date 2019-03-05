@@ -57,7 +57,6 @@ public class Ctrl_RegisterUser : MonoBehaviour
 
         //Debug.Log(passName.text+ " .... "+ password);
         bool isFirstTime = _checkFirstTime.isOn;
-        Debug.Log(isFirstTime);
         if (!name.Equals("") && !passName.Equals(""))
         {
             _panelBlock.SetActive(true);
@@ -90,6 +89,8 @@ public class Ctrl_RegisterUser : MonoBehaviour
 
             if (doOtherMethod)
             {
+
+                Debug.Log(teacher);
                 if (teacher.identityCard.Equals("null"))
                 {
                     //DOTween.Play("7");
@@ -108,7 +109,6 @@ public class Ctrl_RegisterUser : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log(teacher.ToString());
                     DOTween.Play("bg_transition");
                     StartCoroutine(ResgisterUser());
                 }

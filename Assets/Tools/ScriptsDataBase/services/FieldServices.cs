@@ -116,7 +116,7 @@ public class FieldServices:MonoBehaviour  {
 		
 		//valueToResponse = 2
 
-		return _connection.Query<Field> ("select * from Field where problemId = " + problemId +" ORDER BY creationDate ASC");
+		return _connection.Query<Field> ("select * from Field where problemId = " + problemId +" ORDER BY name ASC");
 	}
 
 	public IEnumerable<Field> GetAllFields(){

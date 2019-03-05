@@ -75,16 +75,16 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 			//Inicia corrutina para mostrar un feedback de lo que debe llenar
 			StartCoroutine(feedback());
 		} else {
+
+			Debug.Log(numberPerson.text);
 			//Enviar a base de datos el nuevo grupo creado con dos parametros, el nombre y el número de estudiantes por grupo
 			var group = _groupServices.CreateGroup (groupName.text.ToUpper(),int.Parse(numberPerson.text.ToString()));
 			//StartCoroutine(getIsQueryCreateGroup());
 			contador += 1;
-			Debug.Log (contador + " contador");
 			//Se devuelve el Id del grupo desde la base de datos, cuando sea 1 se guardara y cuando sea 0 es porque ese grupo
 			//ya existe
-			Debug.Log (group);
 			if (group == 1) {
-				//Iniciar corrutina, donde muestra el feedback del grupo creado
+			// 	//Iniciar corrutina, donde muestra el feedback del grupo creado
 				StartCoroutine (waitSecondsForchangeSquad ());
 			} else {
 				StartCoroutine (UserExist ());

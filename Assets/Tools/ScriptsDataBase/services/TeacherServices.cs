@@ -92,11 +92,8 @@ public class TeacherServices:MonoBehaviour  {
 
 		if (isFirstTime)
 		{
-			Debug.Log("Validar en base de datos local antes de web primero...");
 
 			if (t == null){
-				
-				Debug.Log("Validar en web...");
 
 				var tc = _connection.Table<Teacher>().Where(x => x.email == teacherEmail).Where(x => x.password == p).FirstOrDefault();
 
@@ -104,24 +101,21 @@ public class TeacherServices:MonoBehaviour  {
 				{
 					setDBToWeb("loginTeacher", teacherweb);
 				} else {
-
-					Debug.Log("El usuario ya existe en la base de datos local");
 					return tc;
 				}
 
 				return _nullTeacher;
 			} else {
-				Debug.Log("Validar en base de datos local");
 				
 						DataBaseParametersCtrl.Ctrl._teacherLoggedIn = t;
 						DataBaseParametersCtrl.Ctrl.isQueryOk = true;
 						return t;
 			}
 		} else {
-				Debug.Log("Validar en base de datos local....");
+
+				Debug.Log(t);
 				
 				if (t == null){
-					Debug.Log("El profesor no existe en base de datos local");
 					return _nullTeacher;
 					
 				}else{
@@ -141,7 +135,6 @@ public class TeacherServices:MonoBehaviour  {
 		string json = JsonUtility.ToJson (teacher, true);
 		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
 		if (postRequest != null){	
-			Debug.Log("in postNotNull");
 			StartCoroutine(waitDB_ToGetTeacher (postRequest, methodToCall));
 		}
 			
@@ -158,8 +151,6 @@ public class TeacherServices:MonoBehaviour  {
 
 			// WWW www = new WWW(DataBaseParametersCtrl.Ctrl._ipServer + method, postData, headers);
 			UnityWebRequest web = UnityWebRequest.Put (DataBaseParametersCtrl.Ctrl._ipServer + method, json);
-			Debug.Log(DataBaseParametersCtrl.Ctrl._ipServer + method);
-			Debug.Log(json);
 			web.SetRequestHeader("Access-Control-Allow-Credentials", "true");
 			web.SetRequestHeader("Access-Control-Allow-Origin", "*");
 			web.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time,Authorization");
@@ -186,7 +177,6 @@ public class TeacherServices:MonoBehaviour  {
 				
 				try {
 					resp = JsonUtility.FromJson<ResponseGetTeacher> (www.downloadHandler.text);
-					Debug.Log(www.downloadHandler.text);
 				} catch { }
 
 				 //Validacion de la informacion obtenida
@@ -201,7 +191,6 @@ public class TeacherServices:MonoBehaviour  {
 				if (resp != null) { // Informacion obtenida exitosamente
 					if (!resp.error) { // sin error en el servidor
 
-						Debug.Log(resp.teacher);
 						var tw = resp.teacher;
 
 						Teacher newT = new Teacher(){
@@ -209,8 +198,8 @@ public class TeacherServices:MonoBehaviour  {
 						documentTypeId = tw.documentTypeId,
 						names = tw.names,
 						surnames = tw.surnames,
-						phone = "",
-						address = "",
+						phone = tw.phone,
+						address = tw.password,
 						email = tw.email,
 						password = tw.password,
 						creationDate = tw.creationDate,
@@ -234,7 +223,10 @@ public class TeacherServices:MonoBehaviour  {
 						}
 
 					} else { //Error en el servidor de base de datos
-						Debug.Log ("user error: " + resp.error);
+						
+						DataBaseParametersCtrl.Ctrl._teacherLoggedIn = _nullTeacher;
+							DataBaseParametersCtrl.Ctrl.isQueryOk = true;
+							DataBaseParametersCtrl.Ctrl.isNotTeacherExist = true;
 						try {
 
 						} catch { }

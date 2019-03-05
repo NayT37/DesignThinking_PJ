@@ -42,8 +42,6 @@ public class Ctrl_edit_Curse : MonoBehaviour
 
         int countergroups = _GroupServices.GetGroupsCounter(courseId);
 
-        Debug.Log(countergroups);
-
         _arrayGroup = new Group[countergroups];
 
         var counter = 0;
@@ -61,8 +59,6 @@ public class Ctrl_edit_Curse : MonoBehaviour
             Button[] _btns = new Button[2];
             _btns = setName.GetComponentsInChildren<Button>();
 
-            Debug.Log(_btns[0].name);
-            Debug.Log(_btns[1].name);
             if (_btns[0].name.Equals("group_Open"))
             {
                 _btns[0].onClick.AddListener(delegate { openToGroup(setName.name); });
@@ -95,8 +91,6 @@ public class Ctrl_edit_Curse : MonoBehaviour
     void openToGroup(string positionToArrayGroup)
     {
         int value = int.Parse(positionToArrayGroup);
-
-        Debug.Log(_arrayGroup[value]);
         DataBaseParametersCtrl.Ctrl._groupLoaded = _arrayGroup[value];
         DataBaseParametersCtrl.Ctrl._trainingloaded = _trainingServices.GetTraining(_arrayGroup[value].id);
 

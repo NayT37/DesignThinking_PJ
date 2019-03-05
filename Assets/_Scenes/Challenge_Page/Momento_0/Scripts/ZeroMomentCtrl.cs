@@ -139,14 +139,11 @@ public class ZeroMomentCtrl : MonoBehaviour
             _sectorObj.SetActive(false);
             _publicObj.SetActive(true);
         }
-        else
-        {
-            print("Select another thing first");
-        }
 
         if (_isGenderSelected && _isAgeSelected)
         {
             //Load scene M_1
+            Debug.Log(_sectorResult);
             var project = _projectServices.UpdateProject(_sectorResult, fullnameProject);
             var _public = _publicServices.CreatePublic(_ageResult, _genderResult);
 
@@ -157,10 +154,6 @@ public class ZeroMomentCtrl : MonoBehaviour
                 temp.MomentBtnClick(1);
             }
 
-        }
-        else
-        {
-            print("Select another thing first");
         }
 
         _pageCtrl++;

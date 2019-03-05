@@ -73,7 +73,6 @@ public class SelectGame : MonoBehaviour
                 DOTween.Play("bg_outSyncYes");
                 DOTween.Play("bg_outSyncYes2");
                 StartCoroutine(waitForYesValidation(obj));
-                Debug.Log("Yes validation");   
             } else {
                 DOTween.Play("bg_syncExit");
                 Debug.Log("No validation");
@@ -90,7 +89,7 @@ public class SelectGame : MonoBehaviour
         string name = "CreateCurso";
 
         StartCoroutine(ChangeScene(name));
-		Debug.Log ("hola");}
+	}
 
     public void LoadGameBtnBhvr() { 
 
@@ -103,7 +102,6 @@ public class SelectGame : MonoBehaviour
         } else {
             GameObject obj = Instantiate(_notData, _TextTransform);
 			StartCoroutine(DeletePrefab(obj));
-			Debug.Log("No hay resultados para cargar");
         }
 
         }

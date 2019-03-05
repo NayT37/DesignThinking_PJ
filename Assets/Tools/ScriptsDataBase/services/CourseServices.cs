@@ -148,7 +148,6 @@ public class CourseServices : MonoBehaviour  {
 
 			_connection.Insert (new_c);
 			DataBaseParametersCtrl.Ctrl._courseLoaded = new_c;
-			Debug.Log(new_c);
 			return new_c;
 		} else {
 			return _nullCourse;
@@ -277,19 +276,15 @@ public class CourseServices : MonoBehaviour  {
 		int valueToReturn = 0;
 
 		//If the elimination of the course is correct, then the groups corresponding to that course are eliminated.
-		if (result!=0)
+	
+		foreach (var group in groups)
 		{
-			Debug.Log("antes del for");
-			foreach (var group in groups)
-			{
 				Debug.Log(group);
 				valueToReturn += _groupServices.DeleteGroup(group);
-			}
-			DataBaseParametersCtrl.Ctrl.isQueryOk = true;
-			Debug.Log("después del for");
-		} else {
-			valueToReturn = 0;
 		}
+		
+		DataBaseParametersCtrl.Ctrl.isQueryOk = true;
+		
 
 		return valueToReturn;
 
