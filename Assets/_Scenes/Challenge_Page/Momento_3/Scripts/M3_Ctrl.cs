@@ -228,6 +228,7 @@ public class M3_Ctrl : MonoBehaviour
     {
         string text = _editableItem.GetInternalInput().text;
 
+        //Creating New post it
         if (text != "")
         {
             _postItQntt++;
@@ -240,23 +241,18 @@ public class M3_Ctrl : MonoBehaviour
             _arrayPostit.Add(temp);
             drag.internalID = 0;
         }
+        else
+        {
+            //Editing an existing post it
+            //DB here to pass the post it
+        }
         _feedbackTxt.gameObject.SetActive(false);
         _mainPanel.SetActive(true);
         _addPostItPanel.SetActive(false);
         _editableItem.GetInternalInput().text = "";
     }
 
-    /*     public void ShowHideTabs()
-        {
-            if (counterstorytelling != 1)
-            {
-                _showTabs = !_showTabs;
-                for (int i = 1; i < counterstorytelling; i++)
-                {
-                    _mainTab.transform.GetChild(i).gameObject.SetActive(_showTabs);
-                }
-            }
-        } */
+
 
     private void GeneratePostIts(int number, IEnumerable<Note> notes)
     {

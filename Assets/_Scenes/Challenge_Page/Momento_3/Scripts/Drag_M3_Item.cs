@@ -30,6 +30,10 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     private Text _internalText;
 
     private NoteServices _noteServices;
+
+    private Button _detBtn, _editBtn;
+    private M3_Ctrl _mainCtrl;
+    private PostIt _mainPostIt;
     #endregion
 
 
@@ -56,13 +60,37 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         _internalText = GetComponentInChildren<Text>();
         transform.position = new Vector3(0, 0, 0);
         transform.localPosition = new Vector3(0, 0, 0);
+
+        _detBtn = transform.Find("EditBtn__Drag").GetComponent<Button>();
+        _editBtn = transform.Find("DetBtn__Drag").GetComponent<Button>();
+        _detBtn.onClick.AddListener(DeleteDragItem);
+        _editBtn.onClick.AddListener(EditDragItem);
+    }
+
+    private void DeleteDragItem()
+    {
+        //May be a M3 reference is required
+    }
+
+    private void EditDragItem()
+    {
+        if (_mainCtrl == null)
+        {
+            GameObject.FindObjectOfType<M3_Ctrl>();
+        }
+        _mainCtrl.AddNewPostIt();
+        if (_mainCtrl == null)
+        {
+            _mainPostIt = FindObjectOfType<PostIt>();
+        }
+        _mainPostIt.SetInternalInput(_internalText.text);
     }
 
     public virtual void resetItem()
     {
         transform.position = _initPosition;
         transform.SetParent(_originalParent);
-        _noteServices.UpdateNote(0,"");
+        _noteServices.UpdateNote(0, "");
         transform.SetAsFirstSibling();
     }
 
@@ -91,7 +119,7 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         //_parentGL.enabled = false;
         _raycastImg.raycastTarget = false;
         __viewPort.raycastTarget = false;
-        __viewPort.GetComponent<Image>().color = new Color32(255,255,255,0);
+        __viewPort.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         __viewPort.GetComponent<Mask>().enabled = false;
         //  _originalParent = _mainPanel;
 
@@ -116,7 +144,7 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         //_parentGL.enabled = true;
         itemDragged = null;
         __viewPort.raycastTarget = true;
-        __viewPort.GetComponent<Image>().color = new Color32(255,255,255,255);
+        __viewPort.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
         __viewPort.GetComponent<Mask>().enabled = true;
     }
     #endregion

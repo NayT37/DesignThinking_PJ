@@ -36,6 +36,11 @@ public class PostIt : MonoBehaviour
     {
         return _internalInput;
     }
+
+    public void SetInternalInput(string value)
+    {
+        _internalInput.text = value;
+    }
     #endregion
 
 
