@@ -187,7 +187,7 @@ public class DataBaseParametersCtrl : MonoBehaviour
             time += ":" + theTime.Second;
         }
 
-		time += ":" + theTime.Millisecond.ToString("D3");
+		time += "." + theTime.Millisecond.ToString("D3");
 
         string lastUpdateString = string.Format("{0} {1}", date, time);
 
