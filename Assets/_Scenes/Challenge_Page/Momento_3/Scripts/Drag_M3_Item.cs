@@ -69,23 +69,25 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
     private void DeleteDragItem()
     {
+        _noteServices.DeleteNote(_note);
         if (_mainCtrl == null)
         {
-            GameObject.FindObjectOfType<M3_Ctrl>();
+           _mainCtrl = GameObject.FindObjectOfType<M3_Ctrl>();
         }
         //May be a M3 reference is required
         //_mainCtrl.DestroyPostIt(this);
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 
     private void EditDragItem()
     {
+        DataBaseParametersCtrl.Ctrl._noteLoaded = _note;
         if (_mainCtrl == null)
         {
-            GameObject.FindObjectOfType<M3_Ctrl>();
+            _mainCtrl = GameObject.FindObjectOfType<M3_Ctrl>();
         }
-        _mainCtrl.AddNewPostIt();
-        _mainPostIt.SetInternalInput(_internalText.text);
+
+        _mainCtrl.updatePostIt(_internalText.text, this);
     }
 
     public virtual void resetItem()

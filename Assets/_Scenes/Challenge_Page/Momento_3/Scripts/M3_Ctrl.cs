@@ -40,6 +40,10 @@ public class M3_Ctrl : MonoBehaviour
     //Feedback text to show
     private Text _feedbackTxt;
     private GameObject _blockPanel;
+
+    private Drag_M3_Item drag;
+
+    public bool isEditPostIt;
     #endregion
 
 
@@ -57,6 +61,8 @@ public class M3_Ctrl : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate()
     {
+
+        isEditPostIt = false;
         XRSettings.enabled = false;
         VuforiaBehaviour.Instance.enabled = false;
         _changeTo = 0;
@@ -78,7 +84,6 @@ public class M3_Ctrl : MonoBehaviour
 
         _actualTab = 1;
 
-        _addPostItPanel.SetActive(false);
         _postItQntt = 0;
 
         _blockPanel = GameObject.Find("BlockPanel");
@@ -88,6 +93,8 @@ public class M3_Ctrl : MonoBehaviour
         _detIdea = GameObject.Find("DetIdea_Btn").GetComponent<Button>();
         _addIdea.onClick.AddListener(CreateNewIdea);
         _detIdea.onClick.AddListener(DeleteCurrentIdea);
+
+        _addPostItPanel.SetActive(false);
         //DB validation here
         var stCounter = _storytellingServices.GetStoryTellingsCounters();
         switch (stCounter)
@@ -218,6 +225,14 @@ public class M3_Ctrl : MonoBehaviour
             _arrayPostit.Clear();
         }
     }
+    
+    public void updatePostIt(string text, Drag_M3_Item obj){
+
+        drag = obj;
+        isEditPostIt = true;
+        _addPostItPanel.SetActive(true);
+        _editableItem.SetInternalInput(text);
+    }
 
     public void AddNewPostIt()
     {
@@ -227,13 +242,13 @@ public class M3_Ctrl : MonoBehaviour
     public void SavePostIt()
     {
         string text = _editableItem.GetInternalInput().text;
-
+        
         //Creating New post it
-        if (text != "")
+        if (text != "" && !isEditPostIt)
         {
             _postItQntt++;
             GameObject temp = Instantiate(_postIt, new Vector2(0, 0), Quaternion.identity, _contentHolder);
-            Drag_M3_Item drag = temp.GetComponent<Drag_M3_Item>();
+            drag = temp.GetComponent<Drag_M3_Item>();
             temp.transform.localScale = new Vector3(1, 1, 1);
             drag.ChangeText(text);
             var note = _noteServices.CreateNote(text);
@@ -243,6 +258,10 @@ public class M3_Ctrl : MonoBehaviour
         }
         else
         {
+            var not = DataBaseParametersCtrl.Ctrl._noteLoaded;
+            isEditPostIt = false;
+            _noteServices.UpdateNote(not.position, text);
+            drag.ChangeText(text);
             //Editing an existing post it
             //DB here to pass the post it
         }
