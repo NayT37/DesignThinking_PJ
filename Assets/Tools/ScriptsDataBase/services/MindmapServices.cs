@@ -18,7 +18,7 @@ public class MindmapServices:MonoBehaviour  {
 
 	private SectionServices _sectionServices = new SectionServices();
 
-	private string[] arraysectionsname = new string[]{"advantages","opportunities","-requirements","-how","risk_a", "risk_o"};
+	private string[] arraysectionsname = new string[]{"Section_1","Section_2","-Section_3","-Section_4","Section_5", "Section_6"};
 	private Mindmap _nullMindmap = 
 		new Mindmap{
 				id = 0,

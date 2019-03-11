@@ -376,7 +376,7 @@ public class SyncServices : MonoBehaviour  {
 				cw.percentage = item.percentage;
 				cw.creationDate = item.creationDate;
 				cw.storytellingId = item.storytellingId;
-				cw.image = item.image;
+				cw.image = "item.image";
 				cw.lastUpdate = item.lastUpdate;
 				cw.version = item.version;
 				cw.ideaDescription = item.ideaDescription;
