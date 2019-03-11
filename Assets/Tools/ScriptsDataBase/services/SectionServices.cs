@@ -156,12 +156,14 @@ public class SectionServices:MonoBehaviour  {
 	/// </returns>
 	public int GetSectionByAverage(Int64 mindmapid){
 		
-		var sections = _connection.Table<Section>().Where(x => x.mindmapId == mindmapid).Where(x => x.name.StartsWith("-"));
+		var sections = _connection.Table<Section>().Where(x => x.mindmapId == mindmapid).Where(x => x.name.StartsWith("Section_3")).FirstOrDefault();
+		var sections2 = _connection.Table<Section>().Where(x => x.mindmapId == mindmapid).Where(x => x.name.StartsWith("Section_4")).FirstOrDefault();
+
 		int counter = 0;
 
-		foreach (var s in sections)
-		{
-			var nodes = _nodeServices.GetNodes(s.id);
+		
+			var nodes = _nodeServices.GetNodes(sections.id);
+			var nodes2 = _nodeServices.GetNodes(sections2.id);
 
 			foreach (var node in nodes)
 			{
@@ -169,8 +171,14 @@ public class SectionServices:MonoBehaviour  {
 					counter++;
 				}
 			}
-		}
-		
+
+			foreach (var node2 in nodes2)
+			{
+				if (!node2.description.Equals("")){
+					counter++;
+				}
+			}
+
 		return counter;
 	}
 
