@@ -61,8 +61,8 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         transform.position = new Vector3(0, 0, 0);
         transform.localPosition = new Vector3(0, 0, 0);
 
-        _detBtn = transform.Find("EditBtn__Drag").GetComponent<Button>();
-        _editBtn = transform.Find("DetBtn__Drag").GetComponent<Button>();
+        _editBtn = transform.Find("EditBtn__Drag").GetComponent<Button>();
+        _detBtn = transform.Find("DetBtn__Drag").GetComponent<Button>();
         _detBtn.onClick.AddListener(DeleteDragItem);
         _editBtn.onClick.AddListener(EditDragItem);
     }
