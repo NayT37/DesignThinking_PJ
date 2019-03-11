@@ -110,6 +110,7 @@ public class SyncServices : MonoBehaviour  {
 				cw.id = item.id;
 				cw.name = item.name;
 				cw.percentage = item.percentage;
+				cw.studentsCounter = item.studentsCounter;
 				cw.creationDate = item.creationDate;
 				cw.courseId = item.courseId;
 				cw.lastUpdate = item.lastUpdate;
