@@ -141,14 +141,14 @@ public class ResponseCreateTraining {
 public class ResponseCreateCase {
 	public bool error;
 	public string msg;
-	public Case caseCreated;
+	public Cases caseCreated;
 }
 
 [Serializable]
 public class ResponseGetCaseId {
 	public bool error;
 	public string msg;
-	public Case _case;
+	public Cases _case;
 }
 
 
@@ -157,7 +157,7 @@ public class ResponseGetCaseId {
 public class ResponseGetCases {
 	public bool error;
 	public string msg;
-	public Case[] cases;
+	public Cases[] cases;
 }
 
 [Serializable]

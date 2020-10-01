@@ -52,7 +52,7 @@ public class NodeServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type node with all the data of the node that was created.
 	/// </returns>
-
+	private Int64 checkId;
 	public Node CreateNode(){
 
 		//valueToResponse = 1
@@ -72,13 +72,30 @@ public class NodeServices:MonoBehaviour  {
 				sectionId = sectionid,
 				lastUpdate = date			
 		};
-
+		checkId = new_n.id;
+        while (GetNodeId(checkId).id == new_n.id)
+        {
+            new_n.id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId();
+        }
 		int result = _connection.Insert (new_n);	
 		
 		return new_n;
 		
 		
 	}
+
+	public Node GetNodeId(Int64 nodeid)
+    {
+
+        //valueToResponse = 2
+
+        var n = _connection.Table<Node>().Where(x => x.id == nodeid).FirstOrDefault();
+
+        if (n == null)
+            return _nullNode;
+        else
+            return n;
+    }
 
 	/// <summary>
 	/// Description of the method to obtain all the notes of a specific section

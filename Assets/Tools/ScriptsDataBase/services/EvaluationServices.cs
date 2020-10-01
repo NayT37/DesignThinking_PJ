@@ -47,7 +47,7 @@ public class EvaluationServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type evaluation with all the data of the evaluation that was created.
 	/// </returns>
-
+	private Int64 checkId;
 	public Evaluation CreateEvaluation(string categoryname){
 
 		//valueToResponse = 1
@@ -72,7 +72,11 @@ public class EvaluationServices:MonoBehaviour  {
 		};
 
 		//Start-Validation that the query is right
-		
+		checkId = new_e.id;
+        while (GetEvaluationId(checkId).id == new_e.id)
+        {
+            new_e.id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId();
+        }
 		int result = _connection.Insert (new_e);
 
 		int questionsCounter = 10;

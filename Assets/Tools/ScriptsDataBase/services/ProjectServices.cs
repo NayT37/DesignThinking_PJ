@@ -81,7 +81,7 @@ public class ProjectServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type project with all the data of the project that was created.
 	/// </returns>
-
+	private Int64 checkId;
 	public Project CreateProject(string sectorname){
 
 		//valueToResponse = 1
@@ -111,6 +111,11 @@ public class ProjectServices:MonoBehaviour  {
 
 		//if ((projectValidation.name).Equals("null"))
 		//{
+			checkId = new_p.id;
+			while (GetProjectId(checkId).id == new_p.id)
+			{
+				new_p.id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId();
+			}
 			int r = _connection.Insert (new_p);
 
 			if (r!=0)
@@ -131,6 +136,19 @@ public class ProjectServices:MonoBehaviour  {
 			}
 		//End-Validation that the project that will be created does not exist
 	}
+
+	public Project GetProjectId(Int64 projectid)
+    {
+
+        //valueToResponse = 2
+
+        var p = _connection.Table<Project>().Where(x => x.id == projectid).FirstOrDefault();
+
+        if (p == null)
+            return _nullProject;
+        else
+            return p;
+    }
 
 	/// <summary>
 	/// Description to method Get Project with the specified name and gropuId

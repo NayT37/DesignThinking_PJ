@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.XR;
-using Vuforia;
 public class Ctrl_LoadGame : MonoBehaviour
 {
 
@@ -35,9 +34,6 @@ public class Ctrl_LoadGame : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        XRSettings.enabled = false;
-        VuforiaBehaviour.Instance.enabled = false;
-
         var goCourses = gameObject.AddComponent<CourseServices>();
         _courseServices = goCourses.GetComponent<CourseServices>();
 

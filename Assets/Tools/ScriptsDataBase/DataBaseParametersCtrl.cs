@@ -26,7 +26,7 @@ public class DataBaseParametersCtrl : MonoBehaviour
     public Training _trainingloaded;
 
     [Header("Case loaded")]
-    public Case _caseLoaded;
+    public Cases _caseLoaded;
 
     [Header("Moment loaded")]
     public Moment _momentLoaded;
@@ -195,7 +195,7 @@ public class DataBaseParametersCtrl : MonoBehaviour
 
     }
 
-    public bool doConnection()
+    public bool     doConnection()
     {
         bool isConn = false;
         if (Application.internetReachability == NetworkReachability.NotReachable)
@@ -218,7 +218,8 @@ public class DataBaseParametersCtrl : MonoBehaviour
     {
         string teacherid = _teacherLoggedIn.identityCard;
         System.Random generator = new System.Random();
-        String r = teacherid + generator.Next(000000, 999999).ToString("D6"); ;
+        int g = generator.Next(000000, 999999);
+        String r = teacherid + g.ToString("D6");
         return Convert.ToInt64(r);
     }
 

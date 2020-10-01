@@ -33,7 +33,7 @@ public class EmpathymapServices:MonoBehaviour {
 	/// <returns>
 	/// An object of type empathyMap with all the data of the empathyMap that was created.
 	/// </returns>
-
+	private Int64 checkId;
 	public Empathymap CreateEmpathymap(){
 
 		//valueToResponse = 1
@@ -55,7 +55,11 @@ public class EmpathymapServices:MonoBehaviour {
 		};
 
 		//Start-Validation that the query is right
-		
+		checkId = new_e.id;
+        while (GetEmpathymapId(checkId).id == new_e.id)
+        {
+            new_e.id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId();
+        }
 		int result = _connection.Insert (new_e);
 
 		if (result != 0)
@@ -73,6 +77,19 @@ public class EmpathymapServices:MonoBehaviour {
 		//End-Validation that the query		
 		
 	}
+
+	public Empathymap GetEmpathymapId(Int64 empathymapid)
+    {
+
+        //valueToResponse = 2
+
+        var e = _connection.Table<Empathymap>().Where(x => x.id == empathymapid).FirstOrDefault();
+
+        if (e == null)
+            return _nullEmpathymap;
+        else
+            return e;
+    }
 
 	public int GetEmpathymapAverage(){
 		

@@ -76,7 +76,6 @@ public class Ctrl_CreateGroup : MonoBehaviour {
 			StartCoroutine(feedback());
 		} else {
 
-			Debug.Log(numberPerson.text);
 			//Enviar a base de datos el nuevo grupo creado con dos parametros, el nombre y el número de estudiantes por grupo
 			var group = _groupServices.CreateGroup (groupName.text.ToUpper(),int.Parse(numberPerson.text.ToString()));
 			//StartCoroutine(getIsQueryCreateGroup());

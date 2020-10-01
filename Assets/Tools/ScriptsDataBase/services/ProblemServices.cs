@@ -34,7 +34,7 @@ public class ProblemServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type problem with all the data of the problem that was created.
 	/// </returns>
-
+	private Int64 checkId;
 	public Problem CreateProblem(string[] arrayfieldsname){
 
 		//valueToResponse = 1
@@ -56,7 +56,11 @@ public class ProblemServices:MonoBehaviour  {
 		};
 
 		//Start-Validation that the query is right
-		
+		checkId = new_p.id;
+        while (GetProblemId(checkId).id == new_p.id)
+        {
+            new_p.id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId();
+        }
 		int result = _connection.Insert (new_p);
 
 		if (result != 0)
@@ -74,6 +78,19 @@ public class ProblemServices:MonoBehaviour  {
 		//End-Validation that the query
 		
 	}
+
+	public Problem GetProblemId(Int64 problemid)
+    {
+
+        //valueToResponse = 2
+
+        var p = _connection.Table<Problem>().Where(x => x.id == problemid).FirstOrDefault();
+
+        if (p == null)
+            return _nullProblem;
+        else
+            return p;
+    }
 
 	/// <summary>
 	/// Description of the method to obtain all the problems of a specific project

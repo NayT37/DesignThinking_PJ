@@ -70,7 +70,7 @@ public class SectionServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type section with all the data of the section that was created.
 	/// </returns>
-
+	private Int64 checkId;
 	public Section CreateSection(string sectionname){
 
 		//valueToResponse = 1
@@ -91,9 +91,12 @@ public class SectionServices:MonoBehaviour  {
 				isOptional = false,
 				lastUpdate = date			
 		};
-
 		//Start-Validation that the query is right
-		
+		checkId = new_s.id;
+        while (GetSectionId(checkId).id == new_s.id)
+        {
+            new_s.id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId();
+        }
 		int result = _connection.Insert (new_s);
 
 		int count = 0;
@@ -155,9 +158,13 @@ public class SectionServices:MonoBehaviour  {
 	/// An object of type section with all the data of the section that was searched and if doesnt exist so return an empty section.
 	/// </returns>
 	public int GetSectionByAverage(Int64 mindmapid){
-		
-		var sections = _connection.Table<Section>().Where(x => x.mindmapId == mindmapid).Where(x => x.name.StartsWith("Section_3")).FirstOrDefault();
-		var sections2 = _connection.Table<Section>().Where(x => x.mindmapId == mindmapid).Where(x => x.name.StartsWith("Section_4")).FirstOrDefault();
+		var sections = _nullSection;
+		var sections2 = _nullSection;
+		Debug.Log("Mindmap id: " + mindmapid);
+		sections = _connection.Table<Section>().Where(x => x.mindmapId == mindmapid).Where(x => x.name.StartsWith("Section_3")).FirstOrDefault();
+		sections2 = _connection.Table<Section>().Where(x => x.mindmapId == mindmapid).Where(x => x.name.StartsWith("Section_4")).FirstOrDefault();
+
+		Debug.Log("Acá esta el debug que me importa: Sections 1: "+ sections + " Sections 2: " + sections2);
 
 		int counter = 0;
 

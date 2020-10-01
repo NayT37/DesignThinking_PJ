@@ -4,7 +4,6 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 using UnityEngine.XR;
-using Vuforia;
 
 public class M3_Ctrl : MonoBehaviour
 {
@@ -63,8 +62,6 @@ public class M3_Ctrl : MonoBehaviour
     {
 
         isEditPostIt = false;
-        XRSettings.enabled = false;
-        VuforiaBehaviour.Instance.enabled = false;
         _changeTo = 0;
         _noteServices = new NoteServices();
 

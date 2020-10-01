@@ -59,7 +59,7 @@ public class NoteServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type note with all the data of the note that was created.
 	/// </returns>
-
+	private Int64 checkId;
 	public Note CreateNote(string notedescription){
 
 		//valueToResponse = 1
@@ -84,7 +84,11 @@ public class NoteServices:MonoBehaviour  {
 		};
 
 		//Start-Validation that the query is right
-		
+		checkId = new_n.id;
+        while (GetNoteId(checkId).id == new_n.id)
+        {
+            new_n.id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId();
+        }
 		int result = _connection.Insert (new_n);
 
 		if (result != 0)
@@ -97,6 +101,19 @@ public class NoteServices:MonoBehaviour  {
 		}
 		
 	}
+
+	public Note GetNoteId(Int64 noteid)
+    {
+
+        //valueToResponse = 2
+
+        var n = _connection.Table<Note>().Where(x => x.id == noteid).FirstOrDefault();
+
+        if (n == null)
+            return _nullNote;
+        else
+            return n;
+    }
 
 	/// <summary>
 	/// Description of the method to obtain all the notes of a specific project

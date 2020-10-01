@@ -63,7 +63,7 @@ public class Drop_M3_Zone : MonoBehaviour, IDropHandler
     #region INTERFACE_METHODS
     public virtual void OnDrop(PointerEventData eventData)
     {
-        if (!internalItem)
+        if (!internalItem && eventData.pointerPressRaycast.gameObject.name == "Text")
         {
             _noteServices.UpdateNote(_internalID, "");
             //Make the dropped object a child of this...

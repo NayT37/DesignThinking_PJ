@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine;
-using UnityEngine.XR;
-using Vuforia;
 public class TriviaCtrl : MiniGame_Ctrl
 {
     #region VARIABLES
@@ -66,9 +64,6 @@ public class TriviaCtrl : MiniGame_Ctrl
 
     private void Initializate()
     {
-        XRSettings.enabled = false;
-        VuforiaBehaviour.Instance.enabled = false;
-
         _momentServices = new MomentServices();
 
         for (int i = 0; i < _answersQuantity; i++)

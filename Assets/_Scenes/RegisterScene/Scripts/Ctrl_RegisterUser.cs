@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.XR;
-using Vuforia;
 using Image = UnityEngine.UI.Image;
 
 public class Ctrl_RegisterUser : MonoBehaviour
@@ -26,13 +25,12 @@ public class Ctrl_RegisterUser : MonoBehaviour
     private TeacherServices _teacherServices;
 
     private CourseServices courseS;
+    public bool Testing;
     #endregion
 
     public void Start()
     {
         _panelBlock.SetActive(false);
-        XRSettings.enabled = false;
-        VuforiaBehaviour.Instance.enabled = false;
         var goCourses = gameObject.AddComponent<CourseServices>();
         courseS = goCourses.GetComponent<CourseServices>();
 
@@ -52,8 +50,11 @@ public class Ctrl_RegisterUser : MonoBehaviour
         string name = userName.text;
         string password = passName.text;
 
-        // userName.text = name = "trillos@gmail.com";
-        // passName.text = password = "123456";
+        if(Testing){
+            userName.text = name = "trillos@gmail.com";
+            passName.text = password = "123456";
+        }
+        
 
         //Debug.Log(passName.text+ " .... "+ password);
         bool isFirstTime = _checkFirstTime.isOn;

@@ -18,7 +18,7 @@ public class MindmapServices:MonoBehaviour  {
 
 	private SectionServices _sectionServices = new SectionServices();
 
-	private string[] arraysectionsname = new string[]{"Section_1","Section_2","-Section_3","-Section_4","Section_5", "Section_6"};
+	private string[] arraysectionsname = new string[]{"Section_1","Section_2","Section_3","Section_4","Section_5", "Section_6"};
 	private Mindmap _nullMindmap = 
 		new Mindmap{
 				id = 0,
@@ -73,7 +73,7 @@ public class MindmapServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type mindmap with all the data of the mindmap that was created.
 	/// </returns>
-
+	private Int64 checkId;
 	public Mindmap CreateMindMap(int versionmindmap){
 
 		//valueToResponse = 1
@@ -98,7 +98,11 @@ public class MindmapServices:MonoBehaviour  {
 		};
 
 		//Start-Validation that the query is right
-		
+		checkId = new_m.id;
+        while (GetMindmapId(checkId).id == new_m.id)
+        {
+            new_m.id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId();
+        }
 		int result = _connection.Insert (new_m);
 
 		int count = 0;
@@ -115,7 +119,6 @@ public class MindmapServices:MonoBehaviour  {
 
 				if (s.id != 0)
 					count++;
-
 			}
 
 			if (count == 6){

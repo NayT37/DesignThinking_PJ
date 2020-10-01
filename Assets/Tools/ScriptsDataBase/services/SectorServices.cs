@@ -60,7 +60,7 @@ public class SectorServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type sector with all the data of the sector that was created.
 	/// </returns>
-
+	private Int64 checkId;
 	public Sector CreateSector(string sectorname){
 
 		//valueToResponse = 1
@@ -83,7 +83,11 @@ public class SectorServices:MonoBehaviour  {
 		};
 
 		//Start-Validation that the query is right
-		
+		checkId = new_s.id;
+        while (GetSectorId(checkId).id == new_s.id)
+        {
+            new_s.id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId();
+        }
 		int result = _connection.Insert (new_s);
 
 		if (result != 0)
@@ -102,6 +106,20 @@ public class SectorServices:MonoBehaviour  {
 		
 		
 	}
+
+	public Sector GetSectorId(Int64 sectorid)
+    {
+
+        //valueToResponse = 2
+
+        var s = _connection.Table<Sector>().Where(x => x.id == sectorid).FirstOrDefault();
+
+        if (s == null)
+            return _nullSector;
+        else
+            return s;
+    }
+
 	/// <summary>
 	/// Description to method Get Section with the specified empathymapid
 	/// </summary>

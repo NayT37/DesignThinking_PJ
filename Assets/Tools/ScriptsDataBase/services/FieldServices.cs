@@ -67,7 +67,7 @@ public class FieldServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type field with all the data of the field that was created.
 	/// </returns>
-
+	private Int64 checkId;
 	public Field CreateField(string fieldname, string fielddescription){
 
 		//valueToResponse = 1
@@ -91,7 +91,11 @@ public class FieldServices:MonoBehaviour  {
 		};
 
 		//Start-Validation that the query is right
-		
+		checkId = new_f.id;
+        while (GetFieldId(checkId).id == new_f.id)
+        {
+            new_f.id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId();
+        }
 		int result = _connection.Insert (new_f);
 
 		if (result != 0)
@@ -103,6 +107,19 @@ public class FieldServices:MonoBehaviour  {
 		
 		
 	}
+
+	public Field GetFieldId(Int64 fieldid)
+    {
+
+        //valueToResponse = 2
+
+        var f = _connection.Table<Field>().Where(x => x.id == fieldid).FirstOrDefault();
+
+        if (f == null)
+            return _nullField;
+        else
+            return f;
+    }
 
 	/// <summary>
 	/// Description of the method to obtain all the fields of a specific project

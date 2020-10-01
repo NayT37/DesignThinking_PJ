@@ -79,7 +79,6 @@ public class GoEvaluateBtn : MonoBehaviour, IPointerClickHandler
         _momentServices.UpdateMoment(100);
 
         _evaluateHolder.playAnimation(HUDCtrl._actualCase);
-        VuforiaControl.instance.ResetRA();
         HUDCtrl.MomentBtnClick(5);
     }
     #endregion

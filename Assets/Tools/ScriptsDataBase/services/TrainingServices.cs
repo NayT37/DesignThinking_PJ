@@ -67,6 +67,7 @@ public class TrainingServices:MonoBehaviour  {
 				//Creation of the cases
 				counter+=_caseServices.Createcase(_arraycasesname[i], new_t.id);
 			}
+			
 			valueToReturn = counter;
 
 		}else{

@@ -17,8 +17,8 @@ public class CaseServices : MonoBehaviour
     private MomentServices _momentS = new MomentServices();
 
     private string[] arraymomentsname = new string[] { "moment_1", "moment_2", "moment_3", "moment_4", "moment_5" };
-    private Case _nullCase =
-        new Case
+    private Cases _nullCase =
+        new Cases
         {
             id = 0,
             name = "null",
@@ -28,8 +28,8 @@ public class CaseServices : MonoBehaviour
             lastUpdate = "null"
         };
 
-    private IEnumerable<Case> _casesLoaded = new Case[]{
-        new Case{
+    private IEnumerable<Cases> _casesLoaded = new Cases[]{
+        new Cases{
                 id = 0,
                 name = "null",
                 percentage = 0,
@@ -37,7 +37,7 @@ public class CaseServices : MonoBehaviour
                 trainingId = 0,
                 lastUpdate = "null"
         },
-        new Case{
+        new Cases{
                 id = 0,
                 name = "null",
                 percentage = 0,
@@ -45,7 +45,7 @@ public class CaseServices : MonoBehaviour
                 trainingId = 0,
                 lastUpdate = "null"
         },
-        new Case{
+        new Cases{
                 id = 0,
                 name = "null",
                 percentage = 0,
@@ -53,7 +53,7 @@ public class CaseServices : MonoBehaviour
                 trainingId = 0,
                 lastUpdate = "null"
         },
-        new Case{
+        new Cases{
                 id = 0,
                 name = "null",
                 percentage = 0,
@@ -61,7 +61,7 @@ public class CaseServices : MonoBehaviour
                 trainingId = 0,
                 lastUpdate = "null"
         },
-        new Case{
+        new Cases{
                 id = 0,
                 name = "null",
                 percentage = 0,
@@ -88,7 +88,7 @@ public class CaseServices : MonoBehaviour
     /// <returns>
     /// An integer response of the query (0 = the object was not created correctly. !0 = the object was created correctly)
     /// </returns>
-
+    private Int64 checkId;
     public int Createcase(string casename, Int64 trainingid)
     {
 
@@ -99,7 +99,7 @@ public class CaseServices : MonoBehaviour
 
         int valueToReturn = 0;
 
-        var new_c = new Case
+        var new_c = new Cases
         {
 			id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
             name = casename,
@@ -108,7 +108,13 @@ public class CaseServices : MonoBehaviour
             trainingId = trainingid,
             lastUpdate = date
         };
-
+        checkId = new_c.id;
+        while (GetCaseId(checkId).id == new_c.id)
+        {
+            new_c.id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId();
+            Debug.Log(GetCaseId(checkId).id);
+        }
+        
         int result = _connection.Insert(new_c);
 
         //If the creation of the case is correct, then the moments corresponding to that case are created.
@@ -124,9 +130,8 @@ public class CaseServices : MonoBehaviour
         {
             valueToReturn = 100;
         }
-
+    
         return valueToReturn;
-
     }
 
     /// <summary>
@@ -138,12 +143,12 @@ public class CaseServices : MonoBehaviour
     /// <returns>
     /// An object of type case with all the data of the case that was searched and if doesnt exist so return an empty case.
     /// </returns>
-    public Case GetCaseId(Int64 caseid)
+    public Cases GetCaseId(Int64 caseid)
     {
 
         //valueToResponse = 2
 
-        var c = _connection.Table<Case>().Where(x => x.id == caseid).FirstOrDefault();
+        var c = _connection.Table<Cases>().Where(x => x.id == caseid).FirstOrDefault();
 
         if (c == null)
             return _nullCase;
@@ -159,21 +164,21 @@ public class CaseServices : MonoBehaviour
     /// <returns>
     /// A IEnumerable list of all the Cases found from the identifier of the training that was passed as a parameter
     /// </returns>
-    public IEnumerable<Case> GetCases(Int64 trainingId)
+    public IEnumerable<Cases> GetCases(Int64 trainingId)
     {
 
         //valueToResponse = 3
-
-        return _connection.Table<Case>().Where(x => x.trainingId == trainingId).OrderBy(m => m.creationDate);
+        return (IEnumerable<Cases>)_connection.Query<Cases> ("select * from Cases where trainingId = " + trainingId +" ORDER BY creationDate ASC");
+        //return _connection.Table<Cases>().Where(x => x.trainingId == trainingId).OrderBy(m => m.creationDate);
     }
 
-    public IEnumerable<Case> GetAllCases(){
+    public IEnumerable<Cases> GetAllCases(){
 
 		//valueToResponse = 2 
 
-        var cases = _connection.Table<Case>();
+        var cases = _connection.Table<Cases>();
 
-		List<Case> finalCases = new List<Case>();
+		List<Cases> finalCases = new List<Cases>();
 
         foreach (var item in cases)
         {
@@ -202,7 +207,7 @@ public class CaseServices : MonoBehaviour
     /// <returns>
     /// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
     /// </returns>
-    public int DeleteCase(Case caseToDelete)
+    public int DeleteCase(Cases caseToDelete)
     {
 
         //valueToResponse = 4

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
-using Vuforia;
 public class M1_Ctrl : MonoBehaviour
 {
     #region VARIABLES
@@ -30,8 +29,6 @@ public class M1_Ctrl : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate()
     {
-        XRSettings.enabled = false;
-        VuforiaBehaviour.Instance.enabled = false;
 
         _sectorServices = new SectorServices();
 

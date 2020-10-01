@@ -65,7 +65,7 @@ public class StorytellingServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type storyTelling with all the data of the storyTelling that was created.
 	/// </returns>
-
+	private Int64 checkId;
 	public StoryTelling CreateStoryTelling(int versionstorytelling){
 
 		//valueToResponse = 1
@@ -88,7 +88,11 @@ public class StorytellingServices:MonoBehaviour  {
 		};
 
 		//Start-Validation that the query is right
-		
+		checkId = new_s.id;
+        while (GetStoryTellingId(checkId).id == new_s.id)
+        {
+            new_s.id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId();
+        }
 		int result = _connection.Insert (new_s);
 
 		if (result != 0)
@@ -110,6 +114,19 @@ public class StorytellingServices:MonoBehaviour  {
 		
 		
 	}
+
+	public StoryTelling GetStoryTellingId(Int64 storytellingid)
+    {
+
+        //valueToResponse = 2
+
+        var s = _connection.Table<StoryTelling>().Where(x => x.id == storytellingid).FirstOrDefault();
+
+        if (s == null)
+            return _nullStorytelling;
+        else
+            return s;
+    }
 
 	/// <summary>
 	/// Description of the method to obtain the average percentage of all the storytellings with specified project identifier

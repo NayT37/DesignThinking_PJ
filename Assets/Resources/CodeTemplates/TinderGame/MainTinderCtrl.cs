@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
-using UnityEngine.XR;
-using Vuforia;
 using Image = UnityEngine.UI.Image;
 
 public class MainTinderCtrl : MiniGame_Ctrl
@@ -31,9 +29,6 @@ public class MainTinderCtrl : MiniGame_Ctrl
     #region CREATED_METHODS
     private void Initializate()
     {
-        XRSettings.enabled = false;
-        VuforiaBehaviour.Instance.enabled = false;
-
         _momentServices = new MomentServices();
 
         _finishedCanvasQuantity = 0;

@@ -35,7 +35,7 @@ public class PublicServices:MonoBehaviour  {
 	/// <returns>
 	/// An object of type _public with all the data of the _public that was created.
 	/// </returns>
-
+	private Int64 checkId;
 	public Public CreatePublic(string _agerange, string _gender){
 
 		//valueToResponse = 1
@@ -59,7 +59,11 @@ public class PublicServices:MonoBehaviour  {
 		};
 
 		//Start-Validation that the query is right
-		
+		checkId = new_p.id;
+        while (GetPublicId(checkId).id == new_p.id)
+        {
+            new_p.id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId();
+        }
 		int result = _connection.Insert (new_p);
 
 		if (result != 0)
@@ -74,6 +78,19 @@ public class PublicServices:MonoBehaviour  {
 		
 		
 	}
+
+	public Public GetPublicId(Int64 publicid)
+    {
+
+        //valueToResponse = 2
+
+        var p = _connection.Table<Public>().Where(x => x.id == publicid).FirstOrDefault();
+
+        if (p == null)
+            return _nullPublic;
+        else
+            return p;
+    }
 
 	/// <summary>
 	/// Description to method Get Public with the specified projectId

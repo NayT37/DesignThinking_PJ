@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.XR;
-using Vuforia;
 using System;
 
 public class M2_Ctrl : MonoBehaviour
@@ -32,8 +31,6 @@ public class M2_Ctrl : MonoBehaviour
     #region CREATED_METHODS
     private void Initializate()
     {
-        XRSettings.enabled = false;
-        VuforiaBehaviour.Instance.enabled = false;
 
         _problemServices = new ProblemServices();
 

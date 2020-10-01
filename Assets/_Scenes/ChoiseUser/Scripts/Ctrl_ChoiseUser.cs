@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.XR;
-using Vuforia;
 
 public class Ctrl_ChoiseUser : MonoBehaviour
 {
@@ -14,8 +13,6 @@ public class Ctrl_ChoiseUser : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        XRSettings.enabled = false;
-        VuforiaBehaviour.Instance.enabled = false;
         _trainingServices = new TrainingServices();
 
     }
@@ -56,6 +53,6 @@ public class Ctrl_ChoiseUser : MonoBehaviour
     {
         DOTween.Play("bg_transition");
         yield return new WaitForSeconds(1.0f);
-        SceneManager.LoadScene("RegisterUser");
+        SceneManager.LoadScene("SelectGame");
     }
 }

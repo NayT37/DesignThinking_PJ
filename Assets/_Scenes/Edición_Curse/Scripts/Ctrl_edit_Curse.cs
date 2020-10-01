@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.XR;
-using Vuforia;
 using System;
 
 public class Ctrl_edit_Curse : MonoBehaviour
@@ -28,8 +27,6 @@ public class Ctrl_edit_Curse : MonoBehaviour
 
     void Start()
     {
-        XRSettings.enabled = false;
-        VuforiaBehaviour.Instance.enabled = false;
         var goGroup = gameObject.AddComponent<GroupServices>();
         _GroupServices = goGroup.GetComponent<GroupServices>();
         var goTraining = gameObject.AddComponent<TrainingServices>();

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
-using Vuforia;
+
 using System;
 
 public class VuforiaControl : MonoBehaviour
@@ -46,8 +46,6 @@ public class VuforiaControl : MonoBehaviour
         _evaluateHolder = GameObject.FindObjectOfType<EvaluateHolder>();
         if (_isActiveRA)
         {
-            XRSettings.enabled = true;
-            VuforiaBehaviour.Instance.enabled = true;
             tempPos = _evaluateHolder.transform.localPosition;
             tempSize = _evaluateHolder.transform.localScale;
             _evaluateHolder.transform.localPosition = new Vector3(0, 0, 0);
@@ -65,8 +63,6 @@ public class VuforiaControl : MonoBehaviour
         }
         else
         {
-            XRSettings.enabled = false;
-            VuforiaBehaviour.Instance.enabled = false;
             _mainCamAudio.enabled = false;
             _defaultCam.gameObject.SetActive(true);
             _evaluateHolder.SetNewParent(null);

@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.UI;
 using System;
-using UnityEngine.XR;
 
 public class CasesHUD_Ctrl : MonoBehaviour
 {
@@ -70,11 +69,11 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
     private MomentServices _momentServices;
 
-    private IEnumerable<Case> _casesIEnumerable;
+    private IEnumerable<Cases> _casesIEnumerable;
 
     private IEnumerable<Moment> _momentsIEnumerable;
 
-    private Case[] _casesArray;
+    private Cases[] _casesArray;
 
     private Moment[] _momentsArray;
     #endregion
@@ -93,7 +92,6 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
         InitializeServices();
 
-        XRSettings.enabled = false;
         _actualMoment = 1;
 
 
@@ -119,7 +117,6 @@ public class CasesHUD_Ctrl : MonoBehaviour
         Text_Changed.text = "EMPATIZAR";
 
         _btnRA = GameObject.Find("RA_Btn").GetComponent<Button>();
-        _btnRA.onClick.AddListener(ChangeRA);
         _btnRA.gameObject.SetActive(false);
         _btnRATxt = _btnRA.GetComponentInChildren<Text>();
 
@@ -131,7 +128,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
         var goCases = gameObject.AddComponent<CaseServices>();
         _caseServices = goCases.GetComponent<CaseServices>();
 
-        _casesArray = new Case[3];
+        _casesArray = new Cases[3];
 
         Int64 trainingId = DataBaseParametersCtrl.Ctrl._trainingloaded.id;
 
@@ -155,21 +152,21 @@ public class CasesHUD_Ctrl : MonoBehaviour
         Int64 caseid = DataBaseParametersCtrl.Ctrl._caseLoaded.id;
 
         _momentsIEnumerable = _momentServices.GetMoments(caseid);
-
+        
         int counterMoments = 0;
-
+        
         foreach (var m in _momentsIEnumerable)
         {
             _momentsArray[counterMoments] = m;
+            Debug.Log("Acá estoy perro: "+ _momentsArray[counterMoments]);
             counterMoments++;
         }
-
+        
         DataBaseParametersCtrl.Ctrl._momentLoaded = _momentsArray[0];
     }
 
     public void CaseBtnClick(int caseValue)
     {
-        VuforiaControl.instance.ResetRA();
         if (_actualCase != caseValue)
         {
             try
@@ -257,7 +254,6 @@ public class CasesHUD_Ctrl : MonoBehaviour
             {
                 case 1:
                     DataBaseParametersCtrl.Ctrl._momentLoaded = _momentsArray[0];
-                    VuforiaControl.instance.ResetRA();
                     //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
                     StartCoroutine(ChangeScene("C" + _actualCase + "_M" + momentValue, _actualScn));
 
@@ -279,7 +275,6 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     break;
                 case 2:
                     DataBaseParametersCtrl.Ctrl._momentLoaded = _momentsArray[1];
-                    VuforiaControl.instance.ResetRA();
                     //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
                     StartCoroutine(ChangeScene("C" + _actualCase + "_M" + momentValue, _actualScn));
                     //Sprites for moments
@@ -300,7 +295,6 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     break;
                 case 3:
                     DataBaseParametersCtrl.Ctrl._momentLoaded = _momentsArray[2];
-                    VuforiaControl.instance.ResetRA();
                     //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
                     StartCoroutine(ChangeScene("C" + _actualCase + "_M" + momentValue, _actualScn));
                     //Sprites for moments
@@ -321,7 +315,6 @@ public class CasesHUD_Ctrl : MonoBehaviour
                     break;
                 case 4:
                     DataBaseParametersCtrl.Ctrl._momentLoaded = _momentsArray[3];
-                    VuforiaControl.instance.ResetRA();
                     //  print(_actualCase + "Case's " + momentValue + " moment was clicked.");
                     StartCoroutine(ChangeScene("C" + _actualCase + "_M" + momentValue, _actualScn));
 
@@ -356,7 +349,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
                     //				DOTween.Play ("3");
                     //Texto que indica el nombre de la fase
-                    _btnRA.gameObject.SetActive(true);
+                    //_btnRA.gameObject.SetActive(true);
                     Text_Changed.text = "EVALUAR";
                     break;
             }
@@ -366,19 +359,8 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
     public void GoHome()
     {
-        GameObject temp = GameObject.FindObjectOfType<VuforiaControl>().gameObject;
-        Destroy(temp);
         SceneManager.LoadScene("ChoiseUser");
         //    StartCoroutine(Home());
-    }
-
-    private void ChangeRA()
-    {
-        VuforiaControl.instance.ChangeRAStatus();
-        if (VuforiaControl.instance.GetActiveStatus())
-            _btnRATxt.text = "Desactivar RA";
-        else
-            _btnRATxt.text = "Activar RA";
     }
     #endregion
 

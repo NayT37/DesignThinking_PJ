@@ -71,7 +71,7 @@ public class MomentServices:MonoBehaviour  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not created correctly. !0 = the object was created correctly)
 	/// </returns>
-
+	private Int64 checkId;
 	public int CreateMoment(string momentname, Int64 caseid){
 
 		//valueToResponse = 1
@@ -89,12 +89,29 @@ public class MomentServices:MonoBehaviour  {
 				caseId = caseid,
 				lastUpdate = date
 		};
-
+		checkId = new_m.id;
+        while (GetMomentId(checkId).id == new_m.id)
+        {
+            new_m.id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId();
+        }
 		int result = _connection.Insert (new_m);
 		
 		return valueToReturn;
 		
 	}
+
+	public Moment GetMomentId(Int64 momentid)
+    {
+
+        //valueToResponse = 2
+
+        var m = _connection.Table<Moment>().Where(x => x.id == momentid).FirstOrDefault();
+
+        if (m == null)
+            return _nullMoment;
+        else
+            return m;
+    }
 
 	/// <summary>
 	/// Description of the method to obtain all the moments of a specific case

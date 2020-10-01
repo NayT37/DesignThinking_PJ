@@ -68,7 +68,7 @@ public class AnswerServices : MonoBehaviour  {
 	/// <returns>
 	/// An object of type Answer with all the data of the Answer that was created.
 	/// </returns>
-
+	private Int64 checkId;
 	public Answer CreateAnswer(int valueToAnswer){
 
 		//valueToResponse = 1
@@ -91,7 +91,11 @@ public class AnswerServices : MonoBehaviour  {
 		};
 
 		//Start-Validation that the query is right
-		
+		checkId = new_a.id;
+        while (GetAnswerId(checkId).id == new_a.id)
+        {
+            new_a.id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId();
+        }
 		int result = _connection.Insert (new_a);
 
 		if (result != 0)
@@ -105,6 +109,19 @@ public class AnswerServices : MonoBehaviour  {
 		
 		
 	}
+
+	public Answer GetAnswerId(Int64 answerid)
+    {
+
+        //valueToResponse = 2
+
+        var a = _connection.Table<Answer>().Where(x => x.id == answerid).FirstOrDefault();
+
+        if (a == null)
+            return _nullAnswer;
+        else
+            return a;
+    }
 
 	/// <summary>
 	/// Description of the method to obtain all the notes of a specific project

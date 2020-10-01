@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-using UnityEngine.XR;
 using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
@@ -78,7 +77,6 @@ public class ChMainHUD : MonoBehaviour
             DataBaseParametersCtrl.Ctrl._empathyMapLoaded = empathymap;
         }
 
-        XRSettings.enabled = false;
         _isHide = false;
         _loadObj = GameObject.Find("Loading_Bg");
 
@@ -109,7 +107,6 @@ public class ChMainHUD : MonoBehaviour
 
     public void MomentBtnClick(int clickMomentValue)
     {
-        XRSettings.enabled = false;
         if (_actualMoment != clickMomentValue && clickMomentValue <= _limitCtrl)
         {
             _actualMoment = clickMomentValue;
