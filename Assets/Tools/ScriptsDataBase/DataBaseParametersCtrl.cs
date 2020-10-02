@@ -107,7 +107,7 @@ public class DataBaseParametersCtrl : MonoBehaviour
             #if UNITY_WEBGL
                 //StartCoroutine(RunDbCode("dtdbtemplate.db"));
             #else
-                //_dataServices = new DataService("dtdbtemplate.db");
+                _dataServices = new DataService("dtdbtemplate.db");
             #endif
             _dataServices = new DataService("dtdbtemplate.db");
             _sqliteConnection = _dataServices._connection;
