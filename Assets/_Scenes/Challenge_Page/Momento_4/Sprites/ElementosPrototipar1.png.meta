@@ -1,74 +1,198 @@
 fileFormatVersion: 2
 guid: da8f5e7733d7f4964af754edf2a47bb2
-timeCreated: 1545666150
-licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: ElementosPrototipar1_0
-    21300002: ElementosPrototipar1_1
-    21300004: ElementosPrototipar1_2
-    21300006: ElementosPrototipar1_3
-    21300008: ElementosPrototipar1_4
-    21300010: ElementosPrototipar1_5
-    21300012: ElementosPrototipar1_6
-    21300014: ElementosPrototipar1_7
-    21300016: ElementosPrototipar1_8
-    21300018: ElementosPrototipar1_9
-    21300020: ElementosPrototipar1_10
-    21300022: ElementosPrototipar1_11
-    21300024: ElementosPrototipar1_12
-    21300026: ElementosPrototipar1_13
-    21300028: ElementosPrototipar1_14
-    21300030: ElementosPrototipar1_15
-    21300032: ElementosPrototipar1_16
-    21300034: ElementosPrototipar1_17
-    21300036: ElementosPrototipar1_18
-    21300038: ElementosPrototipar1_19
-    21300040: ElementosPrototipar1_20
-    21300042: ElementosPrototipar1_21
-    21300044: ElementosPrototipar1_22
-    21300046: ElementosPrototipar1_23
-    21300048: ElementosPrototipar1_46
-    21300050: ElementosPrototipar1_47
-    21300052: ElementosPrototipar1_48
-    21300054: ElementosPrototipar1_49
-    21300056: ElementosPrototipar1_50
-    21300058: ElementosPrototipar1_51
-    21300060: ElementosPrototipar1_52
-    21300062: ElementosPrototipar1_53
-    21300064: ElementosPrototipar1_54
-    21300066: ElementosPrototipar1_55
-    21300068: ElementosPrototipar1_56
-    21300070: ElementosPrototipar1_57
-    21300072: ElementosPrototipar1_58
-    21300074: ElementosPrototipar1_59
-    21300076: ElementosPrototipar1_60
-    21300078: ElementosPrototipar1_61
-    21300080: ElementosPrototipar1_62
-    21300082: ElementosPrototipar1_63
-    21300084: ElementosPrototipar1_64
-    21300086: ElementosPrototipar1_65
-    21300088: ElementosPrototipar1_66
-    21300090: ElementosPrototipar1_67
-    21300092: ElementosPrototipar1_68
-    21300094: ElementosPrototipar1_69
-    21300096: ElementosPrototipar1_70
-    21300098: ElementosPrototipar1_71
-    21300100: ElementosPrototipar1_72
-    21300102: ElementosPrototipar1_73
-    21300104: ElementosPrototipar1_74
-    21300106: ElementosPrototipar1_75
-    21300108: ElementosPrototipar1_76
-    21300110: ElementosPrototipar1_77
-    21300112: ElementosPrototipar1_78
-    21300114: ElementosPrototipar1_79
-    21300116: ElementosPrototipar1_80
-    21300118: ElementosPrototipar1_81
-    21300120: ElementosPrototipar1_82
-    21300122: ElementosPrototipar1_90
-    21300124: ElementosPrototipar1_91
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: ElementosPrototipar1_0
+  - first:
+      213: 21300002
+    second: ElementosPrototipar1_1
+  - first:
+      213: 21300004
+    second: ElementosPrototipar1_2
+  - first:
+      213: 21300006
+    second: ElementosPrototipar1_3
+  - first:
+      213: 21300008
+    second: ElementosPrototipar1_4
+  - first:
+      213: 21300010
+    second: ElementosPrototipar1_5
+  - first:
+      213: 21300012
+    second: ElementosPrototipar1_6
+  - first:
+      213: 21300014
+    second: ElementosPrototipar1_7
+  - first:
+      213: 21300016
+    second: ElementosPrototipar1_8
+  - first:
+      213: 21300018
+    second: ElementosPrototipar1_9
+  - first:
+      213: 21300020
+    second: ElementosPrototipar1_10
+  - first:
+      213: 21300022
+    second: ElementosPrototipar1_11
+  - first:
+      213: 21300024
+    second: ElementosPrototipar1_12
+  - first:
+      213: 21300026
+    second: ElementosPrototipar1_13
+  - first:
+      213: 21300028
+    second: ElementosPrototipar1_14
+  - first:
+      213: 21300030
+    second: ElementosPrototipar1_15
+  - first:
+      213: 21300032
+    second: ElementosPrototipar1_16
+  - first:
+      213: 21300034
+    second: ElementosPrototipar1_17
+  - first:
+      213: 21300036
+    second: ElementosPrototipar1_18
+  - first:
+      213: 21300038
+    second: ElementosPrototipar1_19
+  - first:
+      213: 21300040
+    second: ElementosPrototipar1_20
+  - first:
+      213: 21300042
+    second: ElementosPrototipar1_21
+  - first:
+      213: 21300044
+    second: ElementosPrototipar1_22
+  - first:
+      213: 21300046
+    second: ElementosPrototipar1_23
+  - first:
+      213: 21300048
+    second: ElementosPrototipar1_46
+  - first:
+      213: 21300050
+    second: ElementosPrototipar1_47
+  - first:
+      213: 21300052
+    second: ElementosPrototipar1_48
+  - first:
+      213: 21300054
+    second: ElementosPrototipar1_49
+  - first:
+      213: 21300056
+    second: ElementosPrototipar1_50
+  - first:
+      213: 21300058
+    second: ElementosPrototipar1_51
+  - first:
+      213: 21300060
+    second: ElementosPrototipar1_52
+  - first:
+      213: 21300062
+    second: ElementosPrototipar1_53
+  - first:
+      213: 21300064
+    second: ElementosPrototipar1_54
+  - first:
+      213: 21300066
+    second: ElementosPrototipar1_55
+  - first:
+      213: 21300068
+    second: ElementosPrototipar1_56
+  - first:
+      213: 21300070
+    second: ElementosPrototipar1_57
+  - first:
+      213: 21300072
+    second: ElementosPrototipar1_58
+  - first:
+      213: 21300074
+    second: ElementosPrototipar1_59
+  - first:
+      213: 21300076
+    second: ElementosPrototipar1_60
+  - first:
+      213: 21300078
+    second: ElementosPrototipar1_61
+  - first:
+      213: 21300080
+    second: ElementosPrototipar1_62
+  - first:
+      213: 21300082
+    second: ElementosPrototipar1_63
+  - first:
+      213: 21300084
+    second: ElementosPrototipar1_64
+  - first:
+      213: 21300086
+    second: ElementosPrototipar1_65
+  - first:
+      213: 21300088
+    second: ElementosPrototipar1_66
+  - first:
+      213: 21300090
+    second: ElementosPrototipar1_67
+  - first:
+      213: 21300092
+    second: ElementosPrototipar1_68
+  - first:
+      213: 21300094
+    second: ElementosPrototipar1_69
+  - first:
+      213: 21300096
+    second: ElementosPrototipar1_70
+  - first:
+      213: 21300098
+    second: ElementosPrototipar1_71
+  - first:
+      213: 21300100
+    second: ElementosPrototipar1_72
+  - first:
+      213: 21300102
+    second: ElementosPrototipar1_73
+  - first:
+      213: 21300104
+    second: ElementosPrototipar1_74
+  - first:
+      213: 21300106
+    second: ElementosPrototipar1_75
+  - first:
+      213: 21300108
+    second: ElementosPrototipar1_76
+  - first:
+      213: 21300110
+    second: ElementosPrototipar1_77
+  - first:
+      213: 21300112
+    second: ElementosPrototipar1_78
+  - first:
+      213: 21300114
+    second: ElementosPrototipar1_79
+  - first:
+      213: 21300116
+    second: ElementosPrototipar1_80
+  - first:
+      213: 21300118
+    second: ElementosPrototipar1_81
+  - first:
+      213: 21300120
+    second: ElementosPrototipar1_82
+  - first:
+      213: 21300122
+    second: ElementosPrototipar1_90
+  - first:
+      213: 21300124
+    second: ElementosPrototipar1_91
   externalObjects: {}
-  serializedVersion: 4
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -86,6 +210,8 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -96,7 +222,7 @@ TextureImporter:
     serializedVersion: 2
     filterMode: -1
     aniso: -1
-    mipBias: -1
+    mipBias: -100
     wrapU: 1
     wrapV: 1
     wrapW: -1
@@ -108,18 +234,22 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
+  singleChannelComponent: 0
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  applyGammaDecoding: 1
   platformSettings:
-  - buildTarget: DefaultTexturePlatform
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -129,7 +259,9 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - buildTarget: Standalone
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -139,7 +271,9 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - buildTarget: Android
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -149,7 +283,9 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - buildTarget: WebGL
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -159,6 +295,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -176,6 +313,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 02305410000000000800000000000000
+      internalID: 21300000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_1
       rect:
@@ -190,6 +334,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 22305410000000000800000000000000
+      internalID: 21300002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_47
       rect:
@@ -204,6 +355,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 25305410000000000800000000000000
+      internalID: 21300050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_48
       rect:
@@ -218,6 +376,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 45305410000000000800000000000000
+      internalID: 21300052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_49
       rect:
@@ -232,6 +397,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 65305410000000000800000000000000
+      internalID: 21300054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_50
       rect:
@@ -246,6 +418,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 85305410000000000800000000000000
+      internalID: 21300056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_51
       rect:
@@ -260,6 +439,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a5305410000000000800000000000000
+      internalID: 21300058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_52
       rect:
@@ -274,6 +460,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c5305410000000000800000000000000
+      internalID: 21300060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_53
       rect:
@@ -288,6 +481,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e5305410000000000800000000000000
+      internalID: 21300062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_54
       rect:
@@ -302,6 +502,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 06305410000000000800000000000000
+      internalID: 21300064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_66
       rect:
@@ -316,6 +523,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 87305410000000000800000000000000
+      internalID: 21300088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_67
       rect:
@@ -330,6 +544,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a7305410000000000800000000000000
+      internalID: 21300090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_69
       rect:
@@ -344,6 +565,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e7305410000000000800000000000000
+      internalID: 21300094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_70
       rect:
@@ -358,6 +586,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 08305410000000000800000000000000
+      internalID: 21300096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_71
       rect:
@@ -372,6 +607,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 28305410000000000800000000000000
+      internalID: 21300098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_90
       rect:
@@ -386,6 +628,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a9305410000000000800000000000000
+      internalID: 21300122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_91
       rect:
@@ -400,6 +649,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c9305410000000000800000000000000
+      internalID: 21300124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_2
       rect:
@@ -414,6 +670,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 42305410000000000800000000000000
+      internalID: 21300004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_3
       rect:
@@ -428,6 +691,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 62305410000000000800000000000000
+      internalID: 21300006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_4
       rect:
@@ -442,6 +712,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: 82305410000000000800000000000000
+      internalID: 21300008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_5
       rect:
@@ -456,6 +733,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: a2305410000000000800000000000000
+      internalID: 21300010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_6
       rect:
@@ -470,6 +754,13 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: c2305410000000000800000000000000
+      internalID: 21300012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     - serializedVersion: 2
       name: ElementosPrototipar1_7
       rect:
@@ -484,9 +775,26 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
+      bones: []
+      spriteID: e2305410000000000800000000000000
+      internalID: 21300014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
   spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
