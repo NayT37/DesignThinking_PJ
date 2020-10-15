@@ -3,138 +3,147 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Ctrl_Moment5 : MonoBehaviour {
+public class Ctrl_Moment5 : MonoBehaviour
+{
 
-	public static Ctrl_Moment5 Ctrl;
-	
-	
-	[Header ("array answer values")]
-	public int[] _answersValue;
+    public static Ctrl_Moment5 Ctrl;
 
-	[Header ("array question texts")]
 
-	public string[] _arrayquestions;
+    [Header("array answer values")]
+    public int[] _answersValue;
 
-	[Header ("evaluation Category")]
+    [Header("array question texts")]
 
-	public string _evaluationCategory;
+    public string[] _arrayquestions;
 
-	private EvaluationServices _evaluationServices;
+    [Header("evaluation Category")]
 
-	private QuestionServices _questionServices;
+    public string _evaluationCategory;
 
-	private AnswerServices _answerServices;
+    private EvaluationServices _evaluationServices;
 
-	private int evaluationid;
+    private QuestionServices _questionServices;
 
-	IEnumerable<Question> questions;
+    private AnswerServices _answerServices;
 
-	IEnumerable<Answer> answers;
+    private int evaluationid;
 
-	private int[] answersarray;
-    void Awake () {
-        if (Ctrl == null) {
+    IEnumerable<Question> questions;
+
+    IEnumerable<Answer> answers;
+
+    private int[] answersarray;
+    void Awake()
+    {
+        if (Ctrl == null)
+        {
             Ctrl = this;
-        } else if (Ctrl != null)
-            Destroy (gameObject);
+        }
+        else if (Ctrl != null)
+            Destroy(gameObject);
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
-		_answersValue = new int[10]{0,0,0,0,0,0,0,0,0,0};
+        _answersValue = new int[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-		_evaluationServices = new EvaluationServices();
+        _evaluationServices = new EvaluationServices();
 
-		_questionServices = new QuestionServices();
+        _questionServices = new QuestionServices();
 
-		_answerServices = new AnswerServices();
+        _answerServices = new AnswerServices();
 
-		answersarray = new int[50];
+        answersarray = new int[50];
 
-	}
+    }
 
-	public Evaluation createEvaluation(){
+    public Evaluation createEvaluation()
+    {
 
-		var evaluation = _evaluationServices.CreateEvaluation(_evaluationCategory);
+        var evaluation = _evaluationServices.CreateEvaluation(_evaluationCategory);
 
-		return evaluation;
-	}
+        return evaluation;
+    }
 
-	public int setAnswersValue(bool isUpdate){
-		
-		int result = 0;
+    public int setAnswersValue(bool isUpdate)
+    {
 
-		int counter = 0;
+        int result = 0;
 
-		int counterArray = 0;
+        int counter = 0;
 
-		questions = _questionServices.GetQuestions(DataBaseParametersCtrl.Ctrl._evaluationLoaded.id);
-		
-		foreach (var q in questions)
-		{
-			answers = _answerServices.GetAnswers(q.id);
-			Answer[] arrayanswers = new Answer[5];
-			int count = 0;
-			foreach (var a in answers)
-			{
-				answersarray[counterArray] = a.counter;
-				result+=a.counter;
-				arrayanswers[count] = a;
-				count++;
-				counterArray++;
-			}
+        int counterArray = 0;
 
-			if (isUpdate)
-			{
-				result += _answerServices.UpdateAnswer(arrayanswers[_answersValue[counter]-1]);	
-				print(arrayanswers[_answersValue[counter]-1]);
-				counter++;
-			}
-		}
+        questions = _questionServices.GetQuestions(DataBaseParametersCtrl.Ctrl._evaluationLoaded.id);
 
-		return result;
-	}
+        foreach (var q in questions)
+        {
+            answers = _answerServices.GetAnswers(q.id);
+            Answer[] arrayanswers = new Answer[5];
+            int count = 0;
+            foreach (var a in answers)
+            {
+                answersarray[counterArray] = a.counter;
+                result += a.counter;
+                arrayanswers[count] = a;
+                count++;
+                counterArray++;
+            }
 
-	public int getAnswersValue(){
-		
-		_answersValue = new int[10]{0,0,0,0,0,0,0,0,0,0};
-		
-		int result = setAnswersValue(false);
-		
-		Debug.Log(result);
+            if (isUpdate)
+            {
+                result += _answerServices.UpdateAnswer(arrayanswers[_answersValue[counter] - 1]);
+                print(arrayanswers[_answersValue[counter] - 1]);
+                counter++;
+            }
+        }
 
-		int questionsQuantity = 0;
+        return result;
+    }
 
-		for (int i = 0; i < 5; i++)
-		{
-			questionsQuantity += answersarray[i];
-		}
+    public int getAnswersValue()
+    {
 
-		if (result!=0)
-		{
+        _answersValue = new int[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-			int counterArrayIn = 0;
-			int counterArrayOut = 0;
-			for (int i = 0; i < answersarray.Length; i++)
-			{
-				_answersValue[counterArrayIn] += ((answersarray[i]*(counterArrayOut+1)));
-				
-				counterArrayOut++;
-				if ((i+1)%5==0)
-				{
-					counterArrayIn++;
-					counterArrayOut = 0;
-				}
-			}
-		} 
+        int result = setAnswersValue(false);
 
-		return questionsQuantity;
+        Debug.Log(result);
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        int questionsQuantity = 0;
+
+        for (int i = 0; i < 5; i++)
+        {
+            questionsQuantity += answersarray[i];
+        }
+
+        if (result != 0)
+        {
+
+            int counterArrayIn = 0;
+            int counterArrayOut = 0;
+            for (int i = 0; i < answersarray.Length; i++)
+            {
+                _answersValue[counterArrayIn] += ((answersarray[i] * (counterArrayOut + 1)));
+
+                counterArrayOut++;
+                if ((i + 1) % 5 == 0)
+                {
+                    counterArrayIn++;
+                    counterArrayOut = 0;
+                }
+            }
+        }
+
+        return questionsQuantity;
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }

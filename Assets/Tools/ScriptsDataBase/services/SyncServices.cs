@@ -3,6 +3,8 @@ using UnityEngine;
 using System;
 using System.Collections;
 using UnityEngine.Networking;
+using System.Collections.Generic;
+using System.IO;
 #if !UNITY_EDITOR
 using System.Collections;
 using System.IO;
@@ -86,16 +88,16 @@ public class SyncServices : MonoBehaviour  {
 
 		GroupWeb[] groupsweb = new GroupWeb[counterGroups];
 		TrainingWeb[] trainingsweb;
-		CaseWeb[] casesweb;
+		List<CaseWeb> casesweb;
 		MomentWeb[] momentsweb;
 		if (counterGroups == 0)
 		{
 			trainingsweb = new TrainingWeb[0];
-			casesweb = new CaseWeb[0];
+			casesweb = new List<CaseWeb>();
 			momentsweb = new MomentWeb[0];
 		} else {
 			trainingsweb = new TrainingWeb[counterGroups];
-			casesweb = new CaseWeb[counterGroups*3];
+			casesweb = new List<CaseWeb>();
 			momentsweb = new MomentWeb[counterGroups*15];
 
 			var trainings = _trainingServices.GetAllTrainings();
@@ -144,7 +146,7 @@ public class SyncServices : MonoBehaviour  {
 				cw.creationDate = item.creationDate;
 				cw.trainingId = item.trainingId;
 				cw.lastUpdate = item.lastUpdate;
-				casesweb[countCases] = cw;
+				casesweb.Add(cw);
 				countCases++;
 			}
 
@@ -247,6 +249,7 @@ public class SyncServices : MonoBehaviour  {
 
 			int countProjects = 0;
 
+			
 			foreach (var item in projects)
 			{
 				var cw = new ProjectWeb();
@@ -490,6 +493,7 @@ public class SyncServices : MonoBehaviour  {
 
 		//UserData tempUser = new UserData (player.id, player.cycle, game);
 		string json = JsonUtility.ToJson (obj, false);
+		//File.WriteAllText(Application.dataPath + "/Files/testahora.json", json);
 		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
 		if (postRequest != null){
 			StartCoroutine (waitDB_ToSendData (postRequest));
@@ -501,7 +505,7 @@ public class SyncServices : MonoBehaviour  {
 
 	private UnityWebRequest SetJsonForm (string json, string method) {
 		try {
-			UnityWebRequest web = UnityWebRequest.Put ("https://evening-scrubland-94987.herokuapp.com/" + method, json);
+			UnityWebRequest web = UnityWebRequest.Put ("http://8afb74b880a1.ngrok.io/services/" + method, json);
 			web.SetRequestHeader ("Content-Type", "application/json");
 			Debug.Log(json);
 			return web;
@@ -523,7 +527,7 @@ public class SyncServices : MonoBehaviour  {
             try {
                 resp = JsonUtility.FromJson<ResponseSync> (www.downloadHandler.text);
             } catch { }
-
+				Debug.Log(www.url);
 				Debug.Log(www.downloadHandler.text);
             //Validacion de la informacion obtenida
             if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data

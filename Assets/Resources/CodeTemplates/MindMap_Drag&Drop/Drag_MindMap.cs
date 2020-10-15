@@ -26,6 +26,7 @@ public class Drag_MindMap : DragItem
     {
         base.Start();
         _internalUITxt.text = internalText;
+        this.gameObject.transform.localPosition = new Vector3(0f,0f,0f);
     }
 
     public void UpdateContent(string txt, int idea, int mainIdea)

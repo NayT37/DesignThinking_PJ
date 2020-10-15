@@ -133,6 +133,7 @@ public class TeacherServices:MonoBehaviour  {
 
 		//UserData tempUser = new UserData (player.id, player.cycle, game);
 		string json = JsonUtility.ToJson (teacher, true);
+		Debug.Log("ACÁ ESTA el json: " + json);
 		UnityWebRequest postRequest = SetJsonForm (json, methodToCall);
 		if (postRequest != null){	
 			StartCoroutine(waitDB_ToGetTeacher (postRequest, methodToCall));
@@ -174,11 +175,12 @@ public class TeacherServices:MonoBehaviour  {
 				}
 				// Transformar la informacion obtenida (json) a Object (Response Class)
 				ResponseGetTeacher resp = null;
-				
+				Debug.Log("ACÁ RESPUESTA DEL SERVIDOR "+www.url.ToString());
+				Debug.Log("ACÁ RESPUESTA DEL SERVIDOR "+www.downloadHandler.text);
 				try {
 					resp = JsonUtility.FromJson<ResponseGetTeacher> (www.downloadHandler.text);
 				} catch { }
-
+				
 				 //Validacion de la informacion obtenida
 				if (!string.IsNullOrEmpty (www.error) && resp == null) { //Error al descargar data
 					Debug.Log (www.error);

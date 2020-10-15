@@ -17,7 +17,7 @@ public class ObjectToSend
     public GroupWeb[] Group;
 
     public TrainingWeb[] Training;
-    public CaseWeb[] Case;
+    public List<CaseWeb> Case;
     public MomentWeb[] Moment;
     public ProjectWeb[] Project;
     public PublicWeb[] Public;

@@ -99,7 +99,7 @@ public class DataBaseParametersCtrl : MonoBehaviour
         if (Ctrl == null)
         {
             Ctrl = this;
-            _ipServer = "http://emprendimientovalle.com/designBack/services/";
+            _ipServer = "http://6b43323dbf4d.ngrok.io/services/";
             isWaitingToDB = true;
             isNotTeacherExist = false;
 			isSyncNot = false;
@@ -196,8 +196,9 @@ public class DataBaseParametersCtrl : MonoBehaviour
 		time += "." + theTime.Millisecond.ToString("D3");
 
         string lastUpdateString = string.Format("{0} {1}", date, time);
+        string aux = lastUpdateString.Remove(19);
 
-        return lastUpdateString;
+        return aux;
 
     }
 
