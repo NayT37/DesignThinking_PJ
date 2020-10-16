@@ -81,21 +81,50 @@ public class Ctrl_Moment5 : MonoBehaviour
         foreach (var q in questions)
         {
             answers = _answerServices.GetAnswers(q.id);
+            List<Answer> NewList = new List<Answer>();
             Answer[] arrayanswers = new Answer[5];
             int count = 0;
-            foreach (var a in answers)
+            NewList.Clear();
+
+            foreach (var item in answers)
             {
-                answersarray[counterArray] = a.counter;
-                result += a.counter;
-                arrayanswers[count] = a;
-                count++;
-                counterArray++;
+                NewList.Add(item);
             }
+
+            NewList.Sort((x, y) => x.value.CompareTo(y.value));
 
             if (isUpdate)
             {
-                result += _answerServices.UpdateAnswer(arrayanswers[_answersValue[counter] - 1]);
-                print(arrayanswers[_answersValue[counter] - 1]);
+                foreach (var a in NewList)
+                {
+                    if(a.counter != 0){
+                        a.counter = 0;
+                        _answerServices.UpdateAnswer(a,false);
+                    }
+                    answersarray[counterArray] = a.counter;
+                    arrayanswers[count] = a;
+                    arrayanswers[count].counter = 0;
+                    count++;
+                    counterArray++;
+                }
+
+                result += _answerServices.UpdateAnswer(arrayanswers[_answersValue[counter] - 1],true);
+                Debug.Log(arrayanswers[_answersValue[counter] - 1]);
+                counter++;
+            }
+            else
+            {
+                foreach (var a in NewList)
+                {
+                    //answersarray[counterArray] = a.counter;
+                    result += a.counter;
+                    arrayanswers[count] = a;
+                    count++;
+                    //counterArray++;
+                    if(a.counter != 0){
+                        _answersValue[counter] = a.value;
+                    }
+                }
                 counter++;
             }
         }
@@ -106,7 +135,7 @@ public class Ctrl_Moment5 : MonoBehaviour
     public int getAnswersValue()
     {
 
-        _answersValue = new int[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        //_answersValue = new int[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
         int result = setAnswersValue(false);
 
@@ -122,22 +151,22 @@ public class Ctrl_Moment5 : MonoBehaviour
         if (result != 0)
         {
 
-            int counterArrayIn = 0;
-            int counterArrayOut = 0;
-            for (int i = 0; i < answersarray.Length; i++)
-            {
-                _answersValue[counterArrayIn] += ((answersarray[i] * (counterArrayOut + 1)));
+            // int counterArrayIn = 0;
+            // int counterArrayOut = 0;
+            // for (int i = 0; i < answersarray.Length; i++)
+            // {
+            //     _answersValue[counterArrayIn] += ((answersarray[i] * (counterArrayOut + 1)));
 
-                counterArrayOut++;
-                if ((i + 1) % 5 == 0)
-                {
-                    counterArrayIn++;
-                    counterArrayOut = 0;
-                }
-            }
+            //     counterArrayOut++;
+            //     if ((i + 1) % 5 == 0)
+            //     {
+            //         counterArrayIn++;
+            //         counterArrayOut = 0;
+            //     }
+            // }
         }
 
-        return questionsQuantity;
+        return result;
 
     }
 

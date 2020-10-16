@@ -169,14 +169,14 @@ public class AnswerServices : MonoBehaviour  {
 	/// <returns>
 	/// An integer response of the query (0 = the object was not updated correctly. 1 = the object was updated correctly)
 	/// </returns>
-	public int UpdateAnswer(Answer AnswerToUpdate){
+	public int UpdateAnswer(Answer AnswerToUpdate, bool count){
 
 		//valueToResponse = 4
 
 		var _questionServices = new QuestionServices();
-
-		int counter = AnswerToUpdate.counter;
-		AnswerToUpdate.counter = counter+1;
+		if(count){
+			AnswerToUpdate.counter = 1;
+		}
 		AnswerToUpdate.lastUpdate = DataBaseParametersCtrl.Ctrl.GetDateTime();
 
 		int result = _connection.Update(AnswerToUpdate, AnswerToUpdate.GetType());

@@ -69,11 +69,11 @@ public class CasesHUD_Ctrl : MonoBehaviour
 
     private MomentServices _momentServices;
 
-    private IEnumerable<Cases> _casesIEnumerable;
+    private IEnumerable<Case> _casesIEnumerable;
 
     private IEnumerable<Moment> _momentsIEnumerable;
 
-    private Cases[] _casesArray;
+    private Case[] _casesArray;
 
     private Moment[] _momentsArray;
     #endregion
@@ -128,7 +128,7 @@ public class CasesHUD_Ctrl : MonoBehaviour
         var goCases = gameObject.AddComponent<CaseServices>();
         _caseServices = goCases.GetComponent<CaseServices>();
 
-        _casesArray = new Cases[3];
+        _casesArray = new Case[3];
 
         Int64 trainingId = DataBaseParametersCtrl.Ctrl._trainingloaded.id;
 

@@ -305,7 +305,7 @@ public class ProjectServices:MonoBehaviour  {
 		{
 			int resultProblemDeleted = _problemServices.DeleteProblem(problemToDelete);	
 		}
-
+		DataBaseParametersCtrl.Ctrl._projectLoaded = projectToDelete;
 		var storyTellingsToDelete = _storytellingServices.GetStoryTellings();
 
 		foreach (var st in storyTellingsToDelete)

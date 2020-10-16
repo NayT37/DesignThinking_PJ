@@ -34,10 +34,9 @@ public class Ctrl_LoadData : MonoBehaviour
 
         _btnClose.onClick.AddListener(delegate { eventClick(_btnClose.name); });
 
-        int result = Ctrl_Moment5.Ctrl.getAnswersValue();
+        int result = Ctrl_Moment5.Ctrl.setAnswersValue(false);
 
         int[] arrayv = Ctrl_Moment5.Ctrl._answersValue;
-
 
         for (int i = 1; i <= 10; i++)
         {
@@ -56,9 +55,9 @@ public class Ctrl_LoadData : MonoBehaviour
             }
         }
 
-        float av1 = averageFirstValue / (15 * result);
-        float av2 = averageSecondValue / (20 * result);
-        float av3 = averageThirdValue / (15 * result);
+        float av1 = averageFirstValue / 15;
+        float av2 = averageSecondValue / 20;
+        float av3 = averageThirdValue / 15;
 
         _arraySliders[0].fillAmount = av1;
         _arrayTextsPercentage[0].text = av1 * 100 + "%";

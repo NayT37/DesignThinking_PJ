@@ -51,7 +51,7 @@ public class Ctrl_RegisterUser : MonoBehaviour
         string password = passName.text;
 
         if(Testing){
-            userName.text = name = "trillos@gmail.com";
+            userName.text = name = "talentum@test.com";
             passName.text = password = "123456";
         }
         

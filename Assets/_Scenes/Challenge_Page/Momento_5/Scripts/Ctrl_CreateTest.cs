@@ -31,7 +31,7 @@ public class Ctrl_CreateTest : MonoBehaviour
     private void eventClick(string name)
     {
         bool isChange = false;
-        int result = Ctrl_Moment5.Ctrl.getAnswersValue();
+        int result = Ctrl_Moment5.Ctrl.setAnswersValue(false);
         Debug.Log(result);
 
         if (result != 0)

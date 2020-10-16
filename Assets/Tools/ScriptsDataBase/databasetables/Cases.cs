@@ -2,7 +2,7 @@
 using System;
 
 // [Serializable]
-public class Cases
+public class Case
 {
 
     [PrimaryKey]

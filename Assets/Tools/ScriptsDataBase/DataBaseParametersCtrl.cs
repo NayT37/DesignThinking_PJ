@@ -27,7 +27,7 @@ public class DataBaseParametersCtrl : MonoBehaviour
     public Training _trainingloaded;
 
     [Header("Case loaded")]
-    public Cases _caseLoaded;
+    public Case _caseLoaded;
 
     [Header("Moment loaded")]
     public Moment _momentLoaded;
@@ -82,6 +82,7 @@ public class DataBaseParametersCtrl : MonoBehaviour
 
     private string Salt;
     public string _ipServer;
+    public string _ipServerLogin;
 
     public bool isQueryOk;
 
@@ -99,16 +100,11 @@ public class DataBaseParametersCtrl : MonoBehaviour
         if (Ctrl == null)
         {
             Ctrl = this;
-            _ipServer = "http://6b43323dbf4d.ngrok.io/services/";
+            _ipServer = "http://7e64f27f7b18.ngrok.io/services/";
             isWaitingToDB = true;
             isNotTeacherExist = false;
 			isSyncNot = false;
             Salt = "EHS-dpa";
-            #if UNITY_WEBGL
-                //StartCoroutine(RunDbCode("dtdbtemplate.db"));
-            #else
-                _dataServices = new DataService("dtdbtemplate.db");
-            #endif
             _dataServices = new DataService("dtdbtemplate.db");
             _sqliteConnection = _dataServices._connection;
             isQueryOk = false;

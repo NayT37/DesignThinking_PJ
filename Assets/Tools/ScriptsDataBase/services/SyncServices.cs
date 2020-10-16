@@ -78,27 +78,26 @@ public class SyncServices : MonoBehaviour  {
 			cw.teacherIdentityCard = item.teacherIdentityCard;
 			cw.lastUpdate = item.lastUpdate;
 			coursesweb[countCourse] = cw;
-			counterCourses++;
+			countCourse++;
 		}
 		var groups = _groupServices.GetAllGroups();
 
 		counterGroups = _groupServices.GetAllGroupsCount();
 
-		Debug.Log(counterGroups);
 
 		GroupWeb[] groupsweb = new GroupWeb[counterGroups];
 		TrainingWeb[] trainingsweb;
 		List<CaseWeb> casesweb;
-		MomentWeb[] momentsweb;
+		List<MomentWeb> momentsweb;
 		if (counterGroups == 0)
 		{
 			trainingsweb = new TrainingWeb[0];
 			casesweb = new List<CaseWeb>();
-			momentsweb = new MomentWeb[0];
+			momentsweb = new List<MomentWeb>();
 		} else {
 			trainingsweb = new TrainingWeb[counterGroups];
 			casesweb = new List<CaseWeb>();
-			momentsweb = new MomentWeb[counterGroups*15];
+			momentsweb = new List<MomentWeb>();
 
 			var trainings = _trainingServices.GetAllTrainings();
 			var cases = _caseServices.GetAllCases();
@@ -161,9 +160,10 @@ public class SyncServices : MonoBehaviour  {
 				cw.creationDate = item.creationDate;
 				cw.caseId = item.caseId;
 				cw.lastUpdate = item.lastUpdate;
-				momentsweb[countMoments] = cw;
+				momentsweb.Add(cw);
 				countMoments++;
 			}
+
 		} 
 		
 		counterProjects = _projectServices.GetAllProjectsCount();
@@ -505,7 +505,7 @@ public class SyncServices : MonoBehaviour  {
 
 	private UnityWebRequest SetJsonForm (string json, string method) {
 		try {
-			UnityWebRequest web = UnityWebRequest.Put ("http://8afb74b880a1.ngrok.io/services/" + method, json);
+			UnityWebRequest web = UnityWebRequest.Put ("http://17ccab041aa9.ngrok.io/services/" + method, json);
 			web.SetRequestHeader ("Content-Type", "application/json");
 			Debug.Log(json);
 			return web;

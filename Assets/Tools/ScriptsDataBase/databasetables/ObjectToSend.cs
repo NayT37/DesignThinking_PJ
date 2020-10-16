@@ -18,7 +18,7 @@ public class ObjectToSend
 
     public TrainingWeb[] Training;
     public List<CaseWeb> Case;
-    public MomentWeb[] Moment;
+    public List<MomentWeb> Moment;
     public ProjectWeb[] Project;
     public PublicWeb[] Public;
     public EmpathymapWeb[] Empathymap;

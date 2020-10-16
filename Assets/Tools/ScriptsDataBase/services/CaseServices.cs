@@ -17,8 +17,8 @@ public class CaseServices : MonoBehaviour
     private MomentServices _momentS = new MomentServices();
 
     private string[] arraymomentsname = new string[] { "moment_1", "moment_2", "moment_3", "moment_4", "moment_5" };
-    private Cases _nullCase =
-        new Cases
+    private Case _nullCase =
+        new Case
         {
             id = 0,
             name = "null",
@@ -28,8 +28,8 @@ public class CaseServices : MonoBehaviour
             lastUpdate = "null"
         };
 
-    private IEnumerable<Cases> _casesLoaded = new Cases[]{
-        new Cases{
+    private IEnumerable<Case> _casesLoaded = new Case[]{
+        new Case{
                 id = 0,
                 name = "null",
                 percentage = 0,
@@ -37,7 +37,7 @@ public class CaseServices : MonoBehaviour
                 trainingId = 0,
                 lastUpdate = "null"
         },
-        new Cases{
+        new Case{
                 id = 0,
                 name = "null",
                 percentage = 0,
@@ -45,7 +45,7 @@ public class CaseServices : MonoBehaviour
                 trainingId = 0,
                 lastUpdate = "null"
         },
-        new Cases{
+        new Case{
                 id = 0,
                 name = "null",
                 percentage = 0,
@@ -53,7 +53,7 @@ public class CaseServices : MonoBehaviour
                 trainingId = 0,
                 lastUpdate = "null"
         },
-        new Cases{
+        new Case{
                 id = 0,
                 name = "null",
                 percentage = 0,
@@ -61,7 +61,7 @@ public class CaseServices : MonoBehaviour
                 trainingId = 0,
                 lastUpdate = "null"
         },
-        new Cases{
+        new Case{
                 id = 0,
                 name = "null",
                 percentage = 0,
@@ -99,7 +99,7 @@ public class CaseServices : MonoBehaviour
 
         int valueToReturn = 0;
 
-        var new_c = new Cases
+        var new_c = new Case
         {
 			id = DataBaseParametersCtrl.Ctrl.GenerateCodeToId(),
             name = casename,
@@ -143,12 +143,12 @@ public class CaseServices : MonoBehaviour
     /// <returns>
     /// An object of type case with all the data of the case that was searched and if doesnt exist so return an empty case.
     /// </returns>
-    public Cases GetCaseId(Int64 caseid)
+    public Case GetCaseId(Int64 caseid)
     {
 
         //valueToResponse = 2
 
-        var c = _connection.Table<Cases>().Where(x => x.id == caseid).FirstOrDefault();
+        var c = _connection.Table<Case>().Where(x => x.id == caseid).FirstOrDefault();
 
         if (c == null)
             return _nullCase;
@@ -164,21 +164,21 @@ public class CaseServices : MonoBehaviour
     /// <returns>
     /// A IEnumerable list of all the Cases found from the identifier of the training that was passed as a parameter
     /// </returns>
-    public IEnumerable<Cases> GetCases(Int64 trainingId)
+    public IEnumerable<Case> GetCases(Int64 trainingId)
     {
 
         //valueToResponse = 3
-        return (IEnumerable<Cases>)_connection.Query<Cases> ("select * from Cases where trainingId = " + trainingId +" ORDER BY creationDate ASC");
+        return (IEnumerable<Case>)_connection.Query<Case> ("select * from 'Case' where trainingId = " + trainingId +" ORDER BY creationDate ASC");
         //return _connection.Table<Cases>().Where(x => x.trainingId == trainingId).OrderBy(m => m.creationDate);
     }
 
-    public IEnumerable<Cases> GetAllCases(){
+    public IEnumerable<Case> GetAllCases(){
 
 		//valueToResponse = 2 
 
-        var cases = _connection.Table<Cases>();
+        var cases = _connection.Table<Case>();
 
-		List<Cases> finalCases = new List<Cases>();
+		List<Case> finalCases = new List<Case>();
 
         foreach (var item in cases)
         {
@@ -207,7 +207,7 @@ public class CaseServices : MonoBehaviour
     /// <returns>
     /// An integer response of the query (0 = the object was not removed correctly. 1 = the object was removed correctly)
     /// </returns>
-    public int DeleteCase(Cases caseToDelete)
+    public int DeleteCase(Case caseToDelete)
     {
 
         //valueToResponse = 4
