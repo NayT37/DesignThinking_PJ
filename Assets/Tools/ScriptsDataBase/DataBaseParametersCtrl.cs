@@ -88,6 +88,8 @@ public class DataBaseParametersCtrl : MonoBehaviour
 
 	public bool isSyncNot;
 
+    public bool isNothingToSync;
+
 	public IEnumerable<Course> _coursesLoaded;
 
     public IEnumerable<Group> _groupsLoaded;
@@ -100,10 +102,11 @@ public class DataBaseParametersCtrl : MonoBehaviour
         if (Ctrl == null)
         {
             Ctrl = this;
-            _ipServer = "http://7e64f27f7b18.ngrok.io/services/";
+            _ipServer = "http://e4140bae4588.ngrok.io/services/";
             isWaitingToDB = true;
             isNotTeacherExist = false;
 			isSyncNot = false;
+            isNothingToSync = false;
             Salt = "EHS-dpa";
             _dataServices = new DataService("dtdbtemplate.db");
             _sqliteConnection = _dataServices._connection;

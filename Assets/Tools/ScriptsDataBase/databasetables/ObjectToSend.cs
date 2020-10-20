@@ -14,15 +14,15 @@ public class ObjectToSend
 {
     public CourseWeb[] Course;
 
-    public GroupWeb[] Group;
+    public List<GroupWeb> Group;
 
-    public TrainingWeb[] Training;
+    public List<TrainingWeb> Training;
     public List<CaseWeb> Case;
     public List<MomentWeb> Moment;
     public ProjectWeb[] Project;
-    public PublicWeb[] Public;
-    public EmpathymapWeb[] Empathymap;
-    public SectorWeb[] Sector;
+    public List<PublicWeb> Public;
+    public List<EmpathymapWeb> Empathymap;
+    public List<SectorWeb> Sector;
     public ProblemWeb[] Problem;
     public FieldWeb[] Field;
     public StoryTellingWeb[] Storytelling;

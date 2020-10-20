@@ -85,19 +85,21 @@ public class SyncServices : MonoBehaviour  {
 		counterGroups = _groupServices.GetAllGroupsCount();
 
 
-		GroupWeb[] groupsweb = new GroupWeb[counterGroups];
-		TrainingWeb[] trainingsweb;
+		List<GroupWeb> groupsweb;
+		List<TrainingWeb> trainingsweb;
 		List<CaseWeb> casesweb;
 		List<MomentWeb> momentsweb;
 		if (counterGroups == 0)
 		{
-			trainingsweb = new TrainingWeb[0];
+			trainingsweb = new List<TrainingWeb>();
 			casesweb = new List<CaseWeb>();
 			momentsweb = new List<MomentWeb>();
+			groupsweb = new List<GroupWeb>();
 		} else {
-			trainingsweb = new TrainingWeb[counterGroups];
+			trainingsweb = new List<TrainingWeb>();
 			casesweb = new List<CaseWeb>();
 			momentsweb = new List<MomentWeb>();
+			groupsweb = new List<GroupWeb>();
 
 			var trainings = _trainingServices.GetAllTrainings();
 			var cases = _caseServices.GetAllCases();
@@ -115,7 +117,7 @@ public class SyncServices : MonoBehaviour  {
 				cw.creationDate = item.creationDate;
 				cw.courseId = item.courseId;
 				cw.lastUpdate = item.lastUpdate;
-				groupsweb[countGroup] = cw;
+				groupsweb.Add(cw);
 				countGroup++;
 			}
 
@@ -130,7 +132,7 @@ public class SyncServices : MonoBehaviour  {
 				cw.creationDate = item.creationDate;
 				cw.groupId = item.groupId;
 				cw.lastUpdate = item.lastUpdate;
-				trainingsweb[countTraining] = cw;
+				trainingsweb.Add(cw);
 				countTraining++;
 			}
 
@@ -169,9 +171,9 @@ public class SyncServices : MonoBehaviour  {
 		counterProjects = _projectServices.GetAllProjectsCount();
 
 		ProjectWeb[] projectsweb;
-		PublicWeb[] publicsweb;
-		EmpathymapWeb[] empathymapsweb;
-		SectorWeb[] sectorsweb;
+		List<PublicWeb> publicsweb;
+		List<EmpathymapWeb> empathymapsweb;
+		List<SectorWeb> sectorsweb;
 		ProblemWeb[] problemsweb;
 		FieldWeb[] fieldsweb;
 		StoryTellingWeb[] storytellingsweb;
@@ -186,9 +188,9 @@ public class SyncServices : MonoBehaviour  {
 		if (counterProjects == 0)
 		{
 			projectsweb = new ProjectWeb[0];
-			publicsweb = new PublicWeb[0];
-			empathymapsweb = new EmpathymapWeb[0];
-			sectorsweb = new SectorWeb[0];
+			empathymapsweb = new List<EmpathymapWeb>();
+			publicsweb = new List<PublicWeb>();
+			sectorsweb = new List<SectorWeb>();
 			problemsweb = new ProblemWeb[0];
 			fieldsweb = new FieldWeb[0];
 			storytellingsweb = new StoryTellingWeb[0];
@@ -219,9 +221,9 @@ public class SyncServices : MonoBehaviour  {
 			var answers = _answerServices.GetAllAnswers();
 
 			projectsweb = new ProjectWeb[counterProjects];
-			publicsweb = new PublicWeb[counterProjects];
-			empathymapsweb = new EmpathymapWeb[counterProjects];
-			sectorsweb = new SectorWeb[counterProjects*6];
+			publicsweb = new List<PublicWeb>();
+			empathymapsweb = new List<EmpathymapWeb>();
+			sectorsweb = new List<SectorWeb>();
 			problemsweb = new ProblemWeb[counterProjects];
 			fieldsweb = new FieldWeb[counterProjects*3];
 
@@ -276,7 +278,7 @@ public class SyncServices : MonoBehaviour  {
 				cw.creationDate = item.creationDate;
 				cw.projectId = item.projectId;
 				cw.lastUpdate = item.lastUpdate;
-				publicsweb[countPublics] = cw;
+				publicsweb.Add(cw);
 				countPublics++;
 			}
 
@@ -320,7 +322,7 @@ public class SyncServices : MonoBehaviour  {
 				cw.creationDate = item.creationDate;
 				cw.projectId = item.projectId;
 				cw.lastUpdate = item.lastUpdate;
-				empathymapsweb[countEmpathymaps] = cw;
+				empathymapsweb.Add(cw);
 				countEmpathymaps++;
 			}
 
@@ -335,7 +337,7 @@ public class SyncServices : MonoBehaviour  {
 				cw.creationDate = item.creationDate;
 				cw.empathymapId = item.empathymapId;
 				cw.lastUpdate = item.lastUpdate;
-				sectorsweb[countSectors] = cw;
+				sectorsweb.Add(cw);
 				countSectors++;
 			}
 
@@ -486,10 +488,27 @@ public class SyncServices : MonoBehaviour  {
 		objToSend.Question = questionsweb;
 		objToSend.Answer = answersweb;
 
-		setDBToWeb("sync", 0, objToSend);
+		bool check = CheckFinal(objToSend);
+
+		if(check){
+			setDBToWeb("sync", 0, objToSend);
+		}else{
+			DataBaseParametersCtrl.Ctrl.isNothingToSync = true;
+		}
 	}
 
-	public void setDBToWeb(string methodToCall, int valueToResponse, ObjectToSend obj){
+    private bool CheckFinal(ObjectToSend obj)
+    {
+		bool check = true;
+        if(obj.Answer.Length == 0 && obj.Case.Count == 0 && obj.Course.Length == 0 && obj.Empathymap.Count == 0 && obj.Evaluation.Length == 0 && obj.Field.Length == 0 && obj.Field.Length == 0
+		&& obj.Group.Count == 0 && obj.Mindmap.Length == 0 && obj.Moment.Count == 0 && obj.Node.Length == 0 && obj.Note.Length == 0 && obj.Problem.Length == 0 && obj.Project.Length == 0
+		&& obj.Public.Count == 0 && obj.Question.Length == 0 && obj.Section.Length == 0 && obj.Sector.Count == 0 && obj.Storytelling.Length == 0 && obj.Training.Count == 0){
+			return check = false;
+		}
+		return check;
+    }
+
+    public void setDBToWeb(string methodToCall, int valueToResponse, ObjectToSend obj){
 
 		//UserData tempUser = new UserData (player.id, player.cycle, game);
 		string json = JsonUtility.ToJson (obj, false);
@@ -505,7 +524,7 @@ public class SyncServices : MonoBehaviour  {
 
 	private UnityWebRequest SetJsonForm (string json, string method) {
 		try {
-			UnityWebRequest web = UnityWebRequest.Put ("http://17ccab041aa9.ngrok.io/services/" + method, json);
+			UnityWebRequest web = UnityWebRequest.Put ("http://6e3bfb8bdf3b.ngrok.io/services/" + method, json);
 			web.SetRequestHeader ("Content-Type", "application/json");
 			Debug.Log(json);
 			return web;

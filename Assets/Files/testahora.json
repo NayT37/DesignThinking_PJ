@@ -1,1 +1,356 @@
-{"Course":[{"id":292226421400166,"name":"PRIMERGRUP","percentage":28,"creationDate":"2020-10-16 10:41:05","teacherIdentityCard":"292226421","lastUpdate":"2020-10-16 10:44:12"}],"Group":[{"id":292226421405706,"name":"PRIMERCURSO","percentage":28,"creationDate":"2020-10-16 10:41:14","studentsCounter":1,"courseId":292226421400166,"lastUpdate":"2020-10-16 10:44:12"}],"Training":[{"id":292226421764511,"name":"Training","percentage":0,"creationDate":"2020-10-16 10:41:14","groupId":292226421405706,"lastUpdate":"2020-10-16 10:41:14"}],"Case":[{"id":292226421262861,"name":"case_3","percentage":0,"creationDate":"2020-10-16 10:41:14","trainingId":292226421764511,"lastUpdate":"2020-10-16 10:41:14"},{"id":292226421513686,"name":"case_2","percentage":0,"creationDate":"2020-10-16 10:41:14","trainingId":292226421764511,"lastUpdate":"2020-10-16 10:41:14"},{"id":292226421764511,"name":"case_1","percentage":0,"creationDate":"2020-10-16 10:41:14","trainingId":292226421764511,"lastUpdate":"2020-10-16 10:41:14"}],"Moment":[{"id":292226421012035,"name":"moment_5","percentage":0,"creationDate":"2020-10-16 10:41:14","caseId":292226421262861,"lastUpdate":"2020-10-16 10:41:14"},{"id":292226421067676,"name":"moment_3","percentage":0,"creationDate":"2020-10-16 10:41:14","caseId":292226421513686,"lastUpdate":"2020-10-16 10:41:14"},{"id":292226421154881,"name":"moment_4","percentage":0,"creationDate":"2020-10-16 10:41:14","caseId":292226421764511,"lastUpdate":"2020-10-16 10:41:14"},{"id":292226421175655,"name":"moment_4","percentage":0,"creationDate":"2020-10-16 10:41:14","caseId":292226421262861,"lastUpdate":"2020-10-16 10:41:14"},{"id":292226421262861,"name":"moment_5","percentage":0,"creationDate":"2020-10-16 10:41:14","caseId":292226421513686,"lastUpdate":"2020-10-16 10:41:14"},{"id":292226421318501,"name":"moment_3","percentage":0,"creationDate":"2020-10-16 10:41:14","caseId":292226421764511,"lastUpdate":"2020-10-16 10:41:14"},{"id":292226421458045,"name":"moment_2","percentage":0,"creationDate":"2020-10-16 10:41:14","caseId":292226421262861,"lastUpdate":"2020-10-16 10:41:14"},{"id":292226421513686,"name":"moment_5","percentage":0,"creationDate":"2020-10-16 10:41:14","caseId":292226421764511,"lastUpdate":"2020-10-16 10:41:14"},{"id":292226421600891,"name":"moment_1","percentage":0,"creationDate":"2020-10-16 10:41:14","caseId":292226421764511,"lastUpdate":"2020-10-16 10:41:14"},{"id":292226421621665,"name":"moment_1","percentage":0,"creationDate":"2020-10-16 10:41:14","caseId":292226421262861,"lastUpdate":"2020-10-16 10:41:14"},{"id":292226421708870,"name":"moment_2","percentage":0,"creationDate":"2020-10-16 10:41:14","caseId":292226421513686,"lastUpdate":"2020-10-16 10:41:14"},{"id":292226421816850,"name":"moment_3","percentage":0,"creationDate":"2020-10-16 10:41:14","caseId":292226421262861,"lastUpdate":"2020-10-16 10:41:14"},{"id":292226421872490,"name":"moment_1","percentage":0,"creationDate":"2020-10-16 10:41:14","caseId":292226421513686,"lastUpdate":"2020-10-16 10:41:14"},{"id":292226421904055,"name":"moment_4","percentage":0,"creationDate":"2020-10-16 10:41:14","caseId":292226421513686,"lastUpdate":"2020-10-16 10:41:14"},{"id":292226421959696,"name":"moment_2","percentage":0,"creationDate":"2020-10-16 10:41:14","caseId":292226421764511,"lastUpdate":"2020-10-16 10:41:14"}],"Project":[{"id":292226421465514,"name":"NuevoProje","percentage":56,"creationDate":"2020-10-16 10:43:35","sectorName":"Productivo","groupId":292226421405706,"lastUpdate":"2020-10-16 10:44:12"}],"Public":[{"id":292226421547469,"ageRange":"Adultez","gender":"Hombre","percentage":100,"creationDate":"2020-10-16 10:43:43","lastUpdate":"2020-10-16 10:43:43","projectId":292226421465514}],"Empathymap":[{"id":292226421824319,"percentage":16,"creationDate":"2020-10-16 10:43:35","projectId":292226421465514,"lastUpdate":"2020-10-16 10:43:49"}],"Sector":[{"id":292226421824319,"name":"sector_1","description":"","creationDate":"2020-10-16 10:43:35","empathymapId":292226421824319,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421660699,"name":"sector_2","description":"","creationDate":"2020-10-16 10:43:35","empathymapId":292226421824319,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421019504,"name":"sector_3","description":"asdasd","creationDate":"2020-10-16 10:43:35","empathymapId":292226421824319,"lastUpdate":"2020-10-16 10:43:49"},{"id":292226421378309,"name":"sector_4","description":"","creationDate":"2020-10-16 10:43:35","empathymapId":292226421824319,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421214689,"name":"sector_5","description":"","creationDate":"2020-10-16 10:43:35","empathymapId":292226421824319,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421573494,"name":"sector_6","description":"","creationDate":"2020-10-16 10:43:35","empathymapId":292226421824319,"lastUpdate":"2020-10-16 10:43:35"}],"Problem":[{"id":292226421953206,"percentage":100,"creationDate":"2020-10-16 10:43:50","lastUpdate":"2020-10-16 10:43:55","projectId":292226421465514}],"Field":[{"id":292226421148392,"name":"Field_2","percentage":100,"description":"sda","creationDate":"2020-10-16 10:43:50","lastUpdate":"2020-10-16 10:43:55","problemId":292226421953206},{"id":292226421312012,"name":"Field_1","percentage":100,"description":"sdasd","creationDate":"2020-10-16 10:43:50","lastUpdate":"2020-10-16 10:43:55","problemId":292226421953206},{"id":292226421507196,"name":"Field_3","percentage":100,"description":"asda","creationDate":"2020-10-16 10:43:50","lastUpdate":"2020-10-16 10:43:55","problemId":292226421953206}],"Storytelling":[{"id":292226421573494,"percentage":8,"creationDate":"2020-10-16 10:43:35","projectId":292226421465514,"lastUpdate":"2020-10-16 10:44:00","version":1},{"id":292226421042807,"percentage":8,"creationDate":"2020-10-16 10:44:01","projectId":292226421465514,"lastUpdate":"2020-10-16 10:44:12","version":2}],"Note":[{"id":292226421188876,"position":3,"creationDate":"2020-10-16 10:43:59","description":"asdas","storytellingId":292226421573494,"lastUpdate":"2020-10-16 10:44:00"},{"id":292226421388482,"position":6,"creationDate":"2020-10-16 10:44:03","description":"asdasd","storytellingId":292226421042807,"lastUpdate":"2020-10-16 10:44:04"}],"Mindmap":[{"id":292226421573494,"percentage":0,"creationDate":"2020-10-16 10:43:35","storytellingId":292226421573494,"image":"item.image","lastUpdate":"2020-10-16 10:43:35","version":1,"ideaDescription":""},{"id":292226421042807,"percentage":0,"creationDate":"2020-10-16 10:44:01","storytellingId":292226421042807,"image":"item.image","lastUpdate":"2020-10-16 10:44:12","version":1,"ideaDescription":"asdasd"}],"Section":[{"id":292226421127484,"name":"Section_2","creationDate":"2020-10-16 10:43:35","mindmapId":292226421573494,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421235463,"name":"Section_4","creationDate":"2020-10-16 10:43:35","mindmapId":292226421573494,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421267028,"name":"Section_5","creationDate":"2020-10-16 10:43:35","mindmapId":292226421573494,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421681473,"name":"Section_3","creationDate":"2020-10-16 10:43:35","mindmapId":292226421573494,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421821017,"name":"Section_6","creationDate":"2020-10-16 10:43:35","mindmapId":292226421573494,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421932298,"name":"Section_1","creationDate":"2020-10-16 10:43:35","mindmapId":292226421573494,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421042807,"name":"Section_1","creationDate":"2020-10-16 10:44:01","mindmapId":292226421042807,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421182351,"name":"Section_4","creationDate":"2020-10-16 10:44:01","mindmapId":292226421042807,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421290330,"name":"Section_6","creationDate":"2020-10-16 10:44:01","mindmapId":292226421042807,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421596796,"name":"Section_2","creationDate":"2020-10-16 10:44:01","mindmapId":292226421042807,"lastUpdate":"2020-10-16 10:44:11"},{"id":292226421628360,"name":"Section_3","creationDate":"2020-10-16 10:44:01","mindmapId":292226421042807,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421736340,"name":"Section_5","creationDate":"2020-10-16 10:44:01","mindmapId":292226421042807,"lastUpdate":"2020-10-16 10:44:12"}],"Node":[{"id":292226421071843,"creationDate":"2020-10-16 10:43:35","description":"","sectionId":292226421235463,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421127484,"creationDate":"2020-10-16 10:43:35","description":"","sectionId":292226421932298,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421179823,"creationDate":"2020-10-16 10:43:35","description":"","sectionId":292226421821017,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421235463,"creationDate":"2020-10-16 10:43:35","description":"","sectionId":292226421681473,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421267028,"creationDate":"2020-10-16 10:43:35","description":"","sectionId":292226421235463,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421322668,"creationDate":"2020-10-16 10:43:35","description":"","sectionId":292226421127484,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421375007,"creationDate":"2020-10-16 10:43:35","description":"","sectionId":292226421821017,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421430648,"creationDate":"2020-10-16 10:43:35","description":"","sectionId":292226421235463,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421517853,"creationDate":"2020-10-16 10:43:35","description":"","sectionId":292226421681473,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421538627,"creationDate":"2020-10-16 10:43:35","description":"","sectionId":292226421821017,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421625832,"creationDate":"2020-10-16 10:43:35","description":"","sectionId":292226421267028,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421681473,"creationDate":"2020-10-16 10:43:35","description":"","sectionId":292226421127484,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421768678,"creationDate":"2020-10-16 10:43:35","description":"","sectionId":292226421932298,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421821017,"creationDate":"2020-10-16 10:43:35","description":"","sectionId":292226421267028,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421876658,"creationDate":"2020-10-16 10:43:35","description":"","sectionId":292226421681473,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421932298,"creationDate":"2020-10-16 10:43:35","description":"","sectionId":292226421932298,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421963863,"creationDate":"2020-10-16 10:43:35","description":"","sectionId":292226421127484,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421984637,"creationDate":"2020-10-16 10:43:35","description":"","sectionId":292226421267028,"lastUpdate":"2020-10-16 10:43:35"},{"id":292226421095146,"creationDate":"2020-10-16 10:44:01","description":"asdad","sectionId":292226421736340,"lastUpdate":"2020-10-16 10:44:12"},{"id":292226421182351,"creationDate":"2020-10-16 10:44:01","description":"","sectionId":292226421628360,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421237991,"creationDate":"2020-10-16 10:44:01","description":"","sectionId":292226421042807,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421290330,"creationDate":"2020-10-16 10:44:01","description":"","sectionId":292226421736340,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421345971,"creationDate":"2020-10-16 10:44:01","description":"","sectionId":292226421628360,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421433176,"creationDate":"2020-10-16 10:44:01","description":"asdasd","sectionId":292226421596796,"lastUpdate":"2020-10-16 10:44:11"},{"id":292226421485515,"creationDate":"2020-10-16 10:44:01","description":"","sectionId":292226421290330,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421541155,"creationDate":"2020-10-16 10:44:01","description":"","sectionId":292226421182351,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421596796,"creationDate":"2020-10-16 10:44:01","description":"","sectionId":292226421042807,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421628360,"creationDate":"2020-10-16 10:44:01","description":"","sectionId":292226421596796,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421649135,"creationDate":"2020-10-16 10:44:01","description":"","sectionId":292226421290330,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421736340,"creationDate":"2020-10-16 10:44:01","description":"","sectionId":292226421182351,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421791981,"creationDate":"2020-10-16 10:44:01","description":"","sectionId":292226421596796,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421844319,"creationDate":"2020-10-16 10:44:01","description":"","sectionId":292226421290330,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421879186,"creationDate":"2020-10-16 10:44:01","description":"","sectionId":292226421042807,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421899960,"creationDate":"2020-10-16 10:44:01","description":"","sectionId":292226421182351,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421931524,"creationDate":"2020-10-16 10:44:01","description":"","sectionId":292226421736340,"lastUpdate":"2020-10-16 10:44:01"},{"id":292226421987165,"creationDate":"2020-10-16 10:44:01","description":"","sectionId":292226421628360,"lastUpdate":"2020-10-16 10:44:01"}],"Evaluation":[{"id":292226421733328,"category":"Producto","percentage":100,"creationDate":"2020-10-16 10:44:19","mindmapId":292226421042807,"lastUpdate":"2020-10-16 10:44:19"}],"Question":[{"id":292226421001627,"creationDate":"2020-10-16 10:44:19","description":"Nivel de competencia existente hace que sea complicado el desarrollo del producto/servicio.","evaluationId":292226421733328,"lastUpdate":"2020-10-16 10:44:28","category":"competitividad"},{"id":292226421092134,"creationDate":"2020-10-16 10:44:19","description":"Factor innovador de producto/servicio en el mercado actual. (Diferenciador respecto de la competencia).","evaluationId":292226421733328,"lastUpdate":"2020-10-16 10:44:28","category":"pertinencia"},{"id":292226421231678,"creationDate":"2020-10-16 10:44:19","description":"En que medida el producto/servicio soluciona un problema.","evaluationId":292226421733328,"lastUpdate":"2020-10-16 10:44:28","category":"pertinencia"},{"id":292226421249150,"creationDate":"2020-10-16 10:44:19","description":"Nivel de disponibilidad de recursos (humano, técnicos, Financieros) para el desarrollo de producto/servicio.","evaluationId":292226421733328,"lastUpdate":"2020-10-16 10:44:28","category":"viabilidad"},{"id":292226421252452,"creationDate":"2020-10-16 10:44:19","description":"Nivel de dificultad para poner en marcha el desarrollo de la idea (Producto/servicio).","evaluationId":292226421733328,"lastUpdate":"2020-10-16 10:44:28","category":"competitividad"},{"id":292226421482503,"creationDate":"2020-10-16 10:44:19","description":"Nivel de respuesta a las necesidades, costumbres y hábitos de los potenciales clientes y/o beneficiarios.","evaluationId":292226421733328,"lastUpdate":"2020-10-16 10:44:28","category":"pertinencia"},{"id":292226421499975,"creationDate":"2020-10-16 10:44:19","description":"Estimación de que suba la demanda y el interés por el producto/servicio prototipado en el tiempo.","evaluationId":292226421733328,"lastUpdate":"2020-10-16 10:44:28","category":"viabilidad"},{"id":292226421750800,"creationDate":"2020-10-16 10:44:19","description":"Necesidad de Financiación externa.","evaluationId":292226421733328,"lastUpdate":"2020-10-16 10:44:28","category":"competitividad"},{"id":292226421980851,"creationDate":"2020-10-16 10:44:19","description":"Nivel de probabilidad de que existan o pueden aparecer productos /servicios que sustituyan a mi idea.","evaluationId":292226421733328,"lastUpdate":"2020-10-16 10:44:28","category":"competitividad"},{"id":292226421998324,"creationDate":"2020-10-16 10:44:19","description":"Probabilidad de desarrollar el producto/servicio, en corto tiempo.","evaluationId":292226421733328,"lastUpdate":"2020-10-16 10:44:28","category":"viabilidad"}],"Answer":[{"id":292226421001627,"counter":0,"value":5,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421252452},{"id":292226421036493,"counter":0,"value":3,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421482503},{"id":292226421053965,"counter":0,"value":3,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421499975},{"id":292226421088832,"counter":0,"value":1,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421252452},{"id":292226421092134,"counter":0,"value":1,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421092134},{"id":292226421141170,"counter":1,"value":4,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:28","questionId":292226421750800},{"id":292226421144472,"counter":0,"value":4,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421231678},{"id":292226421161945,"counter":0,"value":4,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421249150},{"id":292226421193509,"counter":0,"value":2,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421998324},{"id":292226421196811,"counter":0,"value":2,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421001627},{"id":292226421231678,"counter":0,"value":5,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421482503},{"id":292226421249150,"counter":0,"value":5,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421499975},{"id":292226421252452,"counter":1,"value":5,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:28","questionId":292226421980851},{"id":292226421284016,"counter":0,"value":3,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421252452},{"id":292226421287318,"counter":0,"value":3,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421092134},{"id":292226421304791,"counter":0,"value":3,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421750800},{"id":292226421339657,"counter":0,"value":1,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421980851},{"id":292226421357129,"counter":0,"value":1,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421998324},{"id":292226421391996,"counter":0,"value":4,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421001627},{"id":292226421395298,"counter":0,"value":4,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421482503},{"id":292226421444334,"counter":0,"value":2,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421249150},{"id":292226421447636,"counter":0,"value":2,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421252452},{"id":292226421482503,"counter":0,"value":5,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421092134},{"id":292226421499975,"counter":0,"value":5,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421750800},{"id":292226421534841,"counter":0,"value":3,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421980851},{"id":292226421552314,"counter":0,"value":3,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421998324},{"id":292226421555616,"counter":0,"value":3,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421001627},{"id":292226421587180,"counter":0,"value":1,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421750800},{"id":292226421590482,"counter":0,"value":1,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421231678},{"id":292226421607955,"counter":0,"value":1,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421249150},{"id":292226421642821,"counter":1,"value":4,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:28","questionId":292226421252452},{"id":292226421646123,"counter":0,"value":4,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421092134},{"id":292226421677687,"counter":0,"value":2,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421482503},{"id":292226421695160,"counter":0,"value":2,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421499975},{"id":292226421698462,"counter":0,"value":2,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421980851},{"id":292226421747498,"counter":0,"value":5,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421998324},{"id":292226421750800,"counter":0,"value":5,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421001627},{"id":292226421785667,"counter":0,"value":3,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421231678},{"id":292226421803139,"counter":0,"value":3,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421249150},{"id":292226421838005,"counter":1,"value":1,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:28","questionId":292226421001627},{"id":292226421841307,"counter":1,"value":1,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:28","questionId":292226421482503},{"id":292226421858780,"counter":0,"value":1,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421499975},{"id":292226421890344,"counter":1,"value":4,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:28","questionId":292226421499975},{"id":292226421893646,"counter":0,"value":4,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421980851},{"id":292226421911118,"counter":1,"value":4,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:28","questionId":292226421998324},{"id":292226421928513,"counter":1,"value":2,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:28","questionId":292226421092134},{"id":292226421945985,"counter":0,"value":2,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421750800},{"id":292226421949287,"counter":0,"value":2,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:19","questionId":292226421231678},{"id":292226421980851,"counter":1,"value":5,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:28","questionId":292226421231678},{"id":292226421998324,"counter":1,"value":5,"creationDate":"2020-10-16 10:44:19","lastUpdate":"2020-10-16 10:44:28","questionId":292226421249150}]}
+{
+    "Course": [
+        {
+            "id": 292226421196733,
+            "name": "TEST",
+            "percentage": 6,
+            "creationDate": "2020-10-20 9:11:04.",
+            "teacherIdentityCard": "292226421",
+            "lastUpdate": "2020-10-20 10:56:31"
+        }
+    ],
+    "Group": [
+        {
+            "id": 292226421131343,
+            "name": "TEST",
+            "percentage": 13,
+            "creationDate": "2020-10-20 9:11:07.",
+            "studentsCounter": 3,
+            "courseId": 292226421196733,
+            "lastUpdate": "2020-10-20 10:56:31"
+        },
+        {
+            "id": 292226421501310,
+            "name": "ASDASD",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "studentsCounter": 3,
+            "courseId": 292226421196733,
+            "lastUpdate": "2020-10-20 10:36:35"
+        }
+    ],
+    "Training": [
+        {
+            "id": 292226421337690,
+            "name": "Training",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "groupId": 292226421501310,
+            "lastUpdate": "2020-10-20 10:36:35"
+        },
+        {
+            "id": 292226421490148,
+            "name": "Training",
+            "percentage": 26,
+            "creationDate": "2020-10-20 9:11:07.",
+            "groupId": 292226421131343,
+            "lastUpdate": "2020-10-20 10:56:31"
+        }
+    ],
+    "Case": [
+        {
+            "id": 292226421490148,
+            "name": "case_1",
+            "percentage": 80,
+            "creationDate": "2020-10-20 9:11:07.",
+            "trainingId": 292226421490148,
+            "lastUpdate": "2020-10-20 10:56:31"
+        },
+        {
+            "id": 292226421880517,
+            "name": "case_2",
+            "percentage": 0,
+            "creationDate": "2020-10-20 9:11:07.",
+            "trainingId": 292226421490148,
+            "lastUpdate": "2020-10-20 9:11:07."
+        },
+        {
+            "id": 292226421629692,
+            "name": "case_3",
+            "percentage": 0,
+            "creationDate": "2020-10-20 9:11:07.",
+            "trainingId": 292226421490148,
+            "lastUpdate": "2020-10-20 9:11:07."
+        },
+        {
+            "id": 292226421337690,
+            "name": "case_1",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "trainingId": 292226421337690,
+            "lastUpdate": "2020-10-20 10:36:35"
+        },
+        {
+            "id": 292226421609289,
+            "name": "case_2",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "trainingId": 292226421337690,
+            "lastUpdate": "2020-10-20 10:36:35"
+        },
+        {
+            "id": 292226421358464,
+            "name": "case_3",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "trainingId": 292226421337690,
+            "lastUpdate": "2020-10-20 10:36:35"
+        }
+    ],
+    "Moment": [
+        {
+            "id": 292226421696494,
+            "name": "moment_1",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "caseId": 292226421337690,
+            "lastUpdate": "2020-10-20 10:36:35"
+        },
+        {
+            "id": 292226421055300,
+            "name": "moment_2",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "caseId": 292226421337690,
+            "lastUpdate": "2020-10-20 10:36:35"
+        },
+        {
+            "id": 292226421891679,
+            "name": "moment_3",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "caseId": 292226421337690,
+            "lastUpdate": "2020-10-20 10:36:35"
+        },
+        {
+            "id": 292226421250485,
+            "name": "moment_4",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "caseId": 292226421337690,
+            "lastUpdate": "2020-10-20 10:36:35"
+        },
+        {
+            "id": 292226421609289,
+            "name": "moment_5",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "caseId": 292226421337690,
+            "lastUpdate": "2020-10-20 10:36:35"
+        },
+        {
+            "id": 292226421445669,
+            "name": "moment_1",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "caseId": 292226421609289,
+            "lastUpdate": "2020-10-20 10:36:35"
+        },
+        {
+            "id": 292226421804474,
+            "name": "moment_2",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "caseId": 292226421609289,
+            "lastUpdate": "2020-10-20 10:36:35"
+        },
+        {
+            "id": 292226421640854,
+            "name": "moment_3",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "caseId": 292226421609289,
+            "lastUpdate": "2020-10-20 10:36:35"
+        },
+        {
+            "id": 292226421999658,
+            "name": "moment_4",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "caseId": 292226421609289,
+            "lastUpdate": "2020-10-20 10:36:35"
+        },
+        {
+            "id": 292226421358464,
+            "name": "moment_5",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "caseId": 292226421609289,
+            "lastUpdate": "2020-10-20 10:36:35"
+        },
+        {
+            "id": 292226421194844,
+            "name": "moment_1",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "caseId": 292226421358464,
+            "lastUpdate": "2020-10-20 10:36:35"
+        },
+        {
+            "id": 292226421553649,
+            "name": "moment_2",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "caseId": 292226421358464,
+            "lastUpdate": "2020-10-20 10:36:35"
+        },
+        {
+            "id": 292226421912453,
+            "name": "moment_3",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "caseId": 292226421358464,
+            "lastUpdate": "2020-10-20 10:36:35"
+        },
+        {
+            "id": 292226421748833,
+            "name": "moment_4",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "caseId": 292226421358464,
+            "lastUpdate": "2020-10-20 10:36:35"
+        },
+        {
+            "id": 292226421107639,
+            "name": "moment_5",
+            "percentage": 0,
+            "creationDate": "2020-10-20 10:36:35",
+            "caseId": 292226421358464,
+            "lastUpdate": "2020-10-20 10:36:35"
+        },
+        {
+            "id": 292226421490148,
+            "name": "moment_1",
+            "percentage": 100,
+            "creationDate": "2020-10-20 9:11:07.",
+            "caseId": 292226421490148,
+            "lastUpdate": "2020-10-20 10:55:56"
+        },
+        {
+            "id": 292226421326528,
+            "name": "moment_2",
+            "percentage": 100,
+            "creationDate": "2020-10-20 9:11:07.",
+            "caseId": 292226421490148,
+            "lastUpdate": "2020-10-20 10:56:09"
+        },
+        {
+            "id": 292226421685333,
+            "name": "moment_3",
+            "percentage": 100,
+            "creationDate": "2020-10-20 9:11:07.",
+            "caseId": 292226421490148,
+            "lastUpdate": "2020-10-20 10:56:24"
+        },
+        {
+            "id": 292226421044138,
+            "name": "moment_4",
+            "percentage": 100,
+            "creationDate": "2020-10-20 9:11:07.",
+            "caseId": 292226421490148,
+            "lastUpdate": "2020-10-20 10:56:31"
+        },
+        {
+            "id": 292226421880517,
+            "name": "moment_5",
+            "percentage": 0,
+            "creationDate": "2020-10-20 9:11:07.",
+            "caseId": 292226421490148,
+            "lastUpdate": "2020-10-20 9:11:07."
+        },
+        {
+            "id": 292226421239323,
+            "name": "moment_1",
+            "percentage": 0,
+            "creationDate": "2020-10-20 9:11:07.",
+            "caseId": 292226421880517,
+            "lastUpdate": "2020-10-20 9:11:07."
+        },
+        {
+            "id": 292226421598127,
+            "name": "moment_2",
+            "percentage": 0,
+            "creationDate": "2020-10-20 9:11:07.",
+            "caseId": 292226421880517,
+            "lastUpdate": "2020-10-20 9:11:07."
+        },
+        {
+            "id": 292226421434507,
+            "name": "moment_3",
+            "percentage": 0,
+            "creationDate": "2020-10-20 9:11:07.",
+            "caseId": 292226421880517,
+            "lastUpdate": "2020-10-20 9:11:07."
+        },
+        {
+            "id": 292226421793312,
+            "name": "moment_4",
+            "percentage": 0,
+            "creationDate": "2020-10-20 9:11:07.",
+            "caseId": 292226421880517,
+            "lastUpdate": "2020-10-20 9:11:07."
+        },
+        {
+            "id": 292226421629692,
+            "name": "moment_5",
+            "percentage": 0,
+            "creationDate": "2020-10-20 9:11:07.",
+            "caseId": 292226421880517,
+            "lastUpdate": "2020-10-20 9:11:07."
+        },
+        {
+            "id": 292226421988497,
+            "name": "moment_1",
+            "percentage": 0,
+            "creationDate": "2020-10-20 9:11:07.",
+            "caseId": 292226421629692,
+            "lastUpdate": "2020-10-20 9:11:07."
+        },
+        {
+            "id": 292226421347302,
+            "name": "moment_2",
+            "percentage": 0,
+            "creationDate": "2020-10-20 9:11:07.",
+            "caseId": 292226421629692,
+            "lastUpdate": "2020-10-20 9:11:07."
+        },
+        {
+            "id": 292226421183682,
+            "name": "moment_3",
+            "percentage": 0,
+            "creationDate": "2020-10-20 9:11:07.",
+            "caseId": 292226421629692,
+            "lastUpdate": "2020-10-20 9:11:07."
+        },
+        {
+            "id": 292226421542487,
+            "name": "moment_4",
+            "percentage": 0,
+            "creationDate": "2020-10-20 9:11:07.",
+            "caseId": 292226421629692,
+            "lastUpdate": "2020-10-20 9:11:07."
+        },
+        {
+            "id": 292226421901291,
+            "name": "moment_5",
+            "percentage": 0,
+            "creationDate": "2020-10-20 9:11:07.",
+            "caseId": 292226421629692,
+            "lastUpdate": "2020-10-20 9:11:07."
+        }
+    ],
+    "Project": [],
+    "Public": [],
+    "Empathymap": [],
+    "Sector": [],
+    "Problem": [],
+    "Field": [],
+    "Storytelling": [],
+    "Note": [],
+    "Mindmap": [],
+    "Section": [],
+    "Node": [],
+    "Evaluation": [],
+    "Question": [],
+    "Answer": []
+}

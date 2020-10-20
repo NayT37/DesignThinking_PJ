@@ -276,7 +276,7 @@ public class CourseServices : MonoBehaviour  {
 		int valueToReturn = 0;
 
 		//If the elimination of the course is correct, then the groups corresponding to that course are eliminated.
-	
+		Debug.Log("CURSO BORRADO NICE");
 		foreach (var group in groups)
 		{
 				Debug.Log(group);

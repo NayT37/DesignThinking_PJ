@@ -217,7 +217,6 @@ public class CaseServices : MonoBehaviour
 
         int result = _connection.Delete(caseToDelete);
         int valueToReturn = 0;
-
         //If the elimination of the case is correct, then the moments corresponding to that case are eliminated.
         if (result != 0)
         {

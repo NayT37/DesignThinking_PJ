@@ -18,7 +18,7 @@ public class SelectGame : MonoBehaviour
 
     private SyncServices _syncServices;
     
-	public GameObject _notData, _syncprefab, _syncSucc, _noConn, _syncNoSucc;
+	public GameObject _notData, _syncprefab, _syncSucc, _noConn, _syncNoSucc, _noDataToSync;
 
 	public Transform _TextTransform, _syncTransform;
     #endregion
@@ -148,6 +148,7 @@ public class SelectGame : MonoBehaviour
                 StopAllCoroutines();
                 StartCoroutine(waitToSync(go));
                 StartCoroutine(waitToSyncNot(go));
+                StartCoroutine(waitToNothingToSync(go));
             }else {
                 GameObject obj = Instantiate(_noConn, _TextTransform);
                 StartCoroutine(DeletePrefab(obj));
@@ -172,6 +173,14 @@ public class SelectGame : MonoBehaviour
         DataBaseParametersCtrl.Ctrl.isQueryOk = false; 
         Debug.Log("Sincronización correcta");
         StartCoroutine(DeleteMsg(go, _syncSucc)); 
+    }
+
+    private IEnumerator waitToNothingToSync(GameObject go)
+    {
+        yield return new WaitUntil(()=> DataBaseParametersCtrl.Ctrl.isNothingToSync == true);
+        DataBaseParametersCtrl.Ctrl.isNothingToSync = false; 
+        Debug.Log("No hay nada que sincronizar");
+        StartCoroutine(DeleteMsg(go, _noDataToSync)); 
     }
 
     private IEnumerator DeleteMsg(GameObject go, GameObject pref)

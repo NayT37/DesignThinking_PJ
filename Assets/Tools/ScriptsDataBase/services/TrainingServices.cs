@@ -148,11 +148,11 @@ public class TrainingServices:MonoBehaviour  {
 	public int DeleteTraining(Training trainingToDelete){
 
 		//All the cases belonging to the training that will be deleted are obtained.
-		var cases = _caseServices.GetCases(trainingToDelete.groupId);
+		var cases = _caseServices.GetCases(trainingToDelete.id);
 
 		int result = _connection.Delete(trainingToDelete);
 		int valueToReturn = 0;
-
+		
 		//If the elimination of the training is correct, then the cases corresponding to that training are eliminated.
 		if (result!=0)
 		{
