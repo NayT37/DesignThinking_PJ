@@ -100,7 +100,9 @@ public class TeacherServices:MonoBehaviour  {
 				if (tc == null)
 				{
 					setDBToWeb("loginTeacher", teacherweb);
+					Debug.Log("Estoy buscando en la base de datos web");
 				} else {
+					Debug.Log("Encontré el usuario");
 					return tc;
 				}
 
@@ -116,11 +118,13 @@ public class TeacherServices:MonoBehaviour  {
 				Debug.Log(t);
 				
 				if (t == null){
+					Debug.Log("Devolviendo null");
 					return _nullTeacher;
 					
 				}else{
 					DataBaseParametersCtrl.Ctrl._teacherLoggedIn = t;
 					DataBaseParametersCtrl.Ctrl.isQueryOk = true;
+					Debug.Log("Encontré el usuario");
 					return t;
 				}
 		}
