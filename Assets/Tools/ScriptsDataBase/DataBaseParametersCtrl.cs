@@ -102,7 +102,7 @@ public class DataBaseParametersCtrl : MonoBehaviour
         if (Ctrl == null)
         {
             Ctrl = this;
-            _ipServer = "http://e4140bae4588.ngrok.io/services/";
+            _ipServer = "https://www.sapereaudevalle.com/api/services/";
             isWaitingToDB = true;
             isNotTeacherExist = false;
 			isSyncNot = false;

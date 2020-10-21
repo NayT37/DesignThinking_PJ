@@ -524,7 +524,7 @@ public class SyncServices : MonoBehaviour  {
 
 	private UnityWebRequest SetJsonForm (string json, string method) {
 		try {
-			UnityWebRequest web = UnityWebRequest.Put ("http://6e3bfb8bdf3b.ngrok.io/services/" + method, json);
+			UnityWebRequest web = UnityWebRequest.Put ("https://www.sapereaudevalle.com/apisync/services/" + method, json);
 			web.SetRequestHeader ("Content-Type", "application/json");
 			Debug.Log(json);
 			return web;
