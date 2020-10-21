@@ -82,6 +82,7 @@ public class TeacherServices:MonoBehaviour  {
 		try
 		{
 			t = _connection.Table<Teacher>().Where(x => x.email == teacherEmail).Where(x => x.password == p).FirstOrDefault();
+			Debug.Log("Teacher: " + t);
 		}
 		catch (System.Exception)
 		{
@@ -105,7 +106,7 @@ public class TeacherServices:MonoBehaviour  {
 					Debug.Log("Encontré el usuario");
 					return tc;
 				}
-
+				Debug.Log("Devolviendo null");
 				return _nullTeacher;
 			} else {
 				
