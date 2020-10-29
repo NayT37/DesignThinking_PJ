@@ -38,7 +38,8 @@ public class Drag_M3_Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
 
     #region SYSTEM_METHODS
-    private void Awake() { rectTransform = GetComponent<RectTransform>(); }
+    private void Awake() { rectTransform = GetComponent<RectTransform>(); 
+    }
     private void Start() { Initializate(); }
     private void Update() { }
     #endregion

@@ -22,12 +22,15 @@ public class SubTab : MonoBehaviour, IPointerClickHandler
 
 
     #region SYSTEM_METHODS
-    private void Awake() { Initializate(); }
+    public void Awake() { Initializate();
+    }
     #endregion
-
+    void Start() {
+        //Initializate();
+    }
 
     #region CREATED_METHODS
-    private void Initializate()
+    public void Initializate()
     {
         _internalID = int.Parse(name.Split('_')[1]);
         _internalTxt = transform.GetChild(0).GetComponent<Text>();

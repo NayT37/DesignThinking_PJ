@@ -24,9 +24,41 @@ public class MainTab : MonoBehaviour, IPointerClickHandler
     private string _textToShow;
     #endregion
 
-
     #region SYSTEM_METHODS
-    private void Awake()
+    public void Awake()
+    {
+        //Check if instance already exists
+        if (instance == null)
+        {
+            //if not, set instance to this
+            instance = this;
+        }
+        //If instance already exists and it's not this:
+        else if (instance != this)
+        {
+            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
+            Destroy(gameObject);
+        }
+        _childsArray = new SubTab[3];
+    }
+    public void Start() { Initializate(); }
+    public void OnEnable() { SubTab.OnStateChange += SetChildStateTofalse; }
+    public void OnDisable() { SubTab.OnStateChange -= SetChildStateTofalse; }
+    #endregion
+
+
+    #region CREATED_METHODS
+    public void Initializate()
+    {
+        //Initial();
+        _selectedTab = 1;
+        _internalTxt = transform.GetChild(0).GetComponent<Text>();
+        _showTabs = true;
+        // _tabsToShowCounter = 1;
+        HideTabs();
+    }
+
+    private void Initial()
     {
         //Check if instance already exists
         if (instance == null)
@@ -36,26 +68,11 @@ public class MainTab : MonoBehaviour, IPointerClickHandler
 
         //If instance already exists and it's not this:
         else if (instance != this)
-
+        {
             //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
             Destroy(gameObject);
-
+        }
         _childsArray = new SubTab[3];
-    }
-    private void Start() { Initializate(); }
-    private void OnEnable() { SubTab.OnStateChange += SetChildStateTofalse; }
-    private void OnDisable() { SubTab.OnStateChange -= SetChildStateTofalse; }
-    #endregion
-
-
-    #region CREATED_METHODS
-    private void Initializate()
-    {
-        _selectedTab = 1;
-        _internalTxt = transform.GetChild(0).GetComponent<Text>();
-        _showTabs = true;
-        // _tabsToShowCounter = 1;
-        HideTabs();
     }
 
     private void SetChildStateTofalse()

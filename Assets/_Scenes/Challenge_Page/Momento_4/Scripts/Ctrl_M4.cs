@@ -120,6 +120,13 @@ public class Ctrl_M4 : CtrlInternalText
         _actualTab = 1;
         _changeTo = 0;
         //ChargeNodesMindmap();
+        StartCoroutine(InicialIdeas());
+        
+    }
+
+    IEnumerator InicialIdeas()
+    {
+        yield return new WaitForSeconds(1f);
         ChangeMindmapVersion(1);
 
         //Habilitar o no los hijos
