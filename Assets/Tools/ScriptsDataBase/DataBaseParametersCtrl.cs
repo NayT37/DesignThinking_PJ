@@ -224,8 +224,8 @@ public class DataBaseParametersCtrl : MonoBehaviour
     {
         string teacherid = _teacherLoggedIn.identityCard;
         System.Random generator = new System.Random();
-        int g = generator.Next(000000, 999999);
-        String r = teacherid + g.ToString("D6");
+        int g = generator.Next(000, 99999);
+        String r = teacherid + g.ToString("D");
         return Convert.ToInt64(r);
     }
 
